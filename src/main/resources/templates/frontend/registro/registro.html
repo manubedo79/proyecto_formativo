@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="recursos/navbar" xmlns:th="http://www.thymeleaf.org">
+<head>
+ <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Art Academy</title>
+
+    
+    </head>
+<body>
+<div  layout:fragment="contenido">
+	<div class="col-12">
+	    <div class="row">
+	        <div class="col-12 mt-3 text-center text-uppercase">
+	            <h2>Registro</h2>
+	        </div>
+	    </div>
+		<main class="row">
+		    <div class="col-lg-4 col-md-6 col-sm-8 mx-auto bg-white py-3 mb-4">
+		        <div class="row">
+		            <div class="col-12">
+		                <form th:action="@{/creandoregistro}" th:object="${usuario}" method="post">
+		                    <div class="form-group">
+		                        <label for="name">Nombre de Usuario</label>
+		                        <input type="text" th:field="${usuario.nombreusuario}" th:value="${nombreusuario}" th:classappend="${nombreusuarioExists} ? is-invalid : PITO"  class="form-control" required>
+								<small class="form-text text-danger" th:classappend="${nombreusuarioExists} ? is-invalid : PITO" ></small>
+		                    </div>
+		                    <div class="form-group">
+		                        <label for="email">Correo Electronico</label>
+		                        <input type="email"th:field="${usuario.correo}" th:classappend="${correoExists} ? is-invalid : PITO" th:value="${correo}" class="form-control" required>
+								<small class="form-text text-danger" th:classappend="${correoExists} ? is-invalid : PITO"></small>
+		                    </div>
+		                    <div class="form-group">
+		                        <label for="password">Contraseña</label>
+		                        <input type="password"th:field="${usuario.contraseña}"  class="form-control" required>
+		                    </div>
+							<div class="col-lg-9">
+								<select hidden="" class="form-control" th:field="${usuario.roles}" th:disabled="${disableFields}">
+									<option th:each="role :${roles}" th:value="${role.id}" th:text="${role.nombre}">
+									</option>
+								</select>
+							</div>
+		                    <br>
+		                    <div class="form-group">
+		                        <button type="submit" class="btn btn-dark btn-block">Registrar</button>
+		                    </div>
+		                </form>
+		            </div>
+		        </div>
+		    </div>
+		</main>
+</div>
+</div>
