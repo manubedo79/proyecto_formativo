@@ -1,6 +1,7 @@
 package springbootartacademy.models.service;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -9,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+
+
 import net.bytebuddy.utility.RandomString;
 import springbootartacademy.models.dao.IUsuariosDao;
 import springbootartacademy.models.entity.*;
@@ -84,6 +88,20 @@ public class UsuariosServiceImp implements IUsuariosService {
 		// TODO Auto-generated method stub
 		return usudao.findById(id).orElse(null);
 	}
+	
+	 @Override 
+	    public List<Usuarios> ListarUsuariosTodos() {
+	        return usudao.findAll() ;
+	    }
+	 
+	@Override
+	public Usuarios AgregarUsuario(Usuarios usuarios) {
+	
+		return usudao.save(usuarios);
+	}
+	   
+	 
+	   
 
 
 }
