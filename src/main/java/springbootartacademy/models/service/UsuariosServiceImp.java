@@ -7,6 +7,9 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -90,14 +93,15 @@ public class UsuariosServiceImp implements IUsuariosService {
 	}
 	
 	 @Override 
-	    public List<Usuarios> ListarUsuariosTodos() {
-	        return usudao.findAll() ;
+	    public Page<Usuarios> ListarUsuariosTodos() {
+		 Pageable pageable = PageRequest.of(0,2);
+	        return usudao.findAll(pageable) ;
 	    }
 	 
 	@Override
-	public Usuarios AgregarUsuario(Usuarios usuarios) {
-	
-		return usudao.save(usuarios);
+	public void saveNewUsuarios(Usuarios usuarios) {
+	usuarios.setEstado(true);
+		usudao.save(usuarios);
 	}
 	   
 	 

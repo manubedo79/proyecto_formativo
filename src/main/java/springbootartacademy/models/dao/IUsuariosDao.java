@@ -6,14 +6,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
-
-
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 
 import springbootartacademy.models.entity.Usuarios;
 
-public interface IUsuariosDao extends JpaRepository<Usuarios, Long> {
+
+public interface IUsuariosDao extends PagingAndSortingRepository <Usuarios, Long>{
 public Usuarios findByCorreo(String correo);
 public Usuarios findByNombreusuario(String nombreusuario);
 public Usuarios findByResetPasswordToken(String resetPasswordToken);

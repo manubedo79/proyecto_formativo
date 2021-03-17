@@ -37,6 +37,7 @@
 		                    <tr>
 		                      	<th>Nombre Usuario</th>
 		                     	<th>Correo</th>
+		                     	<th>Rol</th>
 		                     	 <th>Opciones</th>
 		                    </tr>
                     	</thead>
@@ -45,7 +46,7 @@
 		                    <tr th:each=" Usuarios : ${ListaUsu}">
 		                      	<th th:text="${Usuarios.nombreusuario}"></th>
 		                      	<th th:text="${Usuarios.correo}"></th>
-		                      	
+		                      	<th th:text="${Usuarios.roles}"></th>
 		                      	<th><button onclick="activar()" type="button" class="btn btn-success"><i class="fas fa-user"></i> Activar</button>
                       <button onclick="desactivar()" type="button" class="btn btn-danger"><i class="fas fa-user-alt-slash"></i> Desactivar</button>
                       <button type="button" class="btn btn-info"><i class="fas fa-user-edit"></i> Editar</button></th>
@@ -76,6 +77,11 @@
     </li>
   </ul>
 </nav>
+
+
+Total Paginas [[${totalItems}]]   - Página [[${currentPage}]] de [[${totalpages}]] <br>
+<span th:each="i:${#numbers.sequence(1,totalpages)}"><span> [[${i}]]</span></span>
+
                 </div>
               </div>
               <!-- /.card-footer -->
