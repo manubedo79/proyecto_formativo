@@ -1,11 +1,16 @@
 package springbootartacademy.controllers;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.lowagie.text.DocumentException;
 
 import springbootartacademy.models.dao.IRolesDao;
 import springbootartacademy.models.entity.Roles;
@@ -69,5 +76,24 @@ public String guardarUsuario( @ModelAttribute("usuario")Usuarios nuevousuario, M
 	service.saveUsuarios(nuevousuario);
 	return "redirect:/ListaUsuarios";
 }
+
+	@GetMapping("/users/export")
+	public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+		response.setContentType("application/pdf");
+		
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		
+		String currentDateTime = dateFormatter.format(new Date());
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=usuarios_" + currentDateTime +".pdf";
+		
+		response.setHeader(headerKey, headerValue);
+		
+		List<Usuarios> listaUsuarios = service.findAllUsers();
+		
+		UserPDFExporter exporter = new UserPDFExporter(listaUsuarios);
+		exporter.export(response);
+		
+	}
 
 }

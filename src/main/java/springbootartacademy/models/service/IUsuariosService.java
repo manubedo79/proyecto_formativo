@@ -23,6 +23,7 @@ public void CreateNuevoUsuarioAfterOAuthLoginSuccess(String name, String email,
 		AuthenticationProvider provider);
 public Usuarios findById(Long id);
 public void saveNewUsuarios(Usuarios usuario);
+public List<Usuarios> findAllUsers();
 
 
 
