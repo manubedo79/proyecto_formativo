@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,21 +40,25 @@ public class UsuariosController {
 	
 @GetMapping("/ListaUsuarios")
 	public ModelAndView ListaUsuarioTodos() {
-	int currentPage=1;
-	Page<Usuarios> page = service.ListarUsuariosTodos();
-		long totalItems = page.getTotalElements();
-		int totalpages = page.getTotalPages();
-		
-		
-		List<Usuarios> listaUsuarios =page.getContent();
-		
-		ModelAndView mav = new ModelAndView("backend/usuarios/listar"); 
-		mav.addObject("ListaUsu", listaUsuarios);
-		mav.addObject("totalItems", totalItems);
-		mav.addObject("totalpages", totalpages);
-		mav.addObject("currentPage", currentPage);
-		return mav;
+		return listBypage(1);
 	}
+
+@GetMapping("/page/{pageNumber}")
+public ModelAndView listBypage(@PathVariable("pageNumber")int currentPage) {
+	Page<Usuarios> page = service.ListarUsuariosTodos(currentPage);
+	long totalItems = page.getTotalElements();
+	int totalpages = page.getTotalPages();
+	
+	
+	List<Usuarios> listaUsuarios =page.getContent();
+	
+	ModelAndView mav = new ModelAndView("backend/usuarios/listar"); 
+	mav.addObject("ListaUsu", listaUsuarios);
+	mav.addObject("totalItems", totalItems);
+	mav.addObject("totalpages", totalpages);
+	mav.addObject("currentPage", currentPage);
+	return mav;
+}
 
 @GetMapping("/registroUsuarios")
 public String registro(Model model) {

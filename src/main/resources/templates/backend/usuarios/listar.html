@@ -79,8 +79,25 @@
 </nav>
 
 
-Total Paginas [[${totalItems}]]   - Página [[${currentPage}]] de [[${totalpages}]] <br>
-<span th:each="i:${#numbers.sequence(1,totalpages)}"><span> [[${i}]]</span></span>
+Total Registros : [[${totalItems}]] &nbsp;  - Página [[${currentPage}]] de [[${totalpages}]] 
+&nbsp; - &nbsp;
+
+<a th:if="${currentPage>1}" th:href="@{/page/1}">Primero</a>
+<span th:unless="${currentPage>1}">Primero</span>
+
+<a th:if="${currentPage>1}" th:href="@{'/page/' + ${currentPage-1}}">Anterior</a>
+<span th:unless="${currentPage>1}">Anterior</span>
+
+<span th:each="i:${#numbers.sequence(1,totalpages)}">
+	<a th:if="${ i != currentPage }" th:href="@{'/page/' +  ${i}}"> [[${i}]]</a>
+	<span th:unless="${i != currentPage}">[[${i}]]</span>&nbsp;&nbsp;
+</span>
+
+<a th:if="${currentPage<totalpages }" th:href="@{'/page/' + ${currentPage + 1}}">Siguiente</a>
+<span th:unless="${currentPage < totalpages}">Siguiente</span>
+
+<a th:if="${currentPage<totalpages }" th:href="@{'/page/' + ${totalpages}}">Ultima</a>
+<span th:unless="${currentPage < totalpages}">Ultima</span>
 
                 </div>
               </div>

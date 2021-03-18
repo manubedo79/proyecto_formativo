@@ -93,8 +93,8 @@ public class UsuariosServiceImp implements IUsuariosService {
 	}
 	
 	 @Override 
-	    public Page<Usuarios> ListarUsuariosTodos() {
-		 Pageable pageable = PageRequest.of(0,2);
+	    public Page<Usuarios> ListarUsuariosTodos(int pageNumber) {
+		 Pageable pageable = PageRequest.of(pageNumber - 1, 2 );
 	        return usudao.findAll(pageable) ;
 	    }
 	 
