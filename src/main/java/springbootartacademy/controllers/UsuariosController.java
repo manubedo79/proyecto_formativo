@@ -82,7 +82,7 @@ public String guardarUsuario( @ModelAttribute("usuario")Usuarios nuevousuario, M
 	return "redirect:/ListaUsuarios";
 }
 
-	@GetMapping("/users/export")
+	/*@GetMapping("/users/export")
 	public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
 		response.setContentType("application/pdf");
 		
@@ -99,6 +99,6 @@ public String guardarUsuario( @ModelAttribute("usuario")Usuarios nuevousuario, M
 		UserPDFExporter exporter = new UserPDFExporter(listaUsuarios);
 		exporter.export(response);
 		
-	}
+	}*/
 
 }
