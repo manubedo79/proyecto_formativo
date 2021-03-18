@@ -103,6 +103,10 @@ public class UsuariosServiceImp implements IUsuariosService {
 	usuarios.setEstado(true);
 		usudao.save(usuarios);
 	}
+	@Override
+	public List<Usuarios> findAllUsers() {
+		return (List<Usuarios>) usudao.findAll();
+	}
 	   
 	 
 	   
