@@ -24,6 +24,7 @@ public void CreateNuevoUsuarioAfterOAuthLoginSuccess(String name, String email,
 public Usuarios findById(Long id);
 public void saveNewUsuarios(Usuarios usuario);
 public List<Usuarios> findAllUsers();
+public boolean cambioEstado(String Nombreusuario);
 
 
 
