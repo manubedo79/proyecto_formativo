@@ -39,7 +39,28 @@ public class UsuariosServiceImp implements IUsuariosService {
 		if(verificacion == null){return false;}
 		else 
 		{
-			usudao.actualizaestado(verificacion.getId());
+			long id = verificacion.getId();
+			usudao.actualizaestadoborraverifica(id);
+			return true;
+		}	
+	}
+	public boolean cambioEstado(String Nombreusuario)
+	{
+		Usuarios busca = usudao.findByNombreusuario(Nombreusuario);
+		if(busca == null)
+		{
+			return false;
+		}
+		else 
+		{
+			if(busca.isEstado())
+			{
+				usudao.actualizaestado(false,busca.getId());
+			}
+			else
+			{
+				usudao.actualizaestado(true,busca.getId());
+			}
 			return true;
 		}	
 	}
