@@ -128,7 +128,11 @@ public class UsuariosServiceImp implements IUsuariosService {
 	public List<Usuarios> findAllUsers() {
 		return (List<Usuarios>) usudao.findAll();
 	}
-	   
+	@Override
+	public void actualizarPefil(Usuarios usuarios) {
+	usudao.save(usuarios);
+		
+	}	   
 	 
 	   
 

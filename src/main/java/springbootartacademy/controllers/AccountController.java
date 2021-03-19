@@ -139,10 +139,4 @@ public String resetPassword(HttpServletRequest request, Model model) throws Unsu
 		
 		return "redirect:/login";
 	}
-	@GetMapping("/miperfil")
-	public String miperfil(Model model, Principal principal) {
-	String  nombreusuario = principal.getName();
-	model.addAttribute("usuario", serviciousuario.findByNombreusuario(nombreusuario));
-	return "frontend/cuenta/miperfil";
-	}
 }

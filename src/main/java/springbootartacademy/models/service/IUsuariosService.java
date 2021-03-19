@@ -25,7 +25,7 @@ public Usuarios findById(Long id);
 public void saveNewUsuarios(Usuarios usuario);
 public List<Usuarios> findAllUsers();
 public boolean cambioEstado(String Nombreusuario);
-
+public void actualizarPefil(Usuarios usuarios);
 
 
 
