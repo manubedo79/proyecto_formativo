@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,14 +45,15 @@ public class UsuariosController {
 	private IRolesDao rolesdao;
 	
 	
-@GetMapping("/ListaUsuarios")
+	@GetMapping("/ListaUsuarios")
 	public ModelAndView ListaUsuarioTodos() {
-		return listBypage(1);
+	String busqueda = null;
+		return listBypage(1,busqueda);
 	}
 
 @GetMapping("/page/{pageNumber}")
-public ModelAndView listBypage(@PathVariable("pageNumber")int currentPage) {
-	Page<Usuarios> page = service.ListarUsuariosTodos(currentPage);
+public ModelAndView listBypage(@PathVariable("pageNumber")int currentPage, @Param("busqueda")String busqueda) {
+	Page<Usuarios> page = service.ListarUsuariosTodos(currentPage,busqueda);
 	long totalItems = page.getTotalElements();
 	int totalpages = page.getTotalPages();
 	
@@ -63,6 +65,7 @@ public ModelAndView listBypage(@PathVariable("pageNumber")int currentPage) {
 	mav.addObject("totalItems", totalItems);
 	mav.addObject("totalpages", totalpages);
 	mav.addObject("currentPage", currentPage);
+	mav.addObject("busqueda",busqueda);
 	return mav;
 }
 

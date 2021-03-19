@@ -113,13 +113,17 @@ public class UsuariosServiceImp implements IUsuariosService {
 		return usudao.findById(id).orElse(null);
 	}
 	
-	 @Override 
-	    public Page<Usuarios> ListarUsuariosTodos(int pageNumber) {
-		 Pageable pageable = PageRequest.of(pageNumber - 1, 2 );
-	        return usudao.findAll(pageable) ;
-	    }
-	 
-	@Override
+	@Override 
+	public Page<Usuarios> ListarUsuariosTodos(int pageNumber,String busqueda) {
+	 Pageable pageable = PageRequest.of(pageNumber - 1, 2 );
+	 if(busqueda!= null)
+	 {
+		 return usudao.findAll(busqueda, pageable);
+	 }
+		return usudao.findAll(pageable) ;
+	}
+
+@Override
 	public void saveNewUsuarios(Usuarios usuarios) {
 	usuarios.setEstado(true);
 	String passString = Utilidad.passwordencode().encode(usuarios.getContraseña());

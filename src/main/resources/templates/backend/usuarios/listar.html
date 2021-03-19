@@ -17,19 +17,17 @@
 					class="btn btn-outline-success accion"><i
 					class="fas fa-user-plus"></i> Agregar un nuevo usuario</a>
 
-				<form class="float-right" style="display: inline;">
-
-					<div class="input-group">
-						<input type="search" class="form-control rounded"
-							placeholder="Buscar" aria-label="Search"
-							aria-describedby="search-addon" />
-						<button type="button" class="btn btn-outline-info	">
-							<i class="fas fa-search"></i>
-						</button>
-					</div>
-
-				</form>
-
+					<form class="float-right" th:action="@{/page/1}" style="display: inline;">
+						<div class="input-group">
+							<input type="search" name="busqueda" required class="form-control rounded"
+								placeholder="Buscar" aria-label="Search"
+								aria-describedby="search-addon" />
+							<button type="submit" class="btn btn-outline-info	">
+								<i class="fas fa-search"></i>
+							</button>
+						</div>
+					</form>
+	
 
 
 

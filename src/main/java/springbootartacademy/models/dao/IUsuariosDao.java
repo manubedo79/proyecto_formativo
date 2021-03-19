@@ -1,5 +1,7 @@
 package springbootartacademy.models.dao;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,8 @@ public Usuarios findByVerification(String code);
 public Usuarios getUsuarios(@Param("NombreUsuario") String NombreUsuario );
 @Query ("select usuarios.correo from Usuarios usuarios where usuarios.correo =?1")
 public Usuarios getUsuariosByCorreo(String email);
+@Query("SELECT u FROM Usuarios u WHERE CONCAT(u.id,u.nombreusuario) LIKE %?1% ")
+public Page<Usuarios> findAll(String busqueda,Pageable pageable);
 
 
 

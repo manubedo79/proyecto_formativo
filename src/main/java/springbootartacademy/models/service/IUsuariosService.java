@@ -17,7 +17,6 @@ public void saveUsuarios(Usuarios usuarios);
 public Usuarios getToken(String resetPasswordToken);
 public void sendVerificationEmail(Usuarios nuevousuario,String siteURL)throws UnsupportedEncodingException, MessagingException;
 public boolean verificacionenlace(String verification);
-public Page<Usuarios> ListarUsuariosTodos(int pageNumber);
 public Usuarios getUsuariosByCorreo(String correo);
 public void CreateNuevoUsuarioAfterOAuthLoginSuccess(String name, String email, 
 		AuthenticationProvider provider);
@@ -26,7 +25,7 @@ public void saveNewUsuarios(Usuarios usuario);
 public List<Usuarios> findAllUsers();
 public boolean cambioEstado(String Nombreusuario);
 public void actualizarPefil(Usuarios usuarios);
-
+public Page<Usuarios> ListarUsuariosTodos(int pageNumber,String busqueda);
 
 
 
