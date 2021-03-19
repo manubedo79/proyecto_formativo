@@ -54,17 +54,10 @@
 								<th th:text="${Usuarios.nombreusuario}"></th>
 								<th th:text="${Usuarios.correo}"></th>
 								<th th:text="${Usuarios.roles}"></th>
-								<th><button onclick="activar()" type="button"
-										class="btn btn-success">
-										<i class="fas fa-user"></i> Activar
-									</button>
-									<button onclick="desactivar()" type="button"
-										class="btn btn-danger">
-										<i class="fas fa-user-alt-slash"></i> Desactivar
-									</button>
-									<button type="button" class="btn btn-info">
-										<i class="fas fa-user-edit"></i> Editar
-									</button></th>
+		                      	<th><a th:if="${Usuarios.estado==false}" th:href="@{/cambiarEstado/}+${Usuarios.nombreusuario}" class="btn btn-success"><i class="fas fa-user"></i> Activar</a>
+                      <a th:if="${Usuarios.estado==true}" th:href="@{/cambiarEstado/}+${Usuarios.nombreusuario}" class="btn btn-danger"><i class="fas fa-user-alt-slash"></i> Desactivar</a>
+                      <button type="button" class="btn btn-info"><i class="fas fa-user-edit"></i> Editar</button></th>
+
 							</tr>
 						</tbody>
 

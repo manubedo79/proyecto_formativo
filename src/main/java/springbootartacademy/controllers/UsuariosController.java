@@ -81,10 +81,6 @@ public String guardarUsuario( @ModelAttribute("usuario")Usuarios nuevousuario, M
 	service.saveUsuarios(nuevousuario);
 	return "redirect:/ListaUsuarios";
 }
-
-<<<<<<< HEAD
-	/*@GetMapping("/users/export")
-=======
 @GetMapping("/cambiarEstado/{Nombreusuario}")
 public String cambiarEstado(@PathVariable(value="Nombreusuario") String Nombreusuario) {
 	service.cambioEstado(Nombreusuario);
@@ -92,7 +88,6 @@ public String cambiarEstado(@PathVariable(value="Nombreusuario") String Nombreus
 }
 
 	@GetMapping("/users/export")
->>>>>>> 3b3ed9812abedcdec17008ef23a11abfc4b710a9
 	public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
 		response.setContentType("application/pdf");
 		
@@ -109,6 +104,6 @@ public String cambiarEstado(@PathVariable(value="Nombreusuario") String Nombreus
 		UserPDFExporter exporter = new UserPDFExporter(listaUsuarios);
 		exporter.export(response);
 		
-	}*/
+	}
 
 }
