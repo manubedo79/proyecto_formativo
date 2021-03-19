@@ -56,7 +56,7 @@
 								<th th:text="${Usuarios.roles}"></th>
 		                      	<th><a th:if="${Usuarios.estado==false}" th:href="@{/cambiarEstado/}+${Usuarios.nombreusuario}" class="btn btn-success"><i class="fas fa-user"></i> Activar</a>
                       <a th:if="${Usuarios.estado==true}" th:href="@{/cambiarEstado/}+${Usuarios.nombreusuario}" class="btn btn-danger"><i class="fas fa-user-alt-slash"></i> Desactivar</a>
-                      <button type="button" class="btn btn-info"><i class="fas fa-user-edit"></i> Editar</button></th>
+                      <a th:href="@{/editarusuario/}+${Usuarios.id}"  class="btn btn-info"><i class="fas fa-user-edit"></i> Editar</a></th>
 
 							</tr>
 						</tbody>
@@ -121,11 +121,11 @@
 			</div>
 			<!-- /.card-footer -->
 		</div>
-<<<<<<< HEAD
+
 		<!-- /.card -->
 	</div>
 	
-=======
+
 		               
                 </form>
                

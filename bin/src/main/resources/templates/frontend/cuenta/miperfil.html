@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/frontend/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/frontend/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/frontend/css/style.css}">
+    <link rel="stylesheet" th:href="@{/frontend/css/error403.css}">
+</head>
+<body>
+
+ <div class="container page-content">
+    <div class="row">    
+      <div class="col-md-4 col-lg-3">
+        <div class="card">
+          <div class="card-body text-center">
+            <img src="/image/user/user.png" width="100" height="100" alt="User" class="rounded-circle mb-3">
+            
+                  
+          </div>
+          <div class="list-group list-group-flush">
+            <a th:href="@{/my-profile}" class="list-group-item list-group-item-action active"><i data-feather="user" class="mr-3"></i> Perfil</a>
+            <a th:href="@{/my-orders}" class="list-group-item list-group-item-action"><i data-feather="shopping-bag" class="mr-3"></i> Ordenes</a>
+            <a th:href="@{/my-address}" class="list-group-item list-group-item-action"><i data-feather="map" class="mr-3"></i> Datos Personales</a>
+            <a th:href="@{/logout}" class="list-group-item list-group-item-action text-danger"><i data-feather="log-out" class="mr-3"></i> Cerrar Sesión</a>
+          </div>
+        </div>
+      </div>
+      
+       <div class="col mt-3 mt-md-0">
+          <div th:if="${updateSuccess != null}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong th:text="${updateSuccess}"></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div th:if="${incorrectPassword}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Incorrect password</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+              
+          <div class="card">
+            <div class="card-body">
+              <h3>Mi Perfil</h3><hr>
+              <form th:action="@{/update-user-info}"  method="post" >
+                <div class="form-row">
+                                   
+                 
+                  <div class="form-group col-sm-6">
+                    <div >Nombre de Usuario: </div>
+                    <input type="text" name="nombreusuario" th:value="${usuario.nombreusuario}" class="form-control">
+                    
+                    
+                  </div>
+                  <div class="form-group col-sm-6">
+                    <label for="email">Correo</label>
+                    <input th:value="${usuario.correo}" name="correo" class="form-control">
+                  </div>
+                  <div>
+                  
+                
+                  </div>
+                  <div class="form-group col-12">                
+                    <button type="submit" class="btn btn-primary">Actualizar Perfil</button>
+                    <a th:href="@{/editarpassword}" class="btn btn-success">Actualizar Contraseña</a>
+                  </div>
+                </div>
+              
+                <!--  password check modal -->
+                <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Type your current password</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                         <input type="password" class="form-control" id="password" name="password">
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+                <!--  /password check modal -->  
+                            
+              </form>
+             
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+ <!--  end container -->
+ <script type="text/javascript" th:src="@{/frontend/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/frontend/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/frontend/js/script.js}"></script>
+    <script type="text/javascript" th:src="@{/frontend/js/error403.js}"></script>
+ 
+</body>
+</html>

@@ -122,8 +122,11 @@ public class UsuariosServiceImp implements IUsuariosService {
 	@Override
 	public void saveNewUsuarios(Usuarios usuarios) {
 	usuarios.setEstado(true);
+	String passString = Utilidad.passwordencode().encode(usuarios.getContraseña());
+	usuarios.setContraseña(passString);
 		usudao.save(usuarios);
 	}
+	
 	@Override
 	public List<Usuarios> findAllUsers() {
 		return (List<Usuarios>) usudao.findAll();

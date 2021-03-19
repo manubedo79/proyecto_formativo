@@ -77,7 +77,7 @@ public String registro(Model model) {
 @PostMapping("/guardarUsuario")
 public String guardarUsuario( @ModelAttribute("usuario")Usuarios nuevousuario, Model model,HttpServletRequest request, BindingResult bindingResults, RedirectAttributes redirectAttributes) throws UnsupportedEncodingException, MessagingException{
 	
-	service.saveUsuarios(nuevousuario);
+	service.saveNewUsuarios(nuevousuario);
 	return "redirect:/ListaUsuarios";
 }
 @GetMapping("/cambiarEstado/{Nombreusuario}")
@@ -162,5 +162,11 @@ public String guardarpassword(@ModelAttribute("usuario") Usuarios usuarios,
 	idetailsimp.authenticateUser(currentUser.getUsername());
 	return "redirect:/miperfil";
 	}
-
+@GetMapping("/editarusuario/{id}")
+public String editarusuario(Model model, @PathVariable(name="id")Long id) {
+	Usuarios usuarios = service.findById(id);
+	model.addAttribute("roles",rolesdao.findAll());
+	model.addAttribute("usuario", usuarios);
+	return "backend/usuarios/formulario";
+}
 }

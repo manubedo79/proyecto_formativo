@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="recursos/admin" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="content-wrapper" layout:fragment="contenido">
+
+<section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <center><h1><i class="fas fa-users"></i> Crear/Editar Usuario</h1></center>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-default">
+          <div class="card-header">
+           
+
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+            </div>
+          </div>    
+          
+           <form  th:action="@{/guardarUsuario}" th:object="${usuario}" method="post">
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Rol</label>
+                  <select class="form-control select2" style="width: 100%;" th:field="*{roles}" >
+                  <th:block th:each="rol:${roles}">
+                    <option th:value="${rol.id}" th:text="${rol.nombre}"></option>
+                   </th:block>
+                  </select>
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label>Nombre Usuario</label>
+                  <input type="text" class="form-control"  th:field="*{nombreusuario}">
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Correo</label>
+                  <input type="text" class="form-control" th:field="*{correo}">
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label>Contraseña</label>
+                  <input type="password" class="form-control" th:field="*{contraseña}">
+                  </select>
+              </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+                
+            </div>
+            <!-- /.row -->
+            <button type="submit" class="btn btn-info" >Confirmar</button>
+            <div class="row">
+              
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          </form>
+        </div>
+        
+         <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+
+        <!-- /.card -->
+</body>
+</html>
