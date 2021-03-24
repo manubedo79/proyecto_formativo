@@ -8,28 +8,26 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import springbootartacademy.models.dao.ICategoriasDao;
 import springbootartacademy.models.dao.IClientesDao;
-import springbootartacademy.models.entity.Clientes;
+import springbootartacademy.models.entity.Categorias;
 
 @Component
-public class ClientesServiceImp implements IClientesService {
+public class CategoriasServiceImp implements ICategoriasService{
 
 	@Autowired
-	private IClientesDao clidao;
+	private ICategoriasDao catedao;
 	
 	@Override
-	public List<Clientes> findAllUsers() {
-		return (List<Clientes>)clidao.findAll();
+	public List<Categorias> findAllUsers() {
+		return (List<Categorias>)catedao.findAll();
 	}
 
 	@Override
-	public Page<Clientes> ListarClientesTodos(int pageNumber) {
-		
+	public Page<Categorias> ListarCategoriasTodas(int pageNumber) {
 		Pageable pageable = PageRequest.of(pageNumber - 1, 2 );
 		
-			return clidao.findAll(pageable) ;
+		return catedao.findAll(pageable) ;
 	}
-	}
 
-
-
+}

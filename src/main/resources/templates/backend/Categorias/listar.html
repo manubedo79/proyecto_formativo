@@ -4,7 +4,7 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-<title>Usuarios</title>
+<title>Categorias</title>
 </head>
 <body>
 	<div class="content-wrapper" layout:fragment="contenido">
@@ -14,8 +14,7 @@
 			<div class="card-header border-transparent">
 
 				<a href="Editar.html" type="button"
-					class="btn btn-outline-success accion"><i
-					class="fas fa-user-plus"></i> Agregar un nuevo usuario</a>
+					class="btn btn-outline-success accion"><i class="fas fa-boxes"></i> Agregar una nueva categoría</a>
 
 					<form class="float-right" th:action="@{/page/1}" style="display: inline;">
 						<div class="input-group">
@@ -40,21 +39,17 @@
 
 						<thead>
 							<tr>
-								<th>Nombre Usuario</th>
-								<th>Correo</th>
-								<th>Rol</th>
+								<th>Nombre Categoria</th>
 								<th>Opciones</th>
 							</tr>
 						</thead>
 
 						<tbody>
-							<tr th:each=" Usuarios : ${ListaUsu}">
-								<th th:text="${Usuarios.nombreusuario}"></th>
-								<th th:text="${Usuarios.correo}"></th>
-								<th th:text="${Usuarios.roles}"></th>
-		                      	<th><a th:if="${Usuarios.estado==false}" th:href="@{/cambiarEstado/}+${Usuarios.nombreusuario}" class="btn btn-success"><i class="fas fa-user"></i> Activar</a>
-                      <a th:if="${Usuarios.estado==true}" th:href="@{/cambiarEstado/}+${Usuarios.nombreusuario}" class="btn btn-danger"><i class="fas fa-user-alt-slash"></i> Desactivar</a>
-                      <a th:href="@{/editarusuario/}+${Usuarios.id}"  class="btn btn-info"><i class="fas fa-user-edit"></i> Editar</a></th>
+							<tr th:each=" Cateorias : ${ListaCate}">
+								<th th:text="${Cateorias.nombrecategoria}"></th>
+		                      	<th><button onclick="activar()" type="button" class="btn btn-success"><i class="fas fa-boxes"></i> Activar</button>
+                      <button onclick="desactivar()" type="button" class="btn btn-danger"><i class="fas fa-store-slash"></i> Desactivar</button>
+                      <button type="button" class="btn btn-info"><i class="far fa-edit"></i> Editar</button></th>
 
 							</tr>
 						</tbody>
@@ -76,31 +71,31 @@
 			  
 			    <li class="page-item ">
 			      <a class="page-link" 
-			      th:if="${currentPage>1}" th:href="@{/page/1}">Primero</a>
+			      th:if="${currentPage>1}" th:href="@{/pageCategorias/1}">Primero</a>
 			       <span th:unless="${currentPage>=1}">Primero</span> 
 			    </li>
 			    
 			    <li class="page-item ">
 			      <a class="page-link" 
 			      th:if="${currentPage>1}" 
-					 th:href="@{'/page/' + ${currentPage-1}}">Anterior</a>
+					 th:href="@{'/pageCategorias/' + ${currentPage-1}}">Anterior</a>
 			       <span th:unless="${currentPage>=1}">Anterior</span>
 			    </li>
 			    
 			    <li th:each="i:${#numbers.sequence(1,totalpages)}" class="page-item ">
-			    <a th:if="${ i != currentPage }" th:href="@{'/page/' +  ${i}}" 
+			    <a th:if="${ i != currentPage }" th:href="@{'/pageCategorias/' +  ${i}}" 
 			    class="page-link">[[${i}]]</a>
 			    <span class="page-link" th:unless="${i != currentPage}">[[${i}]]</span>&nbsp;&nbsp;</li>
 			    
 			    <li class="page-item">
 			      <a class="page-link" th:if="${currentPage<totalpages }" 
-					 th:href="@{'/page/' + ${currentPage + 1}}">Siguiente</a>
+					 th:href="@{'/pageCategorias/' + ${currentPage + 1}}">Siguiente</a>
 				  <span	th:unless="${currentPage <= totalpages}">Siguiente</span> 
 			    </li>
 			    
 			    <li class="page-item">
 			      <a class="page-link" th:if="${currentPage<totalpages }"
-						th:href="@{'/page/' + ${totalpages}}">Ultima</a>
+						th:href="@{'/pageCategorias/' + ${totalpages}}">Ultima</a>
 				  <span th:unless="${currentPage <= totalpages}">Ultima</span>
 			    </li>
 			    
@@ -119,7 +114,10 @@
 			</div>
 			<!-- /.card-footer -->
 		</div>
-</div>
-		
+
+		<!-- /.card -->
+	</div>
+	
+
 </body>
 </html>
