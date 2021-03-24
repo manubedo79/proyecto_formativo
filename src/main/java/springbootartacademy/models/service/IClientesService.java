@@ -8,6 +8,7 @@ import springbootartacademy.models.entity.Clientes;
 
 public interface IClientesService {
 	public List<Clientes> findAllUsers();
-	public Page<Clientes> ListarClientesTodos(int pageNumber,String busqueda);
-	
+
+	public Page<Clientes> ListarClientesTodos(int pageNumber);
+
 }

@@ -15,32 +15,28 @@ import springbootartacademy.models.service.IClientesService;
 
 @Controller
 public class ClientesController {
-	
+
 	@Autowired
 	private IClientesService CliService;
-	
-	@GetMapping("/ListaClientes")
+
+	@GetMapping("/listaClientes")
 	public ModelAndView ListaClientesTodos() {
-	String busqueda = null;
-		return listBypage(1,busqueda);
+		return listBypage(1);
 	}
 
-	
-@GetMapping("/pageCliente/{pageNumber}")
-public ModelAndView listBypage(@PathVariable("pageNumber")int currentPage, @Param("busqueda")String busqueda) {
-	Page<Clientes> page = CliService.ListarClientesTodos(currentPage,busqueda);
-	long totalItems = page.getTotalElements();
-	int totalpages = page.getTotalPages();
-	
-	
-	List<Clientes> listaClientes =page.getContent();
-	
-	ModelAndView mav = new ModelAndView("backend/Clientes/listar"); 
-	mav.addObject("ListaClie", listaClientes);
-	mav.addObject("totalItems", totalItems);
-	mav.addObject("totalpages", totalpages);
-	mav.addObject("currentPage", currentPage);
-	mav.addObject("busqueda",busqueda);
-	return mav;
-}
+	@GetMapping("/pageCliente/{pageNumber}")
+	public ModelAndView listBypage(@PathVariable("pageNumber") int currentPage) {
+		Page<Clientes> page = CliService.ListarClientesTodos(currentPage);
+		long totalItems = page.getTotalElements();
+		int totalpages = page.getTotalPages();
+
+		List<Clientes> listaClientes = page.getContent();
+
+		ModelAndView mav = new ModelAndView("backend/Clientes/listar");
+		mav.addObject("ListaClie", listaClientes);
+		mav.addObject("totalItems", totalItems);
+		mav.addObject("totalpages", totalpages);
+		mav.addObject("currentPage", currentPage);
+		return mav;
+	}
 }

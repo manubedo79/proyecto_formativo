@@ -9,7 +9,4 @@ import springbootartacademy.models.entity.Clientes;
 
 @Repository
 public interface IClientesDao extends PagingAndSortingRepository<Clientes, Long> {
-
-
-public Page<Clientes> findAll(String busqueda,Pageable pageable);
 }

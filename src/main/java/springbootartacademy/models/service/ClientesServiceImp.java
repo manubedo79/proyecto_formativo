@@ -24,15 +24,12 @@ public class ClientesServiceImp implements IClientesService {
 	}
 
 	@Override
-	public Page<Clientes> ListarClientesTodos(int pageNumber, String busqueda) {
+	public Page<Clientes> ListarClientesTodos(int pageNumber) {
 		
 		Pageable pageable = PageRequest.of(pageNumber - 1, 2 );
-		 if(busqueda!= null)
-		 {
-			 return clidao.findAll(busqueda, pageable);
-		 }
+		
 			return clidao.findAll(pageable) ;
-		}
+	}
 	}
 
 

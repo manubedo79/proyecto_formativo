@@ -14,82 +14,82 @@ import javax.persistence.OneToOne;
 @Entity
 public class Clientes {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-private Long id;
-	
-	@Column(length=50, nullable=false)	
-private String nombre;
-	
-	@Column(length=50, nullable=false)	
-private String apellido;
-	
-	@Column(length=50, nullable=false)	
-private String direccion;
-	
-	@Column(length=50, nullable=false)	
-private String telefono;	
-	
-@OneToOne (fetch=FetchType.LAZY,cascade = CascadeType.ALL)
-@JoinColumn(name = "usuarios_id")
-private Usuarios usuarios;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-@ManyToOne (fetch=FetchType.LAZY,cascade = CascadeType.ALL)
-@JoinColumn(name = "municipios_id")
-private Municipios municipios;
+	@Column(length = 50, nullable = false)
+	private String nombre;
 
-public Long getId() {
-	return id;
-}
+	@Column(length = 50, nullable = false)
+	private String apellido;
 
-public void setId(Long id) {
-	this.id = id;
-}
+	@Column(length = 50, nullable = false)
+	private String direccion;
 
-public String getNombre() {
-	return nombre;
-}
+	@Column(length = 50, nullable = false)
+	private String telefono;
 
-public void setNombre(String nombre) {
-	this.nombre = nombre;
-}
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "usuarios_id")
+	private Usuarios usuarios;
 
-public String getApellido() {
-	return apellido;
-}
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "municipios_id")
+	private Municipios municipios;
 
-public void setApellido(String apellido) {
-	this.apellido = apellido;
-}
+	public Long getId() {
+		return id;
+	}
 
-public String getDireccion() {
-	return direccion;
-}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-public void setDireccion(String direccion) {
-	this.direccion = direccion;
-}
+	public String getNombre() {
+		return nombre;
+	}
 
-public String getTelefono() {
-	return telefono;
-}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-public void setTelefono(String telefono) {
-	this.telefono = telefono;
-}
+	public String getApellido() {
+		return apellido;
+	}
 
-public Usuarios getUsuarios() {
-	return usuarios;
-}
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
 
-public void setUsuarios(Usuarios usuarios) {
-	this.usuarios = usuarios;
-}
+	public String getDireccion() {
+		return direccion;
+	}
 
-public Municipios getMunicipios() {
-	return municipios;
-}
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
 
-public void setMunicipios(Municipios municipios) {
-	this.municipios = municipios;
-}
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public Usuarios getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(Usuarios usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public Municipios getMunicipios() {
+		return municipios;
+	}
+
+	public void setMunicipios(Municipios municipios) {
+		this.municipios = municipios;
+	}
 }
