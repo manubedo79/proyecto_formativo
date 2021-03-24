@@ -30,9 +30,11 @@ public class UsuariosServiceImp implements IUsuariosService {
 	public Usuarios findByCorreo(String correo) {
 		return usudao.findByCorreo(correo);
 	}
+	
 	public Usuarios findByNombreusuario(String nombreusuario) {
 		return usudao.findByNombreusuario(nombreusuario);
 	}
+	
 	public boolean verificacionenlace(String verification)
 	{
 		Usuarios verificacion = usudao.findByVerification(verification);
@@ -44,6 +46,7 @@ public class UsuariosServiceImp implements IUsuariosService {
 			return true;
 		}	
 	}
+	
 	public boolean cambioEstado(String Nombreusuario)
 	{
 		Usuarios busca = usudao.findByNombreusuario(Nombreusuario);
@@ -64,6 +67,7 @@ public class UsuariosServiceImp implements IUsuariosService {
 			return true;
 		}	
 	}
+	
 	public void saveUsuarios(Usuarios usuarios) {
 		String token = RandomString.make(45);
 		usuarios.setVerification(token);
@@ -74,10 +78,12 @@ public class UsuariosServiceImp implements IUsuariosService {
 		usuarios.setEstado(false);
 		usudao.save(usuarios);
 	}
+	
 	public Usuarios getToken(String resetPasswordToken) {
 		// TODO Auto-generated method stub
 		return usudao.findByResetPasswordToken(resetPasswordToken);
 	}
+	
 	public void sendVerificationEmail(Usuarios nuevousuario,String siteURL)throws UnsupportedEncodingException, MessagingException {
 		String subject ="Por favor verifica tu registro";
 		String verificion = siteURL+"/verificate?code="+nuevousuario.getVerification();
@@ -91,11 +97,13 @@ public class UsuariosServiceImp implements IUsuariosService {
 		helper.setText(mailcontent, true);
 		mailSender.send(message);
 	}
+	
 	@Override
 	public Usuarios getUsuariosByCorreo(String correo) {
 		
 		return usudao.getUsuariosByCorreo(correo);
 	}
+	
 	@Override
 	public void CreateNuevoUsuarioAfterOAuthLoginSuccess(String name, String email, 
 			AuthenticationProvider provider) {
@@ -107,6 +115,7 @@ public class UsuariosServiceImp implements IUsuariosService {
 		usudao.save(usuarios);
 		
 	}
+	
 	@Override
 	public Usuarios findById(Long id) {
 		// TODO Auto-generated method stub
@@ -123,7 +132,7 @@ public class UsuariosServiceImp implements IUsuariosService {
 		return usudao.findAll(pageable) ;
 	}
 
-@Override
+	@Override
 	public void saveNewUsuarios(Usuarios usuarios) {
 	usuarios.setEstado(true);
 	String passString = Utilidad.passwordencode().encode(usuarios.getContraseña());
@@ -135,6 +144,7 @@ public class UsuariosServiceImp implements IUsuariosService {
 	public List<Usuarios> findAllUsers() {
 		return (List<Usuarios>) usudao.findAll();
 	}
+	
 	@Override
 	public void actualizarPefil(Usuarios usuarios) {
 	usudao.save(usuarios);

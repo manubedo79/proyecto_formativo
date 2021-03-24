@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="recursos/admin" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Usuarios</title>
+</head>
+<body>
+	<div class="content-wrapper" layout:fragment="contenido">
+
+
+		<div class="card">
+			<div class="card-header border-transparent">
+
+				
+
+					<form class="float-right" th:action="@{/page/1}" style="display: inline;">
+						<div class="input-group">
+							<input type="search" name="busqueda" required class="form-control rounded"
+								placeholder="Buscar" aria-label="Search"
+								aria-describedby="search-addon" />
+							<button type="submit" class="btn btn-outline-info	">
+								<i class="fas fa-search"></i>
+							</button>
+						</div>
+					</form>
+	
+
+
+
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body p-0">
+				<div class="table-responsive">
+
+					<table class="table table-bordered table-striped">
+
+						<thead>
+							<tr>
+								<th>Nombres</th>
+								<th>Apellidos</th>
+								<th>Opciones</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr th:each=" Clientes : ${ListaClie}">
+								<th th:text="${Clientes.nombre}"></th>
+								<th th:text="${Clientes.apellido}"></th>
+		                      	<th><a th:href="@{/editarusuario/}+${Usuarios.id}"  class="btn btn-info"><i class="fas fa-user-edit"></i> Detalle</a>
+                      <a th:href="@{/editarusuario/}+${Usuarios.id}"  class="btn btn-info"><i class="fas fa-user-edit"></i> Editar</a></th>
+
+							</tr>
+						</tbody>
+
+					</table>
+
+				</div>
+				<!-- /.table-responsive -->
+			</div>
+			<!-- /.card-body -->
+			<div class="card-footer clearfix">
+				<a th:href="@{/users/export}" class="btn btn-outline-info"><i
+					class="fas fa-file-pdf"></i> Descargar Reporte</a>
+				<div class="float-right">
+			
+			
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination justify-content-end">
+			  
+			    <li class="page-item ">
+			      <a class="page-link" 
+			      th:if="${currentPage>1}" th:href="@{/page/1}">Primero</a>
+			       <span th:unless="${currentPage>=1}">Primero</span> 
+			    </li>
+			    
+			    <li class="page-item ">
+			      <a class="page-link" 
+			      th:if="${currentPage>1}" 
+					 th:href="@{'/page/' + ${currentPage-1}}">Anterior</a>
+			       <span th:unless="${currentPage>=1}">Anterior</span>
+			    </li>
+			    
+			    <li th:each="i:${#numbers.sequence(1,totalpages)}" class="page-item ">
+			    <a th:if="${ i != currentPage }" th:href="@{'/page/' +  ${i}}" 
+			    class="page-link">[[${i}]]</a>
+			    <span class="page-link" th:unless="${i != currentPage}">[[${i}]]</span>&nbsp;&nbsp;</li>
+			    
+			    <li class="page-item">
+			      <a class="page-link" th:if="${currentPage<totalpages }" 
+					 th:href="@{'/page/' + ${currentPage + 1}}">Siguiente</a>
+				  <span	th:unless="${currentPage <= totalpages}">Siguiente</span> 
+			    </li>
+			    
+			    <li class="page-item">
+			      <a class="page-link" th:if="${currentPage<totalpages }"
+						th:href="@{'/page/' + ${totalpages}}">Ultima</a>
+				  <span th:unless="${currentPage <= totalpages}">Ultima</span>
+			    </li>
+			    
+			  </ul>
+			</nav>
+
+
+					Total Registros : [[${totalItems}]] &nbsp; - Página
+					[[${currentPage}]] de [[${totalpages}]] 
+					
+					 
+
+
+
+				</div>
+			</div>
+			<!-- /.card-footer -->
+		</div>
+
+		<!-- /.card -->
+	</div>
+	
+
+		               
+                </form>
+               
+                
+
+               
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                
+                  <table  class="table table-bordered table-striped">
+                  
+                    	<thead>
+		                    <tr>
+		                      	<th>Nombre Usuario</th>
+		                     	<th>Correo</th>
+		                     	<th>Rol</th>
+		                     	 <th>Opciones</th>
+		                    </tr>
+                    	</thead>
+                    
+                    	<tbody>
+		                    <tr th:each=" Usuarios : ${ListaUsu}">
+		                      	<th th:text="${Usuarios.nombreusuario}"></th>
+		                      	<th th:text="${Usuarios.correo}"></th>
+		                      	<th th:text="${Usuarios.roles}"></th>
+		
+		                      	<th><a th:if="${Usuarios.estado==false}" th:href="@{/cambiarEstado/}+${Usuarios.nombreusuario}" class="btn btn-success"><i class="fas fa-user"></i> Activar</a>
+                      <a th:if="${Usuarios.estado==true}" th:href="@{/cambiarEstado/}+${Usuarios.nombreusuario}" class="btn btn-danger"><i class="fas fa-user-alt-slash"></i> Desactivar</a>
+                      <button type="button" class="btn btn-info"><i class="fas fa-user-edit"></i> Editar</button></th>
+		                    </tr>
+                   	 </tbody>
+                   	 
+                  </table>
+                  
+                </div>
+                <!-- /.table-responsive -->
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <a th:href="@{/users/export}" class="btn btn-outline-info"><i class="fas fa-file-pdf"></i> Descargar Reporte</a>
+                <div class="float-right">
+                <nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1">Previous</a>
+    </li>
+    <li class="page-item active">
+      <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>
+
+
+Total Registros : [[${totalItems}]] &nbsp;  - Página [[${currentPage}]] de [[${totalpages}]] 
+&nbsp; - &nbsp;
+
+<a th:if="${currentPage>1}" th:href="@{/page/1}">Primero</a>
+<span th:unless="${currentPage>1}">Primero</span>
+
+<a th:if="${currentPage>1}" th:href="@{'/page/' + ${currentPage-1}}">Anterior</a>
+<span th:unless="${currentPage>1}">Anterior</span>
+
+<span th:each="i:${#numbers.sequence(1,totalpages)}">
+	<a th:if="${ i != currentPage }" th:href="@{'/page/' +  ${i}}"> [[${i}]]</a>
+	<span th:unless="${i != currentPage}">[[${i}]]</span>&nbsp;&nbsp;
+</span>
+
+<a th:if="${currentPage<totalpages }" th:href="@{'/page/' + ${currentPage + 1}}">Siguiente</a>
+<span th:unless="${currentPage < totalpages}">Siguiente</span>
+
+<a th:if="${currentPage<totalpages }" th:href="@{'/page/' + ${totalpages}}">Ultima</a>
+<span th:unless="${currentPage < totalpages}">Ultima</span>
+
+                </div>
+              </div>
+              <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+            </div>
+>>>>>>> 3b3ed9812abedcdec17008ef23a11abfc4b710a9
+</body>
+</html>

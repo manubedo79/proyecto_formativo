@@ -1,5 +1,13 @@
 package springbootartacademy.models.service;
 
-public interface IClientesService {
+import java.util.List;
 
+import org.springframework.data.domain.Page;
+
+import springbootartacademy.models.entity.Clientes;
+
+public interface IClientesService {
+	public List<Clientes> findAllUsers();
+	public Page<Clientes> ListarClientesTodos(int pageNumber,String busqueda);
+	
 }
