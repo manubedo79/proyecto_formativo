@@ -3,6 +3,8 @@ package springbootartacademy.models.entity;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,22 +23,34 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 public class Usuarios implements UserDetails {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 private Long id;
+	
 	@Column(length=50, nullable=false, unique=true)
 private String nombreusuario;
 	
 private String contraseña;
+
 	@Column(length=50, nullable=false, unique=true)
-	
 private String correo;
 
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinColumn(name="usuarios_id")
 private Set<Roles> roles ;
 
+	@OneToOne (mappedBy = "usuarios", fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	private Clientes clientes;
+
 	
+
+public Clientes getClientes() {
+		return clientes;
+	}
+	public void setClientes(Clientes clientes) {
+		this.clientes = clientes;
+	}
 
 @Column(name="reset_password_token", length=45, nullable=true)
 
