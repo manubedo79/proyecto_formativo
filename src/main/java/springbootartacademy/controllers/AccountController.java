@@ -86,7 +86,7 @@ public String creandoregistro( @ModelAttribute("usuario")Usuarios nuevousuario, 
 	serviciousuario.saveUsuarios(nuevousuario);
 	String siteURL = Utilidad.getSitioUrl(request);
 	serviciousuario.sendVerificationEmail(nuevousuario, siteURL);
-	return "redirect:/mensajeRegistro";
+	return "redirect:/datospersonales/"+nuevousuario.getId();
 }
 @PostMapping("/resetpassword")
 public String resetPassword(HttpServletRequest request, Model model) throws UnsupportedEncodingException, MessagingException {

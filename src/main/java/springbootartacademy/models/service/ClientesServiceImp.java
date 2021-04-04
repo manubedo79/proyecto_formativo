@@ -29,6 +29,12 @@ public class ClientesServiceImp implements IClientesService {
 		
 			return clidao.findAll(pageable) ;
 	}
+
+	@Override
+	public void saveClientes(Clientes clientes) {
+		clidao.save(clientes);
+		
+	}
 	}
 
 

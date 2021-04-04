@@ -11,5 +11,6 @@ public interface IClientesService {
 	public List<Clientes> findAllUsers();
 
 	public Page<Clientes> ListarClientesTodos(int pageNumber);
+	public void saveClientes(Clientes  clientes);
 
 }
