@@ -1,79 +1,80 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="recursos/navbar" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Art Academy</title>
-    
-    </head>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="recursos/navbar::head">
+<meta charset="UTF-8">
+
+</head>
 <body>
 
-   
+	<!-- Navbar -->
+	<nav th:fragment="navbar"
+		class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+		<div class="container">
 
-            <div  layout:fragment="contenido">
-                <!-- Main Content -->
-                <div class="row">
-                    <div class="col-12 mt-3 text-center text-uppercase">
-                        <h2>Login</h2>
-                    </div>
-                </div>
-				<div>
-				
-				</div>
-                <main class="row">
-                
-                    <div class="col-lg-4 col-md-6 col-sm-8 mx-auto bg-white py-3 mb-4">
-                        <div class="row">
-                            <div class="col-12">
-                                <form th:action="@{/login}" method="post">
-                                    <div class="form-group">
-                                        <label for="email">Usuario</label>
-                                        <input type="text" id="username" name="username" class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Contraseña</label>
-                                        <input type="password" id="password" name="password" class="form-control" required>
-                                    </div>
-                                    
-                                    
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-dark btn-block">Iniciar Sesión</button>
-                                        <a th:href="@{/oauth2/authorization/google}" class="btn btn-danger btn-block">Iniciar Sesión con Google</a>
-                                        <hr>
-                                        <p class="text-center">o</p>
-                                        <div class="row ">
+			<!-- Brand -->
+			<a class="navbar-brand waves-effect" href="Index.html"> <strong
+				class="orange-text">ART ACADEMY</strong>
+			</a>
 
-                                        <div class="col-lg text-center" style="font-size: 90; font-family: arial;" >
-                                            <a th:href="@{/recuperarpassword}">Recuperar contraseña?</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            
-       
-    </div>
-    <div class="message-holder">
-        <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${info != null}">
-            <button type="button" class="close" data-dismiss="alert">
-                <small><i class="fas fa-times"></i></small>
-            </button>
-            <i class="fas fa-check-circle mr-2"></i>
-            <span th:text="${info}"></span>
-        </div>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${error != null}">
-            <button type="button" class="close" data-dismiss="alert">
-                <small><i class="fas fa-times"></i></small>
-            </button>
-            <i class="fas fa-times-circle mr-2"></i>
-            <span th:text="${error}"></span>
-        </div>
-       
-    </div>
-    
+			<!-- Collapse -->
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<!-- Links -->
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+				<!-- Left -->
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><a class="nav-link waves-effect"
+						href="#"><i class="fas fa-home"></i> <span class="sr-only">(current)</span>inicio
+					</a></li>
+					<li class="nav-item"><a class="nav-link waves-effect"
+						href="Categorias.html"><i class="fas fa-archive"></i>
+							Categorías</a></li>
+					<li class="nav-item"><a class="nav-link waves-effect"
+						href="Contactanos/contactenos.html" target="_blank"><i
+							class="fas fa-phone-alt"></i> Contáctanos </a></li>
+				</ul>
+				<!-- Search form -->
+				<form class="form-inline">
+					<i class="fas fa-search" aria-hidden="true"></i> <input
+						class="form-control form-control-sm ml-3 w-75" type="text"
+						placeholder="Search" aria-label="Search">
+				</form>
+				<!-- Right -->
+				<ul class="navbar-nav nav-flex-icons">
+					<li class="nav-item"><a class="nav-link waves-effect"
+						href="carrito.html"> <span class="badge red z-depth-1 mr-1">
+								2 </span> <i class="fas fa-shopping-cart"></i> <span
+							class="clearfix d-none d-sm-inline-block"> Carrito </span>
+					</a></li>
+					<li class="nav-item"><a href="Login.html"
+						class="nav-link waves-effect"> <i class="fas fa-user"></i> <span
+							class="clearfix d-none d-sm-inline-block"> Mi Cuenta </span>
+					</a></li>
+					<li class="nav-item "><a href="Registrar.html"
+						class="nav-link waves-effect"> <i class="fas fa-share"></i> <span
+							class="clearfix d-none d-sm-inline-block blue-text">
+								Registrarse </span>
+					</a></li>
+				</ul>
+
+			</div>
+
+		</div>
+	</nav>
+	<!-- Navbar -->
+
+
+	<h1>holis</h1>
+
+	<div th:replace="recursos/navbar::js"></div>
 </body>
 </html>
