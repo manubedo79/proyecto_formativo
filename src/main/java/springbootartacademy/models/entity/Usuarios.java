@@ -16,6 +16,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,13 +31,18 @@ public class Usuarios implements UserDetails {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
 private Long id;
 	
+	@NotBlank(message="El campo nombre es requerido")
 	@Column(length=50, nullable=false, unique=true)
 private String nombreusuario;
 	
+	@NotBlank(message="El campo contraseña es requerido")
 private String contraseña;
-
+	
+	@NotBlank(message="El campo correo es requerido")
+	@Email(message = "El valor no es un correo eléctrinico")
 	@Column(length=50, nullable=false, unique=true)
 private String correo;
 
@@ -56,7 +66,7 @@ public Clientes getClientes() {
 
 private String resetPasswordToken;
 
-@Column(name="verification_token", length=45, updatable=false, nullable=false)
+@Column(name="verification_token", length=45, updatable=false, nullable=true)
 private String verification;
 private boolean estado;
 @Enumerated(EnumType.STRING)

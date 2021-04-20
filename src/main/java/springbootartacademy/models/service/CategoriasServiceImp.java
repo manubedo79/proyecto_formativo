@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import springbootartacademy.models.dao.ICategoriasDao;
 import springbootartacademy.models.dao.IClientesDao;
@@ -30,4 +31,16 @@ public class CategoriasServiceImp implements ICategoriasService{
 		return catedao.findAll(pageable) ;
 	}
 
+	@Override
+	public void guardarCategorias(Categorias categorias) {
+	catedao.save(categorias);
+		
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public Categorias findbyIdCategoria(Long id) {
+		// TODO Auto-generated method stub
+		return catedao.findById(id).orElse(null);
+	}
 }

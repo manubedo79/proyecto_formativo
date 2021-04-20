@@ -69,34 +69,34 @@
 			<nav aria-label="Page navigation example">
 			  <ul class="pagination justify-content-end">
 			  
-			    <li class="page-item ">
+			    <li class="page-item " th:classappend="${currentPage==1? 'disabled': ''}">
 			      <a class="page-link" 
 			      th:if="${currentPage>1}" th:href="@{/pageCliente/1}">Primero</a>
-			       <span th:unless="${currentPage>=1}">Primero</span> 
+			       <span th:unless="${currentPage>1}" class="page-link">Primero</span> 
 			    </li>
 			    
-			    <li class="page-item ">
+			    <li class="page-item" th:classappend="${currentPage == 1 ? 'disabled': ''}">
 			      <a class="page-link" 
 			      th:if="${currentPage>1}" 
 					 th:href="@{'/pageCliente/' + ${currentPage-1}}">Anterior</a>
-			       <span th:unless="${currentPage>=1}">Anterior</span>
+			       <span th:unless="${currentPage>1}" class="page-link">Anterior</span>
 			    </li>
 			    
-			    <li th:each="i:${#numbers.sequence(1,totalpages)}" class="page-item ">
+			    <li th:each="i:${#numbers.sequence(1,totalpages)}" class="page-item" th:classappend="${i == currentPage ? 'active': ''}">
 			    <a th:if="${ i != currentPage }" th:href="@{'/pageCliente/' +  ${i}}" 
 			    class="page-link">[[${i}]]</a>
 			    <span class="page-link" th:unless="${i != currentPage}">[[${i}]]</span>&nbsp;&nbsp;</li>
 			    
-			    <li class="page-item">
+			    <li class="page-item" th:classappend="${currentPage==totalpages ? 'disabled': ''}">
 			      <a class="page-link" th:if="${currentPage<totalpages }" 
 					 th:href="@{'/pageCliente/' + ${currentPage + 1}}">Siguiente</a>
-				  <span	th:unless="${currentPage <= totalpages}">Siguiente</span> 
+				  <span	th:unless="${currentPage < totalpages}" class="page-link">Siguiente</span> 
 			    </li>
 			    
-			    <li class="page-item">
+			    <li class="page-item" th:classappend="${currentPage==totalpages ? 'disabled': ''}">
 			      <a class="page-link" th:if="${currentPage<totalpages }"
 						th:href="@{'/pageCliente/' + ${totalpages}}">Ultima</a>
-				  <span th:unless="${currentPage <= totalpages}">Ultima</span>
+				  <span th:unless="${currentPage < totalpages}" class="page-link">Ultima</span>
 			    </li>
 			    
 			  </ul>

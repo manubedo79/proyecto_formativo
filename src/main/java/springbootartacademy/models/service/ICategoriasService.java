@@ -11,4 +11,7 @@ public interface ICategoriasService {
 	public List<Categorias> findAllUsers();
 
 	public Page<Categorias> ListarCategoriasTodas(int pageNumber);
+	
+	public void guardarCategorias(Categorias categorias);
+	public Categorias findbyIdCategoria(Long id);
 }

@@ -7,74 +7,68 @@
 <meta charset="UTF-8">
 
 </head>
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #17a2b8;
+  height: 100vh;
+}
+#login .container #login-row #login-column #login-box {
+  margin-top: 90px;
+  max-width: 600px;
+  height: 320px;
+  border: 1px solid #9C9C9C;
+  background-color: #EAEAEA;
+}
+#login .container #login-row #login-column #login-box #login-form {
+  padding: 20px;
+}
+#login .container #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -99px;
+  position:relative;
+  right: 40px;
+}
+#login .container #login-row #login-column #login-box #login-form #google {
+  margin-top: 4px;
+  
+}
+</style>
 <body>
+ <div id="login">
+        <h3 class="text-center text-white pt-5"> <img  th:src="@{/frontend/img/logo.png}" width="60" style="border-radius: 6px"> Formulario de ingreso</h3>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="" method="post">
+                            <h3 class="text-center text-info">Inicio de Sesión</h3>
+                            <div class="form-group">
+                                <label for="username" class="text-info">Nombre de usuario:</label><br>
+                                <input type="text" name="username" id="username" class="form-control" placeholder="JuanitoPerez98">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-info">Contraseña:</label><br>
+                                <input type="text" name="password" id="password" class="form-control" placeholder="********">
+                            </div>
+                            <div class="form-group">
+                                <label for="remember-me" class="text-info"><span>¿Olvidó su contraseña?</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
+                                <buttom type="submit"  class="btn btn-success btn-md" ><i class="fas fa-sign-in-alt"></i> Inbresar</buttom>
+                            </div>
+                            
+                            
+                            <div id="register-link" class="text-right" >
+                                <a href="#" class="text-info">Registrarse</a>
+                            </div>
+                            <div class="text-right" id="google">
+                            <a class="btn btn-danger btn-md" ><i class="fab fa-google"></i> Google</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>s
 
-	<!-- Navbar -->
-	<nav th:fragment="navbar"
-		class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
-		<div class="container">
-
-			<!-- Brand -->
-			<a class="navbar-brand waves-effect" href="Index.html"> <strong
-				class="orange-text">ART ACADEMY</strong>
-			</a>
-
-			<!-- Collapse -->
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
-			<!-- Links -->
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-				<!-- Left -->
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active"><a class="nav-link waves-effect"
-						href="#"><i class="fas fa-home"></i> <span class="sr-only">(current)</span>inicio
-					</a></li>
-					<li class="nav-item"><a class="nav-link waves-effect"
-						href="Categorias.html"><i class="fas fa-archive"></i>
-							Categorías</a></li>
-					<li class="nav-item"><a class="nav-link waves-effect"
-						href="Contactanos/contactenos.html" target="_blank"><i
-							class="fas fa-phone-alt"></i> Contáctanos </a></li>
-				</ul>
-				<!-- Search form -->
-				<form class="form-inline">
-					<i class="fas fa-search" aria-hidden="true"></i> <input
-						class="form-control form-control-sm ml-3 w-75" type="text"
-						placeholder="Search" aria-label="Search">
-				</form>
-				<!-- Right -->
-				<ul class="navbar-nav nav-flex-icons">
-					<li class="nav-item"><a class="nav-link waves-effect"
-						href="carrito.html"> <span class="badge red z-depth-1 mr-1">
-								2 </span> <i class="fas fa-shopping-cart"></i> <span
-							class="clearfix d-none d-sm-inline-block"> Carrito </span>
-					</a></li>
-					<li class="nav-item"><a href="Login.html"
-						class="nav-link waves-effect"> <i class="fas fa-user"></i> <span
-							class="clearfix d-none d-sm-inline-block"> Mi Cuenta </span>
-					</a></li>
-					<li class="nav-item "><a href="Registrar.html"
-						class="nav-link waves-effect"> <i class="fas fa-share"></i> <span
-							class="clearfix d-none d-sm-inline-block blue-text">
-								Registrarse </span>
-					</a></li>
-				</ul>
-
-			</div>
-
-		</div>
-	</nav>
-	<!-- Navbar -->
-
-
-	<h1>holis</h1>
-
-	<div th:replace="recursos/navbar::js"></div>
 </body>
 </html>

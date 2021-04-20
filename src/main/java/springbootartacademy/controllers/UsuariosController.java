@@ -10,6 +10,8 @@ import java.util.List;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -70,7 +72,8 @@ public ModelAndView listBypage(@PathVariable("pageNumber")int currentPage, @Para
 }
 
 @GetMapping("/registroUsuarios")
-public String registro(Model model) {
+public String registro( Model model) {
+	
 	model.addAttribute("roles",rolesdao.findAll());
 	model.addAttribute("usuario",new Usuarios());
 	return "backend/usuarios/formulario";
@@ -78,11 +81,21 @@ public String registro(Model model) {
 }
 
 @PostMapping("/guardarUsuario")
-public String guardarUsuario( @ModelAttribute("usuario")Usuarios nuevousuario, Model model,HttpServletRequest request, BindingResult bindingResults, RedirectAttributes redirectAttributes) throws UnsupportedEncodingException, MessagingException{
+public String guardarUsuario (@Valid @ModelAttribute("usuario") Usuarios usuario , BindingResult result, RedirectAttributes flash, Model model) {
 	
-	service.saveNewUsuarios(nuevousuario);
+	if(result.hasErrors()) {
+		model.addAttribute("roles",rolesdao.findAll());
+		return "backend/usuarios/formulario";
+	}
+	String mesaje=(usuario.getId()!=null)?"Se editó correctamente"
+	:"Se guardo correctamente";
+	flash.addFlashAttribute("success", mesaje);
+	service.saveNewUsuarios(usuario);
 	return "redirect:/ListaUsuarios";
 }
+
+
+
 @GetMapping("/cambiarEstado/{Nombreusuario}")
 public String cambiarEstado(@PathVariable(value="Nombreusuario") String Nombreusuario) {
 	service.cambioEstado(Nombreusuario);
