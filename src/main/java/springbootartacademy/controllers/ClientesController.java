@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import springbootartacademy.models.dao.IDepartamentosDao;
 import springbootartacademy.models.dao.IMunicipiosDao;
 import springbootartacademy.models.entity.Clientes;
 import springbootartacademy.models.entity.Usuarios;
@@ -27,6 +28,9 @@ public class ClientesController {
 	private IMunicipiosDao munidao;
 	@Autowired
 	private IUsuariosService iususer;
+	@Autowired 
+	private IDepartamentosDao depadao;
+	
 
 	@GetMapping("/listaClientes")
 	public ModelAndView ListaClientesTodos() {
@@ -54,6 +58,7 @@ public class ClientesController {
 		Clientes clientes = new Clientes();
 		clientes.setUsuarios(usuarios);
 		model.addAttribute("municipios", munidao.findAll());
+		model.addAttribute("departamentos", depadao.findAll());
 		model.addAttribute("cliente", clientes);
 		return "frontend/cliente/datospersonales";
 	}
@@ -61,7 +66,7 @@ public class ClientesController {
 	@PostMapping("/terminarregistro")
 	public String terminarRegistro(Clientes clientes) {
 	CliService.saveClientes(clientes);
-		return "";
+		return "redirect:/mensajeRegistro";
 	}
 	
 }

@@ -15,6 +15,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
    
           <!-- Navbar -->
+ <div class="row">
+ <div class="col-12">
 <nav th:fragment="navbar" class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
   <div class="container">
 
@@ -62,13 +64,30 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             <span class="clearfix d-none d-sm-inline-block"> Carrito </span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" sec:authorize="isAuthenticated()">
           <a href="Login.html" class="nav-link waves-effect" >
             <i class="fas fa-user"></i>
             <span class="clearfix d-none d-sm-inline-block"> Mi Cuenta </span>
           </a>
         </li>
-        <li class="nav-item ">
+         <li class="nav-item" sec:authorize="!isAuthenticated()">
+          <a href="Login.html" class="nav-link waves-effect" >
+            <i class="fas fa-user"></i>
+            <span class="clearfix d-none d-sm-inline-block" > Iniciar sesión </span>
+          </a>
+        </li>
+          <li class="nav-item" sec:authorize="isAuthenticated()">
+          <div class="nav-link" >
+            <span class="clearfix d-none d-sm-inline-block" sec:authentication="name"></span>
+          </div>
+        </li>
+         <li class="nav-item" sec:authorize="isAuthenticated()">
+          <a href="Login.html" class="nav-link waves-effect" >
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="clearfix d-none d-sm-inline-block"> Cerrar sesión </span>
+          </a>
+        </li>
+        <li class="nav-item " sec:authorize="!isAuthenticated()">
           <a href="Registrar.html" class="nav-link waves-effect" >
             <i class="fas fa-share"></i>
             <span class="clearfix d-none d-sm-inline-block blue-text"> Registrarse </span>
@@ -80,6 +99,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
   </div>
 </nav>
+</div>
+</div>
 <!-- Navbar -->
       
    

@@ -1,7 +1,10 @@
 package springbootartacademy.models.service;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 
 import net.bytebuddy.utility.RandomString;
+import springbootartacademy.models.dao.IRolesDao;
 import springbootartacademy.models.dao.IUsuariosDao;
 import springbootartacademy.models.entity.*;
 import springbootartacademy.utils.Utilidad;
@@ -26,6 +30,8 @@ public class UsuariosServiceImp implements IUsuariosService {
 	private IUsuariosDao usudao;
 	@Autowired
 	private JavaMailSender mailSender ;
+	@Autowired
+	private IRolesDao rolesdao;
 
 	public Usuarios findByCorreo(String correo) {
 		return usudao.findByCorreo(correo);
@@ -70,12 +76,15 @@ public class UsuariosServiceImp implements IUsuariosService {
 	
 	public void saveUsuarios(Usuarios usuarios) {
 		String token = RandomString.make(45);
+		Roles rol = rolesdao.findByNombre("CLIENTE");
+		Set<Roles> listaroles = new HashSet<Roles> (Arrays.asList(rol));
 		usuarios.setVerification(token);
 		usudao.findByNombreusuario(usuarios.getNombreusuario());
 		usudao.findByCorreo(usuarios.getCorreo());
 		String encodedPassword = Utilidad.passwordencode().encode(usuarios.getContraseña());
 		usuarios.setContraseña(encodedPassword);
 		usuarios.setEstado(false);
+		usuarios.setRoles(listaroles);
 		usudao.save(usuarios);
 	}
 	

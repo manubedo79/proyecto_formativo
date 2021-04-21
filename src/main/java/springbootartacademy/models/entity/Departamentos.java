@@ -1,5 +1,7 @@
 package springbootartacademy.models.entity;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -18,15 +21,15 @@ private Long id;
 @Column(length=50, nullable=false, unique=true)
 private String nombredepartamento;
 
-@OneToOne (mappedBy = "departamentos", fetch=FetchType.LAZY,cascade = CascadeType.ALL)
-private Municipios municipios;
+@OneToMany (mappedBy = "departamentos",cascade = CascadeType.ALL)
+private List<Municipios> municipios;
 
 
-public Municipios getMunicipios() {
+public List<Municipios> getMunicipios() {
 	return municipios;
 }
 
-public void setMunicipios(Municipios municipios) {
+public void setMunicipios(List<Municipios> municipios) {
 	this.municipios = municipios;
 }
 

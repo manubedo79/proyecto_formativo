@@ -36,14 +36,10 @@ public class AccountController {
 	private IResetPasswordService passser;
 	@Autowired
 	private IUsuariosService serviciousuario;
-	@Autowired
-	private IRolesDao rolesdao;
+	
 	
 @GetMapping("/registro")
 public String registro(Model model) {
-	Roles rol = rolesdao.findByNombre("CLIENTE");
-	List<Roles> listaroles = Arrays.asList(rol);
-	model.addAttribute("roles",listaroles);
 	model.addAttribute("usuario",new Usuarios());
 	return "frontend/registro/registro";
 
@@ -77,12 +73,6 @@ public String mensajeRegistro(){
 }
 @PostMapping("/creandoregistro")
 public String creandoregistro( @ModelAttribute("usuario")Usuarios nuevousuario, Model model,HttpServletRequest request, BindingResult bindingResults, RedirectAttributes redirectAttributes) throws UnsupportedEncodingException, MessagingException{
-	Roles rol = rolesdao.findByNombre("CLIENTE");
-	List<Roles> listaroles = Arrays.asList(rol);
-	model.addAttribute("roles",listaroles);
-	model.addAttribute("usuario", nuevousuario);
-	
-	
 	serviciousuario.saveUsuarios(nuevousuario);
 	String siteURL = Utilidad.getSitioUrl(request);
 	serviciousuario.sendVerificationEmail(nuevousuario, siteURL);

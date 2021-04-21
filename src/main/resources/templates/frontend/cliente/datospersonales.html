@@ -1,66 +1,88 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="recursos/navbar" xmlns:th="http://www.thymeleaf.org">
-<head>
- <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Art Academy</title>
 
-    
-    </head>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="recursos/navbar::head">
+<meta charset="UTF-8">
+
+</head>
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #17a2b8;
+  height: 100vh;
+}
+#login .container #login-row #login-column #login-box {
+  margin-top: 70px;
+  max-width: 600px;
+  height: 660px;
+  border: 1px solid #9C9C9C;
+  background-color: #EAEAEA;
+}
+#login .container #login-row #login-column #login-box #login-form {
+  padding: 20px;
+}
+#login .container #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -99px;
+  position:relative;
+  right: 40px;
+}
+#login .container #login-row #login-column #login-box #login-form #google {
+  margin-top: 4px;
+  
+}
+</style>
 <body>
-<div  layout:fragment="contenido">
-	<div class="col-12">
-	    
-		
-		    <div class="col-lg-4 col-md-6 col-sm-8 mx-auto bg-white py-3 mb-3">
-		        <div class="row">
-		            <div class="col-12">
-		                <form th:action="@{/terminarregistro}" th:object="${cliente}"  method="post">
-		                   <input type="hidden" th:field="*{usuarios}" th:value="${cliente.usuarios.id}">
-		                    <div class="form-group ">
-		                        <label for="name">Nombre(s)</label>
-		                        <input type="text" class="form-control" th:field="*{nombre}">
-								
-		                    </div>
-		                    <div class="form-group">
-		                        <label for="email">Apellido(s)</label>
-		                        <input type="text" class="form-control" th:field="*{apellido}">
-								
-		                    </div>
-		                    <div class="form-group">
-		                        <label for="password">Dirección</label>
-		                        <input type="text" class="form-control" th:field="*{direccion}">
-		                    </div>
-		                    <div class="form-group">
-		                        <label for="tel">Telefono</label>
-		                        <input type="tel" class="form-control" th:field="*{telefono}">
-		                    </div>
-		                    <div class="form-group">
-		                        <label for="password">Municipio</label>
-		                        <select  class="form-control" th:field="*{municipios}">
-									<option th:each="muni :${municipios}" th:value="${muni.id}" th:text="${muni.nombremunicipio}">
-									</option>
-								</select>
-		                    </div>
-		                    
-							<!--<div class="col-lg-9">
-								<select hidden="" class="form-control" th:field="${usuario.roles}" th:disabled="${disableFields}">
-									<option th:each="role :${roles}" th:value="${role.id}" th:text="${role.nombre}">
-									</option>
-								</select>
-							</div>-->
-		                    <br>
-		                    <div class="form-group">
-		                        <button type="submit" class="btn btn-dark btn-block">Registrar</button>
-		                    </div>
-		                </form>
-		            </div>
-		        </div>
-		    </div>
-		
-</div>
-</div>
+ <div id="login">
+        <h3 class="text-center text-white pt-5"> <img  th:src="@{/frontend/img/logo.png}" width="60" style="border-radius: 6px"> Formulario de datos personales</h3>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" th:action="@{/terminarregistro}" th:object="${cliente}" method="post">
+                            <input type="hidden" th:field="*{usuarios}" th:value="${cliente.usuarios.id}" >
+                            <h3 class="text-center text-info">Registro</h3>
+                            <div class="form-group">
+                                <label for="username" class="text-info">Nombre(s):</label><br>
+                                <input type="text"  th:field="*{nombre}" class="form-control">
+                            </div>
+                             <div class="form-group">
+                                <label for="username" class="text-info">Apellido(s):</label><br>
+                                <input type="text" th:field="*{apellido}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-info">Teléfono:</label><br>
+                                <input type="text" th:field="*{telefono}" class="form-control">
+                            </div>
+                             <div class="form-group">
+                                <label for="password" class="text-info">Dirección:</label><br>
+                                <input type="text" th:field="*{direccion}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-info">Departamento:</label><br>
+                                <select class="form-control">
+                                <option th:each="departamento:${departamentos}" th:text="${departamento.nombredepartamento}"></option>
+                                </select>
+                            </div>
+                             <div class="form-group">
+                                <label for="password" class="text-info">Municipio:</label><br>
+                                <select class="form-control" th:field="*{municipios}">
+                                <option  th:each="municipio:${municipios}" th:text="${municipio.nombremunicipio}" th:value="${municipio.id}" ></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
+                                <button type="submit"  class="btn btn-success btn-md" ><i class="fas fa-sign-in-alt"></i> siguente</button>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
