@@ -8,15 +8,20 @@
 </head>
 <body>
 	<div class="content-wrapper" layout:fragment="contenido">
-
+		
 
 		<div class="card">
 			<div class="card-header border-transparent">
-
+			<div class="container">		
+   <div th:if="${success != null}" class="alert alert-success alert-dismissible fade show" role="alert">
+ <span th:text="${success}"></span>
+  
+</div>
+</div>
 				<a href="Editar.html" type="button"
 					class="btn btn-outline-success accion"><i class="fas fa-boxes"></i> Agregar una nueva categoría</a>
 
-					<form class="float-right" th:action="@{/page/1}" style="display: inline;">
+					<form class="float-right" th:action="@{/pageCategorias/1}" style="display: inline;">
 						<div class="input-group">
 							<input type="search" name="busqueda" required class="form-control rounded"
 								placeholder="Buscar" aria-label="Search"
@@ -45,11 +50,10 @@
 						</thead>
 
 						<tbody>
-							<tr th:each=" Cateorias : ${ListaCate}">
+							<tr th:each="Cateorias : ${ListaCate}">
 								<th th:text="${Cateorias.nombrecategoria}"></th>
-		                      	<th><button onclick="activar()" type="button" class="btn btn-success"><i class="fas fa-boxes"></i> Activar</button>
-                      <button onclick="desactivar()" type="button" class="btn btn-danger"><i class="fas fa-store-slash"></i> Desactivar</button>
-                      <button type="button" class="btn btn-info"><i class="far fa-edit"></i> Editar</button></th>
+		                      	
+                     <th> <a th:href="@{/editarcategoria/}+${Cateorias .id}" class="btn btn-info"><i class="far fa-edit"></i> Editar</a></th>
 
 							</tr>
 						</tbody>
@@ -61,9 +65,9 @@
 			</div>
 			<!-- /.card-body -->
 			<div class="card-footer clearfix">
-				<a th:href="@{/users/export}" class="btn btn-outline-info"><i
+				<a th:href="@{/categoria/export}" class="btn btn-outline-info"><i
 					class="fas fa-file-pdf"></i> Descargar Reporte</a>
-			<div class="float-right">
+				<div class="float-right">
 			
 			
 			<nav aria-label="Page navigation example">

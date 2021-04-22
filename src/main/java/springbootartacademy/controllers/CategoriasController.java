@@ -7,12 +7,15 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,6 +39,7 @@ public class CategoriasController {
 	}
 	
 	
+	
 	@GetMapping("/pageCategorias/{pageNumber}")
 	public ModelAndView listBypage(@PathVariable("pageNumber") int currentPage) {
 		Page<Categorias> page = cateservice.ListarCategoriasTodas(currentPage);
@@ -57,9 +61,12 @@ public class CategoriasController {
 		return "backend/Categorias/formulario";
 	}
 	@PostMapping("/guardarcategoria")
-	public String guardarCategoria(Categorias categorias, RedirectAttributes flash) {
-		String mensaje = (categorias.getId() != null) ? "Se edito de forma correcta la categoria" : "Se guardo de forma correcta la categoria";
-		cateservice.guardarCategorias(categorias);
+	public String guardarCategoria(@Valid @ModelAttribute("categoria")Categorias categoria, RedirectAttributes flash, BindingResult result) {
+		if(result.hasErrors()) {
+			return "backend/Categorias/formulario"; 
+		}
+		String mensaje = (categoria.getId() != null) ? "Se edito de forma correcta la categoria" : "Se guardo de forma correcta la categoria";
+		cateservice.guardarCategorias(categoria);
 		
 		flash.addFlashAttribute("success", mensaje);
 		return "redirect:/listarCategorias";

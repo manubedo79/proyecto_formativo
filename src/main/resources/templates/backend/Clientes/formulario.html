@@ -11,7 +11,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-          <h1 class="text-center"><i class="fas fa-users"></i> Crear/Editar Categoria</h1>
+          <h1 class="text-center"><i class="fas fa-users"></i> Crear/Editar Usuario</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -31,24 +31,40 @@
             </div>
           </div>    
           
-           <form th:action="@{/guardarcategoria}"   th:object="${categoria}" method="post">
-         <input type="hidden" th:field="*{id}" th:value="${categoria.id}">
+           <form th:action="@{/guardarcliente}"  th:object="${cliente}" method="post">
+           <input type="hidden" th:field="*{id}" th:value="${cliente.id}">
+           <input type="hidden" th:field="*{usuarios}" th:value="${cliente.usuarios.id}">
+           <input type="hidden" th:field="*{municipios}" th:value="${cliente.municipios.id}">
           <!-- /.card-header -->
           <div class="card-body">
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                
+                  <label>Nombre</label>
+                  <input type="text" th:field="*{nombre}" class="form-control">
+                </div>
                 <!-- /.form-group -->
                 <div class="form-group">
-                  <label>Nombre de Categoria</label>
-                  <input type="text" class="form-control"  th:field="*{nombrecategoria}">
-                   <small class="form-text text-danger" th:if="${#fields.hasErrors('nombrecategoria')}" th:errors="*{nombrecategoria}"></small>
+                  <label>Apellido(s)</label>
+                  <input type="text" class="form-control"  th:field="*{apellido}">
                 </div>
                 <!-- /.form-group -->
               </div>
               <!-- /.col -->
-             </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Dirección</label>
+                  <input type="text" class="form-control" th:field="*{direccion}">
+                </div>
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label>Telefono</label>
+                  <input type="text" class="form-control" th:field="*{telefono}">
+                  </select>
+              </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
                 
             </div>
             <!-- /.row -->

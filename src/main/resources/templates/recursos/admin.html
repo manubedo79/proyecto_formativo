@@ -27,7 +27,6 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   <link rel="stylesheet" th:href="@{/backend/plugins/summernote/summernote-bs4.css}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -108,8 +107,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
            
            
           </li>
-          <li class="nav-item has-treeview menu-open">
-          <a href="#" class="nav-link ">
+          <li class="nav-item">
+          <a th:href="@{/ListaUsuarios}" class="nav-link ">
             <i class="fas fa-users"></i>
             <p>
               Usuarios
@@ -117,7 +116,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
           </a>
         </li>
         <li class="nav-item">
-          <a href="Cliente.html" class="nav-link">
+          <a th:href="@{/listaClientes}" class="nav-link">
             <i class="fas fa-user-tag"></i>
             <p>
               Clientes
@@ -125,7 +124,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
           </a>  
         </li>
         <li class="nav-item has-treeview">
-          <a href="Categorias.html" class="nav-link">
+          <a th:href="@{/listarCategorias}" class="nav-link">
             <i class="fas fa-th"></i>
             <p>
               Categorias
@@ -185,9 +184,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" layout:fragment="contenido">
-   
-
-    <!-- /.content -->
+  
   </div>
   <!-- /.content-wrapper -->
   
@@ -234,8 +231,5 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <script th:src="@{/backend/dist/js/pages/dashboard.js}"></script>
 <!-- AdminLTE for demo purposes -->
 	<script th:src="@{/backend/dist/js/demo.js}"></script>
-	<script type="text/javascript" th:src="@{/backend/js/alerta.js}"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </body>
 </html>

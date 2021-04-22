@@ -18,7 +18,7 @@ public class ClientesServiceImp implements IClientesService {
 	private IClientesDao clidao;
 	
 	@Override
-	public List<Clientes> findAllUsers() {
+	public List<Clientes> findAllClientes() {
 		return (List<Clientes>)clidao.findAll();
 	}
 
@@ -34,6 +34,12 @@ public class ClientesServiceImp implements IClientesService {
 	public void saveClientes(Clientes clientes) {
 		clidao.save(clientes);
 		
+	}
+
+	@Override
+	public Clientes findById(Long idcliente) {
+		// TODO Auto-generated method stub
+		return clidao.findById(idcliente).orElse(null);
 	}
 	}
 

@@ -8,14 +8,20 @@
 </head>
 <body>
 	<div class="content-wrapper" layout:fragment="contenido">
-
+ 	
+  
 
 		<div class="card">
+		
 			<div class="card-header border-transparent">
-
-				
-
-					<form class="float-right" th:action="@{/page/1}" style="display: inline;">
+			<div class="container">		
+   <div th:if="${success != null}" class="alert alert-success alert-dismissible fade show" role="alert">
+ <span th:text="${success}" ></span>
+  
+</div>
+</div>
+			
+					<form class="float-right" th:action="@{/pageCliente/1}" style="display: inline;">
 						<div class="input-group">
 							<input type="search" name="busqueda" required class="form-control rounded"
 								placeholder="Buscar" aria-label="Search"
@@ -25,8 +31,6 @@
 							</button>
 						</div>
 					</form>
-	
-
 
 
 			</div>
@@ -48,12 +52,10 @@
 							<tr th:each=" Clientes : ${ListaClie}">
 								<th th:text="${Clientes.nombre}"></th>
 								<th th:text="${Clientes.apellido}"></th>
-		                      	<th><a class="btn btn-success"><i class="far fa-eye"></i> Detalle</a>
-                      <a  class="btn btn-info"><i class="fas fa-user-edit"></i> Editar</a></th>
-
+		                      	<th><a th:href="@{/detallaCliente/}+${Clientes.id}" class="btn btn-success"><i class="far fa-eye"></i> Detalle</a>
+                      			<a th:href="@{/editarcliente/} + ${Clientes.id}" class="btn btn-info"><i class="fas fa-user-edit"></i> Editar</a></th>
 							</tr>
 						</tbody>
-
 					</table>
 
 				</div>
@@ -61,7 +63,7 @@
 			</div>
 			<!-- /.card-body -->
 			<div class="card-footer clearfix">
-				<a th:href="@{/users/export}" class="btn btn-outline-info"><i
+				<a th:href="@{/clien/export}" class="btn btn-outline-info"><i
 					class="fas fa-file-pdf"></i> Descargar Reporte</a>
 				<div class="float-right">
 			
