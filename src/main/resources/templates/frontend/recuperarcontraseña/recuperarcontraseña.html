@@ -1,62 +1,121 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
- <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Art Academy</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+<link rel="icon" type="image/png"
+	th:href="@{/frontend/acount/images/icons/favicon.ico}" />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/frontend/acount/vendor/bootstrap/css/bootstrap.min.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/frontend/acount/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/frontend/acount/fonts/Linearicons-Free-v1.0.0/icon-font.min.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/frontend/acount/vendor/animate/animate.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/frontend/acount/vendor/css-hamburgers/hamburgers.min.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/frontend/acount/vendor/animsition/css/animsition.min.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/frontend/acount/vendor/select2/select2.min.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/frontend/acount/vendor/daterangepicker/daterangepicker.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/frontend/acount/css/util.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/frontend/acount/css/main2.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+	crossorigin="anonymous" />
+</head>
 
-    <link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
+<body style="background-image: url('frontend/acount/images/1.png');">
 
-    <link rel="stylesheet" th:href="@{/frontend/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/frontend/css/all.min.css}">
-    <link rel="stylesheet" th:href="@{/frontend/css/style.css}">
-    </head>
-<body>
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form"
+					th:action="@{/resetpassword}" method="post">
+
+					<span class="login100-form-title p-b-43" id="titulo"> <i
+						class="fas fa-lock"></i> Recuperar contraseña
+					</span>
+
+
+					<div class="wrap-input100 validate-input"
+						data-validate="El correo es requerido">
+						<input class="input100" type="text" name="correo"> <span
+							class="focus-input100"></span> <span class="label-input100"><i
+							class="far fa-envelope"></i> Correo elétronico</span>
+					</div>
 
 
 
 
-          
-                <!-- Main Content -->
-                <div class="row">
-                    <div class="col-12 mt-3 text-center text-uppercase">
-                        <h2>Recuperar Contraseña</h2>
-                    </div>
-                </div>
-					<form th:action="@{/resetpassword}" method="post">
-                <main class="row">
-                
-                    <div class="col-lg-4 col-md-6 col-sm-8 mx-auto bg-white py-3 mb-4">
-                        <div class="row">
-                            <div class="col-12">
-                             
-                                    <div class="form-group">
-                                        <label for="email">Correo</label>
-                                        <input type="email" id="email" name="correo" class="form-control" required>
-                                    </div>
-                                    
-                                    
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-dark btn-block">Recuperar</button>
-                                    </div>
-                               
-                            </div>
-                        </div>
-                    </div>
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" type="submit">Enviar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 
-                </main>
-                </form>
-                
-     
-			
-         
+	<div class="alerta show" th:if="${info!=null}">
+		<span class="fas fa-check-circle"></span> <span class="msg">Éxito: [[${info}]]</span> <span class="close-btn"> <span
+			class="fas fa-times"></span>
+		</span>
+	</div>
 
-   <script type="text/javascript" th:src="@{/frontend/js/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{/frontend/js/bootstrap.min.js}"></script>
-    <script type="text/javascript" th:src="@{/frontend/js/script.js}"></script>
+<div class="error show" th:if="${error!=null}">
+		<span class="fas fa-exclamation-triangle"></span> <span class="msg">Advertencia : [[${error}]]</span> <span class="close-btn"> <span
+			class="fas fa-times"></span>
+		</span>
+	</div>
+	
+	<!--===============================================================================================-->
+	<script th:src="@{/frontend/acount/vendor/jquery/jquery-3.2.1.min.js}"></script>
+	<!--===============================================================================================-->
+	<script
+		th:src="@{/frontend/acount/vendor/animsition/js/animsition.min.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/frontend/acount/vendor/bootstrap/js/popper.js}"></script>
+	<script
+		th:src="@{/frontend/acount/vendor/bootstrap/js/bootstrap.min.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/frontend/acount/vendor/select2/select2.min.js}"></script>
+	<!--===============================================================================================-->
+	<script
+		th:src="@{/frontend/acount/vendor/daterangepicker/moment.min.js}"></script>
+	<script
+		th:src="@{/frontend/acount/vendor/daterangepicker/daterangepicker.js}"></script>
+	<!--===============================================================================================-->
+	<script
+		th:src="@{/frontend/acount/vendor/countdowntime/countdowntime.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/frontend/acount/js/main.js}"></script>
+	<script type="text/javascript">
+	
+	
+	$('.close-btn').click(function(){
+		
+		$('.alerta').addClass('hiden');
+		$('.alerta').removeClass('show');
+	});
+	
+	
+	</script>
 </body>
 </html>

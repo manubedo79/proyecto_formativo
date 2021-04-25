@@ -1,7 +1,3 @@
-
-
-
-
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
 
@@ -44,15 +40,9 @@
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
 
-* {
-	margin: 0px; 
-	padding: 0px; 
-	box-sizing: border-box;
-}
-
-body, html {
-	height: 100%;
-	font-family: Poppins-Regular, sans-serif;
+*{
+	padding: 0; 
+	margin: 0;
 }
 
 /*---------------------------------------------*/
@@ -131,27 +121,32 @@ textarea:-moz-placeholder { color: #999999;}
 textarea::-moz-placeholder { color: #999999;}
 textarea:-ms-input-placeholder { color: #999999;}
 
+/*//////////////////////////////////////////////////////////////////
+[ utility ]*/
 
-label {
-  display: block;
-  margin: 0;
+/*==================================================================
+[ Text ]*/
+.txt1 {
+  font-family: Montserrat-Regular;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #555555;
 }
 
-/*---------------------------------------------*/
-button {
-	outline: none !important;
-	border: none;
-	background: transparent;
+.txt2 {
+  font-family: Montserrat-Regular;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #999999;
 }
 
-button:hover {
-	cursor: pointer;
-}
 
-iframe {
-	border: none !important;
+/*==================================================================
+[ Size ]*/
+.size1 {
+  width: 355px;
+  max-width: 100%;
 }
-
 /*//////////////////////////////////////////////////////////////////
 [ utility ]*/
 
@@ -179,52 +174,22 @@ iframe {
   max-width: 100%;
 }
 
-.size2 {
-  width: calc(100% - 43px);
+body{
+	background-image: url('frontend/acount/images/1.png');
+	background-position: center center;
+	background-size: cover;
+	background-attachment: fixed;
 }
 
-/*==================================================================
-[ Background ]*/
-.bg1 {background: #3b5998;}
-.bg2 {background: #1da1f2;}
-.bg3 {background: #cd201f;}
-
-
-/*//////////////////////////////////////////////////////////////////
-[ login ]*/
-.limiter {
-  width: 100%;
-  margin: 0 auto;
-}
-
-.container-login100 {
-  width: 100%;  
-  min-height: 100vh;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  background: #f2f2f2;
-}
-
-
-.wrap-login100 {
-  width: 100%;
-  background: #fff;
-  overflow: hidden;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  flex-direction: row-reverse;
-
+form{
+	width: 500px;
+	height: 250px;
+	background-color: #F5F6F0;
+	border-radius: 10px;
+	margin: 20px auto;
+	position: relative;
+	text-align: center;
+	padding: 15px;
 }
 
 /*==================================================================
@@ -252,13 +217,12 @@ iframe {
 }
 
 
-
 /*==================================================================
 [ Form ]*/
 
 .login100-form {
   width: 560px;
-  min-height: 100vh;
+  min-height: 70vh;
   display: block;
   background-color: #f7f7f7;
   padding: 100px 55px 55px 55px;
@@ -315,6 +279,8 @@ iframe {
   transition: all 0.4s;
 }
 
+
+
 .input100 {
   display: block;
   width: 100%;
@@ -333,8 +299,6 @@ input.input100 {
   -moz-transition: all 0.4s;
   transition: all 0.4s;
 }
-
-/*---------------------------------------------*/
 
 .focus-input100 {
   position: absolute;
@@ -393,15 +357,6 @@ input.input100 {
   font-size: 13px;
 }
 
-.has-val {
-  height: 48px !important;
-}
-
-.has-val + .focus-input100 + .label-input100 {
-  top: 14px;
-  font-size: 13px;
-}
-
 /*==================================================================
 [ Restyle Checkbox ]*/
 
@@ -452,7 +407,6 @@ input.input100 {
 .input-checkbox100:checked + .label-checkbox100::before {
   color: #6675df;
 }
-
 
 /*------------------------------------------------------------------
 [ Button ]*/
@@ -644,3 +598,166 @@ input.input100 {
   border: 0px solid #EAE3E1;
   
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+*{
+margin: 0;
+padding: 0;
+user-select:noner;
+box-sizing: border-box;
+font-family: 'Poppins', sans-serif; 
+}
+
+body{
+overflow: hidden;
+	display: grid;
+	place-items:center;
+}
+
+.alerta{
+background-color:#90F87C;
+padding: 20px 40px;
+min-width: 420px;
+position: absolute;
+right: 0;
+top: 10px;
+border-radius: 4px;
+border-left: 8px solid #08B81B; 
+overflow: hidden;
+}
+
+.alerta.show{
+	animation: show_slide 1s ease forwards;
+	
+}
+
+
+
+@keyframes show_slide{
+	0%{
+	transform: translateX(100%);
+	}
+	40%{
+	transform: translateX(-10%);
+	}
+	80%{
+	transform: translateX(0%);
+	}
+	100%{
+	transform: translateX(-10%);
+	}
+}
+
+.alerta.hiden{
+display: none;
+}
+
+.alerta .fas fa-check-circle{
+position: absolute;
+left: 20px;
+top:50%;
+transform:translateY(-50%);
+color:#08B81B;
+font-size:30px;
+}
+
+.alerta .msg{
+	padding: 0 20px;
+	font-size: 18px;
+	color: #03430A;
+} 
+
+.alerta .close-btn{
+	position: absolute;
+	padding: 20px 18px;
+	right: 0px;
+	top: 50%;
+	transform:translateY(-50%);
+	background: #21EF37;
+	cursor: pointer;
+}
+.close-btn:hover{
+	background: #1A7806;
+} 
+
+.close-btn .fa-times{
+	color:#03430A;
+	font-size: 22px;
+	line-height: 40px;
+	
+}
+
+
+.error{
+background-color:#FA4F4F;
+padding: 20px 40px;
+min-width: 420px;
+position: absolute;
+right: 0;
+top: 10px;
+border-radius: 4px;
+border-left: 8px solid #E00202; 
+overflow: hidden;
+}
+
+.error.show{
+	animation: show_slide 1s ease forwards;
+	
+}
+
+
+
+@keyframes show_slide{
+	0%{
+	transform: translateX(100%);
+	}
+	40%{
+	transform: translateX(-10%);
+	}
+	80%{
+	transform: translateX(0%);
+	}
+	100%{
+	transform: translateX(-10%);
+	}
+}
+
+.error.hiden{
+display: none;
+}
+
+.error .fas fa-exclamation-triangle{
+position: absolute;
+left: 20px;
+top:50%;
+transform:translateY(-50%);
+color:#FE0606;
+font-size:30px;
+}
+
+.error .msg{
+	padding: 0 20px;
+	font-size: 18px;
+	color: #8A1818;
+} 
+
+.error .close-btn{
+	position: absolute;
+	padding: 20px 18px;
+	right: 0px;
+	top: 50%;
+	transform:translateY(-50%);
+	background: #E00202;
+	cursor: pointer;
+}
+.close-btn:hover{
+	background: #E00202;
+} 
+
+.close-btn .fa-times{
+	color:#03430A;
+	font-size: 22px;
+	line-height: 40px;
+	
+}
+
