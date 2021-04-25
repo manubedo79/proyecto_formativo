@@ -1,14 +1,11 @@
 package springbootartacademy.controllers;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -96,9 +93,9 @@ public String guardarUsuario (@Valid @ModelAttribute("usuario") Usuarios usuario
 
 
 
-@GetMapping("/cambiarEstado/{Nombreusuario}")
-public String cambiarEstado(@PathVariable(value="Nombreusuario") String Nombreusuario) {
-	service.cambioEstado(Nombreusuario);
+@GetMapping("/cambiarEstado/{id}")
+public String cambiarEstado(@PathVariable(value="id") Long id) {
+	service.cambioEstado(id);
 	return "redirect:/ListaUsuarios";
 }
 
@@ -133,23 +130,19 @@ public String miperfil(Model model, Authentication authentication) {
 public String updateUserInfo(@ModelAttribute("usuario") Usuarios usuarios,
 		 Model model, Principal principal)
 		throws Exception {
-	Usuarios currentUser = service.findByNombreusuario(principal.getName());
+	Usuarios currentUser = service.findByCorreo(principal.getName());
 	if (currentUser == null) {
 		throw new Exception("User not found");
 	}
-	/* check username already exists */
-	Usuarios existingUser = service.findByNombreusuario(usuarios.getNombreusuario());
-	if (existingUser != null && !existingUser.getId().equals(currentUser.getId())) {
-		model.addAttribute("usernameExists", true);
-		return "frontend/cuenta/miperfil";
-	}
+
+	
 	/* check email already exists */
-	existingUser = service.findByCorreo(usuarios.getCorreo());
+	Usuarios existingUser = service.findByCorreo(usuarios.getCorreo());
 	if (existingUser != null && !existingUser.getId().equals(currentUser.getId())) {
 		model.addAttribute("emailExists", true);
 		return "frontend/cuenta/miperfil";
 	}
-	currentUser.setNombreusuario(usuarios.getNombreusuario());
+
 	currentUser.setCorreo(usuarios.getCorreo());
 	service.actualizarPefil(currentUser);
 	model.addAttribute("updateSuccess","Se actualizaron sus datos de usuarios de forma correcta");
@@ -166,7 +159,7 @@ public String editarpassword(Authentication authentication, Model model) {
 @PostMapping("/editarpassword/guardar")
 public String guardarpassword(@ModelAttribute("usuario") Usuarios usuarios,
 		 Model model, Principal principal) throws Exception {
-	Usuarios currentUser = service.findByNombreusuario(principal.getName());
+	Usuarios currentUser = service.findByCorreo(principal.getName());
 	if (currentUser == null) {
 		throw new Exception("User not found");
 	}

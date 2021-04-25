@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.RequestParam;
 import net.bytebuddy.utility.RandomString;
 import springbootartacademy.models.dao.IRolesDao;
+import springbootartacademy.models.entity.Clientes;
 import springbootartacademy.models.entity.Roles;
 import springbootartacademy.models.entity.Usuarios;
 import springbootartacademy.models.service.IResetPasswordService;
@@ -41,8 +42,8 @@ public class AccountController {
 @GetMapping("/registro")
 public String registro(Model model) {
 	model.addAttribute("usuario",new Usuarios());
+	model.addAttribute("cliente", new Clientes());
 	return "frontend/registro/registro";
-
 }
 
 @GetMapping("/login")
@@ -72,11 +73,11 @@ public String mensajeRegistro(){
 	return "frontend/registro/mensaje";
 }
 @PostMapping("/creandoregistro")
-public String creandoregistro( @ModelAttribute("usuario")Usuarios nuevousuario, Model model,HttpServletRequest request, BindingResult bindingResults, RedirectAttributes redirectAttributes) throws UnsupportedEncodingException, MessagingException{
-	serviciousuario.saveUsuarios(nuevousuario);
+public String creandoregistro( @ModelAttribute("usuario")Usuarios nuevousuario, Model model,@ModelAttribute("cliente")Clientes clientes,HttpServletRequest request, BindingResult bindingResults, RedirectAttributes redirectAttributes) throws UnsupportedEncodingException, MessagingException{
+	serviciousuario.saveUsuarios(nuevousuario,clientes);
 	String siteURL = Utilidad.getSitioUrl(request);
 	serviciousuario.sendVerificationEmail(nuevousuario, siteURL);
-	return "redirect:/datospersonales/"+nuevousuario.getId();
+	return "redirect:/datospersonales";
 }
 @PostMapping("/resetpassword")
 public String resetPassword(HttpServletRequest request, Model model) throws UnsupportedEncodingException, MessagingException {

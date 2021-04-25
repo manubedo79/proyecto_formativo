@@ -14,7 +14,6 @@ import springbootartacademy.models.entity.Usuarios;
 
 public interface IUsuariosDao extends PagingAndSortingRepository <Usuarios, Long>{
 public Usuarios findByCorreo(String correo);
-public Usuarios findByNombreusuario(String nombreusuario);
 public Usuarios findByResetPasswordToken(String resetPasswordToken);
 
 @Transactional
@@ -27,11 +26,11 @@ public void actualizaestadoborraverifica(Long id);
 public void actualizaestado(boolean nuevoestado,Long id);
 @Query("Select u from Usuarios u where u.verification=?1")
 public Usuarios findByVerification(String code);
-@Query ("select usuarios from Usuarios usuarios where usuarios.nombreusuario =:NombreUsuario")
-public Usuarios getUsuarios(@Param("NombreUsuario") String NombreUsuario );
+@Query ("select usuarios from Usuarios usuarios where usuarios.correo =:correo")
+public Usuarios getCorreoUsuario(@Param("correo") String correo );
 @Query ("select usuarios.correo from Usuarios usuarios where usuarios.correo =?1")
 public Usuarios getUsuariosByCorreo(String email);
-@Query("SELECT u FROM Usuarios u WHERE CONCAT(u.id,u.nombreusuario) LIKE %?1% ")
+@Query("SELECT u FROM Usuarios u WHERE CONCAT(u.id,u.correo) LIKE %?1% ")
 public Page<Usuarios> findAll(String busqueda,Pageable pageable);
 
 

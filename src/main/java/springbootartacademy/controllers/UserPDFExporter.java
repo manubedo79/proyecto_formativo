@@ -34,9 +34,6 @@ public class UserPDFExporter {
 		cell.setPhrase(new Phrase("E-mail"));
 		table.addCell(cell);
 		
-		cell.setPhrase(new Phrase("Nombre Usuario"));
-		table.addCell(cell);
-		
 		cell.setPhrase(new Phrase("Rol"));
 		table.addCell(cell);
 		
@@ -50,7 +47,6 @@ public class UserPDFExporter {
 		for (Usuarios usuarios: listaUsuarios) {
 			table.addCell(String.valueOf(usuarios.getId()));
 			table.addCell(usuarios.getCorreo());
-			table.addCell(usuarios.getNombreusuario());
 			table.addCell(usuarios.getRoles().toString());
 			table.addCell(String.valueOf(usuarios.isEstado()));
 

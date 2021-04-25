@@ -42,7 +42,7 @@ public class ResetPasswordServiceImp  implements IResetPasswordService{
 		Usuarios usuarios = ususer.findByCorreo(correo);
 		if(usuarios !=null) {
 			usuarios.setResetPasswordToken(token);
-			ususer.saveUsuarios(usuarios);			
+			ususer.saveNewUsuarios(usuarios);			
 		}else {
 			throw new UsersNotFoundException("No se pudo enviar el correo " +correo);
 		}
@@ -62,7 +62,7 @@ public class ResetPasswordServiceImp  implements IResetPasswordService{
 		String encodePassword = encoder.encode(nuevaContraseña);
 		usuarios.setContraseña(encodePassword);
 		usuarios.setResetPasswordToken(null);
-		ususer.saveUsuarios(usuarios);
+		ususer.saveNewUsuarios(usuarios);
 		
 	}
 	

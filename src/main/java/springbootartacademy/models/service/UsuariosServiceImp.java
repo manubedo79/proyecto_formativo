@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 
 import net.bytebuddy.utility.RandomString;
+import springbootartacademy.models.dao.IClientesDao;
 import springbootartacademy.models.dao.IRolesDao;
 import springbootartacademy.models.dao.IUsuariosDao;
 import springbootartacademy.models.entity.*;
@@ -32,14 +33,14 @@ public class UsuariosServiceImp implements IUsuariosService {
 	private JavaMailSender mailSender ;
 	@Autowired
 	private IRolesDao rolesdao;
+	@Autowired
+	private IClientesDao cliedao;
 
 	public Usuarios findByCorreo(String correo) {
 		return usudao.findByCorreo(correo);
 	}
 	
-	public Usuarios findByNombreusuario(String nombreusuario) {
-		return usudao.findByNombreusuario(nombreusuario);
-	}
+	
 	
 	public boolean verificacionenlace(String verification)
 	{
@@ -53,9 +54,9 @@ public class UsuariosServiceImp implements IUsuariosService {
 		}	
 	}
 	
-	public boolean cambioEstado(String Nombreusuario)
+	public boolean cambioEstado(Long id)
 	{
-		Usuarios busca = usudao.findByNombreusuario(Nombreusuario);
+		Usuarios busca = usudao.findById(id).orElse(null);
 		if(busca == null)
 		{
 			return false;
@@ -74,18 +75,20 @@ public class UsuariosServiceImp implements IUsuariosService {
 		}	
 	}
 	
-	public void saveUsuarios(Usuarios usuarios) {
+	public void saveUsuarios(Usuarios usuarios, Clientes clientes) {
 		String token = RandomString.make(45);
 		Roles rol = rolesdao.findByNombre("CLIENTE");
 		Set<Roles> listaroles = new HashSet<Roles> (Arrays.asList(rol));
 		usuarios.setVerification(token);
-		usudao.findByNombreusuario(usuarios.getNombreusuario());
 		usudao.findByCorreo(usuarios.getCorreo());
 		String encodedPassword = Utilidad.passwordencode().encode(usuarios.getContraseña());
 		usuarios.setContraseña(encodedPassword);
 		usuarios.setEstado(false);
 		usuarios.setRoles(listaroles);
 		usudao.save(usuarios);
+		Usuarios usuarioCliente=usudao.findById(usuarios.getId()).orElse(null);
+		clientes.setUsuarios(usuarioCliente);
+		cliedao.save(clientes);
 	}
 	
 	public Usuarios getToken(String resetPasswordToken) {
@@ -96,7 +99,7 @@ public class UsuariosServiceImp implements IUsuariosService {
 	public void sendVerificationEmail(Usuarios nuevousuario,String siteURL)throws UnsupportedEncodingException, MessagingException {
 		String subject ="Por favor verifica tu registro";
 		String verificion = siteURL+"/verificate?code="+nuevousuario.getVerification();
-		String mailcontent = "<p>Señ@r Usuario "+nuevousuario.getNombreusuario()+" para poder acceder por completo a nuestra pagina web debe de verificarse presionando en el siguiente link </p>";
+		String mailcontent = "<p>Señ@r Usuario "+" para poder acceder por completo a nuestra pagina web debe de verificarse presionando en el siguiente link </p>";
 		mailcontent+=" <p>Art Academy Team</p>";
 		mailcontent+="<a href=\""+verificion+"\">Verificacion de Cuenta</a>";
 		MimeMessage message = mailSender.createMimeMessage();
@@ -117,7 +120,6 @@ public class UsuariosServiceImp implements IUsuariosService {
 	public void CreateNuevoUsuarioAfterOAuthLoginSuccess(String name, String email, 
 			AuthenticationProvider provider) {
 		Usuarios usuarios = new Usuarios();
-		usuarios.setNombreusuario(name);
 		usuarios.setCorreo(email);
 		usuarios.setAuthenticationProvider(provider);
 		usuarios.setEstado(true);
@@ -158,6 +160,14 @@ public class UsuariosServiceImp implements IUsuariosService {
 	public void actualizarPefil(Usuarios usuarios) {
 	usudao.save(usuarios);
 		
+	}
+
+
+
+	@Override
+	public boolean iscorreounique(String correo) {
+		Usuarios usuariobycorreo=usudao.getCorreoUsuario(correo);
+		return usuariobycorreo==null;
 	}	   
 	 
 	   

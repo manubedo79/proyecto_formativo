@@ -7,13 +7,13 @@ import javax.mail.MessagingException;
 import org.springframework.data.domain.Page;
 
 import springbootartacademy.models.entity.AuthenticationProvider;
+import springbootartacademy.models.entity.Clientes;
 import springbootartacademy.models.entity.Usuarios;
 import java.util.List;
 
 public interface IUsuariosService {
 public Usuarios findByCorreo(String correo);
-public Usuarios findByNombreusuario(String nombreusuario);
-public void saveUsuarios(Usuarios usuarios);
+public void saveUsuarios(Usuarios usuarios,Clientes clientes);
 public Usuarios getToken(String resetPasswordToken);
 public void sendVerificationEmail(Usuarios nuevousuario,String siteURL)throws UnsupportedEncodingException, MessagingException;
 public boolean verificacionenlace(String verification);
@@ -23,10 +23,10 @@ public void CreateNuevoUsuarioAfterOAuthLoginSuccess(String name, String email,
 public Usuarios findById(Long id);
 public void saveNewUsuarios(Usuarios usuario);
 public List<Usuarios> findAllUsers();
-public boolean cambioEstado(String Nombreusuario);
+public boolean cambioEstado(Long id);
 public void actualizarPefil(Usuarios usuarios);
 public Page<Usuarios> ListarUsuariosTodos(int pageNumber,String busqueda);
-
+public boolean iscorreounique(String correo);
 
 
 }

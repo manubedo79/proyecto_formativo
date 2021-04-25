@@ -23,7 +23,7 @@ private Logger logger = LoggerFactory.getLogger(UsuarioDetailsImp.class);
 	@Transactional(readOnly=true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		Usuarios usuarios=DAO.getUsuarios(username);
+		Usuarios usuarios=DAO.getCorreoUsuario(username);
 		if(usuarios == null) {
 			logger.error("Error en el Login: no existe el usuario '" + username + "' en el sistema!");
 			throw new UsernameNotFoundException ("El usuario no existe");

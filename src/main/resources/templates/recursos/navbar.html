@@ -78,7 +78,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
         </li>
           <li class="nav-item" sec:authorize="isAuthenticated()">
           <div class="nav-link" >
-            <span class="clearfix d-none d-sm-inline-block" sec:authentication="name"></span>
+            <span class="clearfix d-none d-sm-inline-block">[[${#request.userPrincipal.principal.fullname}]] </span>
           </div>
         </li>
          <li class="nav-item" sec:authorize="isAuthenticated()">

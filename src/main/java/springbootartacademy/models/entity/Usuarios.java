@@ -28,111 +28,110 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 public class Usuarios implements UserDetails {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	
-private Long id;
-	
-	@NotBlank(message="El campo nombre es requerido")
-	@Column(length=50, nullable=false, unique=true)
-private String nombreusuario;
-	
-	@NotBlank(message="El campo contraseña es requerido")
-private String contraseña;
-	
-	@NotBlank(message="El campo correo es requerido")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	private Long id;
+
+	@NotBlank(message = "El campo contraseña es requerido")
+	private String contraseña;
+
+	@NotBlank(message = "El campo correo es requerido")
 	@Email(message = "El valor no es un correo eléctrinico")
-	@Column(length=50, nullable=false, unique=true)
-private String correo;
+	@Column(length = 50, nullable = false, unique = true)
+	private String correo;
 
-	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinColumn(name="usuarios_id")
-private Set<Roles> roles ;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "usuarios_id")
+	private Set<Roles> roles;
 
-	@OneToOne (mappedBy = "usuarios", fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "usuarios", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Clientes clientes;
 
-	
-
-public Clientes getClientes() {
+	public Clientes getClientes() {
 		return clientes;
 	}
+
 	public void setClientes(Clientes clientes) {
 		this.clientes = clientes;
 	}
 
-@Column(name="reset_password_token", length=45, nullable=true)
+	@Column(name = "reset_password_token", length = 45, nullable = true)
 
-private String resetPasswordToken;
+	private String resetPasswordToken;
 
-@Column(name="verification_token", length=45, updatable=false, nullable=true)
-private String verification;
-private boolean estado;
-@Enumerated(EnumType.STRING)
-@Column(name = "auth_provider")
-private AuthenticationProvider authenticationProvider;
-
-
+	@Column(name = "verification_token", length = 45, updatable = false, nullable = true)
+	private String verification;
+	private boolean estado;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "auth_provider")
+	private AuthenticationProvider authenticationProvider;
 
 	public boolean isEstado() {
-	return estado;
-}
-public void setEstado(boolean estado) {
-	this.estado = estado;
-}
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
 
 	public String getVerification() {
-	return verification;
+		return verification;
 	}
+
 	public void setVerification(String verification) {
-	this.verification = verification;
+		this.verification = verification;
 	}
 
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getNombreusuario() {
-		return nombreusuario;
-	}
-	public void setNombreusuario(String nombreusuario) {
-		this.nombreusuario = nombreusuario;
-	}
+
 	public String getContraseña() {
 		return contraseña;
 	}
+
 	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
 	}
+
 	public String getCorreo() {
 		return correo;
 	}
+
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
+
 	public Set<Roles> getRoles() {
 		return roles;
 	}
+
 	public void setRoles(Set<Roles> roles) {
 		this.roles = roles;
 	}
+
 	public String getResetPasswordToken() {
 		return resetPasswordToken;
 	}
+
 	public void setResetPasswordToken(String resetPasswordToken) {
 		this.resetPasswordToken = resetPasswordToken;
 	}
+
 	public AuthenticationProvider getAuthenticationProvider() {
 		return authenticationProvider;
 	}
+
 	public void setAuthenticationProvider(AuthenticationProvider authenticationProvider) {
 		this.authenticationProvider = authenticationProvider;
 	}
-	
-	
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Set<GrantedAuthority> authorites = new HashSet<>();
@@ -151,7 +150,7 @@ public void setEstado(boolean estado) {
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return this.nombreusuario;
+		return this.correo;
 	}
 
 	@Override
@@ -177,5 +176,8 @@ public void setEstado(boolean estado) {
 		// TODO Auto-generated method stub
 		return this.estado;
 	}
-	
+
+	public String fullname(){
+		return clientes.getNombre();
+	}
 }

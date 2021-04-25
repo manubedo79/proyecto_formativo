@@ -40,7 +40,7 @@ private Usuarios usuarios;
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return usuarios.getNombreusuario();
+		return usuarios.getCorreo();
 	}
 
 	@Override
