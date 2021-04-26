@@ -65,14 +65,14 @@ public class CategoriasController {
 		return "backend/Categorias/formulario";
 	}
 	@PostMapping("/guardarcategoria")
-	public String guardarCategoria(@Valid @ModelAttribute("categoria")Categorias categoria, RedirectAttributes flash, BindingResult result) {
+	public String guardarCategoria(@Valid @ModelAttribute("categoria")Categorias categoria, BindingResult result, RedirectAttributes flash) {
 		if(result.hasErrors()) {
 			return "backend/Categorias/formulario"; 
 		}
 		String mensaje = (categoria.getId() != null) ? "Se edito de forma correcta la categoria" : "Se guardo de forma correcta la categoria";
 		cateservice.guardarCategorias(categoria);
 		
-		flash.addFlashAttribute("success", mensaje);
+		flash.addFlashAttribute("info", mensaje);
 		return "redirect:/listarCategorias";
 	}
 	@GetMapping("/editarcategoria/{id}")
