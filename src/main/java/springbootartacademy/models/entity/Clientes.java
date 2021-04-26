@@ -10,30 +10,35 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Clientes {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
+	@NotBlank(message="El campo nombre es requerido")
 	@Column(length = 50, nullable = false)
 	private String nombre;
-
+	
+	@NotBlank(message="El campo apellido es requerido")
 	@Column(length = 50, nullable = false)
 	private String apellido;
 
+	@NotBlank(message="El campo direccion es requerido")
 	@Column(length = 50, nullable = false)
 	private String direccion;
 
-	@Column(length = 50, nullable = false)
+	@NotBlank(message="El campo telefono es requerido")
+	@Column(length = 13, nullable = false)
 	private String telefono;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "usuarios_id")
 	private Usuarios usuarios;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "municipios_id")
 	private Municipios municipios;
 

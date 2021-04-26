@@ -24,15 +24,8 @@
                   <!-- Grid column -->
                   <div class="col-md-4 col-lg-3 col-xl-2">
                     <h6><b><i class="fas fa-archive"></i> Categorías</b></h6>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item pl-0"><a class="text-dark" href="#">Pintura</a></li>
-                  <li class="list-group-item pl-0"><a class="text-dark" href="#">Escultura</a></li>
-                  <li class="list-group-item pl-0"><a class="text-dark" href="#">papa</a></li>
-                  <li class="list-group-item pl-0"><a class="text-dark" href="#">Pintura</a></li>
-                  <li class="list-group-item pl-0"><a class="text-dark" href="#">Pintura</a></li>
-                  <li class="list-group-item pl-0"><a class="text-dark" href="#">Pintura</a></li>
-                  <li class="list-group-item pl-0"><a class="text-dark" href="#">Pintura</a></li>
-
+                <ul th:each=" cate : ${categoria}" class="list-group list-group-flush">                
+                  <li class="list-group-item pl-0"><a class="text-dark" th:text="${cate.nombrecategoria}" ></a></li>
                 </ul>
                   </div>
                   <div class="col-md-8 col-lg-6 col-xl-9 ">

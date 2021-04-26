@@ -7,13 +7,16 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -49,7 +52,7 @@ public class ClientesController {
 
 	@GetMapping("/pageCliente/{pageNumber}")
 	public ModelAndView listBypage(@PathVariable("pageNumber") int currentPage) {
-		Page<Clientes> page = CliService.ListarClientesTodos(currentPage);
+		Page<Clientes> page = CliService.1(currentPage);
 		long totalItems = page.getTotalElements();
 		int totalpages = page.getTotalPages();
 
@@ -63,8 +66,8 @@ public class ClientesController {
 		return mav;
 	}
 	@GetMapping("/detallaCliente/{pageNumber}")
-	public ModelAndView detallacliente(@PathVariable("pageNumber") Long numerito) {
-		Clientes cliente = CliService.findById(numerito);
+	public ModelAndView detallacliente(@PathVariable("pageNumber") Long id) {
+		Clientes cliente = CliService.findById(id);
 		ModelAndView mav = new ModelAndView("backend/Clientes/detalla");
 		mav.addObject("Clientes", cliente);
 		return mav;
@@ -81,8 +84,8 @@ public class ClientesController {
 	}
 	
 	@PostMapping("/terminarregistro")
-	public String terminarRegistro(Clientes clientes) {
-	CliService.saveClientes(clientes);
+	public String terminarRegistro(Clientes clientes,BindingResult result, RedirectAttributes flash, Model model) {		
+			CliService.saveClientes(clientes);
 		return "redirect:/mensajeRegistro";
 	}
 	@GetMapping("/clien/export")
@@ -119,10 +122,15 @@ public class ClientesController {
 		return "backend/Clientes/formulario";
 	}
 	@PostMapping("/guardarcliente")
-	public String guardarCliente(Clientes clientes, RedirectAttributes flash) {
+	public String guardarCliente(@Valid @ModelAttribute("cliente") Clientes clientes, BindingResult result, RedirectAttributes flash) {
+		if(result.hasErrors()) 
+		{
+			return "backend/Clientes/formulario";
+		}
 		CliService.saveClientes(clientes);
 		flash.addFlashAttribute("success", "Se edito de forma correcta el cliente");
-		return "redirect:/listaClientes";
+		return "redirect:/listaClientes";	
 	}
 	
 }
+	

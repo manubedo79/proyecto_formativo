@@ -25,13 +25,17 @@ import com.lowagie.text.DocumentException;
 
 import springbootartacademy.models.entity.Categorias;
 import springbootartacademy.models.entity.Clientes;
+import springbootartacademy.models.entity.Obras;
 import springbootartacademy.models.service.ICategoriasService;
+import springbootartacademy.models.service.IObrasService;
 
 @Controller
 public class CategoriasController {
 
 	@Autowired
 	private ICategoriasService cateservice;
+	@Autowired
+	private IObrasService obrasService;
 	
 	@GetMapping("/listarCategorias")
 	public ModelAndView ListaCategoriasTodos() {
@@ -98,4 +102,15 @@ public class CategoriasController {
 		exporter.export(response);
 		
 	}
+	
+	@GetMapping("/verCategoria/{id}")
+	public ModelAndView detallacliente(@PathVariable("id") Long id) {
+		Categorias cate = cateservice.findbyIdCategoria(id);
+		List <Obras> obr = obrasService.findAll();
+		ModelAndView mav = new ModelAndView("frontend/categorias/verCategoria");
+		mav.addObject("categoria", cate);
+		mav.addObject("obras", obr);
+		return mav;
+	}
+
 }

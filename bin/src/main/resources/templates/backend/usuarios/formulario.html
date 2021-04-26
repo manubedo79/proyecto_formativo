@@ -31,7 +31,8 @@
             </div>
           </div>    
           
-           <form  th:action="@{/guardarUsuario}" th:object="${usuario}" method="post">
+           <form  th:action="@{/guardarUsuario}"  th:object="${usuario}" method="post">
+           <input type="hidden" th:field="*{id}" th:value="${usuario.id}">
           <!-- /.card-header -->
           <div class="card-body">
             <div class="row">
@@ -47,7 +48,8 @@
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Nombre Usuario</label>
-                  <input type="text" class="form-control"  th:field="*{nombreusuario}">
+                <input type="text" class="form-control"  th:field="*{nombreusuario}">
+                <small class="from-text text-danger" th:if="${#fields.hasErrors('nombreusuario')}" th:errors="*{nombreusuario}"></small>
                 </div>
                 <!-- /.form-group -->
               </div>
@@ -55,12 +57,14 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Correo</label>
-                  <input type="text" class="form-control" th:field="*{correo}">
+                  <input type="text" class="form-control" th:field="*{correo}" >
+                <small class="from-text text-danger" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></small>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Contraseña</label>
                   <input type="password" class="form-control" th:field="*{contraseña}">
+                  <small class="from-text text-danger" th:if="${#fields.hasErrors('contraseña')}" th:errors="*{contraseña}"></small>
                   </select>
               </div>
                 <!-- /.form-group -->
