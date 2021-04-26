@@ -12,13 +12,15 @@
 
 		<div class="card">
 			<div class="card-header border-transparent">
-			<div class="container">		
-   <div th:if="${success != null}" class="alert alert-success alert-dismissible fade show" role="alert">
- <span th:text="${success}"></span>
-  
+			
+			<div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${info!=null}">
+  <span><i class="fas fa-check-circle"></i></span> [[${info}]]
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
-</div>
-				<a href="Editar.html" type="button"
+			
+				<a th:href="@{/formulariocategoria}" type="button"
 					class="btn btn-outline-success accion"><i class="fas fa-boxes"></i> Agregar una nueva categoría</a>
 
 					<form class="float-right" th:action="@{/pageCategorias/1}" style="display: inline;">
@@ -121,7 +123,8 @@
 
 		<!-- /.card -->
 	</div>
-	
+
+
 
 </body>
 </html>
