@@ -70,14 +70,16 @@
 					</div>
 					
 					<div class="wrap-input100">
-						<select class="select-2" data-validate="El departamneto es requerido">
+						<select onchange="cargar_municipios(this)" class="select-2" data-validate="El departamneto es requerido">
 						<option class="input100"> Seleccione el departamento</option>
+						<option th:each="departamento : ${departamentos}" th:text="${departamento.nombredepartamento}" th:value="${departamento.id}"></option>
 						</select>
 					</div>
 					
 					<div class="wrap-input100">
-						<select class="select-2" data-validate="El municipio es requerido">
-						<option class="input100"> Seleccione el municipio</option>
+						<select id="municipios" class="select-2" data-validate="El municipio es requerido" th:field="*{cliente.municipios}">
+						<option class="input100" value=""> Seleccione el municipio</option>
+						
 						</select>
 					</div>
 					
@@ -177,6 +179,18 @@
 		$("#titulo").text(title);
 		$("#contenido").text(mensaje);
 		$("#modalAlert").modal();
+	}
+	
+	function cargar_municipios(e){
+		$("#municipios").html('<option class="input100"> Seleccione el municipio</option>');
+		let id = $(e).val();
+		$.ajax({
+			url: '/obtener/municipios/'+id,
+			type: 'GET',
+			dataType: 'json'
+		}).done(respuesta => {
+			respuesta.map(e => $("#municipios").append(`<option value="${e.id}">${e.nombremunicipio}</option>`))
+		}).fail(error => console.log(error))
 	}
 	</script>
 </body>

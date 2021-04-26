@@ -10,12 +10,18 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import net.bytebuddy.utility.RandomString;
+import springbootartacademy.models.dao.IDepartamentosDao;
+import springbootartacademy.models.dao.IMunicipiosDao;
 import springbootartacademy.models.dao.IRolesDao;
 import springbootartacademy.models.entity.Clientes;
+import springbootartacademy.models.entity.Municipios;
 import springbootartacademy.models.entity.Roles;
 import springbootartacademy.models.entity.Usuarios;
 import springbootartacademy.models.service.IResetPasswordService;
@@ -37,13 +43,22 @@ public class AccountController {
 	private IResetPasswordService passser;
 	@Autowired
 	private IUsuariosService serviciousuario;
-	
+	@Autowired 
+	private IDepartamentosDao depadao;
+	@Autowired
+	private IMunicipiosDao munidao;
 	
 @GetMapping("/registro")
 public String registro(Model model) {
 	model.addAttribute("usuario",new Usuarios());
 	model.addAttribute("cliente", new Clientes());
+	model.addAttribute("municipios", munidao.findAll());
+	model.addAttribute("departamentos", depadao.findAll());
 	return "frontend/registro/registro";
+}
+@GetMapping(value="/obtener/municipios/{departamento_id}", produces= {"application/json"})
+public @ResponseBody List<Municipios> obtener_municipios(@PathVariable("departamento_id") Long departamento_id) {
+	return munidao.consultarMunicipios(departamento_id);
 }
 
 @GetMapping("/login")

@@ -52,7 +52,7 @@ public class ClientesController {
 
 	@GetMapping("/pageCliente/{pageNumber}")
 	public ModelAndView listBypage(@PathVariable("pageNumber") int currentPage) {
-		Page<Clientes> page = CliService.1(currentPage);
+		Page<Clientes> page = CliService.ListarClientesTodos(currentPage);
 		long totalItems = page.getTotalElements();
 		int totalpages = page.getTotalPages();
 
