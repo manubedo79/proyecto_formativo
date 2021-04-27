@@ -6,6 +6,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.lowagie.text.DocumentException;
@@ -84,9 +87,8 @@ public String registro( Model model) {
 public String guardarUsuario (@ModelAttribute() Usuarios usuario , RedirectAttributes flash, Model model) {
 	
 	
-	String mesaje=(usuario.getId()!=null)?"Se editó correctamente"
-	:"Se guardo correctamente";
-	flash.addFlashAttribute("success", mesaje);
+	
+	flash.addFlashAttribute("success", "Se guardo el usuario correctamente");
 	service.saveNewUsuarios(usuario);
 	return "redirect:/ListaUsuarios";
 }
@@ -176,7 +178,17 @@ public String editarusuario(Model model, @PathVariable(name="id")Long id) {
 	Usuarios usuarios = service.findById(id);
 	model.addAttribute("roles",rolesdao.findAll());
 	model.addAttribute("usuario", usuarios);
-	return "backend/usuarios/formulario";
+	return "backend/usuarios/editar";
 }
-
+@PostMapping("/editarnuevousuario")
+public String editarnuevoUsuario(Usuarios usuarios, RedirectAttributes flash) {
+	service.edituser(usuarios);
+	flash.addFlashAttribute("success", "Se edito el usuario correctamente");
+	return "redirect:/ListaUsuarios";
+}
+@GetMapping("/registro/verification")
+public @ResponseBody String checkEmailUnique(HttpServletRequest  request, Model model) {
+	String email = request.getParameter("correo");
+	return service.findbyCorreo(email);
+}
 }

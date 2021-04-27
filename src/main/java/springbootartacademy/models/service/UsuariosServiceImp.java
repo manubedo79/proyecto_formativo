@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -35,6 +36,8 @@ public class UsuariosServiceImp implements IUsuariosService {
 	private IRolesDao rolesdao;
 	@Autowired
 	private IClientesDao cliedao;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	public Usuarios findByCorreo(String correo) {
 		return usudao.findByCorreo(correo);
@@ -135,7 +138,7 @@ public class UsuariosServiceImp implements IUsuariosService {
 	
 	@Override 
 	public Page<Usuarios> ListarUsuariosTodos(int pageNumber,String busqueda) {
-	 Pageable pageable = PageRequest.of(pageNumber - 1, 2 );
+	 Pageable pageable = PageRequest.of(pageNumber - 1, 12);
 	 if(busqueda!= null)
 	 {
 		 return usudao.findAll(busqueda, pageable);
@@ -145,10 +148,8 @@ public class UsuariosServiceImp implements IUsuariosService {
 
 	@Override
 	public void saveNewUsuarios(Usuarios usuarios) {
-		String encodedPassword = Utilidad.passwordencode().encode(usuarios.getContraseña());
-		usuarios.setContraseña(encodedPassword);
+		usuarios.setContraseña(Utilidad.passwordencode().encode(usuarios.getContraseña()));
 		usuarios.setEstado(true);
-		
 		usudao.save(usuarios);
 		
 	}
@@ -159,6 +160,7 @@ public class UsuariosServiceImp implements IUsuariosService {
 	
 	@Override
 	public void actualizarPefil(Usuarios usuarios) {
+		
 	usudao.save(usuarios);
 		
 	}
@@ -171,11 +173,25 @@ public class UsuariosServiceImp implements IUsuariosService {
 
 	@Override
 	public void edituser(Usuarios usuarios) {
+		usuarios.setEstado(true);
 		usudao.save(usuarios);
 		
+	}
+
+
+
+	@Override
+	public String findbyCorreo(String correo) {
+		Usuarios usuarios = usudao.getUsuariosByCorreo(correo);
+		
+		return (usuarios==null) ? "Unique":"Duplicado";
 	}	
 	
-	 
+	@Override
+	public boolean iscorreounique(String correo) {
+		Usuarios usuariobycorreo=usudao.getCorreoUsuario(correo);
+		return usuariobycorreo==null;
+	}
 	   
 
 

@@ -13,6 +13,7 @@ import java.util.List;
 
 public interface IUsuariosService {
 public Usuarios findByCorreo(String correo);
+public String findbyCorreo(String correo);
 public void saveUsuarios(Usuarios usuarios,Clientes clientes);
 public Usuarios getToken(String resetPasswordToken);
 public void sendVerificationEmail(Usuarios nuevousuario,String siteURL)throws UnsupportedEncodingException, MessagingException;
@@ -26,7 +27,7 @@ public List<Usuarios> findAllUsers();
 public boolean cambioEstado(Long id);
 public void actualizarPefil(Usuarios usuarios);
 public Page<Usuarios> ListarUsuariosTodos(int pageNumber,String busqueda);
-
+public boolean iscorreounique(String correo);
 public void edituser(Usuarios usuarios);
 
 }

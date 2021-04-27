@@ -27,9 +27,12 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   <link rel="stylesheet" th:href="@{/backend/plugins/summernote/summernote-bs4.css}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <link rel="stylesheet" type="text/css"
-	th:href="@{/backend/css/alerta.css}">
+ 
 </head>
+<style>
+.error{
+color: red;}
+</style>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
@@ -197,7 +200,22 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 </div>
 <!-- ./wrapper -->
-
+<div class="modal fade text-center" id="modalAlert">
+		<div class="modal-dialog">
+		<div class="modal-content">
+		<div class="modal-header">
+		<h4 class="modal-title" id="titulo">ERROR</h4>
+		<button type="button" class="close" data-dismiss="modal">&times;</button>
+		</div>
+		<div class="modal-body">
+		<span id="contenido"></span>
+		</div>
+		<div class="modal-footer">
+		<button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+		</div>
+		</div>
+		</div>
+	</div>
 <!-- jQuery -->
 <script th:src="@{/backend/plugins/jquery/jquery.min.js}"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -235,9 +253,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<script th:src="@{/backend/dist/js/demo.js}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.js"></script>
 	
-	<script type="text/javascript">
-	
-</script>
+
 
 
 		

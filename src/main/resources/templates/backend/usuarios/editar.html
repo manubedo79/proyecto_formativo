@@ -31,9 +31,9 @@
             </div>
           </div>    
           
-           <form  th:action="@{/editarguardo}"  th:object="${usuario}" method="post" id="editar">
+           <form  th:action="@{/editarnuevousuario}"  th:object="${usuario}" method="post" id="registro">
            <input type="hidden" th:field="*{id}" th:value="${usuario.id}">
-          <!-- /.card-header -->
+          
           <div class="card-body">
             <div class="row">
               <div class="col-md-6">
@@ -55,7 +55,7 @@
                 <small class="from-text text-danger" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></small>
                 </div>
               </div>
-              <input type="text" th:if="${usuario.id == null}" th:field="*{contraseña}">
+              <input type="hidden" th:if="${usuario.id != null}" th:field="*{contraseña}">
               <!-- /.col -->
                 
             </div>

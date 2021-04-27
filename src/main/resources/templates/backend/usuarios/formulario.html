@@ -7,7 +7,6 @@
 <style>
   	.error{
     	color: red;
-        font-style: italic;
     }
   </style>
 <body>
@@ -37,7 +36,7 @@
             </div>
           </div>    
           
-           <form  th:action="@{/guardarUsuario}"  th:object="${usuario}" method="post" id="registro" >
+           <form  th:action="@{/guardarUsuario}"  th:object="${usuario}" method="post" id="registro">
            <input type="hidden" th:field="*{id}" th:value="${usuario.id}">
           <!-- /.card-header -->
           <div class="card-body">
@@ -51,6 +50,7 @@
                     <option th:value="${rol.id}" th:text="${rol.nombre}"></option>
                    </th:block>
                   </select>
+                  <small class="error"></small>
                 </div>
                 
               </div>
@@ -59,7 +59,7 @@
                 <div class="form-group">
                   <label>Correo</label>
                   <input type="text" class="form-control" th:field="*{correo}" >
-                
+                <small id="mensajerror" style="color: red;"></small>
                 </div>
                 <!-- /.form-group -->
                 
@@ -68,14 +68,14 @@
                   <input type="password" th:if="${usuario.id == null}"  class="form-control" th:field="*{contraseña}">
                                     
               </div>
-              <input type="hidden" th:if="${usuario.id != null}" th:field="*{contraseña}">
+              
                 <!-- /.form-group -->
               </div>
               <!-- /.col -->
                 
             </div>
             <!-- /.row -->
-            <button  type="submit" class="btn btn-info" >Confirmar</button>
+            <button  type="submit" id="btnconfirmar" class="btn btn-info" >Confirmar</button>
             
             <!-- /.row -->
           </div>
