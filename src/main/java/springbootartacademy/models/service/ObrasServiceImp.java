@@ -42,10 +42,7 @@ public class ObrasServiceImp implements IObrasService {
 	public Obras findbyId(Long id) {
 		return obrdao.findById(id).orElse(null);
 	}
-	@Override
-	public List<Obras> findAllcategoriaobras(Long id ){
-		return obrdao.findAllcategoriaobras(id);
-	}
+	
 	
 	@Override
 	public List<Obras> findAll() {
@@ -55,8 +52,16 @@ public class ObrasServiceImp implements IObrasService {
 	
 	@Override
 	public Page<Obras> ListarObrasTodas(int pageNumber) {
-		Pageable pageable = PageRequest.of(pageNumber - 1, 2 );
+		Pageable pageable = PageRequest.of(pageNumber - 1, 12);
+		
 		return obrdao.findAll(pageable) ;
+	}
+	@Override
+	public Page<Obras> findAllcategoriaobras(Long id, int pageNumber) {
+Pageable pageable = PageRequest.of(pageNumber - 1, 12);
+		
+		return obrdao.findAllcategoriaobras(id, pageable) ;
+		
 	}
 
 

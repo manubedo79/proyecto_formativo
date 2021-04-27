@@ -71,10 +71,22 @@ public ModelAndView obrastodaspagina(@PathVariable("numeropagina") int currentPa
 }	
 
 @GetMapping("/tienda/categorias/{id}")
-public String buscarcategoriasproducto(@PathVariable Long id, Model model) {
-	servicioobras.findAllcategoriaobras(id);
-	model.addAttribute("categorias", servicioobras.findAllcategoriaobras(id));
-	return "frontend/home/inicio" ;
+public ModelAndView buscarcategoriasproducto(@PathVariable("id") Long id) {
+	return obtenerobras_categoria(id, 1);
 }
-
+@GetMapping("/obrasporcategoria/{numeropagina}")
+public ModelAndView obtenerobras_categoria(Long id, @PathVariable("numeropagina") int currentPage ) {
+	Page<Obras> page = servicioobras.findAllcategoriaobras(id, currentPage);
+	
+	long totalItems = page.getTotalElements();
+	int totalpages = page.getTotalPages();
+	List<Obras> listaObras = page.getContent();
+	ModelAndView mav = new ModelAndView("frontend/home/inicio");
+	mav.addObject("categoria", serviciocategorias.findAllUsers());
+	mav.addObject("obra", listaObras);
+	mav.addObject("totalItems", totalItems);
+	mav.addObject("totalpages", totalpages);
+	mav.addObject("currentPage", currentPage);
+	return mav;
+}
 }

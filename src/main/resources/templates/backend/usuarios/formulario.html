@@ -37,7 +37,7 @@
             </div>
           </div>    
           
-           <form  th:action="@{/guardarUsuario}"  th:object="${usuario}" method="post" id="registro">
+           <form  th:action="@{/guardarUsuario}"  th:object="${usuario}" method="post" id="registro" onsubmit="return checkEmailUnique(this);">
            <input type="hidden" th:field="*{id}" th:value="${usuario.id}">
           <!-- /.card-header -->
           <div class="card-body">
@@ -62,11 +62,13 @@
                 
                 </div>
                 <!-- /.form-group -->
+                
                 <div class="form-group">
                   <label>Contraseña</label>
-                  <input type="password" class="form-control" th:field="*{contraseña}">
+                  <input type="password" th:if="${usuario.id == null}" class="form-control" th:field="*{contraseña}">
                                     
               </div>
+              <input type="hidden" th:if="${usuario.id != null}" th:field="*{contraseña}">
                 <!-- /.form-group -->
               </div>
               <!-- /.col -->
@@ -90,9 +92,7 @@
   <!-- /.control-sidebar -->
 </div>
 
-        <!-- /.card -->
-        
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		
 </body>
 </html>

@@ -38,7 +38,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
  @Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/frontend/css/**","/frontend/img/**", "/frontend/js/**", "/frontend/webfonts/**", "/images/**", "/recuperarpassword/**", "/resetpassword/**", "/formulariocontraseña/**", "/cambiarcontraseña/**", "/oauth2/**", "/registro/**", "/mensajeRegistro/**", "/creandoregistro/**", "/registro/verificacion/**", "/verificate/**", "/admin/home/**", "/backend/dist/**", "/backend/plugins/**", "/datospersonales/**", "/terminarregistro/**", "/inicio/**","/login/**","/registroUsuarios/**","/guardarUsuario/**","/ListaUsuarios/**", "/page/**","/backend/js/**","/cambiarEstado/**","/frontend/acount/**", "/usuario/check_email/**", "/obtener/municipios/**").permitAll()
+		.antMatchers("/frontend/css/**","/frontend/img/**", "/frontend/js/**", "/frontend/webfonts/**", "/images/**", "/recuperarpassword/**", "/resetpassword/**", "/formulariocontraseña/**", "/cambiarcontraseña/**", "/oauth2/**", "/registro/**", "/mensajeRegistro/**", "/creandoregistro/**", "/registro/verificacion/**", "/verificate/**", "/admin/home/**", "/backend/dist/**", "/backend/plugins/**", "/datospersonales/**", "/terminarregistro/**", "/inicio/**","/login/**","/registroUsuarios/**","/guardarUsuario/**","/ListaUsuarios/**", "/page/**","/backend/js/**","/cambiarEstado/**","/frontend/acount/**", "/usuario/check_email/**", "/obtener/municipios/**", "/editarusuario/**").permitAll()
 		
 		.anyRequest().authenticated()
 		.and()

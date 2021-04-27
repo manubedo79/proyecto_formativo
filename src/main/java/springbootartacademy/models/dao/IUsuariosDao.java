@@ -22,7 +22,7 @@ public Usuarios findByResetPasswordToken(String resetPasswordToken);
 public void actualizaestadoborraverifica(Long id);
 @Transactional
 @Modifying
-@Query("update Usuarios u set u.estado=?1, u.verification=''  where u.id=?2")
+@Query("update Usuarios u set u.estado=?1 where u.id=?2")
 public void actualizaestado(boolean nuevoestado,Long id);
 @Query("Select u from Usuarios u where u.verification=?1")
 public Usuarios findByVerification(String code);

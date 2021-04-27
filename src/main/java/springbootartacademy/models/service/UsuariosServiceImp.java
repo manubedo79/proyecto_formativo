@@ -145,12 +145,13 @@ public class UsuariosServiceImp implements IUsuariosService {
 
 	@Override
 	public void saveNewUsuarios(Usuarios usuarios) {
-	usuarios.setEstado(true);
-	String passString = Utilidad.passwordencode().encode(usuarios.getContraseña());
-	usuarios.setContraseña(passString);
+		String encodedPassword = Utilidad.passwordencode().encode(usuarios.getContraseña());
+		usuarios.setContraseña(encodedPassword);
+		usuarios.setEstado(true);
+		
 		usudao.save(usuarios);
+		
 	}
-	
 	@Override
 	public List<Usuarios> findAllUsers() {
 		return (List<Usuarios>) usudao.findAll();
@@ -168,7 +169,16 @@ public class UsuariosServiceImp implements IUsuariosService {
 	public boolean iscorreounique(String correo) {
 		Usuarios usuariobycorreo=usudao.getCorreoUsuario(correo);
 		return usuariobycorreo==null;
-	}	   
+	}
+
+
+
+	@Override
+	public void edituser(Usuarios usuarios) {
+		usudao.save(usuarios);
+		
+	}	
+	
 	 
 	   
 

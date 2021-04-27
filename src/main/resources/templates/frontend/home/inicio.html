@@ -9,94 +9,131 @@
 <nav th:replace="recursos/navbar::navbar">
 
 </nav>
-    <br><br><br><br>  
-      <div class="col-xl-12">
-      <main>
-          <!-- Section main -->
-          <section class="pt-2 mt-4 ">
-    
-            <div class="card">
-              <div class="card-body">
-    
-                <!-- Grid row -->
-                <div class="row">
+
+    <!-- Navbar -->
+
+ <br><br><br><br>
+
+  <main>
+
+    <div class="container">
+
+      <!-- Section main -->
+      <section class="pt-2 mt-4">
+
+        <div class="card">
+          <div class="card-body">
+
+            <!-- Grid row -->
+            <div class="row">
+
+              <!-- Grid column -->
+              <div class="col-md-4 col-lg-3 col-xl-2">
+                <h6>Categorias</h6>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item pl-0" th:each="cate: ${categoria}"><a class="text-dark" th:href="@{/tienda/categorias/}+${cate.id}" th:text="${cate.nombrecategoria}"></a></li>
+        
                   
-                  <!-- Grid column -->
-                  <div class="col-md-4 col-lg-3 col-xl-2">
-                    <h6><b><i class="fas fa-archive"></i> Categorías</b></h6>
-                <ul th:each=" cate : ${categoria}" class="list-group list-group-flush">                
-                  <li class="list-group-item pl-0"><a class="text-dark" th:href="@{/tienda/categorias/}+${categoria}" th:text="${cate.nombrecategoria}" ></a></li>
                 </ul>
-                  </div>
-                  <div class="col-md-8 col-lg-6 col-xl-9 ">
-                    <!--Carousel Wrapper-->
-                  <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails" data-ride="carousel">
-                    <!--Slides-->
-                    <div class="carousel-inner" role="listbox">
-                      <div class="carousel-item active">
-                        <img class="d-block w-100" th:src="@{/frontend/img/9.png}"
+              </div>
+              <!-- Grid column -->
+
+              <!-- Grid column -->
+              <div class="col-md-8 col-lg-8 col-xl-8">
+
+                <!--Carousel Wrapper-->
+                <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
+                  <!--Indicators-->
+                  <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-2" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-2" data-slide-to="2"></li>
+                  </ol>
+                  <!--/Indicators-->
+                  <!--Slides-->
+                  <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                      <div class="view" style="max-height: 418px;">
+                        <img class="d-block" src="https://mdbootstrap.com/img/Photos/Horizontal/alistyle/img(3).jpg"
                           alt="First slide">
+                        <a href="#!">
+                          <div class="mask rgba-black-light"></div>
+                        </a>
                       </div>
-                      <div class="carousel-item">
-                        <img class="d-block w-100" th:src="@{/frontend/img/13.png}"
+                      <div class="carousel-caption">
+                        <h3 class="h3-responsive">First shop item</h4>
+                          <p>First text</p>
+                      </div>
+                    </div>
+                    <div class="carousel-item">
+                      <!--Mask color-->
+                      <div class="view" style="max-height: 418px;">
+                        <img class="d-block" src="https://mdbootstrap.com/img/Photos/Horizontal/alistyle/img(2).jpg"
                           alt="Second slide">
+                        <a href="#!">
+                          <div class="mask rgba-black-light"></div>
+                        </a>
                       </div>
-                      <div class="carousel-item">
-                        <img class="d-block w-100" th:src="@{/frontend/img/16.png}"
+                      <div class="carousel-caption">
+                        <h3 class="h3-responsive">Second shop item</h4>
+                          <p>Secondary text</p>
+                      </div>
+                    </div>
+                    <div class="carousel-item">
+                      <!--Mask color-->
+                      <div class="view" style="max-height: 418px;">
+                        <img class="d-block" src="https://mdbootstrap.com/img/Photos/Horizontal/alistyle/img(1).jpg"
                           alt="Third slide">
+                        <a href="#!">
+                          <div class="mask rgba-black-light"></div>
+                        </a>
+                      </div>
+                      <div class="carousel-caption">
+                        <h3 class="h3-responsive">Third shop item</h4>
+                          <p>Third text</p>
                       </div>
                     </div>
-                    <!--/.Slides-->
-                    <!--Controls-->
-                    <a class="carousel-control-prev" href="#carousel-thumb" role="button" data-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carousel-thumb" role="button" data-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Next</span>
-                    </a>
-                    <!--/.Controls-->
-                    <ol class="carousel-indicators">
-                      <li data-target="#carousel-thumb" data-slide-to="0" class="active">
-                        <img th:src="@{/frontend/img/9.png}" width="100">
-                      </li>
-                      <li data-target="#carousel-thumb" data-slide-to="1">
-                        <img th:src="@{/frontend/img/13.png}" width="100">
-                      </li>
-                      <li data-target="#carousel-thumb" data-slide-to="2">
-                        <img th:src="@{/frontend/img/16.png}" width="100">
-                      </li>
-                    </ol>
                   </div>
-                  <!--/.Carousel Wrapper-->
-                    
-                      </div>
-                  
-                      <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                      </a>
-                      <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                      </a>
-                  
-                    </div>
-                  </div>
-                 </div>
-                
-            </section>
-        </main>
+                  <!--/Slides-->
+                  <!--Controls-->
+                  <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                  <!--/Controls-->
+                </div>
+                <!--/Carousel Wrapper-->
+
+              </div>
+              <!-- Grid column -->
+
+              <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+
+          </div>
+        </div>
+
+      </section>
       </div>
+      </main>
+      
+      <!-- Section main -->
   <br><br><br><br>
  <div class="container">
-  
-
+<div class="row">
+<div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" th:each="obras:${obra}">
   <!-- Card deck -->
-<div class="row">  
 <div class="card-deck">
-  <div class="card mb-4 col col-sm col-md-3" th:each="obras : ${obra}">
+
+  <!-- Card -->
+  <div class="card mb-4">
+
     <!--Card image-->
     <div class="view overlay">
       <img class="card-img-top" th:if="${#strings.length(obras.rutaimagen_principal)>0}" th:src="@{'/imagenes/'+${obras.rutaimagen_principal}}"
@@ -105,19 +142,33 @@
         <div class="mask rgba-white-slight"></div>
       </a>
     </div>
+
     <!--Card content-->
-    <div class="card-body" >
+    <div class="card-body">
+
       <!--Title-->
-      <h4 class="card-title" th:text="${obras.nombre}"></h4>
+      <h4 class="card-title"  th:text="${obras.nombre}"></h4>
       <!--Text-->
-      <p class="card-text" th:text="${obras.precio}"></p>
+      <p class="card-text" th:text="${obras.precio}">
+        content.</p>
       <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-      <a href="Detalle.html"  class="btn btn-default btn-block">¡Lo Quiero!</a>
+      <a href="Detalle.html"  class="btn btn-default  btn-block">!Lo Quiero</a>
+
     </div>
+
   </div>
+  <!-- Card -->
+
+ 
+
+
+  <!-- Card -->
+</div>
+</div>
 </div>
 <!-- Card deck -->
-  			<nav aria-label="Page navigation example">
+ </div>
+ <nav aria-label="Page navigation example">
 			  <ul class="pagination justify-content-end">
 			  
 			     <li class="page-item " th:classappend="${currentPage==1? 'disabled': ''}">
@@ -152,14 +203,11 @@
 			    
 			  </ul>
 			</nav>
+ 
+ 
+ 
+ 
 
- </div>
- 
- </div>
- 
- 
- 
- 
  
  
  

@@ -11,7 +11,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <center><h1><i class="fas fa-users"></i> Crear/Editar Usuario</h1></center>
+            <h1 class="text-center"><i class="fas fa-users"></i> Crear/Editar Usuario</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -31,7 +31,7 @@
             </div>
           </div>    
           
-           <form  th:action="@{/guardarUsuario}"  th:object="${usuario}" method="post" id="editar">
+           <form  th:action="@{/editarguardo}"  th:object="${usuario}" method="post" id="editar">
            <input type="hidden" th:field="*{id}" th:value="${usuario.id}">
           <!-- /.card-header -->
           <div class="card-body">
@@ -55,6 +55,7 @@
                 <small class="from-text text-danger" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></small>
                 </div>
               </div>
+              <input type="text" th:if="${usuario.id == null}" th:field="*{contraseña}">
               <!-- /.col -->
                 
             </div>
@@ -68,14 +69,8 @@
           </div>
           </form>
         </div>
-        
-         <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
 </div>
-
-        <!-- /.card -->
+</section>
+</div>
 </body>
 </html>
