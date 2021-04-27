@@ -34,13 +34,11 @@ import com.lowagie.text.DocumentException;
 import springbootartacademy.models.entity.Caracteristicas;
 import springbootartacademy.models.entity.Categorias;
 import springbootartacademy.models.entity.Clientes;
-import springbootartacademy.models.entity.Imagenes;
 import springbootartacademy.models.entity.Municipios;
 import springbootartacademy.models.entity.Obras;
 import springbootartacademy.models.service.ICaracteristicasService;
 import springbootartacademy.models.service.ICategoriasService;
 import springbootartacademy.models.service.IFileService;
-import springbootartacademy.models.service.IImagenesService;
 import springbootartacademy.models.service.IObrasService;
 
 @Controller
@@ -52,8 +50,6 @@ public class ObrasController {
 	private ICategoriasService serviciocategorias;
 	@Autowired
 	private ICaracteristicasService serviciocaracteristica;
-	@Autowired
-	private IImagenesService servicioimagenes;
 	@Autowired
 	private IFileService ifileser;
 	
@@ -67,38 +63,32 @@ public class ObrasController {
 	}
 	
 	@PostMapping("/guardarobra")
-	public String guardarObra(@Valid @ModelAttribute("obra") Obras obra,@Valid @ModelAttribute("caracteristica")Caracteristicas caracteristica,Imagenes imagenes, BindingResult result, @RequestParam("imagenobra") MultipartFile multipart , RedirectAttributes flash) throws IOException {
-		if(result.hasErrors()) {
-			return "backend/Obras/formulario";
-		}
-		Obras obracaracter = null;
-		if(!multipart.isEmpty()) {
-			if(imagenes.getId() !=null && imagenes.getId() > 0 && imagenes.getImagen() != null && imagenes.getImagen().length()>0) {
-				ifileser.eliminar(imagenes.getImagen());
+	public String guardarObra(@Valid @ModelAttribute("obra") Obras obra,@Valid @ModelAttribute("caracteristica")Caracteristicas caracteristica, BindingResult result, @RequestParam("imagenobra")MultipartFile multipart , @RequestParam("imagenobra2") MultipartFile multipart2 , @RequestParam("imagenobra3") MultipartFile multipart3 , RedirectAttributes flash) throws IOException {
+		if(!multipart.isEmpty()) 
+		{
+			if(obra.getImagenprincipal() != null && obra.getImagenprincipal().length()>0 
+			&& obra.getImagen2() != null && obra.getImagen2().length()>0 
+			&& obra.getImagen3() != null && obra.getImagen3().length()>0) 
+			{
+				ifileser.eliminar(obra.getImagenprincipal());
+				ifileser.eliminar(obra.getImagen2());
+				ifileser.eliminar(obra.getImagen3());
 			}
-			String uniconombre = null;
-			try {
-	            uniconombre = ifileser.copiar(multipart);
-	        } catch (Exception e) {
-	            //TODO: handle exception
-	            e.printStackTrace();
-	        }
-			
+			String nombreruta1 = null, nombreruta2 = null,nombreruta3 = null;
+			try 
+			{
+				nombreruta1 = ifileser.copiar(multipart);
+				nombreruta2 = ifileser.copiar(multipart2);
+				nombreruta3 = ifileser.copiar(multipart3);
+			} catch (Exception e) {e.printStackTrace();}
+			obra.setRutaimagen_principal(nombreruta1);
+			obra.setRutaimagen_2(nombreruta2);
+			obra.setRutaimagen_3(nombreruta3);
 			servicioobras.guardarObra(obra);
-			obracaracter = servicioobras.findbyId(obra.getId());
-			imagenes.setObras(obracaracter);
-			imagenes.setRutaimagen(uniconombre);
-			
 		}
-		
-		
+		Obras obracaracter = servicioobras.findbyId(obra.getId());
 		String mensaje = (obra.getId() != null) ? "Se edito de forma correcta la obra" : "Se guardo de forma correcta la obra";
 		caracteristica.setObras(obracaracter);
-		servicioimagenes.guardarimagenbd(imagenes);
-		
-		
-		
-	
 		serviciocaracteristica.guardarCaracteristica(caracteristica);
 		flash.addFlashAttribute("success", mensaje);
 		return "redirect:/listarCategorias";

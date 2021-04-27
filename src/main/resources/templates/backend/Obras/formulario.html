@@ -42,46 +42,19 @@
                 <div class="form-group">
                   <label>Nombre de la Obra</label>
                   <input type="text" th:field="*{obra.nombre}" class="form-control">
-                <small class="from-text text-danger" th:if="${#fields.hasErrors('obra.nombre')}" th:errors="*{obra.nombre}"></small>
                 </div>
-                <!-- /.form-group -->
-               
-               
                 <div class="form-group">
                   <label>Descripcion de la Obra</label>
-                  <textarea class="form-control" th:field="*{obra.descripcion}" rows="6" cols="2"></textarea>
-	              <small class="from-text text-danger" th:if="${#fields.hasErrors('obra.descripcion')}" th:errors="*{obra.descripcion}"></small>
+                  <textarea class="form-control" th:field="*{obra.descripcion}" rows="2" cols="2"></textarea>
                 <!-- /.form-group -->
                 </div>
               <div class="form-group">
                   <label>Tamaño</label>
                   <input type="text" placeholder="Ancho x Alto en centimetros" class="form-control" th:field="*{caracteristica.tamaño}">
-	              <small class="from-text text-danger" th:if="${#fields.hasErrors('caracteristica.tamaño')}" th:errors="*{caracteristica.tamaño}"></small>
-              </div>
-                <div class="form-group">
-                  <label>Imagen de Obra</label>
-                  <input type="file" name="imagenobra" id="fileImage" accept="image/png, image/jpeg" class="form-control"  ><br><br>
-                  <img id = "thumbnail" alt= "Imagen Previa" /> 
-              </div>
- 
-              </div>
-              <!-- /.col -->
-              <div class="col-md-6">
-                <!-- /.form-group -->
-                <div class="form-group">
-                  <label>Precio de Obra</label>
-                  <input type="number"min=0 class="form-control" th:field="*{obra.precio}">
-                <small class="from-text text-danger" th:if="${#fields.hasErrors('obra.precio')}" th:errors="*{obra.precio}"></small>
-              </div>
-                <div class="form-group">
-                  <label>Precio de Caracteristica</label>
-                  <input type="number"min=0 class="form-control" th:field="*{caracteristica.precio}">
-                <small class="from-text text-danger" th:if="${#fields.hasErrors('caracteristica.precio')}" th:errors="*{caracteristica.precio}"></small>
               </div>
                 <div class="form-group">
                   <label>Stock</label>
                   <input type="number"min=0 class="form-control" th:field="*{caracteristica.stock}">
-	              <small class="from-text text-danger" th:if="${#fields.hasErrors('caracteristica.stock')}" th:errors="*{caracteristica.stock}"></small>
               </div>             
                 <div class="form-group">
                   <label>Categoria</label>
@@ -92,30 +65,46 @@
                   	</select>
               </div>
                           <button type="submit" class="btn btn-info" >Confirmar</button>
-                <!-- /.form-group -->
+
               </div>
               <!-- /.col -->
-                
+              <div class="col-md-6">
+                <!-- /.form-group -->
+                <div class="form-group">
+                  <label>Precio de Obra</label>
+                  <input type="number"min=0 class="form-control" th:field="*{obra.precio}">
+              </div>
+                <div class="form-group">
+                  <label>Precio de Caracteristica</label>
+                  <input type="number"min=0 class="form-control" th:field="*{caracteristica.precio}">
+              </div>
+                <div class="form-group">
+                  <label>Imagen de Obra Principal</label>
+                  <input type="file" name="imagenobra" id="fileImage" accept="image/png, image/jpeg" class="form-control"  ><br>
+                  <img id = "thumbnail" alt= "Imagen Previa" /> 
+              </div> 
+                <div class="form-group">
+                  <label>Imagen de Obra Secundaria</label>
+                  <input type="file" name="imagenobra2" id="fileImage" accept="image/png, image/jpeg" class="form-control"  ><br>
+                  <img id = "thumbnail" alt= "Imagen Previa" /> 
+              </div>
+                <div class="form-group">
+                  <label>Imagen de Obra Terciaria</label>
+                  <input type="file" name="imagenobra3" id="fileImage" accept="image/png, image/jpeg" class="form-control"  ><br>
+                  <img id = "thumbnail" alt= "Imagen Previa" /> 
+              </div>
+              </div>
             </div>
-            <!-- /.row -->
-
-           
-            <!-- /.row -->
           </div>
           </form>
         </div>
-        
          <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
 </div>
-
    </section>
    </div>
-
-       <!-- /.card -->
 </body>
-
 </html>

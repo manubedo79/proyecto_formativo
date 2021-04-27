@@ -19,15 +19,12 @@ public class Caracteristicas {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull(message="El campo de stock es requerido")
 	@Column(length = 4, nullable = false)
 	private int stock;
 
-	@NotNull(message="El campo precio debe ser diferente de 0")
 	@Column(length = 13, nullable = false)
 	private Float precio;
 	
-	@NotBlank(message="El campo tamaño es requerido")
 	@Column(nullable = false)
 	private String tamaño;
 

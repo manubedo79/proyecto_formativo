@@ -15,6 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -26,25 +27,30 @@ public class Obras {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank(message="El campo nombre es requerido")
 	@Column(length = 50, unique = true, nullable = true)
 	private String nombre;
 	
-	@NotBlank(message="El campo descripcion es requerido")
 	@Column(length = 50, nullable = true)
 	private String descripcion;
 
-	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date fechacreacion;
 
-	@NotNull( message="El campo precio debe ser diferente de 0")
 	@Column(length = 13, nullable = false)
 	private Float precio;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categorias_id")
 	private Categorias categoria;
+
+	@Column(nullable = false)
+	private String rutaimagen_principal;
+
+	@Column(nullable = true)
+	private String rutaimagen_2;
+	
+	@Column(nullable = true)
+	private String rutaimagen_3;
 
 	@PrePersist
 	public void PrePersist()
@@ -99,8 +105,52 @@ public class Obras {
 	public void setCategoria(Categorias categoria) {
 		this.categoria = categoria;
 	}
-	
 
+	public String getRutaimagen_principal() {
+		return rutaimagen_principal;
+	}
+
+	public void setRutaimagen_principal(String rutaimagen_principal) {
+		this.rutaimagen_principal = rutaimagen_principal;
+	}
+
+	public String getRutaimagen_2() {
+		return rutaimagen_2;
+	}
+
+	public void setRutaimagen_2(String rutaimagen_2) {
+		this.rutaimagen_2 = rutaimagen_2;
+	}
+
+	public String getRutaimagen_3() {
+		return rutaimagen_3;
+	}
+
+	public void setRutaimagen_3(String rutaimagen_3) {
+		this.rutaimagen_3 = rutaimagen_3;
+	}
+
+	@Transient
+	public String getImagenprincipal()
+	{
+		if(id==null||rutaimagen_principal==null) {return null;}
+		return "imagenes/"+id+"/"+rutaimagen_principal;
+	}
+	@Transient
+	public String getImagen2()
+	{
+		if(id==null||rutaimagen_2==null) {return null;}
+		return "imagenes/"+id+"/"+rutaimagen_2;
+	}
+	@Transient
+	public String getImagen3()
+	{
+		if(id==null||rutaimagen_3==null) {return null;}
+		return "imagenes/"+id+"/"+rutaimagen_3;
+	}
+
+	
+	
 
 
 }
