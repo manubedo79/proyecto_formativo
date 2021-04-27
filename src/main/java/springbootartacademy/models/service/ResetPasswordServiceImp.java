@@ -44,7 +44,7 @@ public class ResetPasswordServiceImp  implements IResetPasswordService{
 			usuarios.setResetPasswordToken(token);
 			ususer.saveNewUsuarios(usuarios);			
 		}else {
-			throw new UsersNotFoundException("No se pudo enviar el correo " +correo);
+			throw new UsersNotFoundException("El correo " +correo+" no está registrado");
 		}
 		
 	}

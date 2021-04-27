@@ -40,6 +40,8 @@
 	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 	crossorigin="anonymous" />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" th:href="@{/frontend/acount/css/alert.css}">
 </head>
 
 <body style="background-image: url('frontend/acount/images/1.png');">
@@ -74,18 +76,20 @@
 	</div>
 
 	<div class="alerta show" th:if="${info!=null}">
-		<span class="fas fa-check-circle"></span> <span class="msg">Éxito: [[${info}]]</span> <span class="close-btn"> <span
+		<span class="fas fa-check-circle"></span> <span class="msg">Éxito:
+			[[${info}]]</span> <span class="close-btn"> <span
 			class="fas fa-times"></span>
 		</span>
 	</div>
 
-<div class="error show" th:if="${error!=null}">
-		<span class="fas fa-exclamation-triangle"></span> <span class="msg">Advertencia : [[${error}]]</span> <span class="close-btn"> <span
+	<div class="error show" th:if="${error!=null}">
+		<span class="fas fa-exclamation-triangle"></span> <span class="msg">Advertencia
+			: [[${error}]]</span> <span class="close-btn"> <span
 			class="fas fa-times"></span>
 		</span>
 	</div>
-	
-	<!--===============================================================================================-->
+
+		<!--===============================================================================================-->
 	<script th:src="@{/frontend/acount/vendor/jquery/jquery-3.2.1.min.js}"></script>
 	<!--===============================================================================================-->
 	<script
@@ -106,16 +110,15 @@
 		th:src="@{/frontend/acount/vendor/countdowntime/countdowntime.js}"></script>
 	<!--===============================================================================================-->
 	<script th:src="@{/frontend/acount/js/main.js}"></script>
+	<!--===============================================================================================-->
 	<script type="text/javascript">
-	
-	
-	$('.close-btn').click(function(){
-		
-		$('.alerta').addClass('hiden');
-		$('.alerta').removeClass('show');
-	});
-	
-	
+		$('.close-btn').click(function() {
+
+			$('.alerta').addClass('hiden');
+			$('.alerta').removeClass('show');
+			$('.error').addClass('hiden');
+			$('.error').removeClass('show');
+		});
 	</script>
 </body>
 </html>

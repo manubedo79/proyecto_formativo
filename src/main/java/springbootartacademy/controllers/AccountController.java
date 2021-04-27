@@ -61,14 +61,18 @@ public @ResponseBody List<Municipios> obtener_municipios(@PathVariable("departam
 	return munidao.consultarMunicipios(departamento_id);
 }
 
+
 @GetMapping("/login")
-public String login(@RequestParam(value="error",required = false) String error, Model model,Principal principal) {
+public String login(@RequestParam(value="error",required = false) String error,@RequestParam(value="logout", required = false)String logout , Model model,Principal principal) {
 	if(principal != null ) {
 		model.addAttribute("info", "La sesión sigue activa");
 		return "redirect:/inicio";
 	}
 	if(error != null ) {
 		model.addAttribute("error", "Los datos no coinciden");
+	}
+	if(logout!=null) {
+		model.addAttribute("info", "Ha cerrado sesión con éxito");
 	}
 	return "frontend/cuenta/login";
 
