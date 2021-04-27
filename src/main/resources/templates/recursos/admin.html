@@ -191,30 +191,10 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
   <div class="content-wrapper" layout:fragment="contenido">
   
   </div>
-  	<div class="modal fade text-center" id="modalAlert">
-		<div class="modal-dialog">
-		<div class="modal-content">
-		<div class="modal-header">
-		<h4 class="modal-title" id="titulo">ERROR</h4>
-		<button type="button" class="close" data-dismiss="modal">&times;</button>
-		</div>
-		<div class="modal-body">
-		<span id="contenido"></span>
-		</div>
-		<div class="modal-footer">
-		<button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
-		</div>
-		</div>
-		</div>
-	</div>
+  
   <!-- /.content-wrapper -->
   
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
@@ -250,50 +230,13 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <script th:src="@{/backend/dist/js/adminlte.js}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script th:src="@{/backend/dist/js/pages/dashboard.js}"></script>
+<script type="text/javascript" th:src="@{/backend/js/validacion.js}"></script>
 <!-- AdminLTE for demo purposes -->
 	<script th:src="@{/backend/dist/js/demo.js}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.js"></script>
 	
 	<script type="text/javascript">
-	function checkEmailUnique(form){
-		url="[[@{/usuario/check_email}]]";
-		userEmail=$("#correo").val();
-		csrfValue=$("input[name='_csrf']").val();
-		params={correo: userEmail, _csrf: csrfValue};
-		$.post(url, params, function(response){
-			if(response == "OK"){
-				form.submit();
-			}else if(response == "Duplicado"){
-				mostrarModal("ERROR","El correo "+userEmail+" ya está registrado en el sistema");
-			}
-			else{
-				mostrarModal("ERROR","El sistema demás que se cayó");
-			}
-		});
-		return false;
-	} 
-	function mostrarModal(title,mensaje){
-		$("#titulo").text(title);
-		$("#contenido").text(mensaje);
-		$("#modalAlert").modal();
-	}
 	
-$(document).ready(function()
-		{
-	$('#fileImage').change(function(){
-		mostrarImagen(this); 
-	});
-	function mostrarImagen(fileInput){
-		file=fileInput.files[0];
-		reader = new FileReader();
-		reader.onload = function(e){
-			$('#thumbnail').attr('src',e.target.result);
-			};
-		reader.readAsDartURL(file);
-		}
-	
-		});
-
 </script>
 
 

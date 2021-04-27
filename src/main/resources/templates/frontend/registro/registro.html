@@ -36,7 +36,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form"  th:action="@{/creandoregistro}" method="post" onsubmit="return checkEmailUnique(this);">
+				<form class="login100-form validate-form"  th:action="@{/creandoregistro}" method="post">
 					
 					<span class="login100-form-title p-b-43">
 					<i class="fas fa-user-plus"></i>
@@ -119,22 +119,7 @@
 		</div>
 	</div>
 	
-	<div class="modal fade text-center" id="modalAlert">
-		<div class="modal-dialog">
-		<div class="modal-content">
-		<div class="modal-header">
-		<h4 class="modal-title" id="titulo">ERROR</h4>
-		<button type="button" class="close" data-dismiss="modal">&times;</button>
-		</div>
-		<div class="modal-body">
-		<span id="contenido"></span>
-		</div>
-		<div class="modal-footer">
-		<button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
-		</div>
-		</div>
-		</div>
-	</div>
+
 
 	
 	
@@ -158,28 +143,7 @@
 	
 <!--===============================================================================================-->
 	<script type="text/javascript">
-	function checkEmailUnique(form){
-		url="[[@{/usuario/check_email}]]";
-		userEmail=$("#correo").val();
-		csrfValue=$("input[name='_csrf']").val();
-		params={correo: userEmail, _csrf: csrfValue};
-		$.post(url, params, function(response){
-			if(response == "OK"){
-				form.submit();
-			}else if(response == "Duplicado"){
-				mostrarModal("ERROR","El correo "+userEmail+" ya está registrado en el sistema");
-			}
-			else{
-				mostrarModal("ERROR","El sistema demás que se cayó");
-			}
-		});
-		return false;
-	} 
-	function mostrarModal(title,mensaje){
-		$("#titulo").text(title);
-		$("#contenido").text(mensaje);
-		$("#modalAlert").modal();
-	}
+	
 	
 	function cargar_municipios(e){
 		$("#municipios").html('<option class="input100"> Seleccione el municipio</option>');

@@ -26,7 +26,7 @@ public List<Usuarios> findAllUsers();
 public boolean cambioEstado(Long id);
 public void actualizarPefil(Usuarios usuarios);
 public Page<Usuarios> ListarUsuariosTodos(int pageNumber,String busqueda);
-public boolean iscorreounique(String correo);
+
 public void edituser(Usuarios usuarios);
 
 }

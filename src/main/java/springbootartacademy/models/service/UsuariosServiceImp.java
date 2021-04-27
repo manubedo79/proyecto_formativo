@@ -165,11 +165,7 @@ public class UsuariosServiceImp implements IUsuariosService {
 
 
 
-	@Override
-	public boolean iscorreounique(String correo) {
-		Usuarios usuariobycorreo=usudao.getCorreoUsuario(correo);
-		return usuariobycorreo==null;
-	}
+
 
 
 
