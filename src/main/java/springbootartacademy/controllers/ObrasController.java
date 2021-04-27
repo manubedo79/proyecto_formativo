@@ -39,6 +39,7 @@ import springbootartacademy.models.entity.Municipios;
 import springbootartacademy.models.entity.Obras;
 import springbootartacademy.models.service.ICaracteristicasService;
 import springbootartacademy.models.service.ICategoriasService;
+import springbootartacademy.models.service.IFileService;
 import springbootartacademy.models.service.IImagenesService;
 import springbootartacademy.models.service.IObrasService;
 
@@ -53,6 +54,8 @@ public class ObrasController {
 	private ICaracteristicasService serviciocaracteristica;
 	@Autowired
 	private IImagenesService servicioimagenes;
+	@Autowired
+	private IFileService ifileser;
 	
 	@GetMapping("/formularioobra")
 	public String formularioCategoria(Model model) {
@@ -64,36 +67,38 @@ public class ObrasController {
 	}
 	
 	@PostMapping("/guardarobra")
-	public String guardarObra(@Valid @ModelAttribute("obra") Obras obra,@Valid @ModelAttribute("caracteristica")Caracteristicas caracteristica, BindingResult result, @RequestParam("imagenobra") MultipartFile multipart , RedirectAttributes flash) throws IOException {
+	public String guardarObra(@Valid @ModelAttribute("obra") Obras obra,@Valid @ModelAttribute("caracteristica")Caracteristicas caracteristica,Imagenes imagenes, BindingResult result, @RequestParam("imagenobra") MultipartFile multipart , RedirectAttributes flash) throws IOException {
 		if(result.hasErrors()) {
 			return "backend/Obras/formulario";
 		}
+		Obras obracaracter = null;
+		if(!multipart.isEmpty()) {
+			if(imagenes.getId() !=null && imagenes.getId() > 0 && imagenes.getImagen() != null && imagenes.getImagen().length()>0) {
+				ifileser.eliminar(imagenes.getImagen());
+			}
+			String uniconombre = null;
+			try {
+	            uniconombre = ifileser.copiar(multipart);
+	        } catch (Exception e) {
+	            //TODO: handle exception
+	            e.printStackTrace();
+	        }
+			
+			servicioobras.guardarObra(obra);
+			obracaracter = servicioobras.findbyId(obra.getId());
+			imagenes.setObras(obracaracter);
+			imagenes.setRutaimagen(uniconombre);
+			
+		}
+		
+		
 		String mensaje = (obra.getId() != null) ? "Se edito de forma correcta la obra" : "Se guardo de forma correcta la obra";
-		servicioobras.guardarObra(obra);
-		Obras obracaracter = servicioobras.findbyId(obra.getId());
-		Imagenes imagen = new Imagenes();
-		String nomimg = StringUtils.cleanPath(multipart.getOriginalFilename());
-		imagen.setId(null);
-		imagen.setRutaimagen(nomimg);
-		imagen.setObras(obracaracter);
-		servicioimagenes.guardarimagenbd(imagen);
-		String actualizaDir = "./imagenes/"+ obracaracter.getId();
-		Path actualizaPath = Paths.get(actualizaDir);
-		if(!Files.exists(actualizaPath)) 
-		{
-			Files.createDirectories(actualizaPath);
-		}
-		try (InputStream inputStream = multipart.getInputStream())
-		{
-			Path archivoPath = actualizaPath.resolve(nomimg);
-			System.out.println(archivoPath.toFile().getAbsolutePath());
-			Files.copy(inputStream, archivoPath ,StandardCopyOption.REPLACE_EXISTING);			
-		}
-		catch(IOException e)
-		{
-			throw new IOException("No se pudo actualizat el archivo: "+ nomimg);
-		}
 		caracteristica.setObras(obracaracter);
+		servicioimagenes.guardarimagenbd(imagenes);
+		
+		
+		
+	
 		serviciocaracteristica.guardarCaracteristica(caracteristica);
 		flash.addFlashAttribute("success", mensaje);
 		return "redirect:/listarCategorias";
