@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import springbootartacademy.models.dao.IObrasDao;
-import springbootartacademy.models.entity.Clientes;
 import springbootartacademy.models.entity.Obras;
 
 @Component
@@ -44,11 +43,25 @@ public class ObrasServiceImp implements IObrasService {
 		return obrdao.findById(id).orElse(null);
 	}
 	@Override
+	public List<Obras> findAllcategoriaobras(Long id ){
+		return obrdao.findAllcategoriaobras(id);
+	}
+	
+	@Override
 	public List<Obras> findAll() {
 		return (List<Obras>)obrdao.findAll();
 	}
 
+	
+	@Override
+	public Page<Obras> ListarObrasTodas(int pageNumber) {
+		Pageable pageable = PageRequest.of(pageNumber - 1, 2 );
+		return obrdao.findAll(pageable) ;
 	}
+
+
+
+}
 
 
 

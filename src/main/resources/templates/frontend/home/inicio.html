@@ -25,7 +25,7 @@
                   <div class="col-md-4 col-lg-3 col-xl-2">
                     <h6><b><i class="fas fa-archive"></i> Categorías</b></h6>
                 <ul th:each=" cate : ${categoria}" class="list-group list-group-flush">                
-                  <li class="list-group-item pl-0"><a class="text-dark" th:text="${cate.nombrecategoria}" ></a></li>
+                  <li class="list-group-item pl-0"><a class="text-dark" th:href="@{/tienda/categorias/}+${categoria}" th:text="${cate.nombrecategoria}" ></a></li>
                 </ul>
                   </div>
                   <div class="col-md-8 col-lg-6 col-xl-9 ">
@@ -91,132 +91,90 @@
       </div>
   <br><br><br><br>
  <div class="container">
+  
 
   <!-- Card deck -->
 <div class="row">  
 <div class="card-deck">
-
-  <!-- Card -->
-  <div class="card mb-4 col col-sm col-md-3" >
-
+  <div class="card mb-4 col col-sm col-md-3" th:each="obras : ${obra}">
     <!--Card image-->
     <div class="view overlay">
-      <img class="card-img-top" th:src="@{/frontend/img/10.png}"
+      <img class="card-img-top" th:if="${#strings.length(obras.rutaimagen_principal)>0}" th:src="@{'/imagenes/'+${obras.rutaimagen_principal}}"
         alt="Card image cap">
       <a href="#!">
         <div class="mask rgba-white-slight"></div>
       </a>
     </div>
-
     <!--Card content-->
-    <div class="card-body">
-
+    <div class="card-body" >
       <!--Title-->
-      <h4 class="card-title">Card title</h4>
+      <h4 class="card-title" th:text="${obras.nombre}"></h4>
       <!--Text-->
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-        content.</p>
+      <p class="card-text" th:text="${obras.precio}"></p>
       <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-      <a href="Detalle.html"  class="btn btn-default  btn-block">!Lo Quiero</a>
-
+      <a href="Detalle.html"  class="btn btn-default btn-block">¡Lo Quiero!</a>
     </div>
-
   </div>
-  <!-- Card -->
-
-  <!-- Card -->
-  <div class="card mb-4 col col-sm col-md-3">
-
-    <!--Card image-->
-    <div class="view overlay">
-      <img class="card-img-top" th:src="@{/frontend/img/12.png}"
-        alt="Card image cap">
-      <a href="#!">
-        <div class="mask rgba-white-slight"></div>
-      </a>
-    </div>
-
-    <!--Card content-->
-    <div class="card-body">
-
-      <!--Title-->
-      <h4 class="card-title">Card title</h4>
-      <!--Text-->
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-        content.</p>
-      <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-      <a href="Detalle.html"  class="btn btn-default  btn-block">!Lo Quiero</a>
-
-
-    </div>
-
-  </div>
-  <!-- Card -->
-
-  <!-- Card -->
-  <div class="card mb-4 col col-sm col-md-3">
-
-    <!--Card image-->
-    <div class="view overlay">
-      <img class="card-img-top" th:src="@{/frontend/img/5.png}"
-        alt="Card image cap">
-      <a href="#!">
-        <div class="mask rgba-white-slight"></div>
-      </a>
-    </div>
-
-    <!--Card content-->
-    <div class="card-body">
-
-      <!--Title-->
-      <h4 class="card-title">Card title</h4>
-      <!--Text-->
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-        content.</p>
-      <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-      <a href="Detalle.html"  class="btn btn-default btn-block">!Lo Quiero</a>
-
-
-    </div>
-
-  </div>
-  
-  <!-- Card -->
-
-  <!-- Card -->
-  <div class="card mb-4 col col-sm col-md-3">
-
-    <!--Card image-->
-    <div class="view overlay">
-      <img class="card-img-top" th:src="@{/frontend/img/5.png}"
-        alt="Card image cap">
-      <a href="#!">
-        <div class="mask rgba-white-slight"></div>
-      </a>
-    </div>
-
-    <!--Card content-->
-    <div class="card-body">
-
-      <!--Title-->
-      <h4 class="card-title">Card title</h4>
-      <!--Text-->
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-        content.</p>
-      <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-      <a href="Detalle.html"  class="btn btn-default btn-block">!Lo Quiero</a>
-
-
-    </div>
-
-  </div>
-  
-  <!-- Card -->
 </div>
 <!-- Card deck -->
+  			<nav aria-label="Page navigation example">
+			  <ul class="pagination justify-content-end">
+			  
+			     <li class="page-item " th:classappend="${currentPage==1? 'disabled': ''}">
+			      <a class="page-link" 
+			      th:if="${currentPage>1}" th:href="@{/obrastodaspagina/1}">Primero</a>
+			       <span th:unless="${currentPage>1}" class="page-link">Primero</span> 
+			    </li>
+			    
+			    <li class="page-item" th:classappend="${currentPage == 1 ? 'disabled': ''}">
+			      <a class="page-link" 
+			      th:if="${currentPage>1}" 
+					 th:href="@{'/obrastodaspagina/' + ${currentPage-1}}">Anterior</a>
+			       <span th:unless="${currentPage>1}" class="page-link">Anterior</span>
+			    </li>
+			    
+			    <li th:each="i:${#numbers.sequence(1,totalpages)}" class="page-item " th:classappend="${i == currentPage ? 'active': ''}">
+			    <a th:if="${ i != currentPage }" th:href="@{'/obrastodaspagina/' +  ${i}}" 
+			    class="page-link">[[${i}]]</a>
+			    <span class="page-link" th:unless="${i != currentPage}">[[${i}]]</span>&nbsp;&nbsp;</li>
+			    
+			    <li class="page-item" th:classappend="${currentPage==totalpages ? 'disabled': ''}">
+			      <a class="page-link" th:if="${currentPage<totalpages }" 
+					 th:href="@{'/obrastodaspagina/' + ${currentPage + 1}}">Siguiente</a>
+				  <span	th:unless="${currentPage < totalpages}" class="page-link">Siguiente</span> 
+			    </li>
+			    
+			    <li class="page-item" th:classappend="${currentPage==totalpages ? 'disabled': ''}">
+			      <a class="page-link" th:if="${currentPage<totalpages }"
+						th:href="@{'/obrastodaspagina/' + ${totalpages}}">Ultima</a>
+				  <span th:unless="${currentPage < totalpages}" class="page-link">Ultima</span>
+			    </li>
+			    
+			  </ul>
+			</nav>
 
  </div>
+ 
  </div>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  
   <!-- Footer -->

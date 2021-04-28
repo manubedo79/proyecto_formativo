@@ -42,7 +42,24 @@ public class CategoriasController {
 		return listBypage(1);
 	}
 	
-	
+	@GetMapping("/categoriastodas")
+	public ModelAndView todascategorias() {
+		return categoriastodaspagina(1);
+	}
+	@GetMapping("/paginacategoriastodas/{numeropagina}")
+	public ModelAndView categoriastodaspagina(@PathVariable("numeropagina") int currentPage) {
+		Page<Categorias> page = cateservice.ListarCategoriasTodas(currentPage);
+		long totalItems = page.getTotalElements();
+		int totalpages = page.getTotalPages();
+		List<Categorias> listaCategorias = page.getContent();
+		ModelAndView mav = new ModelAndView("frontend/Categorias/categoriastodas");
+		mav.addObject("ListaCate", listaCategorias);
+		mav.addObject("totalItems", totalItems);
+		mav.addObject("totalpages", totalpages);
+		mav.addObject("currentPage", currentPage);
+		return mav;
+	}
+
 	
 	@GetMapping("/pageCategorias/{pageNumber}")
 	public ModelAndView listBypage(@PathVariable("pageNumber") int currentPage) {

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Art Academy</title>
+<link rel="stylesheet" th:href="@{/backend/dist/css/adminlte.min.css}">
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<link th:href="@{/frontend/css/md-pro.css}" rel="stylesheet">
+<link th:href="@{/frontend/css/mdb-pro.min.css}" rel="stylesheet">
+<link th:href="@{/frontend/css/mdb.ecommerce.min.css}" rel="stylesheet">
+<link th:href="@{/frontend/css/bootstrap.min.css}" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+</head>
+<body>
+<!-- Navbar -->
+<nav th:replace="recursos/navbar::navbar">
+
+</nav>
+ 
+  <div class="content ">
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-info">
+              <div class="card-header">
+                <h3 class="card-title">Categorías</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="row">
+                </div>
+                <div class="row mt-4">
+                  <div class="col-sm-4" th:each="Cateorias : ${ListaCate}">
+                    <div class="position-relative">
+                      <a href="ProductosCategoria.html"><img th:src="@{/frontend/img/12.png}" alt="Photo 2" class="img-fluid"></a>
+                      <div class="ribbon-wrapper ribbon-xl">
+                        <div class="ribbon bg-warning text-lg" th:text="${Cateorias.nombrecategoria}">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination justify-content-end">
+			  
+			     <li class="page-item " th:classappend="${currentPage==1? 'disabled': ''}">
+			      <a class="page-link" 
+			      th:if="${currentPage>1}" th:href="@{/paginacategoriastodas/1}">Primero</a>
+			       <span th:unless="${currentPage>1}" class="page-link">Primero</span> 
+			    </li>
+			    
+			    <li class="page-item" th:classappend="${currentPage == 1 ? 'disabled': ''}">
+			      <a class="page-link" 
+			      th:if="${currentPage>1}" 
+					 th:href="@{'/paginacategoriastodas/' + ${currentPage-1}}">Anterior</a>
+			       <span th:unless="${currentPage>1}" class="page-link">Anterior</span>
+			    </li>
+			    
+			    <li th:each="i:${#numbers.sequence(1,totalpages)}" class="page-item " th:classappend="${i == currentPage ? 'active': ''}">
+			    <a th:if="${ i != currentPage }" th:href="@{'/paginacategoriastodas/' +  ${i}}" 
+			    class="page-link">[[${i}]]</a>
+			    <span class="page-link" th:unless="${i != currentPage}">[[${i}]]</span>&nbsp;&nbsp;</li>
+			    
+			    <li class="page-item" th:classappend="${currentPage==totalpages ? 'disabled': ''}">
+			      <a class="page-link" th:if="${currentPage<totalpages }" 
+					 th:href="@{'/paginacategoriastodas/' + ${currentPage + 1}}">Siguiente</a>
+				  <span	th:unless="${currentPage < totalpages}" class="page-link">Siguiente</span> 
+			    </li>
+			    
+			    <li class="page-item" th:classappend="${currentPage==totalpages ? 'disabled': ''}">
+			      <a class="page-link" th:if="${currentPage<totalpages }"
+						th:href="@{'/paginacategoriastodas/' + ${totalpages}}">Ultima</a>
+				  <span th:unless="${currentPage < totalpages}" class="page-link">Ultima</span>
+			    </li>
+			    
+			  </ul>
+			</nav>
+    <!-- /.content -->
+  </div>
+</body>
+<script>
+  $(function () {
+    /* BOOTSTRAP SLIDER */
+    $('.slider').bootstrapSlider()
+
+    /* ION SLIDER */
+    $('#range_1').ionRangeSlider({
+      min     : 0,
+      max     : 5000,
+      from    : 1000,
+      to      : 4000,
+      type    : 'double',
+      step    : 1,
+      prefix  : '$',
+      prettify: false,
+      hasGrid : true
+    })
+    $('#range_2').ionRangeSlider()
+
+    $('#range_5').ionRangeSlider({
+      min     : 0,
+      max     : 10,
+      type    : 'single',
+      step    : 0.1,
+      postfix : ' mm',
+      prettify: false,
+      hasGrid : true
+    })
+    $('#range_6').ionRangeSlider({
+      min     : -50,
+      max     : 50,
+      from    : 0,
+      type    : 'single',
+      step    : 1,
+      postfix : '°',
+      prettify: false,
+      hasGrid : true
+    })
+
+    $('#range_4').ionRangeSlider({
+      type      : 'single',
+      step      : 100,
+      postfix   : ' light years',
+      from      : 55000,
+      hideMinMax: true,
+      hideFromTo: false
+    })
+    $('#range_3').ionRangeSlider({
+      type    : 'double',
+      postfix : ' miles',
+      step    : 10000,
+      from    : 25000000,
+      to      : 35000000,
+      onChange: function (obj) {
+        var t = ''
+        for (var prop in obj) {
+          t += prop + ': ' + obj[prop] + '\r\n'
+        }
+        $('#result').html(t)
+      },
+      onLoad  : function (obj) {
+        //
+      }
+    })
+</script>
+
+</html>

@@ -1,12 +1,17 @@
 package springbootartacademy.models.dao;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-import springbootartacademy.models.entity.Categorias;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import springbootartacademy.models.entity.Obras;
 
 @Repository
 public interface IObrasDao extends PagingAndSortingRepository<Obras,Long>{
 
+	@Query("SELECT o FROM Obras o INNER JOIN Categorias c ON c.id = o.categoria.id WHERE c.id = :id")
+	public List<Obras> findAllcategoriaobras(@Param("id") Long id );
+	
 }

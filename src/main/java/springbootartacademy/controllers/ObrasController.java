@@ -2,6 +2,7 @@
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,7 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -61,9 +65,11 @@ public class ObrasController {
 		model.addAttribute("categoria", listacate);
 		return "backend/Obras/formulario";
 	}
-	
+
 	@PostMapping("/guardarobra")
-	public String guardarObra(@Valid @ModelAttribute("obra") Obras obra,@Valid @ModelAttribute("caracteristica")Caracteristicas caracteristica, BindingResult result, @RequestParam("imagenobra")MultipartFile multipart , @RequestParam("imagenobra2") MultipartFile multipart2 , @RequestParam("imagenobra3") MultipartFile multipart3 , RedirectAttributes flash) throws IOException {
+	public String guardarObra(@Valid @ModelAttribute("obra") Obras obra,@Valid @ModelAttribute("caracteristica")Caracteristicas caracteristica, 
+	BindingResult result, @RequestParam("imagenobra")MultipartFile multipart , @RequestParam("imagenobra2") MultipartFile multipart2 ,
+	@RequestParam("imagenobra3") MultipartFile multipart3 , RedirectAttributes flash) throws IOException {
 		if(!multipart.isEmpty()) 
 		{
 			if(obra.getImagenprincipal() != null && obra.getImagenprincipal().length()>0 
@@ -77,9 +83,9 @@ public class ObrasController {
 			String nombreruta1 = null, nombreruta2 = null,nombreruta3 = null;
 			try 
 			{
+				if (!multipart2.isEmpty()) {nombreruta2 = ifileser.copiar(multipart2);}
+				if (!multipart3.isEmpty()) {nombreruta3 = ifileser.copiar(multipart3);}
 				nombreruta1 = ifileser.copiar(multipart);
-				nombreruta2 = ifileser.copiar(multipart2);
-				nombreruta3 = ifileser.copiar(multipart3);
 			} catch (Exception e) {e.printStackTrace();}
 			obra.setRutaimagen_principal(nombreruta1);
 			obra.setRutaimagen_2(nombreruta2);
@@ -93,4 +99,6 @@ public class ObrasController {
 		flash.addFlashAttribute("success", mensaje);
 		return "redirect:/listarCategorias";
 	}
+	
+	
 }
