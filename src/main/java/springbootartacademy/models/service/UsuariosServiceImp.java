@@ -17,8 +17,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-
+import org.springframework.transaction.annotation.Transactional;
 
 import net.bytebuddy.utility.RandomString;
 import springbootartacademy.models.dao.IClientesDao;
@@ -158,10 +157,17 @@ public class UsuariosServiceImp implements IUsuariosService {
 		return (List<Usuarios>) usudao.findAll();
 	}
 	
+	@Transactional
 	@Override
-	public void actualizarPefil(Usuarios usuarios) {
+	public void actualizarPefil(Usuarios usuarios, Clientes clientes) {
 		
 	usudao.save(usuarios);
+	cliedao.save(clientes);
+		
+	}
+	@Override
+	public void updatepassword(Usuarios usuarios) {
+		usudao.save(usuarios);
 		
 	}
 

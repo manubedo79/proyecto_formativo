@@ -51,7 +51,7 @@ public class ObrasController {
 	}
 
 	@PostMapping("/guardarobra")
-	public String guardarObra(@Valid @ModelAttribute("obra") Obras obra,@Valid @ModelAttribute("caracteristica")Caracteristicas caracteristica, 
+	public String guardarObra(@ModelAttribute("obra") Obras obra,@ModelAttribute("caracteristica")Caracteristicas caracteristica, 
 	BindingResult result, @RequestParam("imagenobra")MultipartFile multipart , @RequestParam("imagenobra2") MultipartFile multipart2 ,
 	@RequestParam("imagenobra3") MultipartFile multipart3 , RedirectAttributes flash) throws IOException {
 		if(!multipart.isEmpty()) 
@@ -80,6 +80,38 @@ public class ObrasController {
 		String mensaje = (obra.getId() != null) ? "Se edito de forma correcta la obra" : "Se guardo de forma correcta la obra";
 		caracteristica.setObras(obracaracter);
 		serviciocaracteristica.guardarCaracteristica(caracteristica);
+		flash.addFlashAttribute("success", mensaje);
+		return "redirect:/ListaObras";
+	}
+	@PostMapping("/editarobra")
+	public String editarobra(@ModelAttribute("obra") Obras obra,
+	BindingResult result, @RequestParam("imagenobra")MultipartFile multipart , @RequestParam("imagenobra2") MultipartFile multipart2 ,
+	@RequestParam("imagenobra3") MultipartFile multipart3 , RedirectAttributes flash) throws IOException {
+		if(!multipart.isEmpty()) 
+		{
+			if(obra.getImagenprincipal() != null && obra.getImagenprincipal().length()>0 
+			&& obra.getImagen2() != null && obra.getImagen2().length()>0 
+			&& obra.getImagen3() != null && obra.getImagen3().length()>0) 
+			{
+				ifileser.eliminar(obra.getImagenprincipal());
+				ifileser.eliminar(obra.getImagen2());
+				ifileser.eliminar(obra.getImagen3());
+			}
+			String nombreruta1 = null, nombreruta2 = null,nombreruta3 = null;
+			try 
+			{
+				if (!multipart2.isEmpty()) {nombreruta2 = ifileser.copiar(multipart2);}
+				if (!multipart3.isEmpty()) {nombreruta3 = ifileser.copiar(multipart3);}
+				nombreruta1 = ifileser.copiar(multipart);
+			} catch (Exception e) {e.printStackTrace();}
+			obra.setRutaimagen_principal(nombreruta1);
+			obra.setRutaimagen_2(nombreruta2);
+			obra.setRutaimagen_3(nombreruta3);
+			servicioobras.guardarObra(obra);
+		}
+		
+		String mensaje = (obra.getId() != null) ? "Se edito de forma correcta la obra" : "Se guardo de forma correcta la obra";
+	
 		flash.addFlashAttribute("success", mensaje);
 		return "redirect:/ListaObras";
 	}

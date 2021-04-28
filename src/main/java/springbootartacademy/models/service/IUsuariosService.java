@@ -25,9 +25,9 @@ public Usuarios findById(Long id);
 public void saveNewUsuarios(Usuarios usuario);
 public List<Usuarios> findAllUsers();
 public boolean cambioEstado(Long id);
-public void actualizarPefil(Usuarios usuarios);
+public void actualizarPefil(Usuarios usuarios, Clientes clientes);
 public Page<Usuarios> ListarUsuariosTodos(int pageNumber,String busqueda);
 public boolean iscorreounique(String correo);
 public void edituser(Usuarios usuarios);
-
+public void updatepassword(Usuarios usuarios);
 }

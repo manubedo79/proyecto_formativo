@@ -1,8 +1,9 @@
 package springbootartacademy.models.entity;
 
 import java.util.Date;
+import java.util.List;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,7 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,7 +38,9 @@ public class Obras {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categorias_id")
 	private Categorias categoria;
-
+	
+	@OneToMany(mappedBy="obras",cascade=CascadeType.ALL)
+	public List<Caracteristicas> caracteristicas; 
 	@Column(nullable = false)
 	private String rutaimagen_principal;
 
@@ -85,10 +88,6 @@ public class Obras {
 		this.fechacreacion = fechacreacion;
 	}
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 7f31c6f5053237ff96a3f07971ad27446c149638
 	public Categorias getCategoria() {
 		return categoria;
 	}
@@ -146,6 +145,14 @@ public class Obras {
 
 	public void setEstado(boolean estado) {
 		this.estado = estado;
+	}
+
+	public List<Caracteristicas> getCaracteristicas() {
+		return caracteristicas;
+	}
+
+	public void setCaracteristicas(List<Caracteristicas> caracteristicas) {
+		this.caracteristicas = caracteristicas;
 	}
 	
 	

@@ -48,26 +48,44 @@
               
           <div class="card">
             <div class="card-body">
-              <h3>Mi Perfil</h3><hr>
+              <h3 class="text-center">Mi Perfil</h3><hr>
               <form th:action="@{/update-user-info}"  method="post" >
                 <div class="form-row">
                                    
                  
-                  <div class="form-group col-sm-6">
-                    <div >Nombre de Usuario: </div>
-                    <input type="text" name="nombreusuario" th:value="${usuario.nombreusuario}" class="form-control">
-                    
-                    
-                  </div>
+                  
                   <div class="form-group col-sm-6">
                     <label for="email">Correo</label>
                     <input th:value="${usuario.correo}" name="correo" class="form-control">
                   </div>
-                  <div>
-                  
-                
+                  <div class="form-group col-sm-6">
+                    <label for="email">Nombre</label>
+                    <input type="text" th:field="*{cliente.nombre}" class="form-control" >
                   </div>
-                  <div class="form-group col-12">                
+                  <div class="form-group col-sm-6">
+                    <label for="email">Apellido(s)</label>
+                    <input type="text" th:field="*{cliente.apellido}" class="form-control" >
+                  </div>
+                   <div class="form-group col-sm-6">
+                    <label for="email">Dirección</label>
+                    <input type="text" th:field="*{cliente.direccion}" class="form-control" >
+                  </div>
+                  <div class="form-group col-sm-6">
+                    <label for="email">Telefono</label>
+                    <input type="text" th:field="*{cliente.telefono}" class="form-control" >
+                  </div>
+                 
+                   <div class="form-group col-sm-6">
+                    <label for="email">Municipio</label>
+                   <select class="form-control" th:field="*{cliente.municipios}">
+						<option value=""> Seleccione el municipio</option>
+						<option th:each="muni : ${municipios}" th:value="${muni.id}" th:text="${muni.nombremunicipio}"></option>
+						</select>
+                  </div>
+                  
+                  
+                  
+                  <div class="form-group col-12 text-center my-4">                
                     <button type="submit" class="btn btn-primary">Actualizar Perfil</button>
                     <a th:href="@{/editarpassword}" class="btn btn-success">Actualizar Contraseña</a>
                   </div>

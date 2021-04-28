@@ -12,5 +12,6 @@ public interface IClientesService {
 	public Clientes findById(Long idcliente);
 	public Page<Clientes> ListarClientesTodos(int pageNumber);
 	public void saveClientes(Clientes  clientes);
+	public Clientes findAllByCorreo(String correo);
 
 }

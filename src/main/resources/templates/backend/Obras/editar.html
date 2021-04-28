@@ -31,7 +31,7 @@
             </div>
           </div>    
           
-           <form enctype="multipart/form-data" id="formularioobra" th:action="@{/guardarobra}" method="post">
+           <form enctype="multipart/form-data" th:action="@{/editarobra}" method="post">
            <input type="hidden" th:field="*{obra.id}" th:value="${obra.id}">
           <!-- /.card-header -->
           <div class="card-body">

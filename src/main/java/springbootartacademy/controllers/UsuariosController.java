@@ -30,8 +30,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.lowagie.text.DocumentException;
+
+import springbootartacademy.models.dao.IDepartamentosDao;
+import springbootartacademy.models.dao.IMunicipiosDao;
 import springbootartacademy.models.dao.IRolesDao;
+import springbootartacademy.models.entity.Clientes;
 import springbootartacademy.models.entity.Usuarios;
+import springbootartacademy.models.service.IClientesService;
 import springbootartacademy.models.service.IUsuariosService;
 import springbootartacademy.utils.UsuarioDetailsImp;
 import springbootartacademy.utils.Utilidad;
@@ -48,6 +53,12 @@ public class UsuariosController {
 	private IRolesDao rolesdao;
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private IClientesService cliser;
+	@Autowired
+	private IMunicipiosDao munidao;
+	@Autowired 
+	private IDepartamentosDao idepartadao;
 	
 	
 	@GetMapping("/ListaUsuarios")
@@ -119,38 +130,51 @@ public String cambiarEstado(@PathVariable(value="id") Long id) {
 		
 	}
 // Metodo para mostrar el formulario de perfil
-@GetMapping("/miperfil")
-public String miperfil(Model model, Authentication authentication) {
-	Usuarios usuarios = (Usuarios) authentication.getPrincipal();
-	model.addAttribute("usuario", usuarios);
-	return "frontend/cuenta/miperfil";
-}
-
-// Metodo para actaulizar el perfil
-@RequestMapping(value = "/update-user-info", method = RequestMethod.POST)
-public String updateUserInfo(@ModelAttribute("usuario") Usuarios usuarios,
-		 Model model, Principal principal)
-		throws Exception {
-	Usuarios currentUser = service.findByCorreo(principal.getName());
-	if (currentUser == null) {
-		throw new Exception("User not found");
-	}
-
-	
-	/* check email already exists */
-	Usuarios existingUser = service.findByCorreo(usuarios.getCorreo());
-	if (existingUser != null && !existingUser.getId().equals(currentUser.getId())) {
-		model.addAttribute("emailExists", true);
+	@GetMapping("/miperfil")
+	public String miperfil(Model model,Principal principal) {
+		Usuarios usuarios = service.findByCorreo(principal.getName());
+		Clientes clientes =  cliser.findAllByCorreo(principal.getName());
+		model.addAttribute("usuario", usuarios);
+		model.addAttribute("cliente", clientes);
+		model.addAttribute("municipios", munidao.findAll());
+		model.addAttribute("departamentos", idepartadao.findAll());
 		return "frontend/cuenta/miperfil";
 	}
 
-	currentUser.setCorreo(usuarios.getCorreo());
-	service.actualizarPefil(currentUser);
-	model.addAttribute("updateSuccess","Se actualizaron sus datos de usuarios de forma correcta");
-	model.addAttribute("usuario", currentUser);
-	idetailsimp.authenticateUser(currentUser.getUsername());
-	return "redirect:/miperfil";
-}
+
+	@RequestMapping(value = "/update-user-info", method = RequestMethod.POST)
+	public String updateUserInfo(@ModelAttribute("usuario") Usuarios usuarios,@ModelAttribute("cliente") Clientes clientes,
+			 Model model, Principal principal)
+			throws Exception {
+		Usuarios currentUser = service.findByCorreo(principal.getName());
+		Clientes currentClientes = cliser.findAllByCorreo(principal.getName());
+		if (currentUser == null) {
+			throw new Exception("User not found");
+		}
+		if(currentClientes == null) {
+			throw new Exception("Cliente not found"); 
+		}
+		
+		/* check email already exists */
+		Usuarios existingUser = service.findByCorreo(usuarios.getCorreo());
+		if (existingUser != null && !existingUser.getId().equals(currentUser.getId())) {
+			model.addAttribute("emailExists", true);
+			return "frontend/cuenta/miperfil";
+		}
+
+		currentUser.setCorreo(usuarios.getCorreo());
+		currentClientes.setNombre(clientes.getNombre());
+		currentClientes.setApellido(clientes.getApellido());
+		currentClientes.setDireccion(clientes.getDireccion());
+		currentClientes.setTelefono(clientes.getTelefono());
+		currentClientes.setMunicipios(clientes.getMunicipios());
+		service.actualizarPefil(currentUser, currentClientes);
+		model.addAttribute("updateSuccess","Se actualizaron sus datos de usuarios de forma correcta");
+		model.addAttribute("usuario", currentUser);
+		model.addAttribute("cliente", currentClientes);
+		idetailsimp.authenticateUser(currentUser.getUsername());
+		return "redirect:/miperfil";
+	}
 @GetMapping("/editarpassword")
 public String editarpassword(Authentication authentication, Model model) {
 	Usuarios usuarios = (Usuarios) authentication.getPrincipal();
@@ -166,7 +190,7 @@ public String guardarpassword(@ModelAttribute("usuario") Usuarios usuarios,
 	}
 	String pass = Utilidad.passwordencode().encode(usuarios.getContraseña());
 	currentUser.setContraseña(pass);
-	service.actualizarPefil(currentUser);
+	service.updatepassword(currentUser);
 	model.addAttribute("updateSuccess", true);
 	model.addAttribute("usuario", currentUser);
 	idetailsimp.authenticateUser(currentUser.getUsername());

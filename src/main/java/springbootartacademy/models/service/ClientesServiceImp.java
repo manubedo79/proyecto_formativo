@@ -41,6 +41,12 @@ public class ClientesServiceImp implements IClientesService {
 		// TODO Auto-generated method stub
 		return clidao.findById(idcliente).orElse(null);
 	}
+
+	@Override
+	public Clientes findAllByCorreo(String correo) {
+		// TODO Auto-generated method stub
+		return clidao.findAllByCorreo(correo);
+	}
 	}
 
 
