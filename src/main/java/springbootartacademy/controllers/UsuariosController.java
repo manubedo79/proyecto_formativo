@@ -78,12 +78,9 @@ public String registro( Model model) {
 }
 
 @PostMapping("/guardarUsuario")
-public String guardarUsuario (@Valid @ModelAttribute("usuario") Usuarios usuario , BindingResult result, RedirectAttributes flash, Model model) {
+public String guardarUsuario ( Usuarios usuario , RedirectAttributes flash, Model model) {
 	
-	if(result.hasErrors()) {
-		model.addAttribute("roles",rolesdao.findAll());
-		return "backend/usuarios/formulario";
-	}
+	
 	String mesaje=(usuario.getId()!=null)?"Se editó correctamente"
 	:"Se guardo correctamente";
 	flash.addFlashAttribute("success", mesaje);

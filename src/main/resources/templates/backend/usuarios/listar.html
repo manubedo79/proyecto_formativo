@@ -48,7 +48,6 @@
 
 						<thead>
 							<tr>
-								<th>Nombre Usuario</th>
 								<th>Correo</th>
 								<th>Rol</th>
 								<th>Opciones</th>
@@ -57,16 +56,20 @@
 
 						<tbody>
 							<tr th:each=" Usuarios : ${ListaUsu}">
-								<th th:text="${Usuarios.nombreusuario}"></th>
 								<th th:text="${Usuarios.correo}"></th>
 								<th th:text="${Usuarios.roles}"></th>
-								<th><a th:if="${Usuarios.estado==false}"
-									th:href="@{/cambiarEstado/}+${Usuarios.nombreusuario}"
-									class="btn btn-success"><i class="fas fa-user"></i> Activar</a>
+								<th>
+									<a th:if="${Usuarios.estado==false}"
+									th:href="@{/cambiarEstado/}+${Usuarios.id}"
+									class="btn btn-success"><i class="fas fa-user"></i>
+										 Activar</a>
+									
 									<a th:if="${Usuarios.estado==true}"
-									th:href="@{/cambiarEstado/}+${Usuarios.nombreusuario}"
+									th:href="@{/cambiarEstado/}+${Usuarios.id}"
 									class="btn btn-danger"><i class="fas fa-user-alt-slash"></i>
-										Desactivar</a> <a th:onclick="desactivar([[${Usuarios.nombreusuario}]])"
+										Desactivar</a> 
+										
+										<a th:href="@{/editarusuario/}+${Usuarios.id}"
 									class="btn btn-info"><i class="fas fa-user-edit"></i>
 										Editar</a></th>
 
@@ -138,7 +141,8 @@
 		</div>
 	</div>
 	<script type="text/javascript" th:src="@{/backend/js/alerta.js}"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 

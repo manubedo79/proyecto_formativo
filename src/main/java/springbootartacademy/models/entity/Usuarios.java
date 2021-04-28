@@ -34,11 +34,11 @@ public class Usuarios implements UserDetails {
 
 	private Long id;
 
-	@NotBlank(message = "El campo contraseña es requerido")
+	
 	private String contraseña;
 
-	@NotBlank(message = "El campo correo es requerido")
-	@Email(message = "El valor no es un correo eléctrinico")
+	
+	
 	@Column(length = 50, nullable = false, unique = true)
 	private String correo;
 

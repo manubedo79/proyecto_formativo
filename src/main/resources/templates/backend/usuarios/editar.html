@@ -4,12 +4,6 @@
 <meta charset="utf-8">
 <title>Insert title here</title>
 </head>
-<style>
-  	.error{
-    	color: red;
-        font-style: italic;
-    }
-  </style>
 <body>
 <div class="content-wrapper" layout:fragment="contenido">
 
@@ -37,7 +31,7 @@
             </div>
           </div>    
           
-           <form  th:action="@{/guardarUsuario}"  th:object="${usuario}" method="post" id="registro">
+           <form  th:action="@{/guardarUsuario}"  th:object="${usuario}" method="post" id="editar">
            <input type="hidden" th:field="*{id}" th:value="${usuario.id}">
           <!-- /.card-header -->
           <div class="card-body">
@@ -46,7 +40,6 @@
                 <div class="form-group">
                   <label>Rol</label>
                   <select class="form-control select2" style="width: 100%;" th:field="*{roles}" >
-                  <option value="">Selecciona una opción </option>
                   <th:block th:each="rol:${roles}">
                     <option th:value="${rol.id}" th:text="${rol.nombre}"></option>
                    </th:block>
@@ -59,15 +52,8 @@
                 <div class="form-group">
                   <label>Correo</label>
                   <input type="text" class="form-control" th:field="*{correo}" >
-                
+                <small class="from-text text-danger" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></small>
                 </div>
-                <!-- /.form-group -->
-                <div class="form-group">
-                  <label>Contraseña</label>
-                  <input type="password" class="form-control" th:field="*{contraseña}">
-                                    
-              </div>
-                <!-- /.form-group -->
               </div>
               <!-- /.col -->
                 
@@ -91,8 +77,5 @@
 </div>
 
         <!-- /.card -->
-        
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-		
 </body>
 </html>
