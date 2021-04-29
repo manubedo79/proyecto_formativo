@@ -45,6 +45,11 @@
                   <input type="text" class="form-control"  th:field="*{nombrecategoria}">
                    <small class="form-text text-danger" th:if="${#fields.hasErrors('nombrecategoria')}" th:errors="*{nombrecategoria}"></small>
                 </div>
+                <div class="form-group">
+                  <label>Imagen de Categoria</label>
+                  <input type="file" name="imagenobra" id="fileImage" accept="image/png, image/jpeg" class="form-control"  ><br>
+                  <img id = "thumbnail" alt= "Imagen Previa" /> 
+                </div>
                 <!-- /.form-group -->
               </div>
               <!-- /.col -->

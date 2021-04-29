@@ -4,6 +4,11 @@
 <meta charset="utf-8">
 <title>Insert title here</title>
 </head>
+<style>
+  	.error{
+    	color: red;
+    }
+  </style>
 <body>
 <div class="content-wrapper" layout:fragment="contenido">
 
@@ -31,7 +36,7 @@
             </div>
           </div>    
           
-           <form  th:action="@{/guardarUsuario}"  th:object="${usuario}" method="post">
+           <form  th:action="@{/guardarUsuario}"  th:object="${usuario}" method="post" id="registro">
            <input type="hidden" th:field="*{id}" th:value="${usuario.id}">
           <!-- /.card-header -->
           <div class="card-body">
@@ -40,56 +45,49 @@
                 <div class="form-group">
                   <label>Rol</label>
                   <select class="form-control select2" style="width: 100%;" th:field="*{roles}" >
+                  <option value="">Selecciona una opción </option>
                   <th:block th:each="rol:${roles}">
                     <option th:value="${rol.id}" th:text="${rol.nombre}"></option>
                    </th:block>
                   </select>
+                  <small class="error"></small>
                 </div>
-                <!-- /.form-group -->
-                <div class="form-group">
-                  <label>Nombre Usuario</label>
-                <input type="text" class="form-control"  th:field="*{nombreusuario}">
-                <small class="from-text text-danger" th:if="${#fields.hasErrors('nombreusuario')}" th:errors="*{nombreusuario}"></small>
-                </div>
-                <!-- /.form-group -->
+                
               </div>
               <!-- /.col -->
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Correo</label>
                   <input type="text" class="form-control" th:field="*{correo}" >
-                <small class="from-text text-danger" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></small>
+                <small id="mensajerror" style="color: red;"></small>
                 </div>
                 <!-- /.form-group -->
-                <div class="form-group">
+                
+                <div class="form-group" th:if="${usuario.id == null}">
                   <label>Contraseña</label>
-                  <input type="password" class="form-control" th:field="*{contraseña}">
-                  <small class="from-text text-danger" th:if="${#fields.hasErrors('contraseña')}" th:errors="*{contraseña}"></small>
-                  </select>
+                  <input type="password" th:if="${usuario.id == null}"  class="form-control" th:field="*{contraseña}">
+                                    
               </div>
+              
                 <!-- /.form-group -->
               </div>
               <!-- /.col -->
                 
             </div>
             <!-- /.row -->
-            <button type="submit" class="btn btn-info" >Confirmar</button>
-            <div class="row">
-              
-              <!-- /.col -->
-            </div>
+            <button  type="submit" id="btnconfirmar" class="btn btn-info" >Confirmar</button>
+            
             <!-- /.row -->
           </div>
           </form>
         </div>
         
-         <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
+        
+</div>
+</section>
 </div>
 
-        <!-- /.card -->
+
+		
 </body>
 </html>

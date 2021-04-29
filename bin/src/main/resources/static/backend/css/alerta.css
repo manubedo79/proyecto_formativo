@@ -1,0 +1,151 @@
+body{
+overflow: hidden;
+	display: grid;
+}
+
+.alerta{
+background-color:#90F87C;
+padding: 20px 40px;
+min-width: 420px;
+position: absolute;
+right: 0;
+top: 10px;
+border-radius: 4px;
+border-left: 8px solid #08B81B; 
+overflow: hidden;
+}
+
+.alerta.show{
+	animation: show_slide 1s ease forwards;
+	
+}
+
+
+
+@keyframes show_slide{
+	0%{
+	transform: translateX(100%);
+	}
+	40%{
+	transform: translateX(-10%);
+	}
+	80%{
+	transform: translateX(0%);
+	}
+	100%{
+	transform: translateX(-10%);
+	}
+}
+
+.alerta.hiden{
+display: none;
+}
+
+.alerta .fas fa-check-circle{
+position: absolute;
+left: 20px;
+top:50%;
+transform:translateY(-50%);
+color:#08B81B;
+font-size:30px;
+}
+
+.alerta .msg{
+	padding: 0 20px;
+	font-size: 18px;
+	color: #03430A;
+} 
+
+.alerta .close-btn{
+	position: absolute;
+	padding: 20px 18px;
+	right: 0px;
+	top: 50%;
+	transform:translateY(-50%);
+	background: #21EF37;
+	cursor: pointer;
+}
+.close-btn:hover{
+	background: #1A7806;
+} 
+
+.close-btn .fa-times{
+	color:#03430A;
+	font-size: 22px;
+	line-height: 40px;
+	
+}
+
+
+.error{
+background-color:#FA4F4F;
+padding: 20px 40px;
+min-width: 420px;
+position: absolute;
+right: 0;
+top: 10px;
+border-radius: 4px;
+border-left: 8px solid #E00202; 
+overflow: hidden;
+}
+
+.error.show{
+	animation: show_slide 1s ease forwards;
+	
+}
+
+
+
+@keyframes show_slide{
+	0%{
+	transform: translateX(100%);
+	}
+	40%{
+	transform: translateX(-10%);
+	}
+	80%{
+	transform: translateX(0%);
+	}
+	100%{
+	transform: translateX(-10%);
+	}
+}
+
+.error.hiden{
+display: none;
+}
+
+.error .fas fa-exclamation-triangle{
+position: absolute;
+left: 20px;
+top:50%;
+transform:translateY(-50%);
+color:#FE0606;
+font-size:30px;
+}
+
+.error .msg{
+	padding: 0 20px;
+	font-size: 18px;
+	color: #8A1818;
+} 
+
+.error .close-btn{
+	position: absolute;
+	padding: 20px 18px;
+	right: 0px;
+	top: 50%;
+	transform:translateY(-50%);
+	background: #E00202;
+	cursor: pointer;
+}
+.close-btn:hover{
+	background: #E00202;
+} 
+
+.close-btn .fa-times{
+	color:#03430A;
+	font-size: 22px;
+	line-height: 40px;
+	
+}

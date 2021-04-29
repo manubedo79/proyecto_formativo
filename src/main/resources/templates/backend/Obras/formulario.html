@@ -2,7 +2,7 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="recursos/admin" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>Obras</title>
 </head>
 <body>
 <div class="content-wrapper" layout:fragment="contenido">
@@ -31,68 +31,71 @@
             </div>
           </div>    
           
-           <form enctype="multipart/form-data" th:action="@{/guardarobra}" method="post">
+           <form enctype="multipart/form-data" id="formularioobra" th:action="@{/guardarobra}" method="post">
            <input type="hidden" th:field="*{obra.id}" th:value="${obra.id}">
            <input type="hidden" th:field="*{caracteristica.id}" th:value="${caracteristica.id}">
           <!-- /.card-header -->
           <div class="card-body">
             <div class="row">
               <div class="col-md-6">
-              
                 <div class="form-group">
                   <label>Nombre de la Obra</label>
                   <input type="text" th:field="*{obra.nombre}" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label>Descripcion de la Obra</label>
-                  <textarea class="form-control" th:field="*{obra.descripcion}" rows="2" cols="2"></textarea>
-                <!-- /.form-group -->
+                <small id="mensajerror" style="color: red;"></small>
                 </div>
               <div class="form-group">
                   <label>Tamaño</label>
                   <input type="text" placeholder="Ancho x Alto en centimetros" class="form-control" th:field="*{caracteristica.tamaño}">
+	              <small id="mensajerror" style="color: red;"></small>
               </div>
                 <div class="form-group">
                   <label>Stock</label>
-                  <input type="number"min=0 class="form-control" th:field="*{caracteristica.stock}">
+                  <input type="number" class="form-control" th:field="*{caracteristica.stock}">
+	              <small id="mensajerror" style="color: red;"></small>
               </div>             
                 <div class="form-group">
                   <label>Categoria</label>
 					<select class="form-control select2" style="width: 100%;" th:field="*{obra.categoria}" >
+                    	<option value="">Ninguna</option>
                     	<th:block th:each="categori:${categoria}">
                     	<option th:value="${categori.id}" th:text="${categori.nombrecategoria}"></option>
                    		</th:block>
                   	</select>
               </div>
-                          <button type="submit" class="btn btn-info" >Confirmar</button>
+                <div class="form-group">
+                  <label>Descripcion de la Obra</label>
+                  <textarea class="form-control" th:field="*{obra.descripcion}" rows="4" cols="2"></textarea>
+	              <small id="mensajerror" style="color: red;"></small>
+                <!-- /.form-group -->
+                </div>
 
               </div>
               <!-- /.col -->
               <div class="col-md-6">
                 <!-- /.form-group -->
                 <div class="form-group">
-                  <label>Precio de Obra</label>
-                  <input type="number"min=0 class="form-control" th:field="*{obra.precio}">
-              </div>
-                <div class="form-group">
                   <label>Precio de Caracteristica</label>
                   <input type="number"min=0 class="form-control" th:field="*{caracteristica.precio}">
+	              <small id="mensajerror" style="color: red;"></small>
               </div>
                 <div class="form-group">
                   <label>Imagen de Obra Principal</label>
-                  <input type="file" name="imagenobra" id="fileImage" accept="image/png, image/jpeg" class="form-control"  ><br>
-                  
+                  <input type="file" name="imagenobra" id="fileImage" accept="image/png, image/jpeg" class="form-control"  >
+	              <small id="mensajerror" style="color: red;"></small>                  
               </div> 
                 <div class="form-group">
                   <label>Imagen de Obra Secundaria</label>
-                  <input type="file" name="imagenobra2" id="fileImage" accept="image/png, image/jpeg" class="form-control"  ><br>
-                  
+                  <input type="file" name="imagenobra2" id="fileImage" accept="image/png, image/jpeg" class="form-control"  >
+	              <small id="mensajerror" style="color: red;"></small>                  
               </div>
                 <div class="form-group">
                   <label>Imagen de Obra Terciaria</label>
-                  <input type="file" name="imagenobra3" id="fileImage" accept="image/png, image/jpeg" class="form-control"  ><br>
-                  
-              </div>
+                  <input type="file" name="imagenobra3" id="fileImage" accept="image/png, image/jpeg" class="form-control"  >
+	              <small id="mensajerror" style="color: red;"></small>
+              	</div><br><br><br>
+                <div class="text-center">
+           			<button type="submit" class="btn btn-info" >Confirmar</button>
+              	</div>
               </div>
             </div>
           </div>

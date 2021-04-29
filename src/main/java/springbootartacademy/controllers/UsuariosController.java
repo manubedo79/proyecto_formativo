@@ -87,7 +87,6 @@ public String registro( Model model) {
 public String guardarUsuario (@ModelAttribute() Usuarios usuario , RedirectAttributes flash, Model model) {
 	
 	
-	
 	flash.addFlashAttribute("success", "Se guardo el usuario correctamente");
 	service.saveNewUsuarios(usuario);
 	return "redirect:/ListaUsuarios";
