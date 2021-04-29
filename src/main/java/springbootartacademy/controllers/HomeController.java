@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,7 +38,8 @@ public String error403() {
 }
 @GetMapping("/inicio")
 public ModelAndView inicio() {
-	return obrastodaspagina(1);
+	String busqueda=null;
+	return obrastodaspagina(1,busqueda);
 }
 @GetMapping(value = "/imagenes/{filename:.+}")
 public ResponseEntity<Resource> verFotoObras(@PathVariable String filename) {
@@ -55,8 +55,8 @@ public ResponseEntity<Resource> verFotoObras(@PathVariable String filename) {
 }
 
 @GetMapping("/obrastodaspagina/{numeropagina}")
-public ModelAndView obrastodaspagina(@PathVariable("numeropagina") int currentPage) {
-	Page<Obras> page = servicioobras.ListarObrasTodas(currentPage);
+public ModelAndView obrastodaspagina(@PathVariable("numeropagina") int currentPage,String busqueda) {
+	Page<Obras> page = servicioobras.ListarObrasTodas(currentPage,busqueda);
 	long totalItems = page.getTotalElements();
 	int totalpages = page.getTotalPages();
 	List<Obras> listaObras = page.getContent();

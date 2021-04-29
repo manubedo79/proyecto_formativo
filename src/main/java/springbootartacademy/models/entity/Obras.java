@@ -2,7 +2,7 @@ package springbootartacademy.models.entity;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,6 +29,8 @@ public class Obras {
 	@Column(length = 50, nullable = true)
 	private String descripcion;
 
+	private boolean estado;
+	
 	@Temporal(TemporalType.DATE)
 	private Date fechacreacion;
 
@@ -145,6 +147,13 @@ public class Obras {
 		return "imagenes/"+id+"/"+rutaimagen_3;
 	}
 
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
 	
 	
 

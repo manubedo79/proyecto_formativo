@@ -11,6 +11,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,7 +25,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.lowagie.text.DocumentException;
 
 import springbootartacademy.models.entity.Categorias;
-import springbootartacademy.models.entity.Clientes;
 import springbootartacademy.models.entity.Obras;
 import springbootartacademy.models.service.ICategoriasService;
 import springbootartacademy.models.service.IObrasService;
@@ -123,11 +123,15 @@ public class CategoriasController {
 	@GetMapping("/verCategoria/{id}")
 	public ModelAndView detallacliente(@PathVariable("id") Long id) {
 		Categorias cate = cateservice.findbyIdCategoria(id);
-		List <Obras> obr = obrasService.findAll();
+		List <Obras> obr = obrasService.findAllObras();
 		ModelAndView mav = new ModelAndView("frontend/categorias/verCategoria");
 		mav.addObject("categoria", cate);
 		mav.addObject("obras", obr);
 		return mav;
 	}
+	
 
+	
 }
+
+

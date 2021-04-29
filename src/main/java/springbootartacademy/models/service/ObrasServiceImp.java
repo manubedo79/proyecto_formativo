@@ -45,17 +45,11 @@ public class ObrasServiceImp implements IObrasService {
 	
 	
 	@Override
-	public List<Obras> findAll() {
+	public List<Obras> findAllObras() {
 		return (List<Obras>)obrdao.findAll();
 	}
 
 	
-	@Override
-	public Page<Obras> ListarObrasTodas(int pageNumber) {
-		Pageable pageable = PageRequest.of(pageNumber - 1, 12);
-		
-		return obrdao.findAll(pageable) ;
-	}
 	@Override
 	public Page<Obras> findAllcategoriaobras(Long id, int pageNumber) {
 Pageable pageable = PageRequest.of(pageNumber - 1, 12);
@@ -64,6 +58,31 @@ Pageable pageable = PageRequest.of(pageNumber - 1, 12);
 		
 	}
 
+	@Override
+	public boolean cambioEstado(Long id) {
+		Obras findbyid= obrdao.findById(id).orElse(null);
+		if(findbyid==null) {
+			return false;
+		}
+		else {
+			if(findbyid.isEstado()) {
+				obrdao.actualizaestado(false,findbyid.getId());
+			}
+			else {
+				obrdao.actualizaestado(true,findbyid.getId());
+			}
+			return true;
+		}
+		
+	}
+	@Override
+	public Page<Obras> ListarObrasTodas(int pageNumber,String busqueda) {
+		 Pageable pageable = PageRequest.of(pageNumber - 1, 12 );
+		if(busqueda!=null) {
+			 return obrdao.findAll(busqueda, pageable);
+		}
+		 return obrdao.findAll(pageable);
+	}
 
 
 }
