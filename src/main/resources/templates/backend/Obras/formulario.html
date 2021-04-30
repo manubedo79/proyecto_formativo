@@ -56,7 +56,11 @@
                 <div class="form-group">
                   <label>Categoria</label>
 					<select class="form-control select2" style="width: 100%;" th:field="*{obra.categoria}" >
+<<<<<<< HEAD
                     	<option value="">Seleccione una categoria</option>
+=======
+                    	<option value="">Ninguna</option>
+>>>>>>> 7f31c6f5053237ff96a3f07971ad27446c149638
                     	<th:block th:each="categori:${categoria}">
                     	<option th:value="${categori.id}" th:text="${categori.nombrecategoria}"></option>
                    		</th:block>
@@ -93,11 +97,17 @@
                   <input type="file" name="imagenobra3" id="fileImage" accept="image/png, image/jpeg" class="form-control"  >
 	              <small id="mensajerror" style="color: red;"></small>
               	</div><br><br><br>
+<<<<<<< HEAD
               
                 <div class="my-4">
            			<button type="submit" class="btn btn-info" >Confirmar</button>
               	</div>
               	
+=======
+                <div class="text-center">
+           			<button type="submit" class="btn btn-info" >Confirmar</button>
+              	</div>
+>>>>>>> 7f31c6f5053237ff96a3f07971ad27446c149638
               </div>
             </div>
           </div>

@@ -18,8 +18,12 @@ $(function(){
 	
 });
 		
+<<<<<<< HEAD
 		
 	$(function(){
+=======
+$(function(){
+>>>>>>> 7f31c6f5053237ff96a3f07971ad27446c149638
 	$('form[id="formularioobra"]').validate({
 		rules:{
 			nombre: 'required',
@@ -44,5 +48,9 @@ $(function(){
 	}
 	});
 	
+<<<<<<< HEAD
 });	
 		
+=======
+});
+>>>>>>> 7f31c6f5053237ff96a3f07971ad27446c149638

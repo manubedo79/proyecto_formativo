@@ -14,11 +14,11 @@
 		<div class="card">
 		
 			<div class="card-header border-transparent">
-			<div class="container">		
-   <div th:if="${success != null}" class="alert alert-success alert-dismissible fade show" role="alert">
- <span th:text="${success}" ></span>
-  
-</div>
+			<div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${info!=null}">
+  <span><i class="fas fa-check-circle"></i></span> [[${info}]]
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
 			
 					<form class="float-right" th:action="@{/pageCliente/1}" style="display: inline;">
@@ -50,7 +50,6 @@
 
 						<tbody>
 							<tr th:each=" Clientes : ${ListaClie}">
-								<th th:text="${Clientes.nombre}"></th>
 								<th th:text="${Clientes.apellido}"></th>
 		                      	<th><a th:href="@{/detallaCliente/}+${Clientes.id}" class="btn btn-success"><i class="far fa-eye"></i> Detalle</a>
                       			<a th:href="@{/editarcliente/} + ${Clientes.id}" class="btn btn-info"><i class="fas fa-user-edit"></i> Editar</a></th>

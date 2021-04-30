@@ -64,7 +64,13 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             <span class="clearfix d-none d-sm-inline-block"> Carrito </span>
           </a>
         </li>
-        <li class="nav-item" sec:authorize="isAuthenticated()">
+        <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
+          <a class="nav-link waves-effect" href="carrito.html">
+          <i class="fas fa-user-cog"></i>
+            <span class="clearfix d-none d-sm-inline-block"> ADMIN </span>
+          </a>
+        </li>
+        <li class="nav-item"  sec:authorize="hasAnyAuthority('CLIENTE')">
           <a href="Login.html" class="nav-link waves-effect" >
             <i class="fas fa-user"></i>
             <span class="clearfix d-none d-sm-inline-block"> Mi Cuenta </span>
@@ -76,16 +82,19 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             <span class="clearfix d-none d-sm-inline-block" > Iniciar sesión </span>
           </a>
         </li>
-          <li class="nav-item" sec:authorize="isAuthenticated()">
+          <li class="nav-item" sec:authorize="hasAnyAuthority('CLIENTE')">
           <div class="nav-link" >
-            <span class="clearfix d-none d-sm-inline-block" sec:authentication="name"></span>
+            <span class="clearfix d-none d-sm-inline-block">[[${#request.userPrincipal.principal.fullname}]] </span>
           </div>
         </li>
-         <li class="nav-item" sec:authorize="isAuthenticated()">
-          <a href="Login.html" class="nav-link waves-effect" >
+         <li class="nav-item" sec:authorize="hasAnyAuthority('CLIENTE')">
+         <form th:action="@{/logout}" id="logoutform" method="post">
+         <button class="nav-link waves-effect" 
+         onclick="document.getElementById('logoutform').submit();" type="submit">
             <i class="fas fa-sign-out-alt"></i>
-            <span class="clearfix d-none d-sm-inline-block"> Cerrar sesión </span>
-          </a>
+            <span class="clearfix d-none d-sm-inline-block"> Cerrar sesión </span></button>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+          </form>
         </li>
         <li class="nav-item " sec:authorize="!isAuthenticated()">
           <a href="Registrar.html" class="nav-link waves-effect" >
@@ -93,6 +102,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             <span class="clearfix d-none d-sm-inline-block blue-text"> Registrarse </span>
           </a>
         </li> 
+        
       </ul>
 
     </div>

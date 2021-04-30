@@ -85,7 +85,10 @@ public class Obras {
 		this.fechacreacion = fechacreacion;
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7f31c6f5053237ff96a3f07971ad27446c149638
 	public Categorias getCategoria() {
 		return categoria;
 	}

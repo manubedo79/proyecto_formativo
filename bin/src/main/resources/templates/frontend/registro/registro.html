@@ -3,71 +3,159 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="recursos/navbar::head">
+<head>
 <meta charset="UTF-8">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" th:href="@{/frontend/acount/images/icons/favicon.ico}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" th:href="@{/frontend/acount/vendor/bootstrap/css/bootstrap.min.css}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" th:href="@{/frontend/acount/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" th:href="@{/frontend/acount/fonts/Linearicons-Free-v1.0.0/icon-font.min.css}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" th:href="@{/frontend/acount/vendor/animate/animate.css}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" th:href="@{/frontend/acount/vendor/css-hamburgers/hamburgers.min.css}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" th:href="@{/frontend/acount/vendor/animsition/css/animsition.min.css}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" th:href="@{/frontend/acount/vendor/select2/select2.min.css}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" th:href="@{/frontend/acount/vendor/daterangepicker/daterangepicker.css}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" th:href="@{/frontend/acount/css/util.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/frontend/acount/css/main.css}">
+<!--===============================================================================================-->
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
-<style>
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #17a2b8;
-  height: 100vh;
-}
-#login .container #login-row #login-column #login-box {
-  margin-top: 70px;
-  max-width: 600px;
-  height: 420px;
-  border: 1px solid #9C9C9C;
-  background-color: #EAEAEA;
-}
-#login .container #login-row #login-column #login-box #login-form {
-  padding: 20px;
-}
-#login .container #login-row #login-column #login-box #login-form #register-link {
-  margin-top: -99px;
-  position:relative;
-  right: 40px;
-}
-#login .container #login-row #login-column #login-box #login-form #google {
-  margin-top: 4px;
-  
-}
-</style>
-<body>
- <div id="login">
-        <h3 class="text-center text-white pt-5"> <img  th:src="@{/frontend/img/logo.png}" width="60" style="border-radius: 6px"> Formulario de registro</h3>
-        <div class="container">
-            <div id="login-row" class="row justify-content-center align-items-center">
-                <div id="login-column" class="col-md-6">
-                    <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" th:action="@{/creandoregistro}" th:object="${usuario}" method="post">
-                            <h3 class="text-center text-info">Registro</h3>
-                            <div class="form-group">
-                                <label for="username" class="text-info">Nombre de usuario:</label><br>
-                                <input type="text"  th:field="*{nombreusuario}" class="form-control" placeholder="JuanitoPerez98">
-                            </div>
-                             <div class="form-group">
-                                <label for="username" class="text-info">Correo eléctronoco:</label><br>
-                                <input type="text" th:field="*{correo}" class="form-control" placeholder="juanito@gmail.com ">
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="text-info">Contraseña:</label><br>
-                                <input type="password" th:field="*{contraseña}" class="form-control" placeholder="********">
-                            </div>
-                            <div class="form-group">
-                                <label for="remember-me" class="text-info"><span>Iniciar sesión</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-                                <button type="submit"  class="btn btn-success btn-md" ><i class="fas fa-sign-in-alt"></i> siguente</button>
-                            </div>
-                            
-                            
-                           
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
+<body style="background-color: #666666;">
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form"  th:action="@{/creandoregistro}" method="post">
+					
+					<span class="login100-form-title p-b-43">
+					<i class="fas fa-user-plus"></i>
+						Formulario de registro
+					</span>
+					
+					
+					<div class="wrap-input100 validate-input" data-validate = "El nombre es requerido">
+						<input class="input100" type="text" th:field="*{cliente.nombre}">
+						<span class="focus-input100"></span>
+						<span class="label-input100"><i class="fas fa-user"></i> Nombre(s)</span>
+					</div>
+					
+					
+					<div class="wrap-input100 validate-input" data-validate="El apellido es requerido">
+						<input class="input100" type="text" th:field="*{cliente.apellido}">
+						<span class="focus-input100"></span>
+						<span class="label-input100"><i class="fas fa-user"></i> Apellido(s)</span>
+					</div>
+						
+					<div class="wrap-input100 validate-input" data-validate="La dirección es requerida">
+						<input class="input100" type="text" th:field="*{cliente.direccion}">
+						<span class="focus-input100"></span>
+						<span class="label-input100"><i class="fas fa-directions"></i> Dirección</span>
+					</div>
+						
+					<div class="wrap-input100 validate-input" data-validate="El teléfono es requerido">
+						<input class="input100" type="text" th:field="*{cliente.telefono}">
+						<span class="focus-input100"></span>
+						<span class="label-input100"><i class="fas fa-phone-alt"></i> Teléfono</span>
+					</div>
+					
+					<div class="wrap-input100">
+						<select onchange="cargar_municipios(this)" class="select-2" data-validate="El departamneto es requerido">
+						<option class="input100"> Seleccione el departamento</option>
+						<option th:each="departamento : ${departamentos}" th:text="${departamento.nombredepartamento}" th:value="${departamento.id}"></option>
+						</select>
+					</div>
+					
+					<div class="wrap-input100">
+						<select id="municipios" class="select-2" data-validate="El municipio es requerido" th:field="*{cliente.municipios}">
+						<option class="input100" value=""> Seleccione el municipio</option>
+						
+						</select>
+					</div>
+					
+					<div class="wrap-input100 validate-input" data-validate = "El correo es requerido">
+						<input class="input100" type="text" th:field="*{usuario.correo}">
+						<span class="focus-input100"></span>
+						<span class="label-input100"><i class="far fa-envelope"></i> Correo elétronico</span>
+					</div>
+					
+					
+					<div class="wrap-input100 validate-input" data-validate="La contraseña es requerida">
+						<input class="input100" type="password" th:field="*{usuario.contraseña}">
+						<span class="focus-input100"></span>
+						<span class="label-input100"><i class="fas fa-key"></i> Contraseña</span>
+					</div>
+					
+					<div class="flex-sb-m w-full p-t-3 p-b-32">
+						<div class="contact100-form-checkbox">
+							<a class="txt1" for="ckb1">
+								¿Ya tienes Cuenta? Entrar
+							</a>
+						</div>
+
+						
+					</div>
+			
+
+					<div class="container-login100-form-btn">
+						<input class="login100-form-btn" type="submit" value="Registrar">
+						
+					</div>
+				</form>
+
+				<div class="login100-more" style="background-image: url('frontend/acount/images/1.png');">
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+
+	
+	
+<!--===============================================================================================-->
+	<script th:src="@{/frontend/acount/vendor/jquery/jquery-3.2.1.min.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{/frontend/acount/vendor/animsition/js/animsition.min.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{/frontend/acount/vendor/bootstrap/js/popper.js}"></script>
+	<script th:src="@{/frontend/acount/vendor/bootstrap/js/bootstrap.min.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{/frontend/acount/vendor/select2/select2.min.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{/frontend/acount/vendor/daterangepicker/moment.min.js}"></script>
+	<script th:src="@{/frontend/acount/vendor/daterangepicker/daterangepicker.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{/frontend/acount/vendor/countdowntime/countdowntime.js}"></script>
+<!--===============================================================================================-->
+	<script th:src="@{/frontend/acount/js/main.js}"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
+<!--===============================================================================================-->
+	<script type="text/javascript">
+	
+	
+	function cargar_municipios(e){
+		$("#municipios").html('<option class="input100"> Seleccione el municipio</option>');
+		let id = $(e).val();
+		$.ajax({
+			url: '/obtener/municipios/'+id,
+			type: 'GET',
+			dataType: 'json'
+		}).done(respuesta => {
+			respuesta.map(e => $("#municipios").append(`<option value="${e.id}">${e.nombremunicipio}</option>`))
+		}).fail(error => console.log(error))
+	}
+	</script>
 </body>
 </html>

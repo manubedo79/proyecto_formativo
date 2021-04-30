@@ -11,7 +11,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-          <h1 class="text-center"><i class="fas fa-users"></i> Crear/Editar Usuario</h1>
+          <h1 class="text-center"><i class="fas fa-users"></i> Crear/Editar Cliente</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -42,11 +42,13 @@
                 <div class="form-group">
                   <label>Nombre</label>
                   <input type="text" th:field="*{nombre}" class="form-control">
+                <small class="from-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Apellido(s)</label>
                   <input type="text" class="form-control"  th:field="*{apellido}">
+                <small class="from-text text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small>
                 </div>
                 <!-- /.form-group -->
               </div>
@@ -55,11 +57,13 @@
                 <div class="form-group">
                   <label>Dirección</label>
                   <input type="text" class="form-control" th:field="*{direccion}">
+                <small class="from-text text-danger" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></small>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Telefono</label>
                   <input type="text" class="form-control" th:field="*{telefono}">
+                <small class="from-text text-danger" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></small>
                   </select>
               </div>
                 <!-- /.form-group -->
@@ -78,11 +82,7 @@
           </form>
         </div>
         
-         <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
+   
 </div>
 
    </section>
