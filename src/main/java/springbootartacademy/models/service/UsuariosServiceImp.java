@@ -165,6 +165,7 @@ public class UsuariosServiceImp implements IUsuariosService {
 	cliedao.save(clientes);
 		
 	}
+	
 	@Override
 	public void updatepassword(Usuarios usuarios) {
 		usudao.save(usuarios);
@@ -198,7 +199,16 @@ public class UsuariosServiceImp implements IUsuariosService {
 		Usuarios usuariobycorreo=usudao.getCorreoUsuario(correo);
 		return usuariobycorreo==null;
 	}
+
+
+
+	@Override
+	public void guardopassword(Usuarios usuarios) {
+		usudao.save(usuarios);
+		
+	}
 	   
+	
 
 
 }

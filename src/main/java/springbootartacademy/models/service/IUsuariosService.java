@@ -30,4 +30,5 @@ public Page<Usuarios> ListarUsuariosTodos(int pageNumber,String busqueda);
 public boolean iscorreounique(String correo);
 public void edituser(Usuarios usuarios);
 public void updatepassword(Usuarios usuarios);
+public void guardopassword(Usuarios usuarios);
 }

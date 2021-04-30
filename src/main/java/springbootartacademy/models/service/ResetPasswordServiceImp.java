@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import springbootartacademy.models.entity.Usuarios;
 import springbootartacademy.utils.UsersNotFoundException;
+import springbootartacademy.utils.Utilidad;
 @Service
 public class ResetPasswordServiceImp  implements IResetPasswordService{
 	@Autowired
@@ -42,7 +43,7 @@ public class ResetPasswordServiceImp  implements IResetPasswordService{
 		Usuarios usuarios = ususer.findByCorreo(correo);
 		if(usuarios !=null) {
 			usuarios.setResetPasswordToken(token);
-			ususer.saveNewUsuarios(usuarios);			
+			ususer.guardopassword(usuarios);			
 		}else {
 			throw new UsersNotFoundException("El correo " +correo+" no está registrado");
 		}
@@ -58,11 +59,9 @@ public class ResetPasswordServiceImp  implements IResetPasswordService{
 
 
 	public void updatenuevaContraseña(Usuarios usuarios, String nuevaContraseña) {
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String encodePassword = encoder.encode(nuevaContraseña);
-		usuarios.setContraseña(encodePassword);
+		usuarios.setContraseña(Utilidad.passwordencode().encode(nuevaContraseña));
 		usuarios.setResetPasswordToken(null);
-		ususer.saveNewUsuarios(usuarios);
+		ususer.updatepassword(usuarios);
 		
 	}
 	
