@@ -173,6 +173,7 @@ public String guardarpassword(@ModelAttribute("usuario") Usuarios usuarios,
 	idetailsimp.authenticateUser(currentUser.getUsername());
 	return "redirect:/miperfil";
 	}
+
 @GetMapping("/editarusuario/{id}")
 public String editarusuario(Model model, @PathVariable(name="id")Long id) {
 	Usuarios usuarios = service.findById(id);
@@ -191,4 +192,5 @@ public @ResponseBody String checkEmailUnique(HttpServletRequest  request, Model 
 	String email = request.getParameter("correo");
 	return service.findbyCorreo(email);
 }
+
 }

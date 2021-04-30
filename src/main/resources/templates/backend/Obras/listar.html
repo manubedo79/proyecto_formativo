@@ -50,8 +50,8 @@
 							<tr>
 								<th>Imagen </th>
 								<th>Nombre</th>
-								<th>Precio</th>
 								<th>Estado</th>
+								<th>Opciones</th>
 							</tr>
 						</thead>
 
@@ -60,7 +60,7 @@
 								<th><img  th:if="${#strings.length(Obras.rutaimagen_principal)>0}" width="230"  th:src="@{'/imagenes/'+${Obras.rutaimagen_principal}}"
      							   alt="Card image cap"></th>
 								<th th:text="${Obras.nombre}"></th>
-								<th th:text="${Obras.precio}"></th>
+								<th th:text="${Obras.estado==true?'Activo':'Inativo'}"></th>
 								<th>
 									<a th:if="${Obras.estado==false}"
 									th:href="@{/cambiarEstadoobras/}+${Obras.id}"
@@ -71,6 +71,10 @@
 									th:href="@{/cambiarEstadoobras/}+${Obras.id}"
 									class="btn btn-danger"><i class="fas fa-user-alt-slash"></i>
 										Desactivar</a> 
+										
+										<a th:href="@{/editarobras/}+${Obras.id}"
+									class="btn btn-info"><i class="fas fa-user-edit"></i>
+										Editar</a>
 									</th>
 
 							</tr>

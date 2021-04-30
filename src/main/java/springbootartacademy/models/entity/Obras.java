@@ -34,9 +34,6 @@ public class Obras {
 	@Temporal(TemporalType.DATE)
 	private Date fechacreacion;
 
-	@Column(length = 13, nullable = false)
-	private Float precio;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categorias_id")
 	private Categorias categoria;
@@ -88,13 +85,6 @@ public class Obras {
 		this.fechacreacion = fechacreacion;
 	}
 
-	public Float getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(Float precio) {
-		this.precio = precio;
-	}
 
 	public Categorias getCategoria() {
 		return categoria;

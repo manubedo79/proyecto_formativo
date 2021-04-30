@@ -48,6 +48,7 @@
 							<tr>
 								<th>Correo</th>
 								<th>Rol</th>
+								<th>Estado</th>
 								<th>Opciones</th>
 							</tr>
 						</thead>
@@ -56,6 +57,7 @@
 							<tr th:each=" Usuarios : ${ListaUsu}">
 								<th th:text="${Usuarios.correo}"></th>
 								<th th:text="${Usuarios.roles}"></th>
+								<th th:text="${Usuarios.estado==true?'Activo':'Inativo'}"></th>
 								<th>
 									<a th:if="${Usuarios.estado==false}"
 									th:href="@{/cambiarEstado/}+${Usuarios.id}"

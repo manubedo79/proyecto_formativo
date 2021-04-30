@@ -89,11 +89,13 @@ public class ObrasController {
 		return "redirect:/ListaObras";
 	}
 	
-	/*@PostMappings("/editarobras/{id}")
+	@GetMapping("/editarobras/{id}")
 	public String editar (@PathVariable(value="id") Long id, Model model) {
-		Optional<Obras>obras=servicioobras.listarid(id);
-		return "form"
-	}*/
+		Obras obra=servicioobras.findbyId(id);
+		model.addAttribute("obra", obra);
+		model.addAttribute("categoria",serviciocategorias.findAllUsers());
+		return "backend/Obras/editar";
+	}
 	
 	@GetMapping("/ListaObras")
 	public ModelAndView ListaObrasTodos() {
