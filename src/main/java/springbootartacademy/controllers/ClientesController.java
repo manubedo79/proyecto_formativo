@@ -122,11 +122,7 @@ public class ClientesController {
 		return "backend/Clientes/formulario";
 	}
 	@PostMapping("/guardarcliente")
-	public String guardarCliente(@Valid @ModelAttribute("cliente") Clientes clientes, BindingResult result, RedirectAttributes flash) {
-		if(result.hasErrors()) 
-		{
-			return "backend/Clientes/formulario";
-		}
+	public String guardarCliente(@ModelAttribute() Clientes clientes , RedirectAttributes flash, Model model) {
 		CliService.saveClientes(clientes);
 		flash.addFlashAttribute("success", "Se edito de forma correcta el cliente");
 		return "redirect:/listaClientes";	

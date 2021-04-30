@@ -19,14 +19,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lowagie.text.DocumentException;
 
+import springbootartacademy.models.entity.Caracteristicas;
 import springbootartacademy.models.entity.Categorias;
 import springbootartacademy.models.entity.Obras;
 import springbootartacademy.models.service.ICategoriasService;
+import springbootartacademy.models.service.IFileService;
 import springbootartacademy.models.service.IObrasService;
 
 @Controller
@@ -36,7 +40,9 @@ public class CategoriasController {
 	private ICategoriasService cateservice;
 	@Autowired
 	private IObrasService obrasService;
-	
+	@Autowired
+	private IFileService ifileser;
+
 	@GetMapping("/listarCategorias")
 	public ModelAndView ListaCategoriasTodos() {
 		return listBypage(1);
@@ -82,16 +88,13 @@ public class CategoriasController {
 		return "backend/Categorias/formulario";
 	}
 	@PostMapping("/guardarcategoria")
-	public String guardarCategoria(@Valid @ModelAttribute("categoria")Categorias categoria, BindingResult result, RedirectAttributes flash) {
-		if(result.hasErrors()) {
-			return "backend/Categorias/formulario"; 
-		}
+	public String guardarCategoria(@ModelAttribute("categoria")Categorias categoria, BindingResult result, RedirectAttributes flash) {
 		String mensaje = (categoria.getId() != null) ? "Se edito de forma correcta la categoria" : "Se guardo de forma correcta la categoria";
-		cateservice.guardarCategorias(categoria);
-		
+		cateservice.guardarCategorias(categoria);		
 		flash.addFlashAttribute("info", mensaje);
 		return "redirect:/listarCategorias";
 	}
+
 	@GetMapping("/editarcategoria/{id}")
 	public String editarcategoria(@PathVariable(name="id")Long id, Model model) {
 		Categorias categorias = cateservice.findbyIdCategoria(id);

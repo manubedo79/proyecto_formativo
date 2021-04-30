@@ -31,7 +31,7 @@
             </div>
           </div>    
           
-           <form th:action="@{/guardarcliente}"  th:object="${cliente}" method="post">
+           <form th:action="@{/guardarcliente}" id="formulariocliente" th:object="${cliente}" method="post">
            <input type="hidden" th:field="*{id}" th:value="${cliente.id}">
            <input type="hidden" th:field="*{usuarios}" th:value="${cliente.usuarios.id}">
            <input type="hidden" th:field="*{municipios}" th:value="${cliente.municipios.id}">
@@ -42,13 +42,13 @@
                 <div class="form-group">
                   <label>Nombre</label>
                   <input type="text" th:field="*{nombre}" class="form-control">
-                <small class="from-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+                <small id="mensajerror" style="color: red;"></small>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Apellido(s)</label>
                   <input type="text" class="form-control"  th:field="*{apellido}">
-                <small class="from-text text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small>
+                <small id="mensajerror" style="color: red;"></small>
                 </div>
                 <!-- /.form-group -->
               </div>
@@ -57,13 +57,13 @@
                 <div class="form-group">
                   <label>Dirección</label>
                   <input type="text" class="form-control" th:field="*{direccion}">
-                <small class="from-text text-danger" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></small>
+                <small id="mensajerror" style="color: red;"></small>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Telefono</label>
                   <input type="text" class="form-control" th:field="*{telefono}">
-                <small class="from-text text-danger" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></small>
+                <small id="mensajerror" style="color: red;"></small>
                   </select>
               </div>
                 <!-- /.form-group -->
@@ -81,12 +81,8 @@
           </div>
           </form>
         </div>
-        
-   
 </div>
-
    </section>
    </div>
-       <!-- /.card -->
 </body>
 </html>

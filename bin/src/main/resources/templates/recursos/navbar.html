@@ -50,10 +50,11 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
         </li>
       </ul>
       <!-- Search form -->
-      <form class="form-inline">
+      <form th:action="@{/obrastodaspagina/1}" method="get" class="form-inline">
         <i class="fas fa-search" aria-hidden="true"></i>
-        <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
+        <input name="busqueda"  class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
           aria-label="Search">
+          <button type="submit">Buscar</button>
       </form>
       <!-- Right -->
       <ul class="navbar-nav nav-flex-icons">
@@ -71,13 +72,13 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
           </a>
         </li>
         <li class="nav-item"  sec:authorize="hasAnyAuthority('CLIENTE')">
-          <a href="Login.html" class="nav-link waves-effect" >
+          <a  class="nav-link waves-effect" >
             <i class="fas fa-user"></i>
             <span class="clearfix d-none d-sm-inline-block"> Mi Cuenta </span>
           </a>
         </li>
          <li class="nav-item" sec:authorize="!isAuthenticated()">
-          <a href="Login.html" class="nav-link waves-effect" >
+          <a th:href="@{/login}" class="nav-link waves-effect" >
             <i class="fas fa-user"></i>
             <span class="clearfix d-none d-sm-inline-block" > Iniciar sesión </span>
           </a>

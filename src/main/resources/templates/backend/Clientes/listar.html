@@ -50,6 +50,7 @@
 
 						<tbody>
 							<tr th:each=" Clientes : ${ListaClie}">
+								<th th:text="${Clientes.nombre}"></th>
 								<th th:text="${Clientes.apellido}"></th>
 		                      	<th><a th:href="@{/detallaCliente/}+${Clientes.id}" class="btn btn-success"><i class="far fa-eye"></i> Detalle</a>
                       			<a th:href="@{/editarcliente/} + ${Clientes.id}" class="btn btn-info"><i class="fas fa-user-edit"></i> Editar</a></th>

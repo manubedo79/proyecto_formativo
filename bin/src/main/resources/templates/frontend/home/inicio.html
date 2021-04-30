@@ -147,10 +147,9 @@
     <div class="card-body">
 
       <!--Title-->
-      <h4 class="card-title"  th:text="${obras.nombre}"></h4>
+      <h4 class="card-title text-center"  th:text="${obras.nombre}"></h4>
       <!--Text-->
-      <p class="card-text" th:text="${obras.precio}">
-        content.</p>
+      <p class="card-text">[[${obras.descripcion}]]</p>
       <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
       <a href="Detalle.html"  class="btn btn-default  btn-block">!Lo Quiero</a>
 

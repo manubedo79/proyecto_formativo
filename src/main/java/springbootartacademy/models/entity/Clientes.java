@@ -18,19 +18,15 @@ public class Clientes {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank(message="El campo nombre es requerido")
 	@Column(length = 50, nullable = false)
 	private String nombre;
 	
-	@NotBlank(message="El campo apellido es requerido")
 	@Column(length = 50, nullable = false)
 	private String apellido;
 
-	@NotBlank(message="El campo direccion es requerido")
 	@Column(length = 50, nullable = false)
 	private String direccion;
 
-	@NotBlank(message="El campo telefono es requerido")
 	@Column(length = 13, nullable = false)
 	private String telefono;
 

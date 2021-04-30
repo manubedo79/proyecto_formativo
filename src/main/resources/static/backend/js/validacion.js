@@ -17,13 +17,28 @@ $(function(){
 	});
 	
 });
-		
-<<<<<<< HEAD
-		
-	$(function(){
-=======
 $(function(){
->>>>>>> 7f31c6f5053237ff96a3f07971ad27446c149638
+	$('form[id="formulariocliente"]').validate({
+		rules:{
+			nombre: 'required',
+			apellido : 'required',
+			direccion: 'required',
+			telefono: 'required'			
+		},
+	 messages:{
+			nombre: 'Por favor ingrese sus nombres completos',
+			apellido : 'Por favor ingrese sus apellidos completos',
+			direccion: 'Por favor ingrese su direccion de residencia',
+			telefono: 'Por favor ingrese numero de telefono'
+	},
+	submitHandler : function(form){
+		form.submit();
+	}
+	});
+	
+});
+		
+$(function(){
 	$('form[id="formularioobra"]').validate({
 		rules:{
 			nombre: 'required',
@@ -48,9 +63,16 @@ $(function(){
 	}
 	});
 	
-<<<<<<< HEAD
-});	
-		
-=======
 });
->>>>>>> 7f31c6f5053237ff96a3f07971ad27446c149638
+$(function(){
+	$('form[id="formulariocategoria"]').validate({
+		rules:{
+			nombrecategoria: 'required'	},
+	 messages:{
+		 	nombrecategoria: 'Por favor ingrese un nombre'	},
+	submitHandler : function(form){
+		form.submit();
+	}
+	});
+	
+});
