@@ -26,7 +26,7 @@ public class Caracteristicas {
 	private Float precio;
 	
 	@Column(nullable = false)
-	private String tamaño;
+	private String size;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "obras_id")
@@ -57,12 +57,12 @@ public class Caracteristicas {
 	}
 
 
-	public String getTamaño() {
-		return tamaño;
+	public String getSize() {
+		return size;
 	}
 
-	public void setTamaño(String tamaño) {
-		this.tamaño = tamaño;
+	public void setSize(String size) {
+		this.size = size;
 	}
 
 	public Obras getObras() {

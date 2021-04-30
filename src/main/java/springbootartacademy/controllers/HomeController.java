@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -55,7 +56,7 @@ public ResponseEntity<Resource> verFotoObras(@PathVariable String filename) {
 }
 
 @GetMapping("/obrastodaspagina/{numeropagina}")
-public ModelAndView obrastodaspagina(@PathVariable("numeropagina") int currentPage,String busqueda) {
+public ModelAndView obrastodaspagina(@PathVariable("numeropagina") int currentPage,@Param ("busqueda") String busqueda) {
 	Page<Obras> page = servicioobras.ListarObrasTodas(currentPage,busqueda);
 	long totalItems = page.getTotalElements();
 	int totalpages = page.getTotalPages();

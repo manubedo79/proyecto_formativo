@@ -28,6 +28,12 @@ public class CaracteristicasServiceImp implements ICaracteristicasService {
 	public Caracteristicas findbyId(Long id) {
 		return caracdao.findById(id).orElse(null);
 	}
+	
+	@Override
+	public List<Caracteristicas> listarcaracteristicas_obras(Long id) {
+		// TODO Auto-generated method stub
+		return caracdao.listarcaracteristicas_obras(id);
+	}
 
 	}
 

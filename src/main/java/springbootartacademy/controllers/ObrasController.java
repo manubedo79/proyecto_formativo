@@ -1,8 +1,12 @@
  package springbootartacademy.controllers;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +24,19 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.lowagie.text.DocumentException;
 
 import springbootartacademy.models.entity.Caracteristicas;
 import springbootartacademy.models.entity.Categorias;
+import springbootartacademy.models.entity.Clientes;
 import springbootartacademy.models.entity.Obras;
+import springbootartacademy.models.entity.Usuarios;
 import springbootartacademy.models.service.ICaracteristicasService;
 import springbootartacademy.models.service.ICategoriasService;
+import springbootartacademy.models.service.IClientesService;
 import springbootartacademy.models.service.IFileService;
 import springbootartacademy.models.service.IObrasService;
+import springbootartacademy.models.service.IUsuariosService;
 
 @Controller
 public class ObrasController {
@@ -35,11 +44,16 @@ public class ObrasController {
 	@Autowired
 	private IObrasService servicioobras;
 	@Autowired
+	private IObrasService ObrService;
+	@Autowired
+	private IObrasService service;
+	@Autowired
 	private ICategoriasService serviciocategorias;
 	@Autowired
 	private ICaracteristicasService serviciocaracteristica;
 	@Autowired
 	private IFileService ifileser;
+	
 	
 	@GetMapping("/formularioobra")
 	public String formularioCategoria(Model model) {
@@ -133,6 +147,33 @@ public class ObrasController {
 	public ModelAndView ListaObrasTodos() {
 	String busqueda = null;
 		return listBypage(1,busqueda);
+	}
+	
+	@GetMapping("/detalleObra/{pageNumber}")
+	public ModelAndView detalleobras(@PathVariable("pageNumber") Long id) {
+		Obras obras = ObrService.findbyId(id);
+		ModelAndView mav = new ModelAndView("frontend/carrito/detalleo");
+		mav.addObject("caracteristicas", serviciocaracteristica.listarcaracteristicas_obras(id));
+		mav.addObject("Obras", obras);
+		return mav;
+	}
+	@GetMapping("/obras/export")
+	public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+		response.setContentType("application/pdf");
+		
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+		
+		String currentDateTime = dateFormatter.format(new Date());
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=Obras_" + currentDateTime +".pdf";
+		
+		response.setHeader(headerKey, headerValue);
+		
+		List<Obras> listaObras = service.findAllObras();
+		
+		ObrasPDFExporter exporter = new ObrasPDFExporter(listaObras);
+		exporter.export(response);
+		
 	}
 
 @GetMapping("/pageObras/{pageNumber}")

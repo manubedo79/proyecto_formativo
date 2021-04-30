@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.org">
+<head th:replace="recursos/navbar::head">
+<meta charset="UTF-8"/>
+<title>Art Academy</title>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+  <div class="container">
+
+    <!-- Brand -->
+    <a class="navbar-brand waves-effect" href="Index.html">
+      <strong class="orange-text">ART ACADEMY</strong>
+    </a>
+
+    <!-- Collapse -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <!-- Left -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item ">
+          <a class="nav-link waves-effect" href="#"><i class="fas fa-home"></i>
+            <span class="sr-only">(current)</span>inicio
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect" href="Categorias.html" target="_blank"><i class="fas fa-archive"></i> Categorias</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect" href="contactanos.html"
+            target="_blank"><i class="fas fa-phone-alt"></i> ContÃ¡ctanos </a>
+        </li>
+      </ul>
+      <!-- Search form -->
+      <form class="form-inline">
+        <i class="fas fa-search" aria-hidden="true"></i>
+        <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
+          aria-label="Search">
+      </form>
+      <!-- Right -->
+      <ul class="navbar-nav nav-flex-icons">
+        <li class="nav-item">
+          <a class="nav-link waves-effect" href="carrito.html">
+            <span class="badge red z-depth-1 mr-1"> 2 </span>
+            <i class="fas fa-shopping-cart"></i>
+            <span class="clearfix d-none d-sm-inline-block"> Carrito </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="Login.html" class="nav-link waves-effect">
+            <i class="fas fa-user"></i>
+            <span class="clearfix d-none d-sm-inline-block"> Mi Cuenta </span>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a href="Registrar.html" class="nav-link waves-effect">
+            <i class="fas fa-share"></i>
+            <span class="clearfix d-none d-sm-inline-block blue-text"> Registrarse </span>
+          </a>
+        </li> 
+      </ul>
+
+    </div>
+
+  </div>
+</nav>
+<!-- Navbar -->
+
+<!--Main layout-->
+<main class="mt-5 pt-4">
+  <div class="container dark-grey-text mt-5">
+
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+
+		<div class="form-group">
+		<p class="lead font-weight-bold">Nombre de la Obra</p>
+              <p th:text="${Obras.nombre}"></p>
+        </div> 
+        
+        
+        
+        <div class="form-group">
+         
+          <img th:if="${#strings.length(Obras.rutaimagen_principal)>0}" th:src="@{'/imagenes/'+${Obras.rutaimagen_principal}}">
+        </div> 
+
+
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+
+        <!--Content-->
+        <div class="p-4">
+        
+
+        <div class="form-group">
+        <p class="lead font-weight-bold">Categorias</p>
+        <p th:text="${Obras.categoria}"></p>
+        </div>
+
+      	
+        <p class="lead font-weight-bold">Tamaño</p>
+        
+        <select class="form-control select2" style="width: 50%;">
+        <option >Seleccione tamaño</option>
+        <th:block th:each="carac:${caracteristicas}">
+        <option th:value="${carac.id}" th:text="${carac.size}"></option>
+        </th:block>
+        </select>
+
+
+		<div class="form-group">
+        <p class="lead font-weight-bold">Descripción de la obra</p>
+        <p th:text="${Obras.descripcion}" rows="2" cols="2"></p>
+        </div>
+                
+                
+		<p class="lead font-weight-bold">Stock</p>
+        <form class="d-flex justify-content-left">
+            
+            <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
+            
+            
+            <a class="btn btn-default btn-md my-0 p" onclick="alerta()" type="submit" >Añadir al carrito
+              <i class="fas fa-shopping-cart ml-1"></i>
+            </a>  
+            <a class="btn btn-danger btn-md my-0 p" type="submit" href="Index.html"><i class="fas fa-angle-left"></i> Volver 
+             
+            </a>
+
+          </form>
+
+        </div>
+        <!--Content-->
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+    <hr>
+    <!-- Classic tabs -->
+<div class="classic-tabs border rounded px-4 pt-1">
+
+  <ul class="nav tabs-default nav-justified" id="advancedTab" role="tablist">
+    <li >
+      <a class="nav-link active show" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="advancedTabContent">
+    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+      <h5>Reseñas</h5>
+      <p class="small text-muted text-uppercase mb-2">Paco</p>
+      <ul class="rating">
+        <li>
+          <i class="fas fa-star fa-sm text-primary"></i>
+        </li>
+        <li>
+          <i class="fas fa-star fa-sm text-primary"></i>
+        </li>
+        <li>
+          <i class="fas fa-star fa-sm text-primary"></i>
+        </li>
+        <li>
+          <i class="fas fa-star fa-sm text-primary"></i>
+        </li>
+        <li>
+          <i class="far fa-star fa-sm text-primary"></i>
+        </li>
+      </ul>
+      <p class="pt-1">Me gusto esta obra.</p>
+    </div>
+    <hr>
+  </div>
+
+</div>
+<hr>
+    <div class="row d-flex justify-content-center wow fadeIn">
+
+
+    </div>
+
+    <div class="row wow fadeIn">
+
+      <div class="col-lg-4 col-md-12 mb-4">
+
+        <p></p>
+
+      </div>
+
+      <div class="col-lg-4 col-md-6 mb-4">
+
+        <p></p>
+
+      </div>
+
+      <div class="col-lg-4 col-md-6 mb-4">
+
+        <p></p>
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+</main>
+
+
+<!--Footer-->
+<footer class="page-footer font-small unique-color-dark">
+
+  
+
+  <!-- Footer Links -->
+  <div class="container text-center text-md-left mt-5">
+
+    <!-- Grid row -->
+    <div class="row mt-3">
+
+      <!-- Grid column -->
+      <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+
+        <!-- Content -->
+        <h6 class="text-uppercase font-weight-bold">Nombre Empresa</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>Art Academy</p>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+        <!-- Links -->
+        <h6 class="text-uppercase font-weight-bold">Productos</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <a href="#!">MDBootstrap</a>
+        </p>
+        <p>
+          <a href="#!">MDWordPress</a>
+        </p>
+        <p>
+          <a href="#!">BrandFlow</a>
+        </p>
+        <p>
+          <a href="#!">Bootstrap Angular</a>
+        </p>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+        <!-- Links -->
+        <h6 class="text-uppercase font-weight-bold">ENLACES ÃšTILES
+        </h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <a href="#!">Your Account</a>
+        </p>
+        <p>
+          <a href="#!">Become an Affiliate</a>
+        </p>
+        <p>
+          <a href="#!">Shipping Rates</a>
+        </p>
+        <p>
+          <a href="#!">Help</a>
+        </p>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+        <!-- Links -->
+        <h6 class="text-uppercase font-weight-bold">Contacto</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
+        <p>
+          <i class="fas fa-envelope mr-3"></i> info@example.com</p>
+        <p>
+          <i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+        <p>
+          <i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">Â© 2020 Copyright:
+    <a href="#"> ArtAcademy</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->   
+
+<!--/.Footer-->
+<script>
+  function alerta(){
+    swal({
+  title: "Bien!",
+  text: "Tu Producto se anadiÃ³ al carrito!",
+  icon: "success",
+  button: "Ir al carrito!",
+}).then(function(){
+  window.location.href='carrito.html';
+} );
+  }
+</script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="js/jquery-3.4.1.min.js"> </script>
+<script src="js/md-pro.js"> </script>
+<script src="js/mdb.ecommerce.min.js"> </script>
+<script src="js/mdb.min.js"> </script>
+<script src="js/popper.min.js"> </script>
+<script src="js/bootstrap.min.js"> </script>
+</body>
+</html>
