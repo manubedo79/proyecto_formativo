@@ -1,128 +1,164 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagina Principal</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pagina Principal</title>
 <link th:href="@{/frontend/css/md-pro.css}" rel="stylesheet">
 <link th:href="@{/frontend/css/mdb-pro.min.css}" rel="stylesheet">
 <link th:href="@{/frontend/css/mdb.ecommerce.min.css}" rel="stylesheet">
 <link th:href="@{/frontend/css/bootstrap.min.css}" rel="stylesheet">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+	integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
+	crossorigin="anonymous">
 
 </head>
 <body>
-   
-          <!-- Navbar -->
- <div class="row">
- <div class="col-12">
-<nav th:fragment="navbar" class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
-  <div class="container">
 
-    <!-- Brand -->
-    <a class="navbar-brand waves-effect" href="Index.html" >
-      <strong class="orange-text">ART ACADEMY</strong>
-    </a>
+	<!-- Navbar -->
+	<div class="row">
+		<div class="col-12">
+			<nav th:fragment="navbar"
+				class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+				<div class="container">
 
-    <!-- Collapse -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+					<!-- Brand -->
+					<a class="navbar-brand waves-effect" href="Index.html"> <strong
+						class="orange-text">ART ACADEMY</strong>
+					</a>
 
-    <!-- Links -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<!-- Collapse -->
+					<button class="navbar-toggler" type="button" data-toggle="collapse"
+						data-target="#navbarSupportedContent"
+						aria-controls="navbarSupportedContent" aria-expanded="false"
+						aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
 
-      <!-- Left -->
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link waves-effect" href="#"><i class="fas fa-home"></i>
-            <span class="sr-only">(current)</span>inicio
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link waves-effect" href="Categorias.html" ><i class="fas fa-archive"></i> Categorías</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link waves-effect" href="Contactanos/contactenos.html"
-            target="_blank"><i class="fas fa-phone-alt"></i> Contáctanos </a>
-        </li>
-      </ul>
-      <!-- Search form -->
-      <form th:action="@{/obrastodaspagina/1}" method="get" class="form-inline">
-        <i class="fas fa-search" aria-hidden="true"></i>
-        <input name="busqueda"  class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
-          aria-label="Search">
-          <button type="submit">Buscar</button>
-      </form>
-      <!-- Right -->
-      <ul class="navbar-nav nav-flex-icons">
-        <li class="nav-item">
-          <a class="nav-link waves-effect" href="carrito.html">
-            <span class="badge red z-depth-1 mr-1"> 2 </span>
-            <i class="fas fa-shopping-cart"></i>
-            <span class="clearfix d-none d-sm-inline-block"> Carrito </span>
-          </a>
-        </li>
-        <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
-          <a class="nav-link waves-effect" href="carrito.html">
-          <i class="fas fa-user-cog"></i>
-            <span class="clearfix d-none d-sm-inline-block"> ADMIN </span>
-          </a>
-        </li>
-        <li class="nav-item"  sec:authorize="hasAnyAuthority('CLIENTE')">
-          <a  class="nav-link waves-effect" >
-            <i class="fas fa-user"></i>
-            <span class="clearfix d-none d-sm-inline-block"> Mi Cuenta </span>
-          </a>
-        </li>
-         <li class="nav-item" sec:authorize="!isAuthenticated()">
-          <a th:href="@{/login}" class="nav-link waves-effect" >
-            <i class="fas fa-user"></i>
-            <span class="clearfix d-none d-sm-inline-block" > Iniciar sesión </span>
-          </a>
-        </li>
-          <li class="nav-item" sec:authorize="hasAnyAuthority('CLIENTE')">
-          <div class="nav-link" >
-            <span class="clearfix d-none d-sm-inline-block">[[${#request.userPrincipal.principal.fullname}]] </span>
-          </div>
-        </li>
-         <li class="nav-item" sec:authorize="hasAnyAuthority('CLIENTE')">
-         <form th:action="@{/logout}" id="logoutform" method="post">
-         <button class="nav-link waves-effect" 
-         onclick="document.getElementById('logoutform').submit();" type="submit">
-            <i class="fas fa-sign-out-alt"></i>
-            <span class="clearfix d-none d-sm-inline-block"> Cerrar sesión </span></button>
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-          </form>
-        </li>
-        <li class="nav-item " sec:authorize="!isAuthenticated()">
-          <a href="Registrar.html" class="nav-link waves-effect" >
-            <i class="fas fa-share"></i>
-            <span class="clearfix d-none d-sm-inline-block blue-text"> Registrarse </span>
-          </a>
-        </li> 
-        
-      </ul>
+					<!-- Links -->
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-    </div>
+						<!-- Left -->
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item active"><a class="nav-link waves-effect"
+								href="#"><i class="fas fa-home"></i> <span class="sr-only">(current)</span>inicio
+							</a></li>
+							<li class="nav-item"><a class="nav-link waves-effect"
+								href="Categorias.html"><i class="fas fa-archive"></i>
+									Categorías</a></li>
+							<li class="nav-item"><a class="nav-link waves-effect"
+								href="Contactanos/contactenos.html" target="_blank"><i
+									class="fas fa-phone-alt"></i> Contáctanos </a></li>
+						</ul>
+						<!-- Search form -->
 
-  </div>
-</nav>
-</div>
-</div>
-<!-- Navbar -->
-      
-   
-<div th:fragment="js">
-<script th:src="@{/frontend/js/jquery-3.4.1.min.js}"> </script>
-<script th:src="@{/frontend/js/md-pro.js}"> </script>
-<script th:src="@{/frontend/js/mdb.ecommerce.min.js}"> </script>
-<script th:src="@{/frontend/js/mdb.min.js}"> </script>
-<script th:src="@{/frontend/js/popper.min.js}"> </script>
-<script th:src="@{/frontend/js/bootstrap.min.js}"> </script>
-</div>
+
+						<form th:action="@{/obrastodaspagina/1}" method="get"
+							class="form-inline">
+							<div class="input-group rounded">
+								<input type="search" class="form-control rounded"
+								   name="busqueda"
+									placeholder="Buscar" aria-label="Search"
+									aria-describedby="search-addon" /> <span
+									class="input-group-text border-0" id="search-addon"> <i
+									class="fas fa-search"></i>
+								</span>
+							</div>
+						</form>
+
+						<!-- Right -->
+						<ul class="navbar-nav nav-flex-icons">
+							<li class="nav-item"><a class="nav-link waves-effect"
+								href="carrito.html"> <span class="badge red z-depth-1 mr-1">
+										2 </span> <i class="fas fa-shopping-cart"></i> <span
+									class="clearfix d-none d-sm-inline-block"> Carrito </span>
+							</a></li>
+							<li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
+								<a class="nav-link waves-effect" href="carrito.html"> <i
+									class="fas fa-user-cog"></i> <span
+									class="clearfix d-none d-sm-inline-block"> ADMIN </span>
+							</a>
+							</li>
+							<ul class="navbar-nav ml-auto">
+
+								<!-- Notifications Dropdown Menu -->
+								<li class="nav-item dropdown"><a class="nav-link"
+									data-toggle="dropdown" href="#"> <i class="fas fa-user"></i>
+
+								</a>
+									<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+										<div class="dropdown-divider"></div>
+										<a th:href="@{/miperfil}" class="dropdown-item"> <i
+											class="fas fa-id-card"></i>Mi Perfil
+										</a>
+										<div class="dropdown-divider"></div>
+										<form th:action="@{/logout}" id="logoutform" method="post">
+											<button class="dropdown-item"
+												onclick="document.getElementById('logoutform').submit();"
+												type="submit">
+												<i class="fas fa-sign-out-alt"></i> <span
+													class="clearfix d-none d-sm-inline-block"> Cerrar
+													sesión </span>
+											</button>
+											<input type="hidden" th:name="${_csrf.parameterName}"
+												th:value="${_csrf.token}">
+										</form>
+									</div></li>
+
+							</ul>
+							<li class="nav-item" sec:authorize="!isAuthenticated()"><a
+								th:href="@{/login}" class="nav-link waves-effect"> <i
+									class="fas fa-user"></i> <span
+									class="clearfix d-none d-sm-inline-block"> Iniciar
+										sesión </span>
+							</a></li>
+							<li class="nav-item" sec:authorize="hasAnyAuthority('CLIENTE')">
+								<div class="nav-link">
+									<span class="clearfix d-none d-sm-inline-block">[[${#request.userPrincipal.principal.fullname}]]
+									</span>
+								</div>
+							</li>
+
+							<li class="nav-item " sec:authorize="!isAuthenticated()"><a
+								href="Registrar.html" class="nav-link waves-effect"> <i
+									class="fas fa-share"></i> <span
+									class="clearfix d-none d-sm-inline-block blue-text">
+										Registrarse </span>
+							</a></li>
+
+						</ul>
+
+					</div>
+
+				</div>
+			</nav>
+		</div>
+	</div>
+	<!-- Navbar -->
+
+
+	<div th:fragment="js">
+		<script th:src="@{/frontend/js/jquery-3.4.1.min.js}">
+			
+		</script>
+		<script th:src="@{/frontend/js/md-pro.js}">
+			
+		</script>
+		<script th:src="@{/frontend/js/mdb.ecommerce.min.js}">
+			
+		</script>
+		<script th:src="@{/frontend/js/mdb.min.js}">
+			
+		</script>
+		<script th:src="@{/frontend/js/popper.min.js}">
+			
+		</script>
+		<script th:src="@{/frontend/js/bootstrap.min.js}">
+			
+		</script>
+	</div>
 
 </body>
 </html>
