@@ -32,8 +32,6 @@
                 <h6>Categorias</h6>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item pl-0" th:each="cate: ${categoria}"><a class="text-dark" th:href="@{/tienda/categorias/}+${cate.id}" th:text="${cate.nombrecategoria}"></a></li>
-        
-                  
                 </ul>
               </div>
               <!-- Grid column -->
@@ -54,43 +52,24 @@
                   <div class="carousel-inner" role="listbox">
                     <div class="carousel-item active">
                       <div class="view" style="max-height: 418px;">
-                        <img class="d-block" width="1000" src="/Frontend/img/16.png"
+                        <img class="d-block" width="1000" th:src="@{/frontend/img/16.png}"
                           alt="First slide">
-                        <a href="#!">
-                          <div class="mask rgba-black-light"></div>
-                        </a>
-                      </div>
-                      <div class="carousel-caption">
-                        <h3 class="h3-responsive">First shop item</h4>
-                          <p>First text</p>
+                        
                       </div>
                     </div>
                     <div class="carousel-item">
                       <!--Mask color-->
                       <div class="view" style="max-height: 418px;">
-                        <img class="d-block" width="1000" src="/Frontend/img/17.png"
+                        <img class="d-block" width="1000" th:src="@{/frontend/img/17.png}"
                           alt="First slide">
-                        <a href="#!">
-                          <div class="mask rgba-black-light"></div>
-                        </a>
-                      </div>
-                      <div class="carousel-caption">
-                        <h3 class="h3-responsive">Second shop item</h4>
-                          <p>Secondary text</p>
+                        
                       </div>
                     </div>
                     <div class="carousel-item">
                       <!--Mask color-->
                       <div class="view" style="max-height: 418px;">
-                        <img class="d-block" width="1000" src="/Frontend/img/15.png"
+                        <img class="d-block" width="1000" th:src="@{/frontend/img/15.png}"
                           alt="First slide">
-                        <a href="#!">
-                          <div class="mask rgba-black-light"></div>
-                        </a>
-                      </div>
-                      <div class="carousel-caption">
-                        <h3 class="h3-responsive">Third shop item</h4>
-                          <p>Third text</p>
                       </div>
                     </div>
                   </div>
@@ -167,14 +146,11 @@
 </div>
 <!-- Card deck -->
  </div>
+ 
  <nav aria-label="Page navigation example">
-			  <ul class="pagination justify-content-end">
+			  <ul class="pagination justify-content-center">
 			  
-			     <li class="page-item " th:classappend="${currentPage==1? 'disabled': ''}">
-			      <a class="page-link" 
-			      th:if="${currentPage>1}" th:href="@{/obrastodaspagina/1}">Primero</a>
-			       <span th:unless="${currentPage>1}" class="page-link">Primero</span> 
-			    </li>
+			   
 			    
 			    <li class="page-item" th:classappend="${currentPage == 1 ? 'disabled': ''}">
 			      <a class="page-link" 
@@ -193,13 +169,6 @@
 					 th:href="@{'/obrastodaspagina/' + ${currentPage + 1}}">Siguiente</a>
 				  <span	th:unless="${currentPage < totalpages}" class="page-link">Siguiente</span> 
 			    </li>
-			    
-			    <li class="page-item" th:classappend="${currentPage==totalpages ? 'disabled': ''}">
-			      <a class="page-link" th:if="${currentPage<totalpages }"
-						th:href="@{'/obrastodaspagina/' + ${totalpages}}">Ultima</a>
-				  <span th:unless="${currentPage < totalpages}" class="page-link">Ultima</span>
-			    </li>
-			    
 			  </ul>
 			</nav>
  

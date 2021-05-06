@@ -21,11 +21,11 @@
 	<div class="row">
 		<div class="col-12">
 			<nav th:fragment="navbar"
-				class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+				class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar ">
 				<div class="container">
 
 					<!-- Brand -->
-					<a class="navbar-brand waves-effect" href="Index.html"> <strong
+					<a class="navbar-brand waves-effect" th:href="@{/inicio}"> <strong
 						class="orange-text">ART ACADEMY</strong>
 					</a>
 
@@ -42,9 +42,6 @@
 
 						<!-- Left -->
 						<ul class="navbar-nav mr-auto">
-							<li class="nav-item active"><a class="nav-link waves-effect"
-								href="#"><i class="fas fa-home"></i> <span class="sr-only">(current)</span>inicio
-							</a></li>
 							<li class="nav-item"><a class="nav-link waves-effect"
 								href="Categorias.html"><i class="fas fa-archive"></i>
 									Categorías</a></li>
@@ -54,9 +51,9 @@
 						</ul>
 						<!-- Search form -->
 
-
+						
 						<form th:action="@{/obrastodaspagina/1}" method="get"
-							class="form-inline">
+							class="form-inline ">
 							<div class="input-group rounded">
 								<input type="search" class="form-control rounded"
 								   name="busqueda"
@@ -67,12 +64,11 @@
 								</span>
 							</div>
 						</form>
-
+						
 						<!-- Right -->
 						<ul class="navbar-nav nav-flex-icons">
 							<li class="nav-item"><a class="nav-link waves-effect"
-								href="carrito.html"> <span class="badge red z-depth-1 mr-1">
-										2 </span> <i class="fas fa-shopping-cart"></i> <span
+								href="carrito.html">  <i class="fas fa-shopping-cart"></i> <span
 									class="clearfix d-none d-sm-inline-block"> Carrito </span>
 							</a></li>
 							<li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
@@ -81,17 +77,31 @@
 									class="clearfix d-none d-sm-inline-block"> ADMIN </span>
 							</a>
 							</li>
-							<ul class="navbar-nav ml-auto">
+
+							<li class="nav-item" sec:authorize="!isAuthenticated()"><a
+								th:href="@{/login}" class="nav-link waves-effect"> <i
+									class="fas fa-user"></i> <span
+									class="clearfix d-none d-sm-inline-block"> Iniciar
+										sesión </span>
+							</a></li>
+							<li class="nav-item" sec:authorize="hasAnyAuthority('CLIENTE')">
+								<div class="nav-link">
+									<span class="clearfix d-none d-sm-inline-block">Bienvenido(a): [[${#request.userPrincipal.principal.fullname}]]
+									</span>
+									
+								</div>
+							</li>
+
+														<ul class="navbar-nav ml-auto" sec:authorize="hasAnyAuthority('CLIENTE')">
 
 								<!-- Notifications Dropdown Menu -->
 								<li class="nav-item dropdown"><a class="nav-link"
-									data-toggle="dropdown" href="#"> <i class="fas fa-user"></i>
+									data-toggle="dropdown" href="#"> <i class="fas fa-sort-down"></i>
 
 								</a>
-									<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+									<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" >
 										<div class="dropdown-divider"></div>
-										<a th:href="@{/miperfil}" class="dropdown-item"> <i
-											class="fas fa-id-card"></i>Mi Perfil
+										<a th:href="@{/miperfil}" class="dropdown-item"> <i class="fas fa-user"></i> Mi Perfil
 										</a>
 										<div class="dropdown-divider"></div>
 										<form th:action="@{/logout}" id="logoutform" method="post">
@@ -108,22 +118,8 @@
 									</div></li>
 
 							</ul>
-							<li class="nav-item" sec:authorize="!isAuthenticated()"><a
-								th:href="@{/login}" class="nav-link waves-effect"> <i
-									class="fas fa-user"></i> <span
-									class="clearfix d-none d-sm-inline-block"> Iniciar
-										sesión </span>
-							</a></li>
-							<li class="nav-item" sec:authorize="hasAnyAuthority('CLIENTE')">
-								<div class="nav-link">
-									<span class="clearfix d-none d-sm-inline-block">[[${#request.userPrincipal.principal.fullname}]]
-									</span>
-								</div>
-							</li>
-
 							<li class="nav-item " sec:authorize="!isAuthenticated()"><a
-								href="Registrar.html" class="nav-link waves-effect"> <i
-									class="fas fa-share"></i> <span
+								th:href="@{/registro}" class="nav-link waves-effect"> <span
 									class="clearfix d-none d-sm-inline-block blue-text">
 										Registrarse </span>
 							</a></li>
