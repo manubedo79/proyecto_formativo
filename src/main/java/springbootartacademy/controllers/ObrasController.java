@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -63,7 +64,7 @@ public class ObrasController {
 		model.addAttribute("categoria", listacate);
 		return "backend/Obras/formulario";
 	}
-
+	
 	@PostMapping("/guardarobra")
 	public String guardarObra(@ModelAttribute("obra") Obras obra,@ModelAttribute("caracteristica")Caracteristicas caracteristica, 
 	BindingResult result, @RequestParam("imagenobra")MultipartFile multipart , @RequestParam("imagenobra2") MultipartFile multipart2 ,
@@ -193,5 +194,8 @@ public ModelAndView listBypage(@PathVariable("pageNumber")int currentPage, @Para
 	mav.addObject("busqueda",busqueda);
 	return mav;
 }
-	
+@GetMapping(value="/obtener_precio_cantidad/{idcaracteristica}", produces= {"application/json"})
+public @ResponseBody Caracteristicas obtener_precio_cantidad(@PathVariable("idcaracteristica")Long idcaracteristica) {
+return  serviciocaracteristica.listarcaracteristicas_obras(idcaracteristica);
+}	
 }

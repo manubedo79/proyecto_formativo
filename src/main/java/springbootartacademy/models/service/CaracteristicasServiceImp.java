@@ -30,7 +30,7 @@ public class CaracteristicasServiceImp implements ICaracteristicasService {
 	}
 	
 	@Override
-	public List<Caracteristicas> listarcaracteristicas_obras(Long id) {
+	public Caracteristicas listarcaracteristicas_obras(Long id) {
 		// TODO Auto-generated method stub
 		return caracdao.listarcaracteristicas_obras(id);
 	}

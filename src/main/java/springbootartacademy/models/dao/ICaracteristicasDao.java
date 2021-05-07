@@ -14,6 +14,6 @@ import springbootartacademy.models.entity.Obras;
 @Repository
 public interface ICaracteristicasDao extends PagingAndSortingRepository<Caracteristicas,Long>{
 
-	@Query("SELECT obrac from Caracteristicas obrac where obrac.obras.id = :id")
-	public List<Caracteristicas> listarcaracteristicas_obras(@Param("id")Long id);
+	@Query("SELECT obrac from Caracteristicas obrac where obrac.id = :id")
+	public Caracteristicas listarcaracteristicas_obras(@Param("id")Long id);
 }

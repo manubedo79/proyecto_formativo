@@ -13,6 +13,8 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Caracteristicas {
 	@Id
@@ -28,8 +30,9 @@ public class Caracteristicas {
 	@Column(nullable = false)
 	private String size;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "obras_id")
+	@JsonIgnore
 	private Obras obras;
 
 	public Float getPrecio() {

@@ -118,16 +118,7 @@ public class UsuariosServiceImp implements IUsuariosService {
 		return usudao.getUsuariosByCorreo(correo);
 	}
 	
-	@Override
-	public void CreateNuevoUsuarioAfterOAuthLoginSuccess(String name, String email, 
-			AuthenticationProvider provider) {
-		Usuarios usuarios = new Usuarios();
-		usuarios.setCorreo(email);
-		usuarios.setAuthenticationProvider(provider);
-		usuarios.setEstado(true);
-		usudao.save(usuarios);
-		
-	}
+	
 	
 	@Override
 	public Usuarios findById(Long id) {
@@ -205,6 +196,23 @@ public class UsuariosServiceImp implements IUsuariosService {
 	@Override
 	public void guardopassword(Usuarios usuarios) {
 		usudao.save(usuarios);
+		
+	}
+
+
+
+	@Override
+	public void processOAuthPostLogin(String correo) {
+		Usuarios existeusuarios = usudao.getCorreoUsuario(correo);
+		if(existeusuarios==null) {
+			Usuarios usuarios = new Usuarios();
+			usuarios.setCorreo(correo);
+			usuarios.setProvider(Provider.GOOGLE);
+			usuarios.setEstado(true);
+			usudao.save(usuarios);
+			
+		}
+		
 		
 	}
 	   

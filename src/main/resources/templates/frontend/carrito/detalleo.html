@@ -115,13 +115,14 @@
       	
         <p class="lead font-weight-bold">Tamaño</p>
         
-        <select class="form-control select2" style="width: 50%;">
+        <select onchange="buscar_caracteristica(this)" class="form-control select2" style="width: 50%;">
         <option >Seleccione tamaño</option>
         <th:block th:each="carac:${caracteristicas}">
         <option th:value="${carac.id}" th:text="${carac.size}"></option>
         </th:block>
         </select>
 
+		<p id="precio"></p>
 
 		<div class="form-group">
         <p class="lead font-weight-bold">Descripción de la obra</p>
@@ -132,15 +133,16 @@
 		<p class="lead font-weight-bold">Stock</p>
         <form class="d-flex justify-content-left">
             
-            <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
+            <input id="txtCantidad" onchange="validad_stock()" type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
             
             
-            <a class="btn btn-default btn-md my-0 p" onclick="alerta()" type="submit" >Añadir al carrito
+            <button id="btnGuardar" class="btn btn-default btn-md my-0 p" onclick="alerta()" type="submit" >Añadir al carrito
               <i class="fas fa-shopping-cart ml-1"></i>
-            </a>  
-            <a class="btn btn-danger btn-md my-0 p" type="submit" href="Index.html"><i class="fas fa-angle-left"></i> Volver 
+            </button>  
+            <button class="btn btn-danger btn-md my-0 p" type="submit" href="Index.html">
+            <i class="fas fa-angle-left"></i> Volver 
              
-            </a>
+            </button>
 
           </form>
 
@@ -337,11 +339,34 @@
   }
 </script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="js/jquery-3.4.1.min.js"> </script>
-<script src="js/md-pro.js"> </script>
-<script src="js/mdb.ecommerce.min.js"> </script>
-<script src="js/mdb.min.js"> </script>
-<script src="js/popper.min.js"> </script>
-<script src="js/bootstrap.min.js"> </script>
+<script th:src="@{/frontend/js/jquery-3.4.1.min.js}"> </script>
+<script src="/js/md-pro.js"> </script>
+<script src="/js/mdb.ecommerce.min.js"> </script>
+<script src="/js/mdb.min.js"> </script>
+<script src="/js/popper.min.js"> </script>
+<script src="/js/bootstrap.min.js"> </script>
+<script>
+	var cantidad = 0;
+	function buscar_caracteristica(e){
+		let id = $(e).val();
+		$.ajax({
+			url: '/obtener_precio_cantidad/'+id,
+			type: 'get',
+			dataType: 'json'
+		}).done(respuesta => {
+			$("#precio").text(respuesta.precio);
+			cantidad = respuesta.stock;
+		})
+	}
+	
+	function validad_stock(){
+		let valor = $("#txtCantidad").val();
+		if(valor > cantidad){
+			$("#btnGuardar").attr("disabled", true);
+		}else{
+			$("#btnGuardar").removeAttr("disabled");
+		}
+	}
+</script>
 </body>
 </html>

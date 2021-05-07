@@ -19,17 +19,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import net.bytebuddy.utility.RandomString;
 import springbootartacademy.models.dao.IDepartamentosDao;
 import springbootartacademy.models.dao.IMunicipiosDao;
-import springbootartacademy.models.dao.IRolesDao;
 import springbootartacademy.models.entity.Clientes;
 import springbootartacademy.models.entity.Municipios;
-import springbootartacademy.models.entity.Roles;
 import springbootartacademy.models.entity.Usuarios;
 import springbootartacademy.models.service.IResetPasswordService;
 import springbootartacademy.models.service.IUsuariosService;
 import springbootartacademy.utils.UsersNotFoundException;
 import springbootartacademy.utils.Utilidad;
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
 import java.util.List;
 import java.security.Principal;
 
