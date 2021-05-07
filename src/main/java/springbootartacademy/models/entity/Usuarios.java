@@ -2,6 +2,7 @@ package springbootartacademy.models.entity;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -34,11 +35,8 @@ public class Usuarios implements UserDetails {
 
 	private Long id;
 
-	
 	private String contraseña;
 
-	
-	
 	@Column(length = 50, nullable = false, unique = true)
 	private String correo;
 
@@ -123,14 +121,13 @@ public class Usuarios implements UserDetails {
 		this.resetPasswordToken = resetPasswordToken;
 	}
 
+	public Provider getProvider() {
+		return provider;
+	}
 
-    public Provider getProvider() {
-        return provider;
-    }
- 
-    public void setProvider(Provider provider) {
-        this.provider = provider;
-    }
+	public void setProvider(Provider provider) {
+		this.provider = provider;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -177,7 +174,8 @@ public class Usuarios implements UserDetails {
 		return this.estado;
 	}
 
-	public String fullname(){
+	public String fullname() {
 		return clientes.getNombre();
 	}
+	
 }

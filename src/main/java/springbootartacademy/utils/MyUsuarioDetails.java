@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import springbootartacademy.models.entity.Clientes;
 import springbootartacademy.models.entity.Roles;
 import springbootartacademy.models.entity.Usuarios;
 
@@ -65,6 +66,10 @@ private Usuarios usuarios;
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return usuarios.isEstado();
+	}
+	public String fullname(){
+		Clientes clientes = new Clientes();
+		return clientes.getNombre();
 	}
 
 }

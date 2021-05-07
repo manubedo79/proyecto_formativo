@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 public class AdminController {
 @GetMapping("/home")
 public String home() {
-	return "backend/usuarios/listar";
+	return "backend/home";
 }
 public void addResourceHandlers(ResourceHandlerRegistry registro)
 {

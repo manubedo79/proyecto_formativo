@@ -172,7 +172,7 @@ public String cambiarEstado(@PathVariable(value="id") Long id) {
 		model.addAttribute("updateSuccess","Se actualizaron sus datos de usuarios de forma correcta");
 		model.addAttribute("usuario", currentUser);
 		model.addAttribute("cliente", currentClientes);
-		idetailsimp.authenticateUser(currentUser.getUsername());
+		idetailsimp.authenticateUser(currentUser.getCorreo());
 		return "redirect:/miperfil";
 	}
 @GetMapping("/editarpassword")
@@ -193,7 +193,7 @@ public String guardarpassword(@ModelAttribute("usuario") Usuarios usuarios,
 	service.updatepassword(currentUser);
 	model.addAttribute("updateSuccess", true);
 	model.addAttribute("usuario", currentUser);
-	idetailsimp.authenticateUser(currentUser.getUsername());
+	idetailsimp.authenticateUser(currentUser.getCorreo());
 	return "redirect:/miperfil";
 	}
 

@@ -22,6 +22,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import springbootartacademy.models.service.IUsuariosService;
 import springbootartacademy.security.CustomOAuth2User;
 import springbootartacademy.security.CustomOAuth2UserService;
+
 import springbootartacademy.utils.UsuarioDetailsImp;
 
 @Configuration
@@ -32,6 +33,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
  
  @Autowired
  private IUsuariosService userservice;
+ 
+
 
 
  @Bean
@@ -49,8 +52,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		.anyRequest().authenticated()
 		.and()
-		.formLogin().loginPage("/login") .usernameParameter("correo") .permitAll()
+		.formLogin().loginPage("/login") 
+		.usernameParameter("correo")
 		.defaultSuccessUrl("/inicio")
+		
+		.permitAll()
 		.and()
 		.oauth2Login()
         .loginPage("/login")

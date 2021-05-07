@@ -5,6 +5,8 @@ import java.io.UnsupportedEncodingException;
 import javax.mail.MessagingException;
 
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
+
 import springbootartacademy.models.entity.Clientes;
 import springbootartacademy.models.entity.Usuarios;
 import java.util.List;
@@ -28,4 +30,5 @@ public boolean iscorreounique(String correo);
 public void edituser(Usuarios usuarios);
 public void updatepassword(Usuarios usuarios);
 public void guardopassword(Usuarios usuarios);
+
 }
