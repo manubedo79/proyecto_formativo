@@ -24,6 +24,8 @@ public interface IObrasDao extends PagingAndSortingRepository<Obras,Long>{
 	@Modifying
 	@Query("update Obras o set o.estado=?1  where o.id=?2")
 	public void actualizaestado(boolean nuevoestado,Long id);
-	@Query("SELECT o FROM Obras o WHERE CONCAT(o.id,o.nombre) LIKE %?1% ")
+	@Query("SELECT o FROM Obras o WHERE CONCAT(o.id,o.nombre) LIKE %?1%")
 	public Page<Obras> findAll(String busqueda,Pageable pageable);
+	@Query("SELECT o FROM Obras o INNER JOIN Categorias c ON c.id = o.categoria.id WHERE o.categoria.id = :id ORDER BY o.fechacreacion")
+	public List<Obras> ObrasRelacionadas(@Param("id") Long id, Pageable pageable);
 }

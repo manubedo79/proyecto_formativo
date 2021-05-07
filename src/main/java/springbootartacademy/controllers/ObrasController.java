@@ -45,8 +45,6 @@ public class ObrasController {
 	@Autowired
 	private IObrasService servicioobras;
 	@Autowired
-	private IObrasService ObrService;
-	@Autowired
 	private IObrasService service;
 	@Autowired
 	private ICategoriasService serviciocategorias;
@@ -152,10 +150,13 @@ public class ObrasController {
 	
 	@GetMapping("/detalleObra/{pageNumber}")
 	public ModelAndView detalleobras(@PathVariable("pageNumber") Long id) {
-		Obras obras = ObrService.findbyId(id);
+		Obras obras = servicioobras.findbyId(id);
+		Categorias obracate = obras.getCategoria();
+		List<Obras> obrasrelacionadas = servicioobras.ObrasRelacionadas(obracate.getId());
 		ModelAndView mav = new ModelAndView("frontend/carrito/detalleo");
 		mav.addObject("caracteristicas", serviciocaracteristica.listarcaracteristicas_obras(id));
 		mav.addObject("Obras", obras);
+		mav.addObject("ObrasRel", obrasrelacionadas);
 		return mav;
 	}
 	@GetMapping("/obras/export")

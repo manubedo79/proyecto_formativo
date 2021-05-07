@@ -43,6 +43,10 @@ public class ObrasServiceImp implements IObrasService {
 		return obrdao.findById(id).orElse(null);
 	}
 	
+	@Override
+	public List<Obras> ObrasRelacionadas(Long id) {
+		return (List<Obras>)obrdao.ObrasRelacionadas(id,PageRequest.of(0,3));
+	}
 	
 	@Override
 	public List<Obras> findAllObras() {

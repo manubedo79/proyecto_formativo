@@ -92,7 +92,7 @@
         
         <div class="form-group">
          
-          <img th:if="${#strings.length(Obras.rutaimagen_principal)>0}" th:src="@{'/imagenes/'+${Obras.rutaimagen_principal}}">
+          <img th:if="${#strings.length(Obras.rutaimagen_principal)>0}" width="500" height="468" th:src="@{'/imagenes/'+${Obras.rutaimagen_principal}}">
         </div> 
 
 
@@ -109,7 +109,7 @@
 
         <div class="form-group">
         <p class="lead font-weight-bold">Categorias</p>
-        <p th:text="${Obras.categoria}"></p>
+        <p th:text="${Obras.categoria.nombrecategoria}"></p>
         </div>
 
       	
@@ -199,21 +199,33 @@
 
     <div class="row wow fadeIn">
 
-      <div class="col-lg-4 col-md-12 mb-4">
+      <div class="col-lg-4 col-md-12 mb-4" th:each="obras:${ObrasRel}">
 
-        <p></p>
-
-      </div>
-
-      <div class="col-lg-4 col-md-6 mb-4">
-
-        <p></p>
-
-      </div>
-
-      <div class="col-lg-4 col-md-6 mb-4">
-
-        <p></p>
+  <!-- Card -->
+		  <div class="card mb-4">
+		
+		    <!--Card image-->
+		    <div class="view overlay">
+		      <img class="card-img-top" width="250%" height="234%" th:if="${#strings.length(obras.rutaimagen_principal)>0}" th:src="@{'/imagenes/'+${obras.rutaimagen_principal}}"
+		        alt="Card image cap">
+		      <a href="#!">
+		        <div class="mask rgba-white-slight"></div>
+		      </a>
+		    </div>
+		
+		    <!--Card content-->
+		    <div class="card-body">
+		
+		      <!--Title-->
+		      <h4 class="card-title text-center"  th:text="${obras.nombre}"></h4>
+		      <!--Text-->
+		      <p class="card-text">[[${obras.descripcion}]]</p>
+		      <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+		      <a href="Detalle.html"  class="btn btn-default  btn-block">!Lo Quiero</a>
+		
+		    </div>
+		
+		  </div>
 
       </div>
 
