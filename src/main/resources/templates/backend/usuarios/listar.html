@@ -18,7 +18,7 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-				<a href="Editar.html" type="button"
+				<a th:href="@{/registroUsuarios}" type="button"
 					class="btn btn-outline-success accion"><i
 					class="fas fa-user-plus"></i> Agregar un nuevo usuario</a>
 
@@ -72,23 +72,29 @@
 										<a th:href="@{/editarusuario/}+${Usuarios.id}"
 									class="btn btn-info"><i class="fas fa-user-edit"></i>
 										Editar</a></th>
-
+								
 							</tr>
+							
 						</tbody>
-
+						
+							
 					</table>
-
+					<div class="text-center" th:if="${#lists.isEmpty(ListaUsu)}">
+						     <h3>No se encontró el registro <span>[[${busqueda}]]</span> en la base de datos</h3>
+							</div>
 				</div>
 				<!-- /.table-responsive -->
 			</div>
 			<!-- /.card-body -->
 			<div class="card-footer clearfix">
-				<a th:href="@{/users/export}" class="btn btn-outline-info"><i
+				<a th:href="@{/users/export}" class="btn btn-outline-info" th:unless="${#lists.isEmpty(ListaUsu)}"><i
 					class="fas fa-file-pdf"></i> Descargar Reporte</a>
+					<a th:href="@{/ListaUsuarios}" class="btn btn-outline-success" th:if="${(busqueda!=null)}"><i class="fas fa-undo-alt"></i> Volver</a>
+					
 				<div class="float-right">
-
-
-					<nav aria-label="Page navigation example">
+                
+                
+					<nav aria-label="Page navigation example" th:unless="${#lists.isEmpty(ListaUsu)}">
 						<ul class="pagination justify-content-end">
 
 							<li class="page-item "
@@ -127,10 +133,10 @@
 						</ul>
 					</nav>
 
-
+				<div  th:unless="${#lists.isEmpty(ListaUsu)}">
 					Total Registros : [[${totalItems}]] &nbsp; - Página
 					[[${currentPage}]] de [[${totalpages}]]
-
+				</div>
 
 
 

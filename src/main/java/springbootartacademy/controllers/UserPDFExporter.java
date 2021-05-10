@@ -62,7 +62,7 @@ public class UserPDFExporter {
 	
 	document.add(new Paragraph("Lista de todos los usuarios"));
 	
-	PdfPTable table = new PdfPTable(5);
+	PdfPTable table = new PdfPTable(4);
 	table.setWidthPercentage(100);
 	table.setSpacingBefore(15);
 	

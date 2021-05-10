@@ -103,7 +103,7 @@ public String resetPassword(HttpServletRequest request, Model model) throws Unsu
 		
 		
 		passser.updateContraseña(token, correo);
-		String recuperarContraseñaUrl= Utilidad.getSitioUrl(request) + "/formulariocontraseña?token="+token;
+		String recuperarContraseñaUrl= Utilidad.getSitioUrl(request) + "/formulariopassword?token="+token;
 		passser.sendTokenCorreo(correo, recuperarContraseñaUrl);
 		model.addAttribute("info", "Se envío un enlace a tu correo por favor revisa");
 		
@@ -121,7 +121,7 @@ public String resetPassword(HttpServletRequest request, Model model) throws Unsu
 		return "frontend/registro/verificacion" ;
 	}
 
-	@GetMapping("/formulariocontraseña")
+	@GetMapping("/formulariopassword")
 	public String formContraseña(@Param(value="token") String token, 
 			Model model) {
 		Usuarios usuarios = passser.get(token);
@@ -132,7 +132,7 @@ public String resetPassword(HttpServletRequest request, Model model) throws Unsu
 		model.addAttribute("token", token);
 		return "frontend/recuperarcontraseña/formularioContraseña";
 	}
-	@PostMapping("/cambiarcontraseña")
+	@PostMapping("/cambiarpassword")
 	public String cambiarContraseña(HttpServletRequest request, Model model) {
 		String token = request.getParameter("token");
 		String password = request.getParameter("password");

@@ -48,7 +48,7 @@
                 <div class="form-group">
                   <label>Imagen de Categoria</label>
                   <input type="file" name="imagencate" id="fileImage" accept="image/png, image/jpeg" class="form-control"  ><br>
-                  <img id = "thumbnail" alt= "Imagen Previa" /> 
+                 
 	              <small id="mensajerror" style="color: red;"></small>
                 </div>
                 <!-- /.form-group -->
@@ -59,6 +59,7 @@
             </div>
             <!-- /.row -->
             <button type="submit" class="btn btn-info" >Confirmar</button>
+            <a th:href="@{/listarCategorias}" class="btn btn-outline-success"><i class="fas fa-undo-alt"></i> Volver</a>
             <div class="row">
               
               <!-- /.col -->
