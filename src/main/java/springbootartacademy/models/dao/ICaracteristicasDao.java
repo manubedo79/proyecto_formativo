@@ -16,4 +16,10 @@ public interface ICaracteristicasDao extends PagingAndSortingRepository<Caracter
 
 	@Query("SELECT obrac from Caracteristicas obrac where obrac.id = :id")
 	public Caracteristicas listarcaracteristicas_obras(@Param("id")Long id);
+	
+	@Query("SELECT obrac from Caracteristicas obrac where obrac.obras.id = :id")
+	public List<Caracteristicas> listarTodasCaracteristicas(@Param("id")Long id);
+	
+	
+	
 }

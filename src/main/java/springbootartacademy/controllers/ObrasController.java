@@ -154,7 +154,7 @@ public class ObrasController {
 		Categorias obracate = obras.getCategoria();
 		List<Obras> obrasrelacionadas = servicioobras.ObrasRelacionadas(obracate.getId());
 		ModelAndView mav = new ModelAndView("frontend/carrito/detalleo");
-		mav.addObject("caracteristicas", serviciocaracteristica.listarcaracteristicas_obras(id));
+		mav.addObject("caracteristicas", serviciocaracteristica.findAllCaracteristocas(id));
 		mav.addObject("Obras", obras);
 		mav.addObject("ObrasRel", obrasrelacionadas);
 		return mav;

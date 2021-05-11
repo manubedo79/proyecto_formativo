@@ -35,6 +35,12 @@ public class CaracteristicasServiceImp implements ICaracteristicasService {
 		return caracdao.listarcaracteristicas_obras(id);
 	}
 
+	@Override
+	public List<Caracteristicas> findAllCaracteristocas(Long id) {
+		// TODO Auto-generated method stub
+		return caracdao.listarTodasCaracteristicas(id);
+	}
+
 	}
 
 

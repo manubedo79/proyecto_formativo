@@ -11,4 +11,5 @@ public interface ICaracteristicasService {
 	public void guardarCaracteristica(Caracteristicas caracteristica);
 	public Caracteristicas findbyId(Long id);
 	public Caracteristicas listarcaracteristicas_obras(Long id);
+	public List<Caracteristicas> findAllCaracteristocas(Long id);
 }
