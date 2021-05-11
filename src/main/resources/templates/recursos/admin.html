@@ -254,7 +254,36 @@ color: red;}
 	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.js"></script>
 	
 
+<script>
+function agregar_caracter() {
+	let obra_id = $("#obra_id").val();
+	let caracter_id = $("#caracter_id").val();
+	let precio = $("#precio").val();
+	let tamaño = $("#size").val();
+	let cantidad = $("#stock").val();
+	if(cantidad > 0 && precio > 0)
+		{	
+			$("#tablacaracter").append(`
+				<tr id="tr-${caracter_id}">
+					<td >
+					<input type="hidden" value="${caracter_id}" name="caracter_id[]"/>
+					<input type="hidden" value="${obra_id}" name="obra_id[]"/>
+					<input type="hidden" value="${precio}" name="precio[]"/>
+					<input type="hidden" value="${cantidad}" name="cantidad[]"/>
+					<input type="hidden" value="${tamaño}" name="tamaño[]"/>
+					${tamaño}</td>
+					<td>${precio}</td>
+					<td>${cantidad}</td>
+				    <td> <button value="${}" type="button" onclick="borrar_caracter(${caracter_id})" class="btn btn-danger" >Borrar Caracteristica</button></td>
+				</tr>
+			`);
+		}
+	else{
+		alert("Debes de ingresar un precio o cantidad mayores a 0");
+	}
+}
 
+</script>
 
 		
 		
