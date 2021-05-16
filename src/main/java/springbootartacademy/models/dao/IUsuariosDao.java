@@ -1,5 +1,7 @@
 package springbootartacademy.models.dao;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
@@ -32,7 +34,8 @@ public Usuarios getCorreoUsuario(@Param("correo") String correo );
 public Usuarios getUsuariosByCorreo(String email);
 @Query("SELECT u FROM Usuarios u WHERE CONCAT(u.id,u.correo) LIKE %?1% ")
 public Page<Usuarios> findAll(String busqueda,Pageable pageable);
-
+@Query ("select usuarios from Usuarios usuarios where usuarios.correo =:email")
+Optional<Usuarios> getFindByCorreo(@Param("email")String email);
 
 
 

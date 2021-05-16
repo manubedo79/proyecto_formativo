@@ -219,6 +219,17 @@ public class UsuariosServiceImp implements IUsuariosService {
 
 
 
+	@Override
+	public void CreateNuevoUsuarioAfterOAuthLoginSuccess(String email) {
+		Usuarios usuarios = new Usuarios();
+		usuarios.setCorreo(email);
+		usuarios.setEstado(true);
+		usudao.save(usuarios);
+		
+	}
+
+
+
 	
 	
 	   

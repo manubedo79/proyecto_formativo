@@ -644,5 +644,12 @@ input.input100 {
   border: 0px solid #EAE3E1;
   
 }
+.input100 {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+.input100::-ms-expand {
+    display: none;
+}
 
 

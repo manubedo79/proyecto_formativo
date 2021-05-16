@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -66,7 +67,7 @@ public class ObrasController {
 	@PostMapping("/guardarobra")
 	public String guardarObra(@ModelAttribute("obra") Obras obra,@ModelAttribute("caracteristica")Caracteristicas caracteristica, 
 	BindingResult result, @RequestParam("imagenobra")MultipartFile multipart , @RequestParam("imagenobra2") MultipartFile multipart2 ,
-	@RequestParam("imagenobra3") MultipartFile multipart3 , RedirectAttributes flash) throws IOException {
+	@RequestParam("imagenobra3") MultipartFile multipart3 , RedirectAttributes flash, HttpServletRequest request) throws IOException {
 		if(!multipart.isEmpty()) 
 		{
 			if(obra.getImagenprincipal() != null && obra.getImagenprincipal().length()>0 
@@ -87,12 +88,16 @@ public class ObrasController {
 			obra.setRutaimagen_principal(nombreruta1);
 			obra.setRutaimagen_2(nombreruta2);
 			obra.setRutaimagen_3(nombreruta3);
-			servicioobras.guardarObra(obra);
+			
 		}
-		Obras obracaracter = servicioobras.findbyId(obra.getId());
+		String size[] = request.getParameterValues("size[]");
+		String cantidad[] = request.getParameterValues("cantidades[]");
+		String precio[] = request.getParameterValues("precio[]");
+		for(int i=0; i<size.length;i++) {
+			obra.addCaracteristicas(Integer.parseInt(cantidad[i]), Float.parseFloat(precio[i]), size[i]);
+		}
+		servicioobras.guardarObra(obra);
 		String mensaje = (obra.getId() != null) ? "Se edito de forma correcta la obra" : "Se guardo de forma correcta la obra";
-		caracteristica.setObras(obracaracter);
-		serviciocaracteristica.guardarCaracteristica(caracteristica);
 		flash.addFlashAttribute("success", mensaje);
 		return "redirect:/ListaObras";
 	}
@@ -152,7 +157,7 @@ public class ObrasController {
 	public ModelAndView detalleobras(@PathVariable("pageNumber") Long id) {
 		Obras obras = servicioobras.findbyId(id);
 		Categorias obracate = obras.getCategoria();
-		List<Obras> obrasrelacionadas = servicioobras.ObrasRelacionadas(obracate.getId());
+		List<Obras> obrasrelacionadas = servicioobras.ObrasRelacionadas(obracate.getId(),obras.getId());
 		ModelAndView mav = new ModelAndView("frontend/carrito/detalleo");
 		mav.addObject("caracteristicas", serviciocaracteristica.findAllCaracteristocas(id));
 		mav.addObject("Obras", obras);

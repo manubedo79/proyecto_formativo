@@ -4,72 +4,14 @@
 <meta charset="UTF-8"/>
 <title>Art Academy</title>
 </head>
+<style>
+.error{
+color: red;
+}
+</style>
 <body>
 <!-- Navbar -->
-<nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
-  <div class="container">
-
-    <!-- Brand -->
-    <a class="navbar-brand waves-effect" href="Index.html">
-      <strong class="orange-text">ART ACADEMY</strong>
-    </a>
-
-    <!-- Collapse -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Links -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-      <!-- Left -->
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item ">
-          <a class="nav-link waves-effect" href="#"><i class="fas fa-home"></i>
-            <span class="sr-only">(current)</span>inicio
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link waves-effect" href="Categorias.html" target="_blank"><i class="fas fa-archive"></i> Categorias</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link waves-effect" href="contactanos.html"
-            target="_blank"><i class="fas fa-phone-alt"></i> ContÃ¡ctanos </a>
-        </li>
-      </ul>
-      <!-- Search form -->
-      <form class="form-inline">
-        <i class="fas fa-search" aria-hidden="true"></i>
-        <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
-          aria-label="Search">
-      </form>
-      <!-- Right -->
-      <ul class="navbar-nav nav-flex-icons">
-        <li class="nav-item">
-          <a class="nav-link waves-effect" href="carrito.html">
-            <span class="badge red z-depth-1 mr-1"> 2 </span>
-            <i class="fas fa-shopping-cart"></i>
-            <span class="clearfix d-none d-sm-inline-block"> Carrito </span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="Login.html" class="nav-link waves-effect">
-            <i class="fas fa-user"></i>
-            <span class="clearfix d-none d-sm-inline-block"> Mi Cuenta </span>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a href="Registrar.html" class="nav-link waves-effect">
-            <i class="fas fa-share"></i>
-            <span class="clearfix d-none d-sm-inline-block blue-text"> Registrarse </span>
-          </a>
-        </li> 
-      </ul>
-
-    </div>
-
-  </div>
+<nav th:replace="recursos/navbar :: navbar">
 </nav>
 <!-- Navbar -->
 
@@ -83,16 +25,53 @@
       <!--Grid column-->
       <div class="col-md-6 mb-4">
 
-		<div class="form-group">
+		<div class="form-group text-center">
 		<p class="lead font-weight-bold">Nombre de la Obra</p>
-              <p th:text="${Obras.nombre}"></p>
+              <p th:text="${Obras.nombre}" style="font-size: 18px;"></p>
         </div> 
         
         
         
         <div class="form-group">
          
-          <img th:if="${#strings.length(Obras.rutaimagen_principal)>0}" width="500" height="468" th:src="@{'/imagenes/'+${Obras.rutaimagen_principal}}">
+          <div class="col-md-8 col-lg-6 col-xl-9 ">
+                    <!--Carousel Wrapper-->
+                  <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails" >
+                    <!--Slides-->
+                    <div class="carousel-inner" role="listbox">
+                      <div class="carousel-item active" >
+                        <img height="320px" class="d-block w-100" th:if="${#strings.length(Obras.rutaimagen_principal)>0}" th:src="@{'/imagenes/'+${Obras.rutaimagen_principal}}"
+                          alt="First slide">
+                      </div>
+                      <div class="carousel-item" >
+                        <img height="320px" class="d-block w-100" th:if="${#strings.length(Obras.rutaimagen_2)>0}" th:src="@{'/imagenes/'+${Obras.rutaimagen_2}}"
+                          alt="Second slide">
+                      </div>
+                      <div class="carousel-item">
+                        <img height="320px" class="d-block w-100" th:if="${#strings.length(Obras.rutaimagen_3)>0}" th:src="@{'/imagenes/'+${Obras.rutaimagen_3}}"
+                          alt="Third slide">
+                      </div>
+                    </div>
+                    <!--/.Slides-->
+                    <!--Controls-->
+                   
+                    
+                    <!--/.Controls-->
+                    <ol class="carousel-indicators">
+                      <li data-target="#carousel-thumb" data-slide-to="0" class="active">
+                        <img th:if="${#strings.length(Obras.rutaimagen_principal)>0}" th:src="@{'/imagenes/'+${Obras.rutaimagen_principal}}" width="100">
+                      </li>
+                      <li data-target="#carousel-thumb" data-slide-to="1">
+                        <img th:if="${#strings.length(Obras.rutaimagen_2)>0}" th:src="@{'/imagenes/'+${Obras.rutaimagen_2}}" width="100">
+                      </li>
+                      <li data-target="#carousel-thumb" data-slide-to="2">
+                        <img th:if="${#strings.length(Obras.rutaimagen_3)>0}" th:src="@{'/imagenes/'+${Obras.rutaimagen_3}}" width="100">
+                      </li>
+                    </ol>
+                  </div>
+                  <!--/.Carousel Wrapper-->
+                    
+                      </div>
         </div> 
 
 
@@ -112,37 +91,41 @@
         <p th:text="${Obras.categoria.nombrecategoria}"></p>
         </div>
 
-      	
+
+	
+
+		<div class="form-group">
+        <p class="lead font-weight-bold">Descripción de la obra</p>
+        <p th:text="${Obras.descripcion}"></p>
+        </div>
+                
+                
+		
+         <form method="POST" id="formdetalle" th:action="@{/agregar_carrito}" class="d-flex justify-content-left">
+            
+            
+      	<div class="form-group">
         <p class="lead font-weight-bold">Tamaño</p>
         
-        <select onchange="buscar_caracteristica(this)" class="form-control select2" style="width: 50%;">
-        <option >Seleccione tamaño</option>
+        <select name="caracteristica" id="caracteristica" onchange="buscar_caracteristica(this)" class="form-control select2" style="width: 100%;">
+        <option value="">Seleccione tamaño</option>
         <th:block th:each="carac:${caracteristicas}">
         <option th:value="${carac.id}" th:text="${carac.size}"></option>
         </th:block>
         </select>
-
-		<p id="precio"></p>
-
-		<div class="form-group">
-        <p class="lead font-weight-bold">Descripción de la obra</p>
-        <p th:text="${Obras.descripcion}" rows="2" cols="2"></p>
-        </div>
-                
-                
-		<p class="lead font-weight-bold">Stock</p>
-        <form class="d-flex justify-content-left">
-            
-            <input id="txtCantidad" onchange="validad_stock()" type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
-            
-            
-            <button id="btnGuardar" class="btn btn-default btn-md my-0 p" onclick="alerta()" type="submit" >Añadir al carrito
+        <p id="precio" class="py-4"></p>
+        <p class="lead font-weight-bold">Stock</p>
+            <input name="cantidad" id="txtCantidad" onchange="validad_stock()" type="number" value="1" aria-label="Search" class="form-control" style="width: 100%">
+         <button id="btnGuardar" class="btn btn-default btn-md my-4 " type="submit" >Añadir al carrito
               <i class="fas fa-shopping-cart ml-1"></i>
             </button>  
-            <button class="btn btn-danger btn-md my-0 p" type="submit" href="Index.html">
+            <button class="btn btn-danger btn-md my-0 p" type="submit">
             <i class="fas fa-angle-left"></i> Volver 
              
             </button>
+        </div>
+       
+           
 
           </form>
 
@@ -208,9 +191,7 @@
 		    <div class="view overlay">
 		      <img class="card-img-top" width="250%" height="234%" th:if="${#strings.length(obras.rutaimagen_principal)>0}" th:src="@{'/imagenes/'+${obras.rutaimagen_principal}}"
 		        alt="Card image cap">
-		      <a href="#!">
-		        <div class="mask rgba-white-slight"></div>
-		      </a>
+		      
 		    </div>
 		
 		    <!--Card content-->
@@ -352,12 +333,28 @@
 </script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script th:src="@{/frontend/js/jquery-3.4.1.min.js}"> </script>
-<script src="/js/md-pro.js"> </script>
-<script src="/js/mdb.ecommerce.min.js"> </script>
-<script src="/js/mdb.min.js"> </script>
-<script src="/js/popper.min.js"> </script>
-<script src="/js/bootstrap.min.js"> </script>
+<script th:src="@{/frontend/js/md-pro.js}"> </script>
+<script th:src="@{/frontend/js/mdb.ecommerce.min.js}"> </script>
+<script th:src="@{/frontend/js/mdb.min.js}"> </script>
+<script th:src="@{/frontend/js/popper.min.js}"> </script>
+<script th:src="@{/frontend/js/bootstrap.min.js}"> </script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.js"></script>
 <script>
+$(function(){
+	$('form[id="formdetalle"]').validate({
+		rules:{
+			caracteristica: 'required'
+			
+		},
+	 messages:{
+		 caracteristica: 'Por favor seleccione un tamaño'
+	},
+	submitHandler : function(form){
+		form.submit();
+	}
+	});
+	
+});
 	var cantidad = 0;
 	function buscar_caracteristica(e){
 		let id = $(e).val();
@@ -366,7 +363,7 @@
 			type: 'get',
 			dataType: 'json'
 		}).done(respuesta => {
-			$("#precio").text(respuesta.precio);
+			$("#precio").text(`Precio : ${respuesta.precio}`);
 			cantidad = respuesta.stock;
 		})
 	}
@@ -379,6 +376,7 @@
 			$("#btnGuardar").removeAttr("disabled");
 		}
 	}
+
 </script>
 </body>
 </html>

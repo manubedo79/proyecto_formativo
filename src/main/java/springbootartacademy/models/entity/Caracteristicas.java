@@ -34,6 +34,29 @@ public class Caracteristicas {
 	@JoinColumn(name = "obras_id")
 	@JsonIgnore
 	private Obras obras;
+	
+	
+	
+	
+	public Caracteristicas() {
+		
+	}
+
+	public Caracteristicas(int stock, Float precio, String size, Obras obras) {
+	
+		this.stock = stock;
+		this.precio = precio;
+		this.size = size;
+		this.obras = obras;
+	}
+	public boolean validar_cantidad(int totalcantidad)
+	{
+		return (this.getStock()>0) && (totalcantidad<=this.getStock());
+	}
+	public void decrementar_cantidad(int cantidad)
+	{
+		this.stock -= cantidad;
+	}
 
 	public Float getPrecio() {
 		return precio;

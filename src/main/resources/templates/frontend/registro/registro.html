@@ -70,7 +70,7 @@
 					</div>
 					
 					<div class="wrap-input100">
-						<select onchange="cargar_municipios(this)" class="select-2 input100" data-validate="El departamneto es requerido">
+						<select onchange="cargar_municipios(this)"  class="select-2" data-validate="El departamneto es requerido">
 						<option class="input100"> Seleccione el departamento</option>
 						<option th:each="departamento : ${departamentos}" th:text="${departamento.nombredepartamento}" th:value="${departamento.id}"></option>
 						</select>

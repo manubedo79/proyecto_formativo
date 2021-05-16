@@ -28,121 +28,103 @@
               <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
             </div>
           </div>    
-          
-           <form enctype="multipart/form-data" id="formularioobra" th:action="@{/guardarobra}" method="post">
-           <input type="hidden" id="obra_id" th:field="*{obra.id}" th:value="${obra.id}">
-           <input type="hidden" id="caracter_id" th:field="*{caracteristica.id}" th:value="${caracteristica.id}">
-          <!-- /.card-header -->
-          <div class="card-body">
-              <h3>Informacion de la Obra</h3><br>
-          
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Nombre de la Obra</label>
-                  <input type="text" th:field="*{obra.nombre}" class="form-control">
-                <small id="mensajerror" style="color: red;"></small>
-	            </div>
-	            </div>
-              <div class="col-md-6">
-	            <div class="form-group">
-	                <label>Categoria</label>
-					<select class="form-control select2" style="width: 100%;" th:field="*{obra.categoria}" >
-	                  	<option value="">Seleccione una categoria</option>
-	                  	<option value="">Ninguna</option>
-	                  	<th:block th:each="categori:${categoria}">
-	                  		<option th:value="${categori.id}" th:text="${categori.nombrecategoria}"></option>
-	                 	</th:block>
-		            </select>
-	            </div>
-	            </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label>Descripcion de la Obra</label>
-                  <textarea class="form-control" th:field="*{obra.descripcion}" rows="4" cols="2"></textarea>
-	              <small id="mensajerror" style="color: red;"></small>
-                <!-- /.form-group -->
+           <form th:action="@{/guardarobra}"  id="formularioobra" enctype="multipart/form-data" method="post">
+         <div class="row">
+        
+        <div class="col-6">
+            <div class="card">
+                <div class="card-head">
+                    <h4 class="text-center">1. Info Productos </h4>
+                    <p class="text-danger text-center">Campos Obligatorios *</p>
                 </div>
+                <div class="row card-body">
+                    <div class="form-group col-6">
+                        <label for="">Nombre</label>
+                        <input type="text" class="form-control" th:field="*{obra.nombre}">
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="">Categoria</label>
+                        <select th:field="*{obra.categoria}" class="form-control">
+                            <option value="">Seleccione una categoria</option>
+                            <option th:each="cate : ${categoria}" th:value="${cate.id}">[[${cate.nombrecategoria}]]</option>
+                         </select>
+                    </div>
+                   
+                   
+                     <div class="form-group col-12">
+                        <label for="">Descripción</label>
+                        <textarea class="form-control" id="descripcion" th:field="*{obra.descripcion}" ></textarea>
+                    </div>
+                     <div class="form-group col-12">
+                        <label for="">Imagen Principal</label>
+                        <input type="file" name="imagenobra" class="form-control" >
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="">Imagen 2</label>
+                        <input type="file" name="imagenobra2" class="form-control" >
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="">Imagen 3</label>
+                        <input type="file" name="imagenobra3" class="form-control" >
+                    </div>
                 </div>
-                <div class="form-group">
-                  <label>Imagen de Obra Principal</label>
-                  <input type="file" name="imagenobra" id="fileImage" accept="image/png, image/jpeg" class="form-control"  >
-	              <small id="mensajerror" style="color: red;"></small>                  
-              </div> 
-                <div class="form-group">
-                  <label>Imagen de Obra Secundaria</label>
-                  <input type="file" name="imagenobra2" id="fileImage" accept="image/png, image/jpeg" class="form-control"  >
-	              <small id="mensajerror" style="color: red;"></small>                  
-              </div>
-               <div class="form-group">
-                 <label>Imagen de Obra Terciaria</label>
-                 <input type="file" name="imagenobra3" id="fileImage" accept="image/png, image/jpeg" class="form-control"  >
-	             <small id="mensajerror" style="color: red;"></small>
-             	</div>
-              <div class="col-md-12">
-              	<br>
-              	<hr>
-              </div>
-             	
-              <div class="col-md-12">
-              	<h3>Caracteristicas de la Obra</h3><br>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Precio </label>
-                  <input type="number"min=0 id="precio" class="form-control" th:field="*{caracteristica.precio}">
-	              <small id="mensajerror" style="color: red;"></small>
-              </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Cantidad</label>
-                  <input type="number" min=0 id="cantidad" class="form-control" value=0 th:field="*{caracteristica.stock}">
-	              <small id="mensajerror" style="color: red;"></small>
-              </div>
-              	</div>             
-              <div class="col-md-6">
-              <div class="form-group">
-                  <label>Tamaño</label>
-                  <input type="text" id="tamaño" placeholder="Ancho x Alto en centimetros" class="form-control" th:field="*{caracteristica.size}">
-	              <small id="mensajerror" style="color: red;"></small>
-              </div>
-              	</div>             
-              <div class="col-md-6 center my-2">
-                  <label></label>
-		 			<button type="button" onclick="agregar_caracter()" class="btn btn-info float-center my-4">Agregar Caracteristicas</button>
-              	</div>
-              	<hr>
-             <div class="col-md-12">
-				<table class="table">
-				  <thead class="thead-dark">
-				    <tr>
-				      <th scope="col">Tamaño</th>
-				      <th scope="col">Precio</th>
-				      <th scope="col">Cantidad</th>
-				      <th scope="col">Opciones</th>
-				    </tr>
-				  </thead>
-				  <tbody id="tablacaracter" >
-				  </tbody>
-				</table>             
-				</div>              	
-              <div class="col-md-12">
-              	<br>
-              	<hr>
-              </div>
-              	
-              	
-              	
-             <div class="col-md-12">
-                <div class="text-center">
-           			<button type="submit"  class="btn btn-success" >Guardar Obra</button>
-              	</div>
-          	</div>
-
             </div>
-          </div>
-          </form>
+         
+            <div class="col-12" style="margin-top: 3%;">
+                <button type="submit" class="btn btn-info btn-block">Guardar</button>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-head">
+                    <h4 class="text-center">2. Info Caracteristicas</h4>
+                </div>
+                <p class="text-danger text-center">Campos Obligatorios *</p>
+                <div class="row card-body text-center">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="">Tamaño</label>
+                            <input type="text" name="size" id="size" class="form-control" >
+                        </div>
+                    </div>
+                   
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="">Cantidad</label>
+                            <input type="number" id="cantidad" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="">Precio</label>
+                            <input id="precio" type="text" class="form-control" >
+                        </div>
+                    </div>
+                    
+                    <div class="col-12">
+                        <button onclick="agregar_insumo()" type="button"
+                            class="btn btn-info float-right">Agregar</button>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                        	<th>Tamaño</th>
+                         	<th>Cantidad</th>
+                            <th>Precio</th>
+                            
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblInsumos">
+				
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    </form>
         </div>
          <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

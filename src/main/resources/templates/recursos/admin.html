@@ -255,33 +255,39 @@ color: red;}
 	
 
 <script>
-function agregar_caracter() {
-	let obra_id = $("#obra_id").val();
-	let caracter_id = $("#caracter_id").val();
-	let precio = $("#precio").val();
-	let tamaño = $("#size").val();
-	let cantidad = $("#stock").val();
-	if(cantidad > 0 && precio > 0)
-		{	
-			$("#tablacaracter").append(`
-				<tr id="tr-${caracter_id}">
-					<td >
-					<input type="hidden" value="${caracter_id}" name="caracter_id[]"/>
-					<input type="hidden" value="${obra_id}" name="obra_id[]"/>
-					<input type="hidden" value="${precio}" name="precio[]"/>
-					<input type="hidden" value="${cantidad}" name="cantidad[]"/>
-					<input type="hidden" value="${tamaño}" name="tamaño[]"/>
-					${tamaño}</td>
-					<td>${precio}</td>
-					<td>${cantidad}</td>
-				    <td> <button value="${}" type="button" onclick="borrar_caracter(${caracter_id})" class="btn btn-danger" >Borrar Caracteristica</button></td>
-				</tr>
-			`);
-		}
-	else{
-		alert("Debes de ingresar un precio o cantidad mayores a 0");
-	}
+function agregar_insumo() {
+    let insumo_id = $("#insumos option:selected").val();
+    let size = $("#size").val();
+    let cantidad = $("#cantidad").val();
+    let precio = $("#precio").val();
+    if (cantidad > 0 && precio > 0) {
+        $("#tblInsumos").append(`
+                <tr id="tr-${insumo_id}">
+                    <td>
+                        <input type="hidden" name="size[]" value="${size}" />
+                        <input type="hidden" name="cantidades[]" value="${cantidad}" />
+                        	<input type="hidden" name="precio[]" value="${precio}" />
+                        
+                        	${size}  
+                    </td>
+                   
+                    <td>${cantidad}</td>
+                    <td>${precio}</td>
+                   
+                    <td>
+                        <button type="button" class="btn btn-danger" onclick="eliminar_insumo(${insumo_id})">X</button>    
+                    </td>
+                </tr>
+            `);
+    } else {
+        alert("Se debe ingresar una cantidad o precio valido");
+    }
 }
+function eliminar_insumo(id) {
+    $("#tr-" + id).remove();
+
+}
+
 
 </script>
 

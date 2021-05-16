@@ -16,6 +16,6 @@ public interface IObrasService {
 	public Page<Obras> findAllcategoriaobras( Long id, int pageNumber );
 	public boolean cambioEstado(Long id);
 	public Page<Obras> ListarObrasTodas(int pageNumber,String busqueda);
-	public List<Obras> ObrasRelacionadas(Long id);
+	public List<Obras> ObrasRelacionadas(Long idcate,Long id);
 	
 }

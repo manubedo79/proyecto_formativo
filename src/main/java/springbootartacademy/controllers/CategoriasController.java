@@ -45,7 +45,8 @@ public class CategoriasController {
 
 	@GetMapping("/listarCategorias")
 	public ModelAndView ListaCategoriasTodos() {
-		return listBypage(1);
+		String busqueda = null;
+		return listBypage(1,busqueda);
 	}
 	
 	@GetMapping("/categoriastodas")
@@ -54,7 +55,7 @@ public class CategoriasController {
 	}
 	@GetMapping("/paginacategoriastodas/{numeropagina}")
 	public ModelAndView categoriastodaspagina(@PathVariable("numeropagina") int currentPage) {
-		Page<Categorias> page = cateservice.ListarCategoriasTodas(currentPage);
+		Page<Categorias> page = cateservice.ListarCategoriasTodas(currentPage,null);
 		long totalItems = page.getTotalElements();
 		int totalpages = page.getTotalPages();
 		List<Categorias> listaCategorias = page.getContent();
@@ -68,8 +69,8 @@ public class CategoriasController {
 
 	
 	@GetMapping("/pageCategorias/{pageNumber}")
-	public ModelAndView listBypage(@PathVariable("pageNumber") int currentPage) {
-		Page<Categorias> page = cateservice.ListarCategoriasTodas(currentPage);
+	public ModelAndView listBypage(@PathVariable("pageNumber") int currentPage, @Param("busqueda")String busqueda) {
+		Page<Categorias> page = cateservice.ListarCategoriasTodas(currentPage,busqueda);
 		long totalItems = page.getTotalElements();
 		int totalpages = page.getTotalPages();
 

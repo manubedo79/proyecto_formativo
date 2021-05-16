@@ -1,5 +1,7 @@
 package springbootartacademy.models.entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,6 +26,11 @@ private Caracteristicas  caracteristicas;
 private Usuarios usuarios;
 @Column(length=10)
 private int cantidad;
+
+public void agregar_cantidad(int cantidad)
+{
+	if(cantidad >0){this.cantidad += cantidad;}
+}
 public Long getId() {
 	return id;
 }
@@ -50,5 +57,8 @@ public void setCantidad(int cantidad) {
 	this.cantidad = cantidad;
 }
 
+public BigDecimal subtotal () {
+	return new BigDecimal(caracteristicas.getPrecio()).multiply(new BigDecimal(this.cantidad));
+}
 
 }

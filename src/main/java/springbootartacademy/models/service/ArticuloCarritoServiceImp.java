@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import springbootartacademy.models.dao.IArticuloCarritoDao;
 import springbootartacademy.models.entity.ArticuloCarrito;
+import springbootartacademy.models.entity.Caracteristicas;
+import springbootartacademy.models.entity.CarritoCompras;
 import springbootartacademy.models.entity.Usuarios;
 @Service
 public class ArticuloCarritoServiceImp implements IArticuloCarritoService{
@@ -14,9 +16,29 @@ public class ArticuloCarritoServiceImp implements IArticuloCarritoService{
 	private IArticuloCarritoDao articulodao;
 	
 	@Override
-	public List<ArticuloCarrito> articuloCarritos(Usuarios usuarios) {
+	public CarritoCompras articuloCarritos(Usuarios usuarios) {
 		// TODO Auto-generated method stub
-		return articulodao.findByUsuarios(usuarios);
+		return new CarritoCompras(articulodao.findByUsuarios(usuarios));
+	}
+	@Override
+	public ArticuloCarrito guardarcarrito(int cantidad,Caracteristicas carac,Usuarios usu) {
+		CarritoCompras carrito = this.articuloCarritos(usu);
+		ArticuloCarrito artcarrito = carrito.buscarArticuloCarritoByCaracteristicas(carac.getId());
+		if(artcarrito != null)
+		{		
+			artcarrito.agregar_cantidad(cantidad);
+			artcarrito.setCaracteristicas(carac);
+			artcarrito = articulodao.save(artcarrito);
+		}
+		else
+		{
+			artcarrito = new ArticuloCarrito();
+			artcarrito.setUsuarios(usu); 
+			artcarrito.setCantidad(cantidad); 
+			artcarrito.setCaracteristicas(carac); 
+			artcarrito = articulodao.save(artcarrito);
+		}
+		return artcarrito;
 	}
 
 }

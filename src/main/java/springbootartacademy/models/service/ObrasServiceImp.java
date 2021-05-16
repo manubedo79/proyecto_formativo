@@ -44,8 +44,8 @@ public class ObrasServiceImp implements IObrasService {
 	}
 	
 	@Override
-	public List<Obras> ObrasRelacionadas(Long id) {
-		return (List<Obras>)obrdao.ObrasRelacionadas(id,PageRequest.of(0,3));
+	public List<Obras> ObrasRelacionadas(Long idcate,Long id) {
+		return (List<Obras>)obrdao.ObrasRelacionadas(idcate,id,PageRequest.of(0,3));
 	}
 	
 	@Override

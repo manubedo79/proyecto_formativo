@@ -12,11 +12,11 @@
 
     <!-- Navbar -->
 
- <br><br><br><br>
+  <br><br><br><br>  
+      <div class="col-xl-12">
+      <main>
 
-  <main>
-
-    <div class="container">
+    
 
       <!-- Section main -->
       <section class="pt-2 mt-4">
@@ -37,7 +37,7 @@
               <!-- Grid column -->
 
               <!-- Grid column -->
-              <div class="col-md-8 col-lg-8 col-xl-8">
+              <div class="col-md-9 col-lg-9 col-xl-9">
 
                 <!--Carousel Wrapper-->
                 <div id="carousel-example-2" class="carousel slide carousel-fade" data-ride="carousel">
@@ -52,7 +52,7 @@
                   <div class="carousel-inner" role="listbox">
                     <div class="carousel-item active">
                       <div class="view" style="max-height: 418px;">
-                        <img class="d-block" width="1000" th:src="@{/frontend/img/16.png}"
+                        <img class="d-block w-100"  th:src="@{/frontend/img/16.png}"
                           alt="First slide">
                         
                       </div>
@@ -60,7 +60,7 @@
                     <div class="carousel-item">
                       <!--Mask color-->
                       <div class="view" style="max-height: 418px;">
-                        <img class="d-block" width="1000" th:src="@{/frontend/img/17.png}"
+                        <img class="d-block w-100" th:src="@{/frontend/img/17.png}"
                           alt="First slide">
                         
                       </div>
@@ -68,7 +68,7 @@
                     <div class="carousel-item">
                       <!--Mask color-->
                       <div class="view" style="max-height: 418px;">
-                        <img class="d-block" width="1000" th:src="@{/frontend/img/15.png}"
+                        <img class="d-block w-100"  th:src="@{/frontend/img/15.png}"
                           alt="First slide">
                       </div>
                     </div>
@@ -101,6 +101,7 @@
       </section>
       </div>
       </main>
+      </div>
       
       <!-- Section main -->
   <br><br><br><br>
@@ -115,22 +116,21 @@
 
     <!--Card image-->
     <div class="view overlay">
-      <img class="card-img-top" th:if="${#strings.length(obras.rutaimagen_principal)>0}" th:src="@{'/imagenes/'+${obras.rutaimagen_principal}}"
-        alt="Card image cap">
-      <a href="#!">
-        <div class="mask rgba-white-slight"></div>
-      </a>
+    <div style="height: 250px;">
+      <img class="card-img-top"  style=" object-fit: cover; " th:if="${#strings.length(obras.rutaimagen_principal)>0}" th:src="@{'/imagenes/'+${obras.rutaimagen_principal}}"
+       >
+       </div>
     </div>
 
     <!--Card content-->
     <div class="card-body">
 
       <!--Title-->
-      <h4 class="card-title text-center"  th:text="${obras.nombre}"></h4>
+      <h4 class="card-text text-center" style="font-size: 15px;"  th:text="'Nombre: '+${obras.nombre}"></h4>
       <!--Text-->
-      <p class="card-text">[[${obras.descripcion}]]</p>
+     
       <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-      <a href="Detalle.html"  class="btn btn-default  btn-block">!Lo Quiero</a>
+      <a href="Detalle.html"  class="btn btn-default  btn-block text-light">!Lo Quiero</a>
 
     </div>
 

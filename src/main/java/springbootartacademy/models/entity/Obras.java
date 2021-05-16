@@ -1,5 +1,6 @@
 package springbootartacademy.models.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class Obras {
 	private Categorias categoria;
 	
 	@OneToMany(mappedBy="obras",cascade=CascadeType.ALL)
-	public List<Caracteristicas> caracteristicas; 
+	public List<Caracteristicas> caracteristicas = new ArrayList<>(); 
 	@Column(nullable = false)
 	private String rutaimagen_principal;
 
@@ -154,7 +155,9 @@ public class Obras {
 	public void setCaracteristicas(List<Caracteristicas> caracteristicas) {
 		this.caracteristicas = caracteristicas;
 	}
-	
+	public void addCaracteristicas(int stock, Float precio, String size) {
+		this.caracteristicas.add(new Caracteristicas(stock, precio, size, this));
+	}
 	
 
 

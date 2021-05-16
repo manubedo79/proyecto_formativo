@@ -10,7 +10,7 @@ public interface IClientesService {
 	
 	public List<Clientes> findAllClientes();
 	public Clientes findById(Long idcliente);
-	public Page<Clientes> ListarClientesTodos(int pageNumber);
+	public Page<Clientes> ListarClientesTodos(int pageNumber, String busqueda);
 	public void saveClientes(Clientes  clientes);
 	public Clientes findAllByCorreo(String correo);
 

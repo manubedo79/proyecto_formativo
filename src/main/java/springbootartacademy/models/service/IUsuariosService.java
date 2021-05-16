@@ -31,4 +31,6 @@ public void edituser(Usuarios usuarios);
 public void updatepassword(Usuarios usuarios);
 public void guardopassword(Usuarios usuarios);
 
+public void CreateNuevoUsuarioAfterOAuthLoginSuccess( String email);
+
 }

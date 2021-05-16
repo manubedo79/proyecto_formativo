@@ -11,7 +11,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,14 +45,16 @@ public class ClientesController {
 	private IDepartamentosDao depadao;
 	
 
+
 	@GetMapping("/listaClientes")
 	public ModelAndView ListaClientesTodos() {
-		return listBypage(1);
+		String busqueda = null;
+		return listBypage(1,busqueda);
 	}
 
 	@GetMapping("/pageCliente/{pageNumber}")
-	public ModelAndView listBypage(@PathVariable("pageNumber") int currentPage) {
-		Page<Clientes> page = CliService.ListarClientesTodos(currentPage);
+	public ModelAndView listBypage(@PathVariable("pageNumber") int currentPage, @Param("busqueda")String busqueda) {
+		Page<Clientes> page = CliService.ListarClientesTodos(currentPage,busqueda);
 		long totalItems = page.getTotalElements();
 		int totalpages = page.getTotalPages();
 

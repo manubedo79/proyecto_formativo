@@ -25,8 +25,9 @@ public class CategoriasServiceImp implements ICategoriasService{
 	}
 
 	@Override
-	public Page<Categorias> ListarCategoriasTodas(int pageNumber) {
-		Pageable pageable = PageRequest.of(pageNumber - 1, 2 );
+	public Page<Categorias> ListarCategoriasTodas(int pageNumber,String busqueda) {
+		Pageable pageable = PageRequest.of(pageNumber - 1, 12 );
+		if(busqueda!=null) { return catedao.findAll(busqueda,pageable);}
 		
 		return catedao.findAll(pageable) ;
 	}
