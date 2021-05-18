@@ -21,24 +21,33 @@ public class ArticuloCarritoServiceImp implements IArticuloCarritoService{
 		return new CarritoCompras(articulodao.findByUsuarios(usuarios));
 	}
 	@Override
-	public ArticuloCarrito guardarcarrito(int cantidad,Caracteristicas carac,Usuarios usu) {
+	public ArticuloCarrito guardarcarrito(Integer cantidad,Caracteristicas carac,Usuarios usu) {
 		CarritoCompras carrito = this.articuloCarritos(usu);
 		ArticuloCarrito artcarrito = carrito.buscarArticuloCarritoByCaracteristicas(carac.getId());
 		if(artcarrito != null)
 		{		
+			
 			artcarrito.agregar_cantidad(cantidad);
 			artcarrito.setCaracteristicas(carac);
 			artcarrito = articulodao.save(artcarrito);
+			
 		}
 		else
 		{
 			artcarrito = new ArticuloCarrito();
 			artcarrito.setUsuarios(usu); 
+			
 			artcarrito.setCantidad(cantidad); 
 			artcarrito.setCaracteristicas(carac); 
 			artcarrito = articulodao.save(artcarrito);
 		}
 		return artcarrito;
 	}
+	@Override
+	public Integer validarsuma_cantidad(Caracteristicas caracteristicas) {
+		
+		return articulodao.validarsuma_cantidad(caracteristicas);
+	}
+	
 
 }

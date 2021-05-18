@@ -36,6 +36,7 @@ import springbootartacademy.models.entity.Usuarios;
 import springbootartacademy.models.service.ICaracteristicasService;
 import springbootartacademy.models.service.ICategoriasService;
 import springbootartacademy.models.service.IClientesService;
+import springbootartacademy.models.service.IComentariosService;
 import springbootartacademy.models.service.IFileService;
 import springbootartacademy.models.service.IObrasService;
 import springbootartacademy.models.service.IUsuariosService;
@@ -53,6 +54,8 @@ public class ObrasController {
 	private ICaracteristicasService serviciocaracteristica;
 	@Autowired
 	private IFileService ifileser;
+	@Autowired
+	private IComentariosService icomser;
 	
 	
 	@GetMapping("/formularioobra")
@@ -162,6 +165,7 @@ public class ObrasController {
 		mav.addObject("caracteristicas", serviciocaracteristica.findAllCaracteristocas(id));
 		mav.addObject("Obras", obras);
 		mav.addObject("ObrasRel", obrasrelacionadas);
+		mav.addObject("comentarios", icomser.findallComentarios(id));
 		return mav;
 	}
 	@GetMapping("/obras/export")

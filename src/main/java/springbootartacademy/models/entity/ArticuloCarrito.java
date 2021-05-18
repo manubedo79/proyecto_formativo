@@ -25,12 +25,17 @@ private Caracteristicas  caracteristicas;
 @JoinColumn(name="usuario_id")
 private Usuarios usuarios;
 @Column(length=10)
-private int cantidad;
+private Integer cantidad;
 
-public void agregar_cantidad(int cantidad)
+public void agregar_cantidad(Integer cantidad)
 {
 	if(cantidad >0){this.cantidad += cantidad;}
+	
 }
+public boolean canUpdateQty(Integer qty) {
+	return qty == null || qty <= 0 || this.getCaracteristicas().validar_cantidad(qty);
+}
+
 public Long getId() {
 	return id;
 }

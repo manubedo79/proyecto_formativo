@@ -1,5 +1,7 @@
 package springbootartacademy.models.entity;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -22,7 +25,7 @@ public class Caracteristicas {
 	private Long id;
 	
 	@Column(length = 4, nullable = false)
-	private int stock;
+	private Integer stock;
 
 	@Column(length = 13, nullable = false)
 	private Float precio;
@@ -38,22 +41,25 @@ public class Caracteristicas {
 	
 	
 	
+	
+	
 	public Caracteristicas() {
 		
 	}
 
-	public Caracteristicas(int stock, Float precio, String size, Obras obras) {
+	public Caracteristicas(Integer stock, Float precio, String size, Obras obras) {
 	
 		this.stock = stock;
 		this.precio = precio;
 		this.size = size;
 		this.obras = obras;
 	}
-	public boolean validar_cantidad(int totalcantidad)
+	public boolean validar_cantidad(Integer totalcantidad)
 	{
 		return (this.getStock()>0) && (totalcantidad<=this.getStock());
 	}
-	public void decrementar_cantidad(int cantidad)
+	
+	public void decrementar_cantidad(Integer cantidad)
 	{
 		this.stock -= cantidad;
 	}
@@ -74,11 +80,11 @@ public class Caracteristicas {
 		this.id = id;
 	}
 
-	public int getStock() {
+	public Integer getStock() {
 		return stock;
 	}
 
-	public void setStock(int stock) {
+	public void setStock(Integer stock) {
 		this.stock = stock;
 	}
 
@@ -98,6 +104,12 @@ public class Caracteristicas {
 	public void setObras(Obras obras) {
 		this.obras = obras;
 	}
+
+	
+
+	
+	
+	
 	
 	
 }

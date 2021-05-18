@@ -9,5 +9,6 @@ import springbootartacademy.models.entity.Usuarios;
 
 public interface IArticuloCarritoService {
 	public CarritoCompras articuloCarritos(Usuarios usuarios);
-	public ArticuloCarrito guardarcarrito(int cantidad, Caracteristicas carac, Usuarios usu);
+	public ArticuloCarrito guardarcarrito(Integer cantidad, Caracteristicas carac, Usuarios usu);
+	public Integer validarsuma_cantidad(Caracteristicas caracteristicas);
 }

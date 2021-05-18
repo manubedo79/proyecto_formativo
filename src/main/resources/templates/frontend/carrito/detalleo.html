@@ -39,12 +39,12 @@ color: red;
                   <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails" >
                     <!--Slides-->
                     <div class="carousel-inner" role="listbox">
-                      <div class="carousel-item active" >
+                      <div class="carousel-item active" th:if="${Obras.rutaimagen_principal!=null}" >
                         <img height="320px" class="d-block w-100" th:if="${#strings.length(Obras.rutaimagen_principal)>0}" th:src="@{'/imagenes/'+${Obras.rutaimagen_principal}}"
-                          alt="First slide">
+                         >
                       </div>
-                      <div class="carousel-item" >
-                        <img height="320px" class="d-block w-100" th:if="${#strings.length(Obras.rutaimagen_2)>0}" th:src="@{'/imagenes/'+${Obras.rutaimagen_2}}"
+                      <div class="carousel-item" th:if="${Obras.rutaimagen_2!=null}">
+                        <img height="320px" class="d-block w-100" th:src="@{'/imagenes/'+${Obras.rutaimagen_2}}"
                           alt="Second slide">
                       </div>
                       <div class="carousel-item">
@@ -58,11 +58,11 @@ color: red;
                     
                     <!--/.Controls-->
                     <ol class="carousel-indicators">
-                      <li data-target="#carousel-thumb" data-slide-to="0" class="active">
+                      <li data-target="#carousel-thumb" th:if="${Obras.rutaimagen_principal!=null}" data-slide-to="0" class="active">
                         <img th:if="${#strings.length(Obras.rutaimagen_principal)>0}" th:src="@{'/imagenes/'+${Obras.rutaimagen_principal}}" width="100">
                       </li>
-                      <li data-target="#carousel-thumb" data-slide-to="1">
-                        <img th:if="${#strings.length(Obras.rutaimagen_2)>0}" th:src="@{'/imagenes/'+${Obras.rutaimagen_2}}" width="100">
+                      <li data-target="#carousel-thumb" data-slide-to="1" th:if="${Obras.rutaimagen_2>0}">
+                        <img th:if="" th:src="@{'/imagenes/'+${Obras.rutaimagen_2}}" width="100">
                       </li>
                       <li data-target="#carousel-thumb" data-slide-to="2">
                         <img th:if="${#strings.length(Obras.rutaimagen_3)>0}" th:src="@{'/imagenes/'+${Obras.rutaimagen_3}}" width="100">
@@ -144,33 +144,21 @@ color: red;
 
   <ul class="nav tabs-default nav-justified" id="advancedTab" role="tablist">
     <li >
-      <a class="nav-link active show" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+      <a class="nav-link active show" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Comentarios del producto</a>
     </li>
   </ul>
-  <div class="tab-content" id="advancedTabContent">
+ <div th:each="com:${comentarios}" class="tab-content" id="advancedTabContent">
+    
     <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-      <h5>Reseñas</h5>
-      <p class="small text-muted text-uppercase mb-2">Paco</p>
-      <ul class="rating">
-        <li>
-          <i class="fas fa-star fa-sm text-primary"></i>
-        </li>
-        <li>
-          <i class="fas fa-star fa-sm text-primary"></i>
-        </li>
-        <li>
-          <i class="fas fa-star fa-sm text-primary"></i>
-        </li>
-        <li>
-          <i class="fas fa-star fa-sm text-primary"></i>
-        </li>
-        <li>
-          <i class="far fa-star fa-sm text-primary"></i>
-        </li>
-      </ul>
-      <p class="pt-1">Me gusto esta obra.</p>
+      
+    <span class="small text-muted text-uppercase">Cliente: [[${com.clientes.nombre}]]</span>
+		<p class="small text-muted text-uppercase my-2">Comentario publicado el: [[${#dates.format(com.fechacreacion,'dd-MMM-yyyy')}]]</p>
+	
+      <p class="small text-muted text-uppercase my-2">[[${com.comentario}]]</p>
     </div>
+          
     <hr>
+    
   </div>
 
 </div>
