@@ -1,6 +1,6 @@
 package springbootartacademy.models.entity;
 
-import java.math.BigDecimal;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,8 +32,8 @@ public void agregar_cantidad(Integer cantidad)
 	if(cantidad >0){this.cantidad += cantidad;}
 	
 }
-public boolean canUpdateQty(Integer qty) {
-	return qty == null || qty <= 0 || this.getCaracteristicas().validar_cantidad(qty);
+public boolean actualizarCantidad(Integer cantidad) {
+	return cantidad == null || cantidad <= 0 || this.getCaracteristicas().validar_cantidad(cantidad);
 }
 
 public Long getId() {
@@ -55,15 +55,15 @@ public Usuarios getUsuarios() {
 public void setUsuarios(Usuarios usuarios) {
 	this.usuarios = usuarios;
 }
-public int getCantidad() {
+public Integer getCantidad() {
 	return cantidad;
 }
-public void setCantidad(int cantidad) {
+public void setCantidad(Integer cantidad) {
 	this.cantidad = cantidad;
 }
 
-public BigDecimal subtotal () {
-	return new BigDecimal(caracteristicas.getPrecio()).multiply(new BigDecimal(this.cantidad));
+public float subtotal () {
+	return cantidad.floatValue()*caracteristicas.getPrecio() ;
 }
 
 }

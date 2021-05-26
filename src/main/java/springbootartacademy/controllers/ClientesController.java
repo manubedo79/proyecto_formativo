@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -33,8 +34,9 @@ import springbootartacademy.models.service.IClientesService;
 import springbootartacademy.models.service.IUsuariosService;
 
 @Controller
+@RequestMapping("/cliente")
 public class ClientesController {
-
+	
 	@Autowired
 	private IClientesService CliService;
 	@Autowired
@@ -46,13 +48,13 @@ public class ClientesController {
 	
 
 
-	@GetMapping("/listaClientes")
+	@GetMapping("/listar")
 	public ModelAndView ListaClientesTodos() {
 		String busqueda = null;
 		return listBypage(1,busqueda);
 	}
 
-	@GetMapping("/pageCliente/{pageNumber}")
+	@GetMapping("/pagina/{pageNumber}")
 	public ModelAndView listBypage(@PathVariable("pageNumber") int currentPage, @Param("busqueda")String busqueda) {
 		Page<Clientes> page = CliService.ListarClientesTodos(currentPage,busqueda);
 		long totalItems = page.getTotalElements();
@@ -67,30 +69,14 @@ public class ClientesController {
 		mav.addObject("currentPage", currentPage);
 		return mav;
 	}
-	@GetMapping("/detallaCliente/{pageNumber}")
-	public ModelAndView detallacliente(@PathVariable("pageNumber") Long id) {
+	@GetMapping("/detalle/{id}")
+	public ModelAndView detallacliente(@PathVariable("id") Long id) {
 		Clientes cliente = CliService.findById(id);
 		ModelAndView mav = new ModelAndView("backend/Clientes/detalla");
 		mav.addObject("Clientes", cliente);
 		return mav;
 	}
-	@GetMapping("/datospersonales/{idusuario}")
-	public String datospersonales(@PathVariable(value="idusuario") Long idusuario, Model model) {
-		Usuarios usuarios = iususer.findById(idusuario);
-		Clientes clientes = new Clientes();
-		clientes.setUsuarios(usuarios);
-		model.addAttribute("municipios", munidao.findAll());
-		model.addAttribute("departamentos", depadao.findAll());
-		model.addAttribute("cliente", clientes);
-		return "frontend/cliente/datospersonales";
-	}
-	
-	@PostMapping("/terminarregistro")
-	public String terminarRegistro(Clientes clientes,BindingResult result, RedirectAttributes flash, Model model) {		
-			CliService.saveClientes(clientes);
-		return "redirect:/mensajeRegistro";
-	}
-	@GetMapping("/clien/export")
+	@GetMapping("/exportar")
 	public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
 		response.setContentType("application/pdf");
 		
@@ -109,7 +95,7 @@ public class ClientesController {
 		
 	}
 
-	@GetMapping("/editarcliente/{id}")
+	@GetMapping("/editar/{id}")
 	public String editarcliente(@PathVariable(name="id") Long id,Model model) {
 		Clientes clientes = CliService.findById(id);
 		List<Usuarios> listausuarios = iususer.findAllUsers();
@@ -123,11 +109,11 @@ public class ClientesController {
 		model.addAttribute("municipios", listamunicipios);
 		return "backend/Clientes/formulario";
 	}
-	@PostMapping("/guardarcliente")
+	@PostMapping("/guardar")
 	public String guardarCliente(@ModelAttribute() Clientes clientes , RedirectAttributes flash, Model model) {
 		CliService.saveClientes(clientes);
 		flash.addFlashAttribute("success", "Se edito de forma correcta el cliente");
-		return "redirect:/listaClientes";	
+		return "redirect:/cliente/listar";	
 	}
 	
 }

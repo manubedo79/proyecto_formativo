@@ -101,7 +101,7 @@ public class UsuariosServiceImp implements IUsuariosService {
 	
 	public void sendVerificationEmail(Usuarios nuevousuario,String siteURL)throws UnsupportedEncodingException, MessagingException {
 		String subject ="Por favor verifica tu registro";
-		String verificion = siteURL+"/verificate?code="+nuevousuario.getVerification();
+		String verificion = siteURL+"/cuenta/verificacion?code="+nuevousuario.getVerification();
 		String mailcontent = "<p>Señ@r Usuario "+" para poder acceder por completo a nuestra pagina web debe de verificarse presionando en el siguiente link </p>";
 		mailcontent+=" <p>Art Academy Team</p>";
 		mailcontent+="<a href=\""+verificion+"\">Verificacion de Cuenta</a>";

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="recursos/navbar::head">
+<meta charset="UTF-8"/>
+<title>Finalizando Compra</title>
+</head>
+ <style>
+        .separacion{
+            border-left:1px solid gainsboro;
+            height:500px;
+            position: absolute;
+            left:67%;
+            margin-left:-3px;
+            top: 0;
+        }   
+    </style>
+<body>
+
+<nav th:replace="recursos/navbar::navbar">
+
+</nav>
+  <main class="mt-5 pt-4">
+    <div class="container wow fadeIn">
+    
+      <h2 class="my-5 h2 text-center">Ingresa tus Datos de Envío</h2>
+      <div class="row">
+      
+        <div class="col-md-8 mb-4">
+        
+          <div class="card">
+          
+            <form class="card-body" th:action="@{/generando_venta}" method="post">
+             <div class="row">
+                <div class="col-lg-8 col-12 mb-8">
+                  <label for="country">Direcciones actual del cliente</label>
+              <strong id="totalprod">[[${usuario.clientes.direccion}]] </strong>
+                </div>	
+              </div>
+              <hr>
+              <div class="custom-control ">
+                  <p>¿Su Dirección es la misma del envío?</p>
+                  <select name="opcion" class="custom-select d-block w-100" required>
+						<option class="input100" th:value="si" > Si </option>
+						<option class="input100" th:value="no"> No</option>
+                  </select>
+                <br><br>
+                <p><b>Si su respuesta fue no ingrese la dirección de envío</b></p>
+              </div>
+              <div class="custom-control ">
+
+                  <label for="country">Departamento</label>
+                  <select onchange="cargar_municipios(this)" class="custom-select d-block w-100"  >
+                    <option value="">Seleccione un departamento</option>
+					<option th:each="departamento : ${departamentos}" th:text="${departamento.nombredepartamento}" th:value="${departamento.id}"></option>
+                  </select>
+              <input type="hidden" th:value="${total}" name="total"/>
+                
+                  <label for="state">Municipio</label>                
+                  <select name="municipionuevo" onchange="verificar_tarifa(this)" class="custom-select d-block w-100" id="municipios" >
+						<option value="" class="input100" > Seleccione un municipio</option>
+                  </select>
+                <label for="state">Direccion</label>                
+                <input type="text" name="direccionnuevo" class="form-control" placeholder="CRA 143 #68-161">
+              </div>
+
+
+              <hr class="mb-4">
+              <button class="btn btn-default btn-block" type="submit" target="_blank">Continuar con el Pago  </button>
+
+            </form>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+        <div class="col-md-4 mb-4">
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Tus Productos</span>
+            <span class="badge badge orange badge-pill" th:text="${conteo}"></span>
+          </h4>
+
+          <!-- Cart -->
+          <ul class="list-group mb-3 z-depth-1">
+		  <th:block th:each="items: ${carritos}">
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h6 class="my-0">[[${items.caracteristicas.obras.nombre}]]</h6>
+              <span class="text-muted">Cantidad [[${items.cantidad}]]</span><br>
+              <span class="text-muted">Precio $[[${items.caracteristicas.precio}]]</span>
+              </div>
+              <span id="subtotal" class="text-muted ">Subtotal $[[${items.subtotal}]]</span>
+            </li>
+             </th:block>
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h6 class="my-0"><b>Costo del envio</b></h6>
+              </div>
+              <span id="tarenvi" class="text-muted">$</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total (COL)</span>
+              <strong id="pretotal">[[${total}]]</strong>
+            </li>
+          </ul>
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+    </div>
+  </main>
+  <!--Main layout-->
+	<script th:src="@{/frontend/acount/vendor/jquery/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/frontend/acount/vendor/animsition/js/animsition.min.js}"></script>
+	<script th:src="@{/frontend/acount/vendor/bootstrap/js/popper.js}"></script>
+	<script th:src="@{/frontend/acount/vendor/bootstrap/js/bootstrap.min.js}"></script>
+	<script th:src="@{/frontend/acount/vendor/select2/select2.min.js}"></script>
+	<script th:src="@{/frontend/acount/vendor/daterangepicker/moment.min.js}"></script>
+	<script th:src="@{/frontend/acount/vendor/daterangepicker/daterangepicker.js}"></script>
+	<script th:src="@{/frontend/acount/vendor/countdowntime/countdowntime.js}"></script>
+	<script th:src="@{/frontend/acount/js/main.js}"></script>
+	<script type="text/javascript">
+	var tarifa = 0 ;
+	var total = $("#total") ;
+	var totalito= 0;
+
+	function cargar_municipios(e){
+		$("#municipios").html('<option class="input100"> Seleccione el municipio</option>');
+		let id = $(e).val();
+		$.ajax({
+			url: '/obtener/municipios/'+id,
+			type: 'GET',
+			dataType: 'json'
+		}).done(respuesta => {
+			respuesta.map(e => $("#municipios").append(`<option value="${e.id}">${e.nombremunicipio}</option>`)
+			)
+		}).fail(error => console.log(error))
+	}
+	function verificar_tarifa(r){
+		$("#tarenvi").html('<span id="tarenvi" class="text-muted">$</span>');
+		let id = $(r).val();
+		console.log(id);
+		$.ajax({
+			url: '/obtener_tarifa/'+id,
+			type: 'GET',
+			dataType: 'json'
+		}).done(respuesta => {
+			$("#tarenvi").append(`<span id="tarenvi" class="text-muted">${respuesta.tarifaenviomunicipio}</span>
+					<strong id="pretotal">${totalito}</strong>`)
+			tarifa = respuesta.tarifaenviomunicipio;
+			totalito = parseFloat(total.val())+parseFloat(tarifa);
+			console.log(totalito);
+			$("#totalprod").append(`<strong id="pretotal">sssss</strong>`)
+		}).fail(error => console.log(error))
+	}
+	
+	</script>
+</body>
+</html>

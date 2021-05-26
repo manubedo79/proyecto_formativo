@@ -42,6 +42,7 @@ import springbootartacademy.utils.UsuarioDetailsImp;
 import springbootartacademy.utils.Utilidad;
 
 @Controller
+@RequestMapping("/usuario")
 public class UsuariosController {
 
 	@Autowired
@@ -57,109 +58,96 @@ public class UsuariosController {
 	private IClientesService cliser;
 	@Autowired
 	private IMunicipiosDao munidao;
-	@Autowired 
+	@Autowired
 	private IDepartamentosDao idepartadao;
-	
-	
-	@GetMapping("/ListaUsuarios")
+
+	@GetMapping("/listar")
 	public ModelAndView ListaUsuarioTodos() {
-	String busqueda = null;
-		return listBypage(1,busqueda);
+		String busqueda = null;
+		return listBypage(1, busqueda);
 	}
 
-@GetMapping("/page/{pageNumber}")
-public ModelAndView listBypage(@PathVariable("pageNumber")int currentPage, @Param("busqueda")String busqueda) {
-	Page<Usuarios> page = service.ListarUsuariosTodos(currentPage,busqueda);
-	long totalItems = page.getTotalElements();
-	int totalpages = page.getTotalPages();
-	
-	
-	List<Usuarios> listaUsuarios =page.getContent();
-	
-	ModelAndView mav = new ModelAndView("backend/usuarios/listar"); 
-	mav.addObject("ListaUsu", listaUsuarios);
-	mav.addObject("totalItems", totalItems);
-	mav.addObject("totalpages", totalpages);
-	mav.addObject("currentPage", currentPage);
-	mav.addObject("busqueda",busqueda);
-	return mav;
-}
+	@GetMapping("/pagina/{pageNumber}")
+	public ModelAndView listBypage(@PathVariable("pageNumber") int currentPage, @Param("busqueda") String busqueda) {
+		Page<Usuarios> page = service.ListarUsuariosTodos(currentPage, busqueda);
+		long totalItems = page.getTotalElements();
+		int totalpages = page.getTotalPages();
 
-@GetMapping("/registroUsuarios")
-public String registro( Model model) {
-	
-	model.addAttribute("roles",rolesdao.findAll());
-	model.addAttribute("usuario",new Usuarios());
-	return "backend/usuarios/formulario";
+		List<Usuarios> listaUsuarios = page.getContent();
 
-}
-
-@PostMapping("/guardarUsuario")
-public String guardarUsuario (@ModelAttribute() Usuarios usuario , RedirectAttributes flash, Model model) {
-	
-	
-	flash.addFlashAttribute("success", "Se guardo el usuario correctamente");
-	service.saveNewUsuarios(usuario);
-	return "redirect:/ListaUsuarios";
-}
-
-
-
-@GetMapping("/cambiarEstado/{id}")
-public String cambiarEstado(@PathVariable(value="id") Long id) {
-	service.cambioEstado(id);
-	return "redirect:/ListaUsuarios";
-}
-
-	@GetMapping("/users/export")
-	public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
-		response.setContentType("application/pdf");
-		
-		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-		
-		String currentDateTime = dateFormatter.format(new Date());
-		String headerKey = "Content-Disposition";
-		String headerValue = "attachment; filename=usuarios_" + currentDateTime +".pdf";
-		
-		response.setHeader(headerKey, headerValue);
-		
-		List<Usuarios> listaUsuarios = service.findAllUsers();
-		
-		UserPDFExporter exporter = new UserPDFExporter(listaUsuarios);
-		exporter.export(response);
-		
+		ModelAndView mav = new ModelAndView("backend/usuarios/listar");
+		mav.addObject("ListaUsu", listaUsuarios);
+		mav.addObject("totalItems", totalItems);
+		mav.addObject("totalpages", totalpages);
+		mav.addObject("currentPage", currentPage);
+		mav.addObject("busqueda", busqueda);
+		return mav;
 	}
-// Metodo para mostrar el formulario de perfil
+
+	@GetMapping("/formulario")
+	public String registro(Model model) {
+
+		model.addAttribute("roles", rolesdao.findAll());
+		model.addAttribute("usuario", new Usuarios());
+		return "backend/usuarios/formulario";
+
+	}
+
+	@PostMapping("/guardar")
+	public String guardarUsuario(@ModelAttribute() Usuarios usuario, RedirectAttributes flash, Model model) {
+
+		flash.addFlashAttribute("success", "Se guardo el usuario correctamente");
+		service.saveNewUsuarios(usuario);
+		return "redirect:/usuario/listar";
+	}
+
+	@GetMapping("/cambiarestado/{id}")
+	public String cambiarEstado(@PathVariable(value = "id") Long id) {
+		service.cambioEstado(id);
+		return "redirect:/usuario/listar";
+	}
+	@GetMapping("/editar/{id}")
+	public String editarusuario(Model model, @PathVariable(name = "id") Long id) {
+		Usuarios usuarios = service.findById(id);
+		model.addAttribute("roles", rolesdao.findAll());
+		model.addAttribute("usuario", usuarios);
+		return "backend/usuarios/editar";
+	}
+
+	@PostMapping("/editar")
+	public String editarnuevoUsuario(Usuarios usuarios, RedirectAttributes flash) {
+		service.edituser(usuarios);
+		flash.addFlashAttribute("success", "Se edito el usuario correctamente");
+		return "redirect:/usuario/listar";
+	}
+
 	@GetMapping("/miperfil")
-	public String miperfil(Model model,Principal principal) {
+	public String miperfil(Model model, Principal principal) {
 		Usuarios usuarios = service.findByCorreo(principal.getName());
-		Clientes clientes =  cliser.findAllByCorreo(principal.getName());
+		Clientes clientes = cliser.findAllByCorreo(principal.getName());
 		model.addAttribute("usuario", usuarios);
 		model.addAttribute("cliente", clientes);
 		model.addAttribute("municipios", munidao.findAll());
 		model.addAttribute("departamentos", idepartadao.findAll());
 		return "frontend/cuenta/miperfil";
 	}
-
-
-	@RequestMapping(value = "/update-user-info", method = RequestMethod.POST)
-	public String updateUserInfo(@ModelAttribute("usuario") Usuarios usuarios,@ModelAttribute("cliente") Clientes clientes,
-			 Model model, Principal principal)
-			throws Exception {
+	@RequestMapping(value = "/actualizar/perfil", method = RequestMethod.POST)
+	public String updateUserInfo(@ModelAttribute("usuario") Usuarios usuarios,
+			@ModelAttribute("cliente") Clientes clientes, Model model, Principal principal) throws Exception {
 		Usuarios currentUser = service.findByCorreo(principal.getName());
 		Clientes currentClientes = cliser.findAllByCorreo(principal.getName());
 		if (currentUser == null) {
 			throw new Exception("User not found");
 		}
-		if(currentClientes == null) {
-			throw new Exception("Cliente not found"); 
+		if (currentClientes == null) {
+			throw new Exception("Cliente not found");
 		}
-		
+
 		/* check email already exists */
 		Usuarios existingUser = service.findByCorreo(usuarios.getCorreo());
 		if (existingUser != null && !existingUser.getId().equals(currentUser.getId())) {
 			model.addAttribute("emailExists", true);
-			return "frontend/cuenta/miperfil";
+			return "frontend/cuenta/editarpassword";
 		}
 
 		currentUser.setCorreo(usuarios.getCorreo());
@@ -169,51 +157,54 @@ public String cambiarEstado(@PathVariable(value="id") Long id) {
 		currentClientes.setTelefono(clientes.getTelefono());
 		currentClientes.setMunicipios(clientes.getMunicipios());
 		service.actualizarPefil(currentUser, currentClientes);
-		model.addAttribute("updateSuccess","Se actualizaron sus datos de usuarios de forma correcta");
+		model.addAttribute("updateSuccess", "Se actualizaron sus datos de usuarios de forma correcta");
 		model.addAttribute("usuario", currentUser);
 		model.addAttribute("cliente", currentClientes);
 		idetailsimp.authenticateUser(currentUser.getCorreo());
-		return "redirect:/miperfil";
+		return "redirect:/usuario/miperfil";
 	}
-@GetMapping("/editarpassword")
-public String editarpassword(Authentication authentication, Model model) {
-	Usuarios usuarios = (Usuarios) authentication.getPrincipal();
-	model.addAttribute("usuario", usuarios);
-	return "frontend/cuenta/editarpassword";
-}
-@PostMapping("/editarpassword/guardar")
-public String guardarpassword(@ModelAttribute("usuario") Usuarios usuarios,
-		 Model model, Principal principal) throws Exception {
-	Usuarios currentUser = service.findByCorreo(principal.getName());
-	if (currentUser == null) {
-		throw new Exception("User not found");
+	@GetMapping("/exportar")
+	public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+		response.setContentType("application/pdf");
+
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+
+		String currentDateTime = dateFormatter.format(new Date());
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=usuarios_" + currentDateTime + ".pdf";
+
+		response.setHeader(headerKey, headerValue);
+
+		List<Usuarios> listaUsuarios = service.findAllUsers();
+
+		UserPDFExporter exporter = new UserPDFExporter(listaUsuarios);
+		exporter.export(response);
+
 	}
-	String pass = Utilidad.passwordencode().encode(usuarios.getContraseña());
-	currentUser.setContraseña(pass);
-	service.updatepassword(currentUser);
-	model.addAttribute("updateSuccess", true);
-	model.addAttribute("usuario", currentUser);
-	idetailsimp.authenticateUser(currentUser.getCorreo());
-	return "redirect:/miperfil";
+	@GetMapping("/cambio/contra")
+	public String editarpassword(Authentication authentication, Model model) {
+		Usuarios usuarios = (Usuarios) authentication.getPrincipal();
+
+		model.addAttribute("usuario", usuarios);
+		return "frontend/cuenta/editarpassword";
 	}
 
-@GetMapping("/editarusuario/{id}")
-public String editarusuario(Model model, @PathVariable(name="id")Long id) {
-	Usuarios usuarios = service.findById(id);
-	model.addAttribute("roles",rolesdao.findAll());
-	model.addAttribute("usuario", usuarios);
-	return "backend/usuarios/editar";
-}
-@PostMapping("/editarnuevousuario")
-public String editarnuevoUsuario(Usuarios usuarios, RedirectAttributes flash) {
-	service.edituser(usuarios);
-	flash.addFlashAttribute("success", "Se edito el usuario correctamente");
-	return "redirect:/ListaUsuarios";
-}
-@GetMapping("/registro/verification")
-public @ResponseBody String checkEmailUnique(HttpServletRequest  request, Model model) {
-	String email = request.getParameter("correo");
-	return service.findbyCorreo(email);
-}
+	@PostMapping("/editarpassword/guardar")
+	public String guardarpassword(@ModelAttribute("usuario") Usuarios usuarios, Model model, Principal principal)
+			throws Exception {
+		Usuarios currentUser = service.findByCorreo(principal.getName());
+		if (currentUser == null) {
+			throw new Exception("User not found");
+		}
+		String pass = Utilidad.passwordencode().encode(usuarios.getContraseña());
+		currentUser.setContraseña(pass);
+		service.updatepassword(currentUser);
+		model.addAttribute("updateSuccess", true);
+		model.addAttribute("usuario", currentUser);
+		idetailsimp.authenticateUser(currentUser.getCorreo());
+		return "redirect:/miperfil";
+	}
+
+	
 
 }

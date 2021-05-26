@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,6 +43,7 @@ import springbootartacademy.models.service.IObrasService;
 import springbootartacademy.models.service.IUsuariosService;
 
 @Controller
+@RequestMapping("/obra")
 public class ObrasController {
 
 	@Autowired
@@ -57,8 +59,30 @@ public class ObrasController {
 	@Autowired
 	private IComentariosService icomser;
 	
+	@GetMapping("/listar")
+	public ModelAndView ListaObrasTodos() {
+	String busqueda = null;
+		return listBypage(1,busqueda);
+	}
+	@GetMapping("/pagina/{pageNumber}")
+	public ModelAndView listBypage(@PathVariable("pageNumber")int currentPage, @Param("busqueda")String busqueda) {
+		Page<Obras> page = servicioobras.ListarObrasTodas(currentPage,busqueda);
+		long totalItems = page.getTotalElements();
+		int totalpages = page.getTotalPages();
+		
+		
+		List<Obras> ListarObrasTodas =page.getContent();
+		
+		ModelAndView mav = new ModelAndView("backend/Obras/listar"); 
+		mav.addObject("Listaobras", ListarObrasTodas);
+		mav.addObject("totalItems", totalItems);
+		mav.addObject("totalpages", totalpages);
+		mav.addObject("currentPage", currentPage);
+		mav.addObject("busqueda",busqueda);
+		return mav;
+	}
 	
-	@GetMapping("/formularioobra")
+	@GetMapping("/formulario")
 	public String formularioCategoria(Model model) {
 		List<Categorias> listacate = serviciocategorias.findAllUsers();
 		model.addAttribute("obra", new Obras());
@@ -67,7 +91,7 @@ public class ObrasController {
 		return "backend/Obras/formulario";
 	}
 	
-	@PostMapping("/guardarobra")
+	@PostMapping("/guardar")
 	public String guardarObra(@ModelAttribute("obra") Obras obra,@ModelAttribute("caracteristica")Caracteristicas caracteristica, 
 	BindingResult result, @RequestParam("imagenobra")MultipartFile multipart , @RequestParam("imagenobra2") MultipartFile multipart2 ,
 	@RequestParam("imagenobra3") MultipartFile multipart3 , RedirectAttributes flash, HttpServletRequest request) throws IOException {
@@ -102,9 +126,17 @@ public class ObrasController {
 		servicioobras.guardarObra(obra);
 		String mensaje = (obra.getId() != null) ? "Se edito de forma correcta la obra" : "Se guardo de forma correcta la obra";
 		flash.addFlashAttribute("success", mensaje);
-		return "redirect:/ListaObras";
+		return "redirect:/obra/listar";
 	}
-	@PostMapping("/editarobra")
+	@GetMapping("/editar/{id}")
+	public String editar (@PathVariable(value="id") Long id, Model model) {
+		Obras obra=servicioobras.findbyId(id);
+		model.addAttribute("obra", obra);
+		model.addAttribute("categoria",serviciocategorias.findAllUsers());
+		return "backend/Obras/editar";
+	}
+	
+	@PostMapping("/editar")
 	public String editarobra(@ModelAttribute("obra") Obras obra,
 	BindingResult result, @RequestParam("imagenobra")MultipartFile multipart , @RequestParam("imagenobra2") MultipartFile multipart2 ,
 	@RequestParam("imagenobra3") MultipartFile multipart3 , RedirectAttributes flash) throws IOException {
@@ -134,30 +166,19 @@ public class ObrasController {
 		String mensaje = (obra.getId() != null) ? "Se edito de forma correcta la obra" : "Se guardo de forma correcta la obra";
 	
 		flash.addFlashAttribute("success", mensaje);
-		return "redirect:/ListaObras";
+		return "redirect:/obra/listar";
 	}
-	@GetMapping("/cambiarEstadoobras/{id}")
+	@GetMapping("/cambiarestado/{id}")
 	public String cambiarEstado(@PathVariable(value="id") Long id) {
 		servicioobras.cambioEstado(id);
-		return "redirect:/ListaObras";
+		return "redirect:/obra/listar";
 	}
 	
-	@GetMapping("/editarobras/{id}")
-	public String editar (@PathVariable(value="id") Long id, Model model) {
-		Obras obra=servicioobras.findbyId(id);
-		model.addAttribute("obra", obra);
-		model.addAttribute("categoria",serviciocategorias.findAllUsers());
-		return "backend/Obras/editar";
-	}
 	
-	@GetMapping("/ListaObras")
-	public ModelAndView ListaObrasTodos() {
-	String busqueda = null;
-		return listBypage(1,busqueda);
-	}
 	
-	@GetMapping("/detalleObra/{pageNumber}")
-	public ModelAndView detalleobras(@PathVariable("pageNumber") Long id) {
+	
+	@GetMapping("/detalle/{id}")
+	public ModelAndView detalleobras(@PathVariable("id") Long id) {
 		Obras obras = servicioobras.findbyId(id);
 		Categorias obracate = obras.getCategoria();
 		List<Obras> obrasrelacionadas = servicioobras.ObrasRelacionadas(obracate.getId(),obras.getId());
@@ -168,7 +189,7 @@ public class ObrasController {
 		mav.addObject("comentarios", icomser.findallComentarios(id));
 		return mav;
 	}
-	@GetMapping("/obras/export")
+	@GetMapping("/exportar")
 	public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
 		response.setContentType("application/pdf");
 		
@@ -187,23 +208,7 @@ public class ObrasController {
 		
 	}
 
-@GetMapping("/pageObras/{pageNumber}")
-public ModelAndView listBypage(@PathVariable("pageNumber")int currentPage, @Param("busqueda")String busqueda) {
-	Page<Obras> page = servicioobras.ListarObrasTodas(currentPage,busqueda);
-	long totalItems = page.getTotalElements();
-	int totalpages = page.getTotalPages();
-	
-	
-	List<Obras> ListarObrasTodas =page.getContent();
-	
-	ModelAndView mav = new ModelAndView("backend/Obras/listar"); 
-	mav.addObject("Listaobras", ListarObrasTodas);
-	mav.addObject("totalItems", totalItems);
-	mav.addObject("totalpages", totalpages);
-	mav.addObject("currentPage", currentPage);
-	mav.addObject("busqueda",busqueda);
-	return mav;
-}
+
 @GetMapping(value="/obtener_precio_cantidad/{idcaracteristica}", produces= {"application/json"})
 public @ResponseBody Caracteristicas obtener_precio_cantidad(@PathVariable("idcaracteristica")Long idcaracteristica) {
 return  serviciocaracteristica.listarcaracteristicas_obras(idcaracteristica);

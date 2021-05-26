@@ -43,10 +43,24 @@ public class ArticuloCarritoServiceImp implements IArticuloCarritoService{
 		}
 		return artcarrito;
 	}
+	
 	@Override
-	public Integer validarsuma_cantidad(Caracteristicas caracteristicas) {
+	public void actualizarArticuloCarrito(ArticuloCarrito articuloCarrito, Integer Cantidad) {
+		if(articuloCarrito.getCaracteristicas().validar_cantidad(Cantidad)) {
+			articuloCarrito.setCantidad(Cantidad);
+			articulodao.save(articuloCarrito);
+		}
 		
-		return articulodao.validarsuma_cantidad(caracteristicas);
+		
+	}
+	@Override
+	public ArticuloCarrito encontrarCarritoId(Long id) {
+		return articulodao.findById(id).orElse(null);
+	}
+	@Override
+	public Long contarCarritos(Usuarios usuarios) {
+		// TODO Auto-generated method stub
+		return articulodao.contarCarritos(usuarios);
 	}
 	
 

@@ -29,4 +29,14 @@ public class CarritoCompras {
 		}
 		return null;
 	}
+	public float total() {
+		float total=0;
+
+		for(ArticuloCarrito item : this.carritoitems)
+		{
+			
+			total += (item.getCantidad().floatValue()*item.getCaracteristicas().getPrecio());
+		}		
+		return total;
+	}
 }

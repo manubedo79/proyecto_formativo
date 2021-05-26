@@ -10,13 +10,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import springbootartacademy.models.entity.Categorias;
 import springbootartacademy.models.entity.Obras;
+import springbootartacademy.models.entity.Usuarios;
+import springbootartacademy.models.service.IArticuloCarritoService;
 import springbootartacademy.models.service.ICategoriasService;
 import springbootartacademy.models.service.IFileService;
 import springbootartacademy.models.service.IObrasService;
@@ -26,7 +30,8 @@ import springbootartacademy.models.service.IObrasService;
 public class HomeController {
 	@Autowired
 	private IObrasService servicioobras;
-
+	@Autowired
+	private IArticuloCarritoService carritoser;
 	@Autowired
 	private ICategoriasService serviciocategorias;
 	@Autowired
@@ -55,7 +60,7 @@ public ResponseEntity<Resource> verFotoObras(@PathVariable String filename) {
 			.body(recurso);
 }
 
-@GetMapping("/obrastodaspagina/{numeropagina}")
+@GetMapping("/pagina/obra/{numeropagina}")
 public ModelAndView obrastodaspagina(@PathVariable("numeropagina") int currentPage,@Param ("busqueda") String busqueda) {
 	Page<Obras> page = servicioobras.ListarObrasTodas(currentPage,busqueda);
 	long totalItems = page.getTotalElements();
@@ -71,11 +76,11 @@ public ModelAndView obrastodaspagina(@PathVariable("numeropagina") int currentPa
 	return mav;
 }	
 
-@GetMapping("/tienda/categorias/{id}")
+@GetMapping("/tienda/categoria/{id}")
 public ModelAndView buscarcategoriasproducto(@PathVariable("id") Long id) {
 	return obtenerobras_categoria(id, 1);
 }
-@GetMapping("/obrasporcategoria/{numeropagina}")
+@GetMapping("/obra/categoria/{numeropagina}")
 public ModelAndView obtenerobras_categoria(Long id, @PathVariable("numeropagina") int currentPage ) {
 	Page<Obras> page = servicioobras.findAllcategoriaobras(id, currentPage);
 	
@@ -89,5 +94,12 @@ public ModelAndView obtenerobras_categoria(Long id, @PathVariable("numeropagina"
 	mav.addObject("totalpages", totalpages);
 	mav.addObject("currentPage", currentPage);
 	return mav;
+}
+@GetMapping("/navbar")
+public String navbar(Authentication authentication, Model model) {
+	Usuarios usuarios = (Usuarios) authentication.getPrincipal();
+	model.addAttribute("contadorcarrito", carritoser.contarCarritos(usuarios));
+	
+	return "recursos/navbar";
 }
 }
