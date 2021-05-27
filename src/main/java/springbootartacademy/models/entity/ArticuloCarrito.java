@@ -24,6 +24,9 @@ private Caracteristicas  caracteristicas;
 @ManyToOne(fetch=FetchType.LAZY)
 @JoinColumn(name="usuario_id")
 private Usuarios usuarios;
+@ManyToOne(fetch=FetchType.LAZY)
+@JoinColumn(name="ventas_id")
+private Ventas ventas;
 @Column(length=10)
 private Integer cantidad;
 
@@ -62,6 +65,12 @@ public void setCantidad(Integer cantidad) {
 	this.cantidad = cantidad;
 }
 
+public Ventas getVentas() {
+	return ventas;
+}
+public void setVentas(Ventas ventas) {
+	this.ventas = ventas;
+}
 public float subtotal () {
 	return cantidad.floatValue()*caracteristicas.getPrecio() ;
 }

@@ -42,14 +42,14 @@
     <div class="row">
   
       <!--Grid column-->
-      <th:block th:each="items: ${carritos}">
+      <th:block th:each="items, status: ${carritos}">
       <div class="col-lg-8">
   		
         <!-- Card -->
         <div class="mb-3">
           <div class="pt-4 wish-list">
   
-            <h5 class="mb-4">Carrito(<span>2</span> productos)</h5>
+            <h5 class="mb-4">Carrito(<span>[[${status.count}]]</span> productos)</h5>
   
             <div class="row mb-4">
               <div class="col-md-5 col-lg-3 col-xl-3">
@@ -101,7 +101,7 @@
 
       </div>
       <!--Grid column-->
-      <div class="col-md-4 col-md-offset-4">
+      <div class="col-md-4 col-md-offset-4" th:unless="${#lists.isEmpty(carritos)}">
   
         <!-- Card -->
         <div class="mb-2">
@@ -147,6 +147,13 @@
     <!-- Grid row -->
    
   </section>
+  	<div class="text-center">
+    <div  th:if="${#lists.isEmpty(carritos)}">
+    
+      <h2>No tienes obras agregados al carrito</h2>
+      <a th:href="@{/inicio}" class="btn btn-danger"><i class="fas fa-long-arrow-alt-left"></i> Ir a la tienda</a>
+      </div>
+      </div>
 </div>
  <div th:replace="recursos/navbar::js">  
              

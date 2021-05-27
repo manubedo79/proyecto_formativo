@@ -18,7 +18,7 @@ public class ArticuloCarritoServiceImp implements IArticuloCarritoService{
 	@Override
 	public CarritoCompras articuloCarritos(Usuarios usuarios) {
 		// TODO Auto-generated method stub
-		return new CarritoCompras(articulodao.findByUsuarios(usuarios));
+		return new CarritoCompras(articulodao.findByUsuariosAndVentasIsNull(usuarios));
 	}
 	@Override
 	public ArticuloCarrito guardarcarrito(Integer cantidad,Caracteristicas carac,Usuarios usu) {

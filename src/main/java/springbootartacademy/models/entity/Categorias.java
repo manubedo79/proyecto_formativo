@@ -5,9 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class Categorias {
@@ -16,6 +13,8 @@ public class Categorias {
 private Long id;
 @Column(length=50, nullable=false, unique=true)
 private String nombrecategoria;
+@Column(nullable=false, length=65)
+private String imagen;
 
 public Long getId() {
 	return id;
@@ -32,4 +31,13 @@ public String getNombrecategoria() {
 public void setNombrecategoria(String nombrecategoria) {
 	this.nombrecategoria = nombrecategoria;
 }
+
+public String getImagen() {
+	return imagen;
+}
+
+public void setImagen(String imagen) {
+	this.imagen = imagen;
+}
+
 }

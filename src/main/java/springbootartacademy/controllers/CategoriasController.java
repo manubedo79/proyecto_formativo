@@ -84,9 +84,26 @@ public class CategoriasController {
 	}
 	//Ruta para guarar una categoria en la base de datos
 	@PostMapping("/guardar")
-	public String guardarCategoria(@ModelAttribute("categoria")Categorias categoria, BindingResult result, RedirectAttributes flash) {
+	public String guardarCategoria(@ModelAttribute("categoria")Categorias categoria,@RequestParam("fileImage")MultipartFile multipart , BindingResult result, RedirectAttributes flash) {
+		if(!multipart.isEmpty()) 
+		{
+			if(categoria.getImagen() != null && categoria.getImagen().length()>0) 
+			{
+				ifileser.eliminarImagenCategoria(categoria.getImagen());
+			}
+			String nombreruta1 = null;
+			try 
+			{
+			
+				nombreruta1 = ifileser.copiarImagenCategoria(multipart);
+			} catch (Exception e) {e.printStackTrace();}
+			categoria.setImagen(nombreruta1);
+			
+			
+		}
+		cateservice.guardarCategorias(categoria);
 		String mensaje = (categoria.getId() != null) ? "Se edito de forma correcta la categoria" : "Se guardo de forma correcta la categoria";
-		cateservice.guardarCategorias(categoria);		
+				
 		flash.addFlashAttribute("info", mensaje);
 		return "redirect:/categoria/listar";
 	}

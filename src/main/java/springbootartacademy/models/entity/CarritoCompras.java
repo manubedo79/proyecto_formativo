@@ -39,4 +39,7 @@ public class CarritoCompras {
 		}		
 		return total;
 	}
+	public int getItemCount() {
+		return this.carritoitems.size();
+	}
 }

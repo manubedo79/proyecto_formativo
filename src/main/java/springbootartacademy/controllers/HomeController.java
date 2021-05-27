@@ -59,6 +59,18 @@ public ResponseEntity<Resource> verFotoObras(@PathVariable String filename) {
 			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"")
 			.body(recurso);
 }
+@GetMapping(value = "/imagenescategorias/{filename:.+}")
+public ResponseEntity<Resource> verFotoCategorias(@PathVariable String filename) {
+	Resource recurso = null;
+	try {
+		recurso = ifileser.cargarImagenCategoria(filename);
+	} catch (MalformedURLException e) {
+		e.printStackTrace();
+	}
+	return ResponseEntity.ok()
+			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"")
+			.body(recurso);
+}
 
 @GetMapping("/pagina/obra/{numeropagina}")
 public ModelAndView obrastodaspagina(@PathVariable("numeropagina") int currentPage,@Param ("busqueda") String busqueda) {

@@ -10,4 +10,7 @@ public interface IFileService {
 	public Resource cargar(String nombre) throws MalformedURLException;
     public String copiar(MultipartFile file) throws IOException;
     public boolean eliminar(String nombre);
+    public Resource cargarImagenCategoria(String nombre) throws MalformedURLException;
+    public String copiarImagenCategoria(MultipartFile file) throws IOException;
+    public boolean eliminarImagenCategoria(String nombre);
 }

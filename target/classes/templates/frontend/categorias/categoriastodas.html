@@ -34,7 +34,8 @@
                 <div class="row mt-4">
                   <div class="col-sm-4" th:each="Cateorias : ${ListaCate}">
                     <div class="position-relative">
-                      <a href="ProductosCategoria.html"><img th:src="@{/frontend/img/12.png}" alt="Photo 2" class="img-fluid"></a>
+                      <a href="ProductosCategoria.html"><img  th:if="${#strings.length(Cateorias.imagen)>0}" style="max-width: 400px;"  th:src="@{'/imagenescategorias/'+${Cateorias.imagen}}"
+     							   alt="Card image cap"></a>
                       <div class="ribbon-wrapper ribbon-xl">
                         <div class="ribbon bg-warning text-lg" th:text="${Cateorias.nombrecategoria}">
                         </div>
