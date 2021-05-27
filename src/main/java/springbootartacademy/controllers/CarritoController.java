@@ -78,7 +78,7 @@ public class CarritoController {
 		CarritoCompras carritos = carritoser.articuloCarritos(usuarios);
 		model.addAttribute("carritos", carritos.getCarritoitems());
 		model.addAttribute("total", carritos.total());
-		return "frontend/carrito/carrito";
+		return "frontend/carrito/cart";
 	}
 	@PostMapping("/actualizar/cantidad")
 	public String actualizarCantidad(@RequestParam(name="id") Long id, @RequestParam(name="cantidad") Integer cantidad, RedirectAttributes flash) {

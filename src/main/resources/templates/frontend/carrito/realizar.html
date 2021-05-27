@@ -29,8 +29,8 @@
         
           <div class="card">
           
-            <form class="card-body" th:action="@{/generando_venta}" method="post">
-             <div class="row">
+            <form th:action="@{/generando_venta}" method="post">
+             <div class="card-body">
                 <div class="col-lg-8 col-12 mb-8">
                   <label for="country">Direcciones actual del cliente</label>
               <strong id="totalprod">[[${usuario.clientes.direccion}]] </strong>
@@ -65,7 +65,7 @@
 
 
               <hr class="mb-4">
-              <button class="btn btn-default btn-block" type="submit" target="_blank">Continuar con el Pago  </button>
+              <button class="btn btn-default btn-block" type="submit">Continuar con el Pago  </button>
 
             </form>
 
@@ -128,7 +128,7 @@
 	function cargar_municipios(e){
 		$("#municipios").html('<option class="input100"> Seleccione el municipio</option>');
 		let id = $(e).val();
-		$.ajax({
+		$.ajax({2
 			url: '/obtener/municipios/'+id,
 			type: 'GET',
 			dataType: 'json'

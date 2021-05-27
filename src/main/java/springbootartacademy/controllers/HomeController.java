@@ -42,7 +42,7 @@ public class HomeController {
 public String error403() {
 	return "frontend/Errores/error403";
 }
-@GetMapping("/inicio")
+@GetMapping("/")
 public ModelAndView inicio() {
 	String busqueda=null;
 	return obrastodaspagina(1,busqueda);

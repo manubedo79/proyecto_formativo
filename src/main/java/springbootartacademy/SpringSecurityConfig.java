@@ -53,7 +53,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 					"/frontend/img/**", "/frontend/js/**", "/frontend/webfonts/**", "/images/**", "/iniciosesion/**", 
 					"/registro/**", "/mensaje/registro/**", "/cuenta/verificacion/**", "/formulario/recuperacion/**", 
 					"/cambiar/contrasena/**", "/tienda/categoria/**", "/obra/categoria/**", "/pagina/obra/**", "/obra/detalle/**",
-					"/obra/obtener_precio_cantidad/**").permitAll()
+					"/obra/obtener_precio_cantidad/**", "/").permitAll()
 			.antMatchers("/categoria/listar/**", "/categoria/pagina/**", 
 			"/categoria/formulario", "/categoria/guardar/**", "/categoria/editar/**", "/categoria/exportar/**", "/cliente/listar/**", "/cliente/pagina/**", "/cliente/detalle/**", "/cliente/editar/**", 
 			"/cliente/guardar/**", "/cliente/exportar/**","/obra/listar/**", "/obra/pagina/**", "/obra/formulario/**", "/obra/guardar/**", "/obra/editar/**", "/obra/cambiarestado/**", "/obra/exportar/**",
