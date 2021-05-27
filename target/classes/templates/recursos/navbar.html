@@ -70,7 +70,7 @@
 						<!-- Right -->
 						<ul class="navbar-nav nav-flex-icons">
 							<li class="nav-item"><a class="nav-link waves-effect"
-								href="carrito.html">  <i class="fas fa-shopping-cart"></i> <span
+								th:href="@{/carrito}">  <i class="fas fa-shopping-cart"></i> <span
 									class="clearfix d-none d-sm-inline-block"> <span>[[${contadorcarrito}]]</span> Carrito </span>
 							</a></li>
 							<li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">

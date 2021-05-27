@@ -99,6 +99,7 @@
             </li>
             <li class="list-group-item d-flex justify-content-between">
               <span>Total (COL)</span>
+              <input type="text" th:value="${total}" id="total">
               <strong id="pretotal">[[${total}]]</strong>
             </li>
           </ul>
@@ -121,7 +122,7 @@
 	<script th:src="@{/frontend/acount/js/main.js}"></script>
 	<script type="text/javascript">
 	var tarifa = 0 ;
-	var total = $("#total") ;
+	var total = $("#total").val();
 	var totalito= 0;
 
 	function cargar_municipios(e){
@@ -145,12 +146,13 @@
 			type: 'GET',
 			dataType: 'json'
 		}).done(respuesta => {
-			$("#tarenvi").append(`<span id="tarenvi" class="text-muted">${respuesta.tarifaenviomunicipio}</span>
-					<strong id="pretotal">${totalito}</strong>`)
+			
 			tarifa = respuesta.tarifaenviomunicipio;
-			totalito = parseFloat(total.val())+parseFloat(tarifa);
+			console.log(typeof tarifa);
+			console.log(typeof total);
+			totalito = parseFloat(total)+parseFloat(tarifa);
 			console.log(totalito);
-			$("#totalprod").append(`<strong id="pretotal">sssss</strong>`)
+			
 		}).fail(error => console.log(error))
 	}
 	
