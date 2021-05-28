@@ -1,7 +1,5 @@
 package springbootartacademy.controllers;
 
-import java.security.Principal;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +26,6 @@ import springbootartacademy.models.entity.Ventas;
 import springbootartacademy.models.service.IArticuloCarritoService;
 import springbootartacademy.models.service.ICaracteristicasService;
 import springbootartacademy.models.service.IObrasService;
-import springbootartacademy.models.service.IUsuariosService;
 import springbootartacademy.models.service.IVentasService;
 
 @Controller
@@ -57,7 +54,7 @@ public class CarritoController {
 		Obras obras = obraser.findbyId(carac.getObras().getId());
 		Integer totalcantidad = 0;
 		Usuarios usuario = (Usuarios) authentication.getPrincipal();
-		CarritoCompras carritos = carritoser.articuloCarritos(usuario);
+		CarritoCompras carritos = carritoser.articuloCarritosVentaNull(usuario);
 
 		for (ArticuloCarrito compras : carritos.getCarritoitems()) {
 			totalcantidad += (Integer.parseInt(cantidad) + compras.getCantidad());
@@ -75,7 +72,7 @@ public class CarritoController {
 	@GetMapping("/carrito")
 	public String carrito(Model model, Authentication authentication) {
 		Usuarios usuarios = (Usuarios) authentication.getPrincipal();
-		CarritoCompras carritos = carritoser.articuloCarritos(usuarios);
+		CarritoCompras carritos = carritoser.articuloCarritosVentaNull(usuarios);
 		model.addAttribute("carritos", carritos.getCarritoitems());
 		model.addAttribute("total", carritos.total());
 		return "frontend/carrito/carrito";
@@ -100,24 +97,35 @@ public class CarritoController {
 	@GetMapping("/realizar_pago")
 	public String realizapago(Authentication authentication,Model model) {
 		Usuarios usuarios = (Usuarios) authentication.getPrincipal();
-		CarritoCompras carritos = carritoser.articuloCarritos(usuarios);
+		CarritoCompras carritos = carritoser.articuloCarritosVentaNull(usuarios);
 		model.addAttribute("usuario", usuarios);
-		model.addAttribute("total", carritos.total());
+		model.addAttribute("total", carritos.total() + usuarios.getClientes().getMunicipios().getTarifaenviomunicipio());
+		model.addAttribute("totalsint", carritos.total());
 		model.addAttribute("carritos", carritos.getCarritoitems());
 		model.addAttribute("municipios", munidao.findAll());
-		model.addAttribute("conteo", carritoser.contarCarritos(usuarios));
+		model.addAttribute("conteo", carritoser.contarCarritosVentaNull(usuarios));
 		model.addAttribute("departamentos", depadao.findAll());
 		return "frontend/carrito/realizar";
 	}
 	@PostMapping("/generando_venta")
-	public String generaventa(@RequestParam(name="total",required=false) String totalventa ,@RequestParam(name="opcion",required=false) String opcion ,@RequestParam(name="direccionnuevo",required=false) String direccionnuevo  ,@RequestParam(name="municipionuevo",required=false) String municipionuevo,Authentication authentication,Model model) {
+	public String generaventa(RedirectAttributes flash,@RequestParam(name="total",required=false) String totalventa ,@RequestParam(name="opcion",required=false) String opcion ,@RequestParam(name="direccionnuevo",required=false) String direccionnuevo  ,@RequestParam(name="municipionuevo",required=false) String municipionuevo,Authentication authentication,Model model) {
 		Usuarios usuarios = (Usuarios) authentication.getPrincipal();
+		CarritoCompras carritos = carritoser.articuloCarritosVentaNull(usuarios);
+		Integer totalcantidad = 0;
+		for (ArticuloCarrito compras : carritos.getCarritoitems()) {
+			totalcantidad =  compras.getCantidad();
+			if (totalcantidad > compras.getCaracteristicas().getStock()) {
+				flash.addFlashAttribute("errorP", true);
+				flash.addFlashAttribute("errorN", compras.getCaracteristicas().getSize());				
+				return "redirect:/carrito";
+			}
+		}
 		Ventas venta = new Ventas();
 		if(opcion.equals("si")) 
 		{
 			venta.setDireccionentrega(usuarios.getClientes().getDireccion());
 			venta.setMunicipios(usuarios.getClientes().getMunicipios());
-			venta.setTotalventa(Float.parseFloat(totalventa));
+			venta.setTotalventa(Float.parseFloat(totalventa)+usuarios.getClientes().getMunicipios().getTarifaenviomunicipio());
 		}		
 		if(opcion.equals("no")) 
 		{
@@ -127,9 +135,12 @@ public class CarritoController {
 			venta.setTotalventa((Float.parseFloat(totalventa)-mun2.getTarifaenviomunicipio())+mun.getTarifaenviomunicipio());
 			venta.setMunicipios(mun);
 		}
+		for (ArticuloCarrito compras : carritos.getCarritoitems()) {
+		compras.setVentas(venta);
+		}
 		venta.setUsuarios(usuarios);
 		ventasser.saveVenta(venta);
-		return "redirect:/realizar_pago";
+		return "redirect:/inicio";
 	}
 
 }

@@ -34,7 +34,7 @@ public class Clientes {
 	@JoinColumn(name = "usuarios_id")
 	private Usuarios usuarios;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "municipios_id")
 	private Municipios municipios;
 

@@ -69,4 +69,7 @@ public Departamentos getDepartamentos() {
 public void setDepartamentos(Departamentos departamentos) {
 	this.departamentos = departamentos;
 }
+
+
+
 }

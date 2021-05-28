@@ -22,6 +22,10 @@ private Long id;
 private Caracteristicas  caracteristicas;
 
 @ManyToOne(fetch=FetchType.LAZY)
+@JoinColumn(name="ventas_id")
+private Ventas ventas;
+
+@ManyToOne(fetch=FetchType.LAZY)
 @JoinColumn(name="usuario_id")
 private Usuarios usuarios;
 @Column(length=10)
@@ -36,6 +40,12 @@ public boolean actualizarCantidad(Integer cantidad) {
 	return cantidad == null || cantidad <= 0 || this.getCaracteristicas().validar_cantidad(cantidad);
 }
 
+public Ventas getVentas() {
+	return ventas;
+}
+public void setVentas(Ventas ventas) {
+	this.ventas = ventas;
+}
 public Long getId() {
 	return id;
 }

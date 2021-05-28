@@ -98,8 +98,7 @@ public ModelAndView obtenerobras_categoria(Long id, @PathVariable("numeropagina"
 @GetMapping("/navbar")
 public String navbar(Authentication authentication, Model model) {
 	Usuarios usuarios = (Usuarios) authentication.getPrincipal();
-	model.addAttribute("contadorcarrito", carritoser.contarCarritos(usuarios));
-	
+	model.addAttribute("contadorcarrito", carritoser.contarCarritosVentaNull(usuarios));
 	return "recursos/navbar";
 }
 }

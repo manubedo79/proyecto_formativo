@@ -10,33 +10,36 @@ import springbootartacademy.models.entity.ArticuloCarrito;
 import springbootartacademy.models.entity.Caracteristicas;
 import springbootartacademy.models.entity.CarritoCompras;
 import springbootartacademy.models.entity.Usuarios;
+import springbootartacademy.models.entity.Ventas;
 @Service
 public class ArticuloCarritoServiceImp implements IArticuloCarritoService{
 	@Autowired
 	private IArticuloCarritoDao articulodao;
 	
 	@Override
-	public CarritoCompras articuloCarritos(Usuarios usuarios) {
+	public CarritoCompras articuloCarritosVentaNull(Usuarios usuarios) {
 		// TODO Auto-generated method stub
-		return new CarritoCompras(articulodao.findByUsuarios(usuarios));
+		return new CarritoCompras(articulodao.findByUsuariosVentaNull(usuarios));
+	}
+	@Override
+	public CarritoCompras articuloCarritosVenta(Usuarios usuarios,Ventas ventas) {
+		// TODO Auto-generated method stub
+		return new CarritoCompras(articulodao.findByUsuariosVenta(usuarios, ventas));
 	}
 	@Override
 	public ArticuloCarrito guardarcarrito(Integer cantidad,Caracteristicas carac,Usuarios usu) {
-		CarritoCompras carrito = this.articuloCarritos(usu);
+		CarritoCompras carrito = this.articuloCarritosVentaNull(usu);
 		ArticuloCarrito artcarrito = carrito.buscarArticuloCarritoByCaracteristicas(carac.getId());
 		if(artcarrito != null)
 		{		
-			
 			artcarrito.agregar_cantidad(cantidad);
 			artcarrito.setCaracteristicas(carac);
 			artcarrito = articulodao.save(artcarrito);
-			
 		}
 		else
 		{
 			artcarrito = new ArticuloCarrito();
 			artcarrito.setUsuarios(usu); 
-			
 			artcarrito.setCantidad(cantidad); 
 			artcarrito.setCaracteristicas(carac); 
 			artcarrito = articulodao.save(artcarrito);
@@ -50,17 +53,20 @@ public class ArticuloCarritoServiceImp implements IArticuloCarritoService{
 			articuloCarrito.setCantidad(Cantidad);
 			articulodao.save(articuloCarrito);
 		}
-		
-		
 	}
 	@Override
 	public ArticuloCarrito encontrarCarritoId(Long id) {
 		return articulodao.findById(id).orElse(null);
 	}
 	@Override
-	public Long contarCarritos(Usuarios usuarios) {
+	public Long contarCarritosVentaNull(Usuarios usuarios) {
 		// TODO Auto-generated method stub
-		return articulodao.contarCarritos(usuarios);
+		return articulodao.contarCarritosVentaNull(usuarios);
+	}
+	@Override
+	public Long contarCarritosVenta(Usuarios usuarios,Ventas venta) {
+		// TODO Auto-generated method stub
+		return articulodao.contarCarritosVenta(usuarios, venta);
 	}
 	
 

@@ -57,7 +57,7 @@
                 
                   <label for="state">Municipio</label>                
                   <select name="municipionuevo" onchange="verificar_tarifa(this)" class="custom-select d-block w-100" id="municipios" >
-						<option value="" class="input100" > Seleccione un municipio</option>
+						<option value="0" class="input100" > Seleccione un municipio</option>
                   </select>
                 <label for="state">Direccion</label>                
                 <input type="text" name="direccionnuevo" class="form-control" placeholder="CRA 143 #68-161">
@@ -95,11 +95,12 @@
               <div>
                 <h6 class="my-0"><b>Costo del envio</b></h6>
               </div>
-              <span id="tarenvi" class="text-muted">$</span>
+              <span id="tarenvi" class="text-muted">[[${usuario.clientes.municipios.tarifaenviomunicipio}]]</span>
             </li>
             <li class="list-group-item d-flex justify-content-between">
               <span>Total (COL)</span>
-              <input type="text" th:value="${total}" id="total">
+              <input type="hidden" th:value="${total}" id="total">
+              <input type="hidden" th:value="${totalsint}" id="totalsint">
               <strong id="pretotal">[[${total}]]</strong>
             </li>
           </ul>
@@ -122,11 +123,11 @@
 	<script th:src="@{/frontend/acount/js/main.js}"></script>
 	<script type="text/javascript">
 	var tarifa = 0 ;
-	var total = $("#total").val();
+	var total = $("#totalsint").val();
 	var totalito= 0;
 
 	function cargar_municipios(e){
-		$("#municipios").html('<option class="input100"> Seleccione el municipio</option>');
+		$("#municipios").html('<option value="0" class="input100"> Seleccione el municipio</option>');
 		let id = $(e).val();
 		$.ajax({
 			url: '/obtener/municipios/'+id,
@@ -138,7 +139,8 @@
 		}).fail(error => console.log(error))
 	}
 	function verificar_tarifa(r){
-		$("#tarenvi").html('<span id="tarenvi" class="text-muted">$</span>');
+		$("#tarenvi").html('<span id="tarenvi" class="text-muted"></span>');
+		$("#pretotal").html('<strong id="pretotal"></strong>');
 		let id = $(r).val();
 		console.log(id);
 		$.ajax({
@@ -152,6 +154,9 @@
 			console.log(typeof total);
 			totalito = parseFloat(total)+parseFloat(tarifa);
 			console.log(totalito);
+			$("#tarenvi").append(`<span id="tarenvi" class="text-muted">${tarifa}</span>`);
+			$("#pretotal").append(`<strong id="pretotal">${totalito}</strong>`);
+			
 			
 		}).fail(error => console.log(error))
 	}
