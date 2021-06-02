@@ -7,11 +7,6 @@ box-sizing: border-box;
 font-family: 'Poppins', sans-serif; 
 }
 
-body{
-overflow: hidden;
-	display: grid;
-	place-items:center;
-}
 
 .alerta{
 background-color:#90F87C;
@@ -87,7 +82,7 @@ font-size:30px;
 }
 
 
-.error{
+.erro{
 background-color:#FA4F4F;
 padding: 20px 40px;
 min-width: 420px;
@@ -99,7 +94,7 @@ border-left: 8px solid #E00202;
 overflow: hidden;
 }
 
-.error.show{
+.erro.show{
 	animation: show_slide 1s ease forwards;
 	
 }
@@ -121,11 +116,11 @@ overflow: hidden;
 	}
 }
 
-.error.hiden{
+.erro.hiden{
 display: none;
 }
 
-.error .fas fa-exclamation-triangle{
+.erro .fas fa-exclamation-triangle{
 position: absolute;
 left: 20px;
 top:50%;
@@ -134,13 +129,13 @@ color:#FE0606;
 font-size:30px;
 }
 
-.error .msg{
+.erro .msg{
 	padding: 0 20px;
 	font-size: 18px;
 	color: #8A1818;
 } 
 
-.error .close-btn{
+.erro .close-btn{
 	position: absolute;
 	padding: 20px 18px;
 	right: 0px;

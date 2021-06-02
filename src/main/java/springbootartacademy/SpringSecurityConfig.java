@@ -48,8 +48,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	 @Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http.authorizeRequests()
-			.antMatchers("/resetpassword/**", "/formulariocontraseña/**", "/cambiarcontraseña/**", "/oauth2/**", "/registro/**", "/mensajeRegistro/**", "/creandoregistro/**", "/registro/verificacion/**", "/verificate/**", "/admin/home/**", "/backend/dist/**", "/backend/plugins/**", "/datospersonales/**", "/terminarregistro/**", "/inicio/**","/login/**","/registroUsuarios/**","/guardarUsuario/**","/ListaUsuarios/**", "/page/**","/backend/js/**","/cambiarEstado/**","/frontend/acount/**", "/usuario/check_email/**", "/obtener/municipios/**", "/editarusuario/**","/images/**","/frontend/img/**","/imagenes/**", "/oauth/**").permitAll()
-			.antMatchers("/recuperacion/**", "/frontend/css/**",
+			.antMatchers("/resetpassword/**", "/formulariocontraseña/**", "/cambiarcontraseña/**", "/oauth2/**", "/registro/**", "/mensaje/registro/**", "/creandoregistro/**", "/registro/verificacion/**", "/verificate/**", "/admin/home/**", "/backend/dist/**", "/backend/plugins/**", "/datospersonales/**", "/terminarregistro/**", "/inicio/**","/login/**","/registroUsuarios/**","/guardarUsuario/**","/ListaUsuarios/**", "/page/**","/backend/js/**","/cambiarEstado/**","/frontend/acount/**", "/usuario/check_email/**", "/obtener/municipios/**", "/editarusuario/**","/images/**","/frontend/img/**","/imagenes/**", "/oauth/**").permitAll()
+			.antMatchers("/recuperacion/**", "/frontend/css/**","/frontend/acount/**",
 					"/frontend/img/**", "/frontend/js/**", "/frontend/webfonts/**", "/images/**", "/iniciosesion/**", 
 					"/registro/**", "/mensaje/registro/**", "/cuenta/verificacion/**", "/formulario/recuperacion/**", 
 					"/cambiar/contrasena/**", "/tienda/categoria/**", "/obra/categoria/**", "/pagina/obra/**", "/obra/detalle/**",

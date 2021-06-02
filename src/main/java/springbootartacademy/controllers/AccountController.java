@@ -124,7 +124,7 @@ public class AccountController {
 		Usuarios usuarios = passser.get(token);
 		if (usuarios == null) {
 			model.addAttribute("error", "Error no se puede acceder a este formulario");
-			return "redirect:/recuperarpassword";
+			return "redirect:/recuperacion";
 		}
 		model.addAttribute("token", token);
 		return "frontend/recuperarcontraseña/formularioContraseña";
