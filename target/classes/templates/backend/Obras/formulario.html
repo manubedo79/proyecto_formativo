@@ -41,7 +41,9 @@
                     <div class="form-group col-6">
                         <label for="">Nombre</label>
                         <input type="text" class="form-control" th:field="*{obra.nombre}">
+                   <small id="msgnombre" style="color:red;"></small>
                     </div>
+                    
                     <div class="form-group col-6">
                         <label for="">Categoria</label>
                         <select th:field="*{obra.categoria}" class="form-control">
@@ -71,7 +73,7 @@
             </div>
          
             <div class="col-12" style="margin-top: 3%;">
-                <button type="submit" class="btn btn-info btn-block">Guardar</button>
+                <button type="submit" id="btnconfirmar" class="btn btn-info btn-block">Guardar</button>
             </div>
         </div>
         <div class="col-6">

@@ -32,7 +32,7 @@ public Usuarios findByVerification(String code);
 public Usuarios getCorreoUsuario(@Param("correo") String correo );
 @Query ("select usuarios.correo from Usuarios usuarios where usuarios.correo =?1")
 public Usuarios getUsuariosByCorreo(String email);
-@Query("SELECT u FROM Usuarios u WHERE CONCAT(u.id,u.correo) LIKE %?1% ")
+@Query("SELECT u FROM Usuarios u WHERE CONCAT(u.id,u.correo) LIKE %?1%")
 public Page<Usuarios> findAll(String busqueda,Pageable pageable);
 @Query ("select usuarios from Usuarios usuarios where usuarios.correo =:email")
 Optional<Usuarios> getFindByCorreo(@Param("email")String email);

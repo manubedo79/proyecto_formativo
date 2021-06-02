@@ -1,7 +1,10 @@
 package springbootartacademy.controllers;
 
-import java.security.Principal;
-import java.util.List;
+import java.io.UnsupportedEncodingException;
+
+
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,8 +31,9 @@ import springbootartacademy.models.entity.Ventas;
 import springbootartacademy.models.service.IArticuloCarritoService;
 import springbootartacademy.models.service.ICaracteristicasService;
 import springbootartacademy.models.service.IObrasService;
-import springbootartacademy.models.service.IUsuariosService;
+
 import springbootartacademy.models.service.IVentasService;
+import springbootartacademy.utils.Utilidad;
 
 @Controller
 public class CarritoController {
@@ -78,7 +82,7 @@ public class CarritoController {
 		CarritoCompras carritos = carritoser.articuloCarritos(usuarios);
 		model.addAttribute("carritos", carritos.getCarritoitems());
 		model.addAttribute("total", carritos.total());
-		return "frontend/carrito/cart";
+		return "frontend/carrito/carrito";
 	}
 	@PostMapping("/actualizar/cantidad")
 	public String actualizarCantidad(@RequestParam(name="id") Long id, @RequestParam(name="cantidad") Integer cantidad, RedirectAttributes flash) {
@@ -92,6 +96,21 @@ public class CarritoController {
 			return "redirect:/carrito";
 		}
 		return "redirect:/carrito";
+	}
+	@GetMapping("/validarcantidad")
+	public String validaCantidad(RedirectAttributes flash,@RequestParam(name="total",required=false) String totalventa ,@RequestParam(name="opcion",required=false) String opcion ,@RequestParam(name="direccionnuevo",required=false) String direccionnuevo  ,@RequestParam(name="municipionuevo",required=false) String municipionuevo,Authentication authentication,Model model) {
+		Usuarios usuarios = (Usuarios) authentication.getPrincipal();
+		CarritoCompras carritos = carritoser.articuloCarritos(usuarios);
+		Integer totalcantidad = 0;
+		for (ArticuloCarrito compras : carritos.getCarritoitems()) {
+			totalcantidad =  compras.getCantidad();
+			if (totalcantidad > compras.getCaracteristicas().getStock()) {
+				flash.addFlashAttribute("error", "El producto con tamaño "+compras.getCaracteristicas().getSize()+" no cuenta con stock");
+				
+				return "redirect:/carrito";
+			}
+		}
+		return "redirect:/realizar_pago";
 	}
 	@GetMapping(value="/obtener_tarifa/{id}", produces= {"application/json"})
 	public @ResponseBody Municipios obtener_tarifa(@PathVariable("id")Long id) {
@@ -109,9 +128,23 @@ public class CarritoController {
 		model.addAttribute("departamentos", depadao.findAll());
 		return "frontend/carrito/realizar";
 	}
+	@GetMapping("/ordenes/mensaje")
+	public String mensaje() {
+		return "frontend/carrito/mensaje";
+	}
 	@PostMapping("/generando_venta")
-	public String generaventa(@RequestParam(name="total",required=false) String totalventa ,@RequestParam(name="opcion",required=false) String opcion ,@RequestParam(name="direccionnuevo",required=false) String direccionnuevo  ,@RequestParam(name="municipionuevo",required=false) String municipionuevo,Authentication authentication,Model model) {
+	public String generaventa(RedirectAttributes flash,@RequestParam(name="total",required=false) String totalventa ,HttpServletRequest request ,@RequestParam(name="opcion",required=false) String opcion ,@RequestParam(name="direccionnuevo",required=false) String direccionnuevo  ,@RequestParam(name="municipionuevo",required=false) String municipionuevo,Authentication authentication,Model model) throws UnsupportedEncodingException, MessagingException {
 		Usuarios usuarios = (Usuarios) authentication.getPrincipal();
+		CarritoCompras carritos = carritoser.articuloCarritosVentaNull(usuarios);
+		Integer totalcantidad = 0;
+		for (ArticuloCarrito compras : carritos.getCarritoitems()) {
+			totalcantidad =  compras.getCantidad();
+			if (totalcantidad > compras.getCaracteristicas().getStock()) {
+				flash.addFlashAttribute("errorP", true);
+				flash.addFlashAttribute("errorN", compras.getCaracteristicas().getSize());				
+				return "redirect:/carrito";
+			}
+		}
 		Ventas venta = new Ventas();
 		if(opcion.equals("si")) 
 		{
@@ -122,14 +155,21 @@ public class CarritoController {
 		if(opcion.equals("no")) 
 		{
 			Municipios mun = munidao.findById(Long.parseLong(municipionuevo)).orElse(null);
-			Municipios mun2 = munidao.findById(usuarios.getClientes().getMunicipios().getId()).orElse(null);
 			venta.setDireccionentrega(direccionnuevo);
-			venta.setTotalventa((Float.parseFloat(totalventa)-mun2.getTarifaenviomunicipio())+mun.getTarifaenviomunicipio());
+			venta.setTotalventa((Float.parseFloat(totalventa)+mun.getTarifaenviomunicipio())-usuarios.getClientes().getMunicipios().getTarifaenviomunicipio());
 			venta.setMunicipios(mun);
 		}
 		venta.setUsuarios(usuarios);
+		String siteURL = Utilidad.getSitioUrl(request);
+
+		ventasser.enviarFacturaCorreo(siteURL,usuarios, venta, carritos);
+		for (ArticuloCarrito compras : carritos.getCarritoitems()) {
+			compras.getCaracteristicas().decrementar_cantidad(compras.getCantidad());
+			compras.setVentas(venta);
+		}
 		ventasser.saveVenta(venta);
-		return "redirect:/realizar_pago";
+		return "redirect:/ordenes/mensaje";
 	}
+	
 
 }

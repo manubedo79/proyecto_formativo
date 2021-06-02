@@ -13,5 +13,6 @@ public interface IArticuloCarritoService {
 	public Long contarCarritos(Usuarios usuarios);
 	public void actualizarArticuloCarrito(ArticuloCarrito articuloCarrito,Integer Cantidad);
 	public ArticuloCarrito encontrarCarritoId(Long id);
+	public CarritoCompras articuloCarritosVentaNull(Usuarios usuarios);
 	
 }

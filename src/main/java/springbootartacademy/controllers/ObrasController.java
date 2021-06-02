@@ -182,7 +182,7 @@ public class ObrasController {
 		Obras obras = servicioobras.findbyId(id);
 		Categorias obracate = obras.getCategoria();
 		List<Obras> obrasrelacionadas = servicioobras.ObrasRelacionadas(obracate.getId(),obras.getId());
-		ModelAndView mav = new ModelAndView("frontend/carrito/detalleo");
+		ModelAndView mav = new ModelAndView("frontend/carrito/detalle");
 		mav.addObject("caracteristicas", serviciocaracteristica.findAllCaracteristocas(id));
 		mav.addObject("Obras", obras);
 		mav.addObject("ObrasRel", obrasrelacionadas);
@@ -213,4 +213,10 @@ public class ObrasController {
 public @ResponseBody Caracteristicas obtener_precio_cantidad(@PathVariable("idcaracteristica")Long idcaracteristica) {
 return  serviciocaracteristica.listarcaracteristicas_obras(idcaracteristica);
 }	
+
+@GetMapping(value="/validar/nombre")
+public @ResponseBody String checkNameObra(@Param("nombre") String nombre) {
+
+	return service.findByNombre(nombre);
+}
 }

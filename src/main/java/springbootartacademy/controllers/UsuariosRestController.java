@@ -5,6 +5,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import springbootartacademy.models.dao.IObrasDao;
+import springbootartacademy.models.service.IObrasService;
 import springbootartacademy.models.service.IUsuariosService;
 
 @RestController
@@ -12,6 +14,8 @@ import springbootartacademy.models.service.IUsuariosService;
 public class UsuariosRestController {
 @Autowired
 private IUsuariosService ususervice;
+@Autowired
+private IObrasService obraser;
 
 @PostMapping("/usuario/check_email")
 public String checkDuplicateEmail(@Param("correo") String correo) {

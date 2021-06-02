@@ -87,6 +87,11 @@ Pageable pageable = PageRequest.of(pageNumber - 1, 12);
 		}
 		 return obrdao.findAll(pageable);
 	}
+	@Override
+	public String findByNombre(String nombre) {
+		Obras obras = obrdao.findByNombre(nombre);
+		return (obras==null)?"Unique":"Duplicate";
+	}
 
 
 }

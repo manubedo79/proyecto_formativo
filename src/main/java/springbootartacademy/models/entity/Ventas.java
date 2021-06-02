@@ -1,6 +1,9 @@
 package springbootartacademy.models.entity;
 
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,6 +45,9 @@ public class Ventas  {
 	@Temporal(TemporalType.DATE)
 	private Date fechaventa;
 
+	@OneToMany(mappedBy="ventas", cascade=CascadeType.ALL)
+	private List<ArticuloCarrito> articulos;
+	
 	@PrePersist
 	public void PrePersist()
 	{
@@ -100,6 +107,14 @@ public class Ventas  {
 
 	public void setDireccionentrega(String direccionentrega) {
 		this.direccionentrega = direccionentrega;
+	}
+
+	public List<ArticuloCarrito> getArticulos() {
+		return articulos;
+	}
+
+	public void setArticulos(List<ArticuloCarrito> articulos) {
+		this.articulos = articulos;
 	}
 	
 	

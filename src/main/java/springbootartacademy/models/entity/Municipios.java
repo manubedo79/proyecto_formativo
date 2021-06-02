@@ -25,7 +25,7 @@ public class Municipios {
 	private long tarifaenviomunicipio;
 	
 
-@ManyToOne (fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+@ManyToOne
 @JoinColumn(name = "departamentos_id")
 @JsonIgnore
 private Departamentos departamentos;

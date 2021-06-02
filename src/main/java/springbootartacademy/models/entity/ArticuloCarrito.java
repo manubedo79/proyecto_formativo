@@ -2,6 +2,7 @@ package springbootartacademy.models.entity;
 
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +25,7 @@ private Caracteristicas  caracteristicas;
 @ManyToOne(fetch=FetchType.LAZY)
 @JoinColumn(name="usuario_id")
 private Usuarios usuarios;
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 @JoinColumn(name="ventas_id")
 private Ventas ventas;
 @Column(length=10)

@@ -44,7 +44,7 @@ color: red;}
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Inicio</a>
+         <a th:href="@{/}" class="nav-link">Inicio</a>
       </li>
       
     </ul>
@@ -91,7 +91,7 @@ color: red;}
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-   <a href="index3.html" class="brand-link">
+   <a th:href="@{/}"  class="brand-link">
     <img src="../../images/logo.png" alt="img" class="brand-image img-circle elevation-3"
          style="opacity: .8">
     <span class="brand-text font-weight-light">Sistema Art Academy</span>
@@ -116,7 +116,7 @@ color: red;}
            
           </li>
           <li class="nav-item">
-          <a th:href="@{/ListaUsuarios}" class="nav-link ">
+          <a th:href="@{/usuario/listar}" class="nav-link ">
             <i class="fas fa-users"></i>
             <p>
               Usuarios
@@ -124,7 +124,7 @@ color: red;}
           </a>
         </li>
         <li class="nav-item">
-          <a th:href="@{/listaClientes}" class="nav-link">
+           <a th:href="@{/cliente/listar}" class="nav-link">
             <i class="fas fa-user-tag"></i>
             <p>
               Clientes
@@ -132,7 +132,7 @@ color: red;}
           </a>  
         </li>
         <li class="nav-item has-treeview">
-          <a th:href="@{/listarCategorias}" class="nav-link">
+           <a th:href="@{/categoria/listar}" class="nav-link">
             <i class="fas fa-th"></i>
             <p>
               Categorias
@@ -141,33 +141,14 @@ color: red;}
          
         </li>
          <li class="nav-item has-treeview">
-          <a href="Productos.html" class="nav-link">
+           <a th:href="@{/obra/listar}" class="nav-link">
             <i class="fas fa-dolly"></i>
             <p>
               Productos
-              <i class="right fas fa-angle-left"></i>
+             
             </p>
           </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="" class="nav-link">
-                <i class="fas fa-cart-arrow-down"></i> 
-                <p> Productos</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="" class="nav-link">
-                <i class="fas fa-dollar-sign"></i>
-                <p> Precios</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="" class="nav-link">
-                <i class="fas fa-history"></i>
-                <p>Historial Stock</p>
-              </a>
-            </li>
-          </ul>
+         
         </li>
         
         <li class="nav-item has-treeview">
@@ -175,7 +156,7 @@ color: red;}
             <i class="fas fa-money-check"></i>
             <p>
               Ventas
-              <i class="fas fa-angle-left right"></i>
+              
             </p>
           </a>
           
@@ -217,7 +198,10 @@ color: red;}
 		</div>
 	</div>
 <!-- jQuery -->
-<script th:src="@{/backend/plugins/jquery/jquery.min.js}"></script>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
 <!-- jQuery UI 1.11.4 -->
 <script th:src="@{/backend/plugins/jquery-ui/jquery-ui.min.js}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->

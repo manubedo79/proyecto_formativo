@@ -29,17 +29,17 @@
         
           <div class="card">
           
-            <form th:action="@{/generando_venta}" method="post">
-             <div class="card-body">
+            <form class="card-body" th:action="@{/generando_venta}" method="post">
+             <div class="row">
                 <div class="col-lg-8 col-12 mb-8">
                   <label for="country">Direcciones actual del cliente</label>
-              <strong id="totalprod">[[${usuario.clientes.direccion}]] </strong>
+              <strong id="totalprod">[[${usuario.clientes.municipios.nombremunicipio}]] / [[${usuario.clientes.direccion}]] </strong>
                 </div>	
               </div>
               <hr>
               <div class="custom-control ">
                   <p>¿Su Dirección es la misma del envío?</p>
-                  <select name="opcion" class="custom-select d-block w-100" required>
+                  <select id="opcion" onchange="opcion_direccion(this)" name="opcion" class="custom-select d-block w-100" required>
 						<option class="input100" th:value="si" > Si </option>
 						<option class="input100" th:value="no"> No</option>
                   </select>
@@ -47,25 +47,24 @@
                 <p><b>Si su respuesta fue no ingrese la dirección de envío</b></p>
               </div>
               <div class="custom-control ">
-
                   <label for="country">Departamento</label>
-                  <select onchange="cargar_municipios(this)" class="custom-select d-block w-100"  >
-                    <option value="">Seleccione un departamento</option>
+                  <select id="departamento" onchange="cargar_municipios(this)" class="custom-select d-block w-100"  >
+                    <option value="0">Seleccione un departamento</option>
 					<option th:each="departamento : ${departamentos}" th:text="${departamento.nombredepartamento}" th:value="${departamento.id}"></option>
                   </select>
               <input type="hidden" th:value="${total}" name="total"/>
                 
                   <label for="state">Municipio</label>                
                   <select name="municipionuevo" onchange="verificar_tarifa(this)" class="custom-select d-block w-100" id="municipios" >
-						<option value="" class="input100" > Seleccione un municipio</option>
+						<option value="0" class="input100" > Seleccione un municipio</option>
                   </select>
                 <label for="state">Direccion</label>                
-                <input type="text" name="direccionnuevo" class="form-control" placeholder="CRA 143 #68-161">
+                <input type="text" name="direccionnuevo" id="direccionnuevo" class="form-control" placeholder="CRA 143 #68-161">
               </div>
 
 
               <hr class="mb-4">
-              <button class="btn btn-default btn-block" type="submit">Continuar con el Pago  </button>
+              <button class="btn btn-default btn-block" type="submit" target="_blank">Continuar con el Pago  </button>
 
             </form>
 
@@ -95,11 +94,12 @@
               <div>
                 <h6 class="my-0"><b>Costo del envio</b></h6>
               </div>
-              <span id="tarenvi" class="text-muted">$</span>
+              <span id="tarenvi" class="text-muted">[[${usuario.clientes.municipios.tarifaenviomunicipio}]]</span>
             </li>
             <li class="list-group-item d-flex justify-content-between">
               <span>Total (COL)</span>
-              <input type="text" th:value="${total}" id="total">
+              <input type="hidden" th:value="${total}" id="total">
+              <input type="hidden" th:value="${totalsint}" id="totalsint">
               <strong id="pretotal">[[${total}]]</strong>
             </li>
           </ul>
@@ -122,13 +122,13 @@
 	<script th:src="@{/frontend/acount/js/main.js}"></script>
 	<script type="text/javascript">
 	var tarifa = 0 ;
-	var total = $("#total").val();
+	var total = $("#totalsint").val();
 	var totalito= 0;
 
 	function cargar_municipios(e){
-		$("#municipios").html('<option class="input100"> Seleccione el municipio</option>');
+		$("#municipios").html('<option value="0" class="input100"> Seleccione el municipio</option>');
 		let id = $(e).val();
-		$.ajax({2
+		$.ajax({
 			url: '/obtener/municipios/'+id,
 			type: 'GET',
 			dataType: 'json'
@@ -137,8 +137,24 @@
 			)
 		}).fail(error => console.log(error))
 	}
+	function opcion_direccion(l){
+		let opcion = $(l).val();
+		let departamento = document.getElementById("departamento").value;
+		let municipio = document.getElementById("municipios").value;
+		let direccion = document.getElementById("direccionnuevo").value;
+		console.log(departamento);
+		console.log(municipio);
+		console.log(direccion);
+		if(opcion=="no"){
+			if(departamento==null){alert("Debes de colocar el departamento a la cual este será enviado");}
+			if(municipio==null){alert("Debes de colocar el municipio a la cual este será enviado");}
+			if(direccion==null){alert("Debes de colocar la direccion a la cual este será enviado");}
+		}
+			
+			}
 	function verificar_tarifa(r){
-		$("#tarenvi").html('<span id="tarenvi" class="text-muted">$</span>');
+		$("#tarenvi").html('<span id="tarenvi" class="text-muted"></span>');
+		$("#pretotal").html('<strong id="pretotal"></strong>');
 		let id = $(r).val();
 		console.log(id);
 		$.ajax({
@@ -152,6 +168,9 @@
 			console.log(typeof total);
 			totalito = parseFloat(total)+parseFloat(tarifa);
 			console.log(totalito);
+			$("#tarenvi").append(`<span id="tarenvi" class="text-muted">${tarifa}</span>`);
+			$("#pretotal").append(`<strong id="pretotal">${totalito}</strong>`);
+			
 			
 		}).fail(error => console.log(error))
 	}

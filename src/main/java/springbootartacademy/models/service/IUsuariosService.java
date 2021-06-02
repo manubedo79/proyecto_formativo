@@ -32,5 +32,5 @@ public void updatepassword(Usuarios usuarios);
 public void guardopassword(Usuarios usuarios);
 
 public void CreateNuevoUsuarioAfterOAuthLoginSuccess( String email);
-
+public String uniqueemail(String correo);
 }

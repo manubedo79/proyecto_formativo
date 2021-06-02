@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="recursos/navbar::head">
+ <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Art Academy</title>
+
+    </head>
+<body>
+<nav th:replace="recursos/navbar::navbar"></nav>
+<div class="container my-4 py-4">
+<div class="card my-4 mb-4">
+<div class="my-4 py-4">
+<div class="my-4 py-4">
+  <div class="card-body text-center">
+    <h2>SE COMPLETO SU ORDEN </h2>
+    <p>Le enviamos su factura y la información de pago a su correo electronico</p>
+    <a class="btn btn-primary" th:href="@{/ordenes}">Ir a mis compras</a>
+  </div>
+  </div>
+  </div>
+</div>
+</div>
+</body>
+</html>

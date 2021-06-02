@@ -63,6 +63,26 @@ $(function(){
 	}
 	});
 	
+	$("#nombre").blur(function(){
+		let uniquename=$("#nombre").val();
+		$.ajax({
+			url:"/obra/validar/nombre",
+			data:"nombre="+uniquename,
+			success: function(respuesta){
+				if(respuesta=='Duplicate'){
+					console.log(respuesta);
+				$("#msgnombre").html("El nombre "+uniquename+ " Ya existe dentro de nuestro sistema");
+				$("#nombre").focus();
+				$("#btnconfirmar").prop("disabled", true);
+				}else{
+					$("#msgnombre").html("");
+					$("#btnconfirmar").prop("disabled", false);
+				}	
+			}
+		});
+	});
+	
+	
 });
 $(function(){
 	$('form[id="formulariocategoria"]').validate({
@@ -76,3 +96,7 @@ $(function(){
 	});
 	
 });
+
+
+
+

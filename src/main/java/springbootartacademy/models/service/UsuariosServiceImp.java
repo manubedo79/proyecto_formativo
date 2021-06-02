@@ -102,9 +102,12 @@ public class UsuariosServiceImp implements IUsuariosService {
 	public void sendVerificationEmail(Usuarios nuevousuario,String siteURL)throws UnsupportedEncodingException, MessagingException {
 		String subject ="Por favor verifica tu registro";
 		String verificion = siteURL+"/cuenta/verificacion?code="+nuevousuario.getVerification();
-		String mailcontent = "<p>Señ@r Usuario "+" para poder acceder por completo a nuestra pagina web debe de verificarse presionando en el siguiente link </p>";
-		mailcontent+=" <p>Art Academy Team</p>";
-		mailcontent+="<a href=\""+verificion+"\">Verificacion de Cuenta</a>";
+		String mailcontent = 
+			"<div style=\"width: 450px;height: 650px;border-radius: 20px;margin:20px auto;position: relative;padding: 5px;font-family:Arial;text-decoration:none;text-align:center;\">"+	
+		"<p style=\"color:black;\">Señ@r Usuario  para poder acceder por completo a nuestra pagina web debe de verificarse presionando en el siguiente link </p>"+
+		" <p style=\"color:black;\">Art Academy Team</p>"+
+		"<a style=\"width: 80%;background-color: #45B39D;display: block;margin:auto;border: none;padding: 15px;color: #D4D4D4;border-radius: 5px;margin-top: 30px;\" href=\""+verificion+"\">Verificacion de Cuenta</a>"
+		+"</div>";
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
 		helper.setTo(nuevousuario.getCorreo());
@@ -226,6 +229,14 @@ public class UsuariosServiceImp implements IUsuariosService {
 		usuarios.setEstado(true);
 		usudao.save(usuarios);
 		
+	}
+
+
+
+	@Override
+	public String uniqueemail(String correo) {
+		Usuarios usuarios = usudao.findByCorreo(correo);
+		return (usuarios==null)?"Unique":"Duplicate";
 	}
 
 

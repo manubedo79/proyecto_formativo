@@ -204,7 +204,11 @@ public class UsuariosController {
 		idetailsimp.authenticateUser(currentUser.getCorreo());
 		return "redirect:/miperfil";
 	}
+	@GetMapping(value="/validar/correo")
+	public @ResponseBody String checkEmailUser(@Param("correo") String correo) {
 
+		return service.uniqueemail(correo);
+	}
 	
 
 }

@@ -14,7 +14,11 @@ import springbootartacademy.models.entity.Usuarios;
 public class ArticuloCarritoServiceImp implements IArticuloCarritoService{
 	@Autowired
 	private IArticuloCarritoDao articulodao;
-	
+	@Override
+	public CarritoCompras articuloCarritosVentaNull(Usuarios usuarios) {
+		// TODO Auto-generated method stub
+		return new CarritoCompras(articulodao.findByUsuariosVentaNull(usuarios));
+	}
 	@Override
 	public CarritoCompras articuloCarritos(Usuarios usuarios) {
 		// TODO Auto-generated method stub

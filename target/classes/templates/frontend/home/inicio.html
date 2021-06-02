@@ -12,7 +12,7 @@
 
     <!-- Navbar -->
 
-  <br><br><br><br>  
+  <br><br> 
       <div class="col-xl-12">
       <main>
 
@@ -32,6 +32,7 @@
                 <h6>Categorias</h6>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item pl-0" th:each="cate: ${categoria}"><a class="text-dark" th:href="@{/tienda/categoria/}+${cate.id}" th:text="${cate.nombrecategoria}"></a></li>
+                  <li class="list-group-item pl-0"><a class="text-dark" th:href="@{/}">Productos todos</a></li>
                 </ul>
               </div>
               <!-- Grid column -->
@@ -148,8 +149,11 @@
 </div>
 <!-- Card deck -->
  </div>
- 
- <nav aria-label="Page navigation example">
+ 	<div class="text-center" th:if="${#lists.isEmpty(obra)}">
+						     <h3 style="font-size: 20px;">No se encontró ningun producto</h3>
+						     <a th:href="@{/}" class="btn btn-danger">Volver a todos los productos</a>
+							</div>
+ <nav aria-label="Page navigation example" th:unless="${#lists.isEmpty(obra)}">
 			  <ul class="pagination justify-content-center">
 			  
 			   

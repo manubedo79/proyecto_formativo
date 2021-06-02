@@ -17,5 +17,5 @@ public interface IObrasService {
 	public boolean cambioEstado(Long id);
 	public Page<Obras> ListarObrasTodas(int pageNumber,String busqueda);
 	public List<Obras> ObrasRelacionadas(Long idcate,Long id);
-	
+	public String findByNombre(String nombre);
 }

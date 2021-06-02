@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="recursos/navbar :: head">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<nav th:replace="recursos/navbar :: navbar"></nav>
+<div class="container my-5 py-5 mb-4"> 
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Num Orden</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Total</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="ven : ${ventas}">
+      <th scope="row">[[${ven.id}]]</th>
+      <td>[[${#dates.format(ven.fechaventa, 'dd-MMM-yyy')}]]</td>
+      <td>[[${ven.totalventa}]]</td>
+      <td><span>[[${ven.estado.nombre}]]</span></td>
+      <td>
+      <a class="btn btn-danger" title="Cancelar"><i class="fas fa-ban"></i></a>
+      <a class="btn btn-primary" title="Ver detalle"><i class="fas fa-eye"></i></a>
+      <a class="btn btn-success">Subir Comprobante</a>
+      </td>
+      
+     
+    </tr>
+ 
+  </tbody>
+</table>
+</div>
+</body>
+</html>

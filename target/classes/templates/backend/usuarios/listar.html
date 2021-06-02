@@ -18,11 +18,11 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-				<a th:href="@{/registroUsuarios}" type="button"
+				<a th:href="@{/usuario/formulario}" type="button"
 					class="btn btn-outline-success accion"><i
 					class="fas fa-user-plus"></i> Agregar un nuevo usuario</a>
 
-				<form class="float-right" th:action="@{/page/1}"
+				<form class="float-right" th:action="@{/usuario/pagina/1}"
 					style="display: inline;">
 					<div class="input-group">
 						<input type="search" name="busqueda" required
@@ -89,7 +89,7 @@
 			<div class="card-footer clearfix">
 				<a th:href="@{/usuario/exportar/}" class="btn btn-outline-info" th:unless="${#lists.isEmpty(ListaUsu)}"><i
 					class="fas fa-file-pdf"></i> Descargar Reporte</a>
-					<a th:href="@{/ListaUsuarios}" class="btn btn-outline-success" th:if="${(busqueda!=null)}"><i class="fas fa-undo-alt"></i> Volver</a>
+					<a th:href="@{/usuario/listar}" class="btn btn-outline-success" th:if="${(busqueda!=null)}"><i class="fas fa-undo-alt"></i> Volver</a>
 					
 				<div class="float-right">
                 

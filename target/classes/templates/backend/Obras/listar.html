@@ -20,11 +20,11 @@
 
 					</div>
 				</div>
-				<a href="Editar.html" type="button"
+				<a th:href="@{/obra/formulario}" type="button"
 					class="btn btn-outline-success accion"><i
 					class="fas fa-user-plus"></i> Agregar una nueva obra</a>
 
-				<form class="float-right" th:action="@{/pageObras/1}"
+				<form class="float-right" th:action="@{/obra/pagina/1}"
 					style="display: inline;">
 					<div class="input-group">
 						<input type="search" name="busqueda" required

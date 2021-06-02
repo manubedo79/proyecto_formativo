@@ -27,7 +27,7 @@
 				<div class="container">
 
 					<!-- Brand -->
-					<a class="navbar-brand waves-effect" th:href="@{/inicio}"> <strong
+					<a class="navbar-brand waves-effect" th:href="@{/}"> <strong
 						class="orange-text">ART ACADEMY</strong>
 					</a>
 
@@ -45,7 +45,7 @@
 						<!-- Left -->
 						<ul class="navbar-nav mr-auto">
 							<li class="nav-item"><a class="nav-link waves-effect"
-								href="Categorias.html"><i class="fas fa-archive"></i>
+								th:href="@{/categoria/categoriastodas}"><i class="fas fa-archive"></i>
 									Categorías</a></li>
 							<li class="nav-item"><a class="nav-link waves-effect"
 								href="Contactanos/contactenos.html" target="_blank"><i
@@ -54,16 +54,16 @@
 						<!-- Search form -->
 
 						
-						<form th:action="@{/obrastodaspagina/1}" method="get"
+						<form th:action="@{/pagina/obra/1}" method="get"
 							class="form-inline ">
 							<div class="input-group rounded">
 								<input type="search" class="form-control rounded"
 								   name="busqueda"
 									placeholder="Buscar" aria-label="Search"
-									aria-describedby="search-addon" /> <span
-									class="input-group-text border-0" id="search-addon"> <i
+									aria-describedby="search-addon" /> <button
+									class="input-group-text border-0" type="submit" id="search-addon"> <i
 									class="fas fa-search"></i>
-								</span>
+								</button>
 							</div>
 						</form>
 						
@@ -74,14 +74,14 @@
 									class="clearfix d-none d-sm-inline-block"> <span>[[${contadorcarrito}]]</span> Carrito </span>
 							</a></li>
 							<li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
-								<a class="nav-link waves-effect" href="carrito.html"> <i
+								<a class="nav-link waves-effect" th:href="@{/admin/inicio}"> <i
 									class="fas fa-user-cog"></i> <span
 									class="clearfix d-none d-sm-inline-block"> ADMIN </span>
 							</a>
 							</li>
 
 							<li class="nav-item" sec:authorize="!isAuthenticated()"><a
-								th:href="@{/login}" class="nav-link waves-effect"> <i
+								th:href="@{/iniciosesion}" class="nav-link waves-effect"> <i
 									class="fas fa-user"></i> <span
 									class="clearfix d-none d-sm-inline-block"> Iniciar
 										sesión </span>
@@ -103,7 +103,7 @@
 								</a>
 									<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" >
 										<div class="dropdown-divider"></div>
-										<a th:href="@{/miperfil}" class="dropdown-item"> <i class="fas fa-user"></i> Mi Perfil
+										<a th:href="@{/usuario/miperfil}" class="dropdown-item"> <i class="fas fa-user"></i> Mi Perfil
 										</a>
 										<div class="dropdown-divider"></div>
 										<form th:action="@{/logout}" id="logoutform" method="post">
