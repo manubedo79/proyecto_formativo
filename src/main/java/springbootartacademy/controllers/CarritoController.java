@@ -1,6 +1,11 @@
 package springbootartacademy.controllers;
 
 
+import java.io.UnsupportedEncodingException;
+
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.nimbusds.oauth2.sdk.http.HTTPRequest;
 
 import springbootartacademy.models.dao.IDepartamentosDao;
 import springbootartacademy.models.dao.IMunicipiosDao;
@@ -27,6 +34,7 @@ import springbootartacademy.models.service.IArticuloCarritoService;
 import springbootartacademy.models.service.ICaracteristicasService;
 import springbootartacademy.models.service.IObrasService;
 import springbootartacademy.models.service.IVentasService;
+import springbootartacademy.utils.Utilidad;
 
 @Controller
 public class CarritoController {
@@ -108,7 +116,7 @@ public class CarritoController {
 		return "frontend/carrito/realizar";
 	}
 	@PostMapping("/generando_venta")
-	public String generaventa(RedirectAttributes flash,@RequestParam(name="total",required=false) String totalventa ,@RequestParam(name="opcion",required=false) String opcion ,@RequestParam(name="direccionnuevo",required=false) String direccionnuevo  ,@RequestParam(name="municipionuevo",required=false) String municipionuevo,Authentication authentication,Model model) {
+	public String generaventa(RedirectAttributes flash,@RequestParam(name="total",required=false) String totalventa ,HttpServletRequest request ,@RequestParam(name="opcion",required=false) String opcion ,@RequestParam(name="direccionnuevo",required=false) String direccionnuevo  ,@RequestParam(name="municipionuevo",required=false) String municipionuevo,Authentication authentication,Model model) throws UnsupportedEncodingException, MessagingException {
 		Usuarios usuarios = (Usuarios) authentication.getPrincipal();
 		CarritoCompras carritos = carritoser.articuloCarritosVentaNull(usuarios);
 		Integer totalcantidad = 0;
@@ -125,20 +133,22 @@ public class CarritoController {
 		{
 			venta.setDireccionentrega(usuarios.getClientes().getDireccion());
 			venta.setMunicipios(usuarios.getClientes().getMunicipios());
-			venta.setTotalventa(Float.parseFloat(totalventa)+usuarios.getClientes().getMunicipios().getTarifaenviomunicipio());
+			venta.setTotalventa(Float.parseFloat(totalventa));
 		}		
 		if(opcion.equals("no")) 
 		{
 			Municipios mun = munidao.findById(Long.parseLong(municipionuevo)).orElse(null);
-			Municipios mun2 = munidao.findById(usuarios.getClientes().getMunicipios().getId()).orElse(null);
 			venta.setDireccionentrega(direccionnuevo);
-			venta.setTotalventa((Float.parseFloat(totalventa)-mun2.getTarifaenviomunicipio())+mun.getTarifaenviomunicipio());
+			venta.setTotalventa((Float.parseFloat(totalventa)+mun.getTarifaenviomunicipio())-usuarios.getClientes().getMunicipios().getTarifaenviomunicipio());
 			venta.setMunicipios(mun);
 		}
+		venta.setUsuarios(usuarios);
+		String siteURL = Utilidad.getSitioUrl(request);
+
+		ventasser.enviarFacturaCorreo(siteURL,usuarios, venta, carritos);
 		for (ArticuloCarrito compras : carritos.getCarritoitems()) {
 		compras.setVentas(venta);
 		}
-		venta.setUsuarios(usuarios);
 		ventasser.saveVenta(venta);
 		return "redirect:/inicio";
 	}

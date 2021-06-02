@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link href="css/bootstrap.css" rel="stylesheet" />
+	<style>@import url(http://fonts.googleapis.com/css?family=Bree+Serif);
+  			body, h1, h2, h3, h4, h5, h6{
+    			font-family: 'Bree Serif', serif;				
+    			}
+  	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-6 text-right">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+										<h4>NIT : 
+											<a href="#">00000</a>
+										</h4>
+										<h4>AUTORIZACI&Oacute;N : 
+											<a href="#">00000</a>
+										</h4>
+					</div>
+					<div class="panel-body">
+						<h4>FACTURA : 
+								<a href="#" >[[${venta.id}]]</a>
+						</h4>
+					</div>
+				</div>
+			</div>
+		<hr />
+		<h1 style="text-align: center;">FACTURA</h1> 
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4>La Paz, <a href="#">30</a> de <a href="#">abril</a> de 201<a href="#">4</a>
+						
+						</h4>
+					</div>
+					<div class="panel-body">
+					
+						
+							<h4>Comprador :  
+								<a href="#"  >[[${usuario.clientes.nombre}]]  [[${usuario.clientes.apellido}]]</a>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								Telefono :
+								<a href="#">[[${usuario.telefono}]]</a>
+							</h4>
+				
+					</div>
+				</div>
+			</div>
+		</div>
+		<pre></pre>
+		<table class="table table-bordered">
+			<thead >
+				<tr >
+					<th style="text-align: center;">
+						<h4>Cantidad</h4>
+					</th>
+					<th style="text-align: center;">
+						<h4>Concepto</h4>
+					</th>
+					<th style="text-align: center;">
+						<h4>Precio unitario</h4>
+					</th>
+					<th style="text-align: center;">
+						<h4>SubTotal</h4>
+					</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="items: ${carrito}">
+					<td style="text-align: center;" >[[${items.id}]]</td>
+					<td><a href="#" > [[${items.caracteristicas.obras.nombre}]] de [[${items.caracteristicas.size}]] </a></td>
+					<td class=" text-right ">[[${items.caracteristicas.precio}]]</td>
+					<td class=" text-right ">[[${items.subtotal}]]</td>
+					
+				</tr>
+			</tbody>
+		</table>
+		<pre></pre>
+		<div class="row">
+			<div class="col-xs-4">
+				<h1><a href=" "><img alt="" src="image/qr.png" /></a></h1>
+			</div>
+			<div class="col-xs-8">
+				<div class="panel panel-info"  style="text-align: right;">
+					<h6> "LA ALTERACI&Oacute;N, FALSIFICACI&Oacute;N O COMERCIALIZACI&Oacute;N ILEGAL DE ESTE DOCUMENTO ESTA PENADO POR LA LEY"</h6>
+				</div>				
+			</div>
+		</div>
+		</div>
+</div>
+</body>
+</html>
