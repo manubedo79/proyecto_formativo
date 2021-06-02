@@ -147,7 +147,8 @@ public class CarritoController {
 
 		ventasser.enviarFacturaCorreo(siteURL,usuarios, venta, carritos);
 		for (ArticuloCarrito compras : carritos.getCarritoitems()) {
-		compras.setVentas(venta);
+			compras.getCaracteristicas().decrementar_cantidad(compras.getCantidad());
+			compras.setVentas(venta);
 		}
 		ventasser.saveVenta(venta);
 		return "redirect:/inicio";
