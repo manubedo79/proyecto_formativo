@@ -10,6 +10,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -124,5 +127,19 @@ public class VentasServiceImp implements IVentasService {
 		mailSender.send(message);
 
 	}
-	
+
+
+	@Override
+ public Iterable<Ventas> findByFechas() {
+		// TODO Auto-generated method stub
+		return ventadao.findByFechas();
+	}
+	@Override
+	public Page<Ventas> ListarVentasTodas(int pageNumber, String busqueda) {
+		 Pageable pageable = PageRequest.of(pageNumber - 1, 12 );
+		if(busqueda!=null) {
+			 return ventadao.findAll(busqueda, pageable);
+		}
+		 return ventadao.findAll(pageable);
+	}
 }
