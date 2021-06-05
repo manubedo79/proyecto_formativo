@@ -21,6 +21,7 @@ import ch.qos.logback.classic.Logger;
 import springbootartacademy.models.dao.IEstadosDao;
 import springbootartacademy.models.entity.ArticuloCarrito;
 import springbootartacademy.models.entity.Estados;
+import springbootartacademy.models.entity.Obras;
 import springbootartacademy.models.entity.Usuarios;
 import springbootartacademy.models.entity.Ventas;
 import springbootartacademy.models.service.IArticuloCarritoService;
@@ -75,6 +76,8 @@ public ModelAndView actualizatEstado(@RequestParam("ventaestado")String idventa,
 
 
 
+
+
 @GetMapping("/pagina/{pageNumber}")
 public ModelAndView listBypage(@PathVariable("pageNumber")int currentPage, @Param("busqueda")String busqueda) {
 	Page<Ventas> page = iventaser.ListarVentasTodas(currentPage,busqueda);
@@ -93,5 +96,6 @@ public ModelAndView listBypage(@PathVariable("pageNumber")int currentPage, @Para
 	mav.addObject("currentPage", currentPage);
 	mav.addObject("busqueda",busqueda);
 	return mav;
+	
 }
 }

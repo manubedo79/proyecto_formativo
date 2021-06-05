@@ -36,8 +36,6 @@ public class Comentarios {
 	@Column(name="fecha_creacion_comentario")
 	private Date fechacreacion;
 	
-	@Column(name="estado_comentario")
-	private boolean estado;
 	
 	@PrePersist
 	public void PrePersist()
@@ -102,13 +100,6 @@ public class Comentarios {
 		this.fechacreacion = fechacreacion;
 	}
 
-	public boolean isEstado() {
-		return estado;
-	}
-
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
 	
 	
 }

@@ -13,6 +13,7 @@ public interface IObrasService {
 	public Obras findbyId(Long id);
 	public List<Obras> findAllObras();
 	public String guardarimagen(MultipartFile multipartFile, String ruta);	
+	
 	public Page<Obras> findAllcategoriaobras( Long id, int pageNumber );
 	public boolean cambioEstado(Long id);
 	public Page<Obras> ListarObrasTodas(int pageNumber,String busqueda);
