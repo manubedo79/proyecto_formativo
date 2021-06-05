@@ -134,6 +134,7 @@ public class VentasServiceImp implements IVentasService {
 		// TODO Auto-generated method stub
 		return ventadao.findByFechas();
 	}
+ 
 	@Override
 	public Page<Ventas> ListarVentasTodas(int pageNumber, String busqueda) {
 		 Pageable pageable = PageRequest.of(pageNumber - 1, 12 );
@@ -142,4 +143,6 @@ public class VentasServiceImp implements IVentasService {
 		}
 		 return ventadao.findAll(pageable);
 	}
+	
+	
 }

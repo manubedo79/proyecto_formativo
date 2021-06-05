@@ -22,9 +22,9 @@
 				</div>
 				<a th:href="@{/ventas/formulario}" type="button"
 					class="btn btn-outline-success accion"><i
-					class="fas fa-user-plus"></i> Agregar una nueva obra</a>
+					class="fas fa-user-plus"></i> Agregar una nueva venta</a>
 
-				<form class="float-right" th:action="@{/pageObras/1}"
+				<form class="float-right" th:action="@{/pagina/1}"
 					style="display: inline;">
 					<div class="input-group">
 						<input type="search" name="busqueda" required
@@ -65,9 +65,9 @@
 								<th th:text="${Ventas.usuarios.clientes.nombre}"></th>
 								<th th:text="${Ventas.usuarios.clientes.apellido}"></th>
 								<th th:text="${Ventas.fechaventa}"></th>
-								<!--  <th th:text="${Ventas.estado.nombre}"></th>-->
-								<th th:text="${Ventas.estado.nombre}"></th>
+								<!--<th th:text="${Ventas.estado.nombre}"></th>-->
 								<th th:text="${Ventas.totalventa}"></th>
+								
 								<th>
 									<a class="btn btn-outline-info">Detalle Venta</a>
 									</th>

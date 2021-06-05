@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import springbootartacademy.models.entity.Obras;
 import springbootartacademy.models.entity.Usuarios;
 import springbootartacademy.models.entity.Ventas;
 import springbootartacademy.models.service.IVentasService;
@@ -44,6 +45,8 @@ String busqueda = null;
 	return listBypage(1,busqueda);
 }
 
+
+
 @GetMapping("/pagina/{pageNumber}")
 public ModelAndView listBypage(@PathVariable("pageNumber")int currentPage, @Param("busqueda")String busqueda) {
 	Page<Ventas> page = iventaser.ListarVentasTodas(currentPage,busqueda);
@@ -60,5 +63,6 @@ public ModelAndView listBypage(@PathVariable("pageNumber")int currentPage, @Para
 	mav.addObject("currentPage", currentPage);
 	mav.addObject("busqueda",busqueda);
 	return mav;
+	
 }
 }
