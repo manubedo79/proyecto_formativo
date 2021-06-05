@@ -16,9 +16,10 @@ import javax.persistence.OneToOne;
 public class Departamentos {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Column(name="id_departamento")
 private Long id;
 
-@Column(length=50, nullable=false, unique=true)
+@Column(name="nombre_departamento",length=50, nullable=false, unique=true)
 private String nombredepartamento;
 
 @OneToMany (mappedBy = "departamentos",cascade = CascadeType.ALL)

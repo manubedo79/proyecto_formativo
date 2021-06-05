@@ -22,26 +22,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Caracteristicas {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_caracteristica")
 	private Long id;
 	
-	@Column(length = 4, nullable = false)
+	@Column(name="cantidad_caracteristica",length = 4, nullable = false)
 	private Integer stock;
 
-	@Column(length = 13, nullable = false)
+	@Column(name="precio_caracteristica", length = 13, nullable = false)
 	private Float precio;
 	
-	@Column(nullable = false)
+	@Column(name="medidas_caracteristica",nullable = false)
 	private String size;
 
 	@ManyToOne
-	@JoinColumn(name = "obras_id")
+	@JoinColumn(name = "obra_id")
 	@JsonIgnore
 	private Obras obras;
-	
-	
-	
-	
-	
 	
 	public Caracteristicas() {
 		
@@ -104,12 +100,5 @@ public class Caracteristicas {
 	public void setObras(Obras obras) {
 		this.obras = obras;
 	}
-
-	
-
-	
-	
-	
-	
 	
 }

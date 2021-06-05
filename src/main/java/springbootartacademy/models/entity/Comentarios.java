@@ -18,22 +18,25 @@ public class Comentarios {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_comentario")
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "obras_id")
+	@JoinColumn(name = "obra_id")
 	private Obras obras;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "clientes_id")
+	@JoinColumn(name = "cliente_id")
 	private Clientes clientes;
 	
-	@Column(length = 2000, nullable = true)
+	@Column(name="texto_comentario",length = 2000, nullable = true)
 	private String comentario;
 	
 	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_creacion_comentario")
 	private Date fechacreacion;
 	
+	@Column(name="estado_comentario")
 	private boolean estado;
 	
 	@PrePersist

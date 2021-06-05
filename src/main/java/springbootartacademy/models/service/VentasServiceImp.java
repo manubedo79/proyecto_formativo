@@ -46,7 +46,17 @@ public class VentasServiceImp implements IVentasService {
 		ventadao.save(venta);
 	}
 
+	@Override
+	public void cambioEstado(String idestado,String idventa) {
+		Long idestadon = Long.parseLong(idestado);
+		Long idventan = Long.parseLong(idventa);
+		Ventas venta = ventadao.findById(idventan).orElse(null);
+		Estados estado = estadao.findById(idestadon).orElse(null);
+		venta.setEstado(estado);
+		ventadao.save(venta);
+	}
 
+	
 	@Override
 	@Transactional(readOnly=true)
 	public List<Ventas> listarVentasUsuarios(Usuarios usuarios) {

@@ -23,32 +23,35 @@ import javax.persistence.Transient;
 public class Obras {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_obra")
 	private Long id;
 	
-	@Column(length = 50, unique = true, nullable = true)
+	@Column(name="nombre_obra",length = 50, unique = true, nullable = true)
 	private String nombre;
 	
-	@Column(length = 50, nullable = true)
+	@Column(name="descripcion_obra",length = 50, nullable = true)
 	private String descripcion;
 
+	@Column(name="estado_obra")
 	private boolean estado;
 	
 	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_creacion_obra")
 	private Date fechacreacion;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "categorias_id")
+	@JoinColumn(name = "categoria_id")
 	private Categorias categoria;
 	
 	@OneToMany(mappedBy="obras",cascade=CascadeType.ALL)
 	public List<Caracteristicas> caracteristicas = new ArrayList<>(); 
-	@Column(nullable = false)
+	@Column(name="imagen_principal_obra",nullable = false)
 	private String rutaimagen_principal;
 
-	@Column(nullable = true)
+	@Column(name="imagen_segundaria_obra",nullable = true)
 	private String rutaimagen_2;
 	
-	@Column(nullable = true)
+	@Column(name="imagen_tercearia_obra",nullable = true)
 	private String rutaimagen_3;
 
 	@PrePersist

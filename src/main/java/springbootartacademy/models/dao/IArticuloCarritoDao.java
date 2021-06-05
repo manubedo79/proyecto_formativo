@@ -16,4 +16,9 @@ public List<ArticuloCarrito> findByUsuariosAndVentasIsNull(Usuarios usuarios);
 int countDistinctByUsuariosAndVentasIsNull(Usuarios usuarios);
 @Query("select count(DISTINCT car) FROM ArticuloCarrito car Where car.usuarios=?1")
 public Long contarCarritos(Usuarios usuarios);
+@Query("SELECT car FROM ArticuloCarrito car WHERE car.ventas=?1")	
+public List<ArticuloCarrito> findByVentaId(Long id);
+
+
+
 }

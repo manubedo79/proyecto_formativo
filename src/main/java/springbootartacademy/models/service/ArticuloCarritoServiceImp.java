@@ -25,6 +25,12 @@ public class ArticuloCarritoServiceImp implements IArticuloCarritoService{
 		return new CarritoCompras(articulodao.findByUsuariosAndVentasIsNull(usuarios));
 	}
 	@Override
+	public List<ArticuloCarrito> CarritosVenta(Long id){
+		// TODO Auto-generated method stub
+		return  articulodao.findByVentaId(id);
+	}
+
+	@Override
 	public ArticuloCarrito guardarcarrito(Integer cantidad,Caracteristicas carac,Usuarios usu) {
 		CarritoCompras carrito = this.articuloCarritos(usu);
 		ArticuloCarrito artcarrito = carrito.buscarArticuloCarritoByCaracteristicas(carac.getId());

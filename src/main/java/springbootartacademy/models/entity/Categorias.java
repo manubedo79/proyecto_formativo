@@ -10,10 +10,11 @@ import javax.persistence.Id;
 public class Categorias {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Column(name="id_categoria")
 private Long id;
-@Column(length=50, nullable=false, unique=true)
+@Column(name="nombre_categoria",length=50, nullable=false, unique=true)
 private String nombrecategoria;
-@Column(nullable=false, length=65)
+@Column(name="imagen_principal_categoria",nullable=false, length=65)
 private String imagen;
 
 public Long getId() {

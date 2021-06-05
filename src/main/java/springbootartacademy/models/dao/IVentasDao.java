@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import springbootartacademy.models.entity.Estados;
 import springbootartacademy.models.entity.Usuarios;
 import springbootartacademy.models.entity.Ventas;
 

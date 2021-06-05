@@ -32,12 +32,13 @@ public class Usuarios implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
+	@Column(name = "id_usuario")
 	private Long id;
 
+	@Column(name = "contraseña_usuario")
 	private String contraseña;
 
-	@Column(length = 50, nullable = false, unique = true)
+	@Column(name="correo_usuario",length = 50, nullable = false, unique = true)
 	private String correo;
 
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -61,6 +62,8 @@ public class Usuarios implements UserDetails {
 
 	@Column(name = "verification_token", length = 45, updatable = false, nullable = true)
 	private String verification;
+	
+	@Column(name="estado_usuario")
 	private boolean estado;
 	@Enumerated(EnumType.STRING)
 	private Provider provider;

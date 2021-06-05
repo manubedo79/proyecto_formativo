@@ -16,19 +16,20 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Municipios {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_municipio")
 	private Long id;
 
-	@Column(length=50, nullable=false, unique=true)
+	@Column(name="nombre_municipio",length=50, nullable=false, unique=true)
 	private String nombremunicipio;
 	
-	@Column(length=50, nullable=false, unique=true)
+	@Column(name="tarifa_municipio",length=50, nullable=false, unique=true)
 	private long tarifaenviomunicipio;
 	
-
-@ManyToOne
-@JoinColumn(name = "departamentos_id")
-@JsonIgnore
-private Departamentos departamentos;
+	
+	@ManyToOne
+	@JoinColumn(name = "departamento_id")
+	@JsonIgnore
+	private Departamentos departamentos;
 
 
 public Long getId() {

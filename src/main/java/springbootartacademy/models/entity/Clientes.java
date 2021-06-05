@@ -16,26 +16,27 @@ import javax.validation.constraints.NotBlank;
 public class Clientes {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_cliente")
 	private Long id;
 	
-	@Column(length = 50, nullable = false)
+	@Column(name="nombres_cliente",length = 50, nullable = false)
 	private String nombre;
 	
-	@Column(length = 50, nullable = false)
+	@Column(name="apellidos_cliente",length = 50, nullable = false)
 	private String apellido;
 
-	@Column(length = 50, nullable = false)
+	@Column(name="direccion_cliente",length = 50, nullable = false)
 	private String direccion;
 
-	@Column(length = 13, nullable = false)
+	@Column(name="telefono_cliente",length = 13, nullable = false)
 	private String telefono;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "usuarios_id")
+	@JoinColumn(name = "usuario_id")
 	private Usuarios usuarios;
 
 	@ManyToOne
-	@JoinColumn(name = "municipios_id")
+	@JoinColumn(name = "municipio_id")
 	private Municipios municipios;
 
 	public Long getId() {

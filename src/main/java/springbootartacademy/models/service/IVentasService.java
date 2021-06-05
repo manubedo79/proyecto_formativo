@@ -18,5 +18,6 @@ public interface IVentasService {
 	public void enviarFacturaCorreo(String siteURL, Usuarios usuario,Ventas venta,CarritoCompras carrito) throws UnsupportedEncodingException, MessagingException;
 	public Iterable<Ventas> findByFechas();
 	public Page<Ventas> ListarVentasTodas(int pageNumber,String busqueda);
+	public void cambioEstado(String idestado, String idventa);
 
 }

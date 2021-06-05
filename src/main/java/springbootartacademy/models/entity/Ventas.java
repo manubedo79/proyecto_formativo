@@ -22,27 +22,29 @@ public class Ventas  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_venta")
 	private Long id;
 
-	@Column(nullable = true)
+	@Column(name="direccion_entrega_venta",nullable = true)
 	private String direccionentrega;
 	
-	@Column(nullable = false)
+	@Column(name="total_venta",nullable = false)
 	private float totalventa;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "usuarios_id")
+	@JoinColumn(name = "usuario_id")
 	private Usuarios usuarios;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "estados_id")
+	@JoinColumn(name = "estado_id")
 	private Estados estado;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "municipios_id")
+	@JoinColumn(name = "municipio_id")
 	private Municipios municipios;
 
 	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_venta")
 	private Date fechaventa;
 
 	@OneToMany(mappedBy="ventas", cascade=CascadeType.ALL)

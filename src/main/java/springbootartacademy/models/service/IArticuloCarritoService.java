@@ -14,5 +14,6 @@ public interface IArticuloCarritoService {
 	public void actualizarArticuloCarrito(ArticuloCarrito articuloCarrito,Integer Cantidad);
 	public ArticuloCarrito encontrarCarritoId(Long id);
 	public CarritoCompras articuloCarritosVentaNull(Usuarios usuarios);
+	public List<ArticuloCarrito> CarritosVenta(Long id);
 	
 }

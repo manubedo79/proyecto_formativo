@@ -66,10 +66,21 @@
 								<th th:text="${Ventas.usuarios.clientes.apellido}"></th>
 								<th th:text="${Ventas.fechaventa}"></th>
 								<!--  <th th:text="${Ventas.estado.nombre}"></th>-->
-								<th th:text="${Ventas.estado.nombre}"></th>
+								<th >[[${Ventas.estado.nombre}]]
+								<form method="POST" th:action="@{/venta/actualizarEstado}">
+								<input type="hidden" th:value="${Ventas.id}" th:name="ventaestado">
+								<select th:name="estadoNew">
+									<th:block th:each="estado : ${estados}">
+									<option th:value="${estado.id}" selected th:if="${estado.id} == ${Ventas.estado.id}">[[${Ventas.estado.nombre}]]</option>
+									<option th:value="${estado.id}" th:if="${estado.id} != ${Ventas.estado.id}">[[${estado.nombre}]]</option>									
+									</th:block>
+								</select>
+									<input type="submit" th:if="${Ventas.estado.nombre} != 'CANCELADA'" value="ACTUALIZAR">
+								</form> 
+								</th>
 								<th th:text="${Ventas.totalventa}"></th>
 								<th>
-									<a class="btn btn-outline-info">Detalle Venta</a>
+									<a th:href="@{/venta/detalle/}+${Ventas.id}"class="btn btn-outline-info">Detalle Venta</a>
 									</th>
 
 							</tr>

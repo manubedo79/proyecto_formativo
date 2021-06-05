@@ -11,9 +11,10 @@ public class Estados {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_estado")
 	private Long id;
 	
-	@Column(length = 20, nullable = true)
+	@Column(name="nombre_estado",length = 20, nullable = true)
 	private String nombre;
 
 	public Long getId() {

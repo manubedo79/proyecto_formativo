@@ -17,6 +17,7 @@ import javax.persistence.Table;
 public class ArticuloCarrito {
 @Id
 @GeneratedValue(strategy=GenerationType.IDENTITY)
+@Column(name = "id_articulo_carrito")
 private Long id;
 @ManyToOne(fetch=FetchType.LAZY)
 @JoinColumn(name="caracteristica_id")
@@ -26,9 +27,9 @@ private Caracteristicas  caracteristicas;
 @JoinColumn(name="usuario_id")
 private Usuarios usuarios;
 @ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-@JoinColumn(name="ventas_id")
+@JoinColumn(name="venta_id")
 private Ventas ventas;
-@Column(length=10)
+@Column(name="cantidad_articulo_carrito", length=10)
 private Integer cantidad;
 
 public void agregar_cantidad(Integer cantidad)

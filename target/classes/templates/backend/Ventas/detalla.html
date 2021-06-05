@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="recursos/admin" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<title th:text="'Detallando la venta ... ' + ${venta.id}"></title>
+</head>
+<body>
+<div class="content-wrapper layout" layout:fragment="contenido">
+
+<style >
+	@media print()
+	{
+		#boton1,#boton2 {
+			display:none;
+		}
+	}
+	
+</style>
+
+<section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+           <h1><i class="fas fa-users"></i> Detalle Venta</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-default">
+          
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+              INFORMACIÓN DE LA VENTA:
+              
+                <div class="form-group">
+                  <label>Fecha de la Venta</label>
+                  <p >[[${#dates.format(venta.fechaventa, 'dd-MMM-yyy')}]]</p>
+                </div>
+                <div class="form-group">
+                  <label>Departamento y Municipio de Entrega</label>
+                  <p >[[${venta.municipios.departamentos.nombredepartamento}]] - [[${venta.municipios.nombremunicipio}]]</p>
+                </div>
+                <div class="form-group">
+                  <label>Dirección de Entrega</label>
+                  <p th:text="${venta.direccionentrega}"></p>
+                </div>
+                <div class="form-group">
+                  <label>Estado de la Venta</label>
+                  <p >[[${venta.estado.nombre}]]</p>
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <div class="col-md-6">
+              INFORMACIÓN DEL CLIENTE:
+              
+                <div class="form-group">
+                  <label>Nombre Completo del Cliente</label>
+                  <p >[[${venta.usuarios.clientes.nombre}]] [[${venta.usuarios.clientes.apellido}]]</p>
+                </div>
+                <div class="form-group">
+                  <label>Departamento y Municipio del Cliente</label>
+                  <p >[[${venta.usuarios.clientes.municipios.departamentos.nombredepartamento}]] - [[${venta.usuarios.clientes.municipios.nombremunicipio}]]</p>
+                </div>
+                <div class="form-group">
+                  <label>Dirección del Cliente</label>
+                  <p >[[${venta.usuarios.clientes.direccion}]] </p>
+                </div>
+                <div class="form-group">
+                  <label>Telefono del Cliente</label>
+                  <p >[[${venta.usuarios.clientes.telefono}]] </p>
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+					<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th style="text-align: center;">
+								<h4><label>Cantidad</label></h4>
+							</th>
+							<th style="text-align: center;">
+								<h4><label>Tamaño</label></h4>
+							</th>
+							<th style="text-align: center;">
+								<h4><label>Nombre del producto</label></h4>
+							</th>
+							<th style="text-align: center;">
+								<h4><label>Precio unitario</label></h4>
+							</th>
+							<th style="text-align: center;">
+								<h4><label>Total</label></h4>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="item :${venta.articulos}">
+							<td style="text-align: center;">[[${item.cantidad}]]</td>
+							<td><a href="#"> [[${item.caracteristicas.size}]] </a></td>
+							<td class=" text-right ">[[${item.caracteristicas.obras.nombre}]]</td>
+							<td class=" text-right ">[[${item.caracteristicas.precio}]]</td>
+							<td class=" text-right ">[[${item.subtotal}]]</td>
+							
+						</tr>
+						<tr >
+							<td colspan="4" style="text-align: right;">Total:  [[${venta.totalventa}]]</td>
+						</tr>
+					</tbody>
+					</table>
+					<pre></pre>
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->     
+            </div>
+            <!-- /.row -->
+            <div class="row">
+              <a th:href="@{/venta/listar}" id="boton1" class="btn btn-outline-success "><i class="fas fa-undo-alt"></i> Volver</a>
+
+              <a onclick="print()" id="boton2" class="btn btn-outline-warning "><i class="fas fa-undo-alt"></i> Imprimir Recibo</a>
+            </div>
+            <!-- /.row -->
+          </div>
+        </div>
+        
+         <!-- Control Sidebar -->
+
+  <!-- /.control-sidebar -->
+</div>
+</section>
+</div>
+        <!-- /.card -->
+</body>
+</html>
