@@ -9,13 +9,17 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ch.qos.logback.classic.Logger;
 import springbootartacademy.models.dao.IEstadosDao;
@@ -25,6 +29,7 @@ import springbootartacademy.models.entity.Obras;
 import springbootartacademy.models.entity.Usuarios;
 import springbootartacademy.models.entity.Ventas;
 import springbootartacademy.models.service.IArticuloCarritoService;
+import springbootartacademy.models.service.IFileService;
 import springbootartacademy.models.service.IVentasService;
 
 @Controller
@@ -35,6 +40,8 @@ public class VentasController {
 	private IArticuloCarritoService iartcarrser;
 	@Autowired
 	private IEstadosDao iestados;
+	@Autowired
+	private IFileService ifileser;
 	
 	Logger logger = (Logger) LoggerFactory.getLogger(CarritoController.class);
 
@@ -66,11 +73,11 @@ String busqueda = null;
 	return listBypage(1,busqueda);
 }
 @PostMapping("/venta/actualizarEstado")
-public ModelAndView actualizatEstado(@RequestParam("ventaestado")String idventa,@RequestParam("estadoNew")String idestado) {
+public String actualizatEstado(@RequestParam("ventaestado")String idventa,@RequestParam("estadoNew")String idestado) {
 	logger.info(idestado);
 	logger.info(idventa);
 	iventaser.cambioEstado(idestado, idventa);
-	return listBypage(1,null);
+	return "redirect:/venta/listar";
 }
 
 
@@ -97,5 +104,43 @@ public ModelAndView listBypage(@PathVariable("pageNumber")int currentPage, @Para
 	mav.addObject("busqueda",busqueda);
 	return mav;
 	
+}
+@GetMapping("/comprobante/{id}")
+public String comprobante(@PathVariable Long id, Model model) {
+	Ventas ventas=iventaser.findByIdVenta(id);
+	model.addAttribute("venta", ventas);
+	return "frontend/ordenes/comprobante";
+}
+@PostMapping("/venta/guardar")
+public String guardarVentas(@ModelAttribute("venta")Ventas ventas,@RequestParam("fileImage")MultipartFile multipart , BindingResult result, RedirectAttributes flash) {
+	if(!multipart.isEmpty()) 
+	{
+		if(ventas.getComprobante() != null && ventas.getComprobante().length()>0) 
+		{
+			ifileser.eliminarComprobante(ventas.getComprobante());
+		}
+		String nombreruta1 = null;
+		try 
+		{
+		
+			nombreruta1 = ifileser.copiarComprobante(multipart);
+		} catch (Exception e) {e.printStackTrace();}
+		Ventas venta1 = iventaser.findByIdVenta(ventas.getId());
+		ventas.setDireccionentrega(venta1.getDireccionentrega());
+		ventas.setMunicipios(venta1.getMunicipios());
+		ventas.setFechaventa(venta1.getFechaventa());
+		ventas.setTotalventa(venta1.getTotalventa());
+		ventas.setUsuarios(venta1.getUsuarios());
+		ventas.setEstado(venta1.getEstado());
+		
+		ventas.setComprobante(nombreruta1);
+		
+		
+	}
+	iventaser.guardarVentas(ventas);
+	String mensaje = (ventas.getId() != null) ? "Se edito de forma correcta la categoria" : "Se guardo de forma correcta la categoria";
+			
+	flash.addFlashAttribute("info", mensaje);
+	return "redirect:/venta/listar";
 }
 }

@@ -1,4 +1,8 @@
 $(function(){
+	 $.validator.addMethod("formEmail", function (value, element) {
+	     var pattern = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+	     return this.optional(element) || pattern.test(value);
+	  }, "Formato del correo incorrecto");
 	$('form[id="registro"]').validate({
 		rules:{
 			nombre: 'required',
@@ -7,7 +11,7 @@ $(function(){
 			telefono : {required:true,number: true, min:7},
 			departamento : 'required',
 			municipios : 'required',
-			correo : {required:true,email: true},
+			correo : {required:true,email: true, formEmail:true},
 			contraseña: {required:true,minlength: 8}
 			
 		},
@@ -18,7 +22,7 @@ $(function(){
 			telefono : {required:'Por favor ingrese su telefono', number: 'Este campo sólo permite números'},
 			departamento : 'Por favor seleccione un departamento',
 			municipios : 'Por favor seleccione un municipio',
-			correo : {required:'Por favor ingrese su correo electronico',email:'ingrese un correo valido'},
+			correo : {required:'Por favor ingrese su correo electronico',email:'Formato del correo incorrecto'},
 			contraseña: { required:'Por favor ingrese su contraseña',minlength:'La contraseña debe de tener como mínico 8 caráteres'}
 			
 	},

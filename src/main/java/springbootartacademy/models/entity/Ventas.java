@@ -28,6 +28,9 @@ public class Ventas  {
 	@Column(name="direccion_entrega_venta",nullable = true)
 	private String direccionentrega;
 	
+
+	@Column(nullable=true, length=65)
+	private String comprobante;
 	@Column(name="total_venta",nullable = false)
 	private float totalventa;
 	
@@ -117,6 +120,14 @@ public class Ventas  {
 
 	public void setArticulos(List<ArticuloCarrito> articulos) {
 		this.articulos = articulos;
+	}
+
+	public String getComprobante() {
+		return comprobante;
+	}
+
+	public void setComprobante(String comprobante) {
+		this.comprobante = comprobante;
 	}
 	
 	

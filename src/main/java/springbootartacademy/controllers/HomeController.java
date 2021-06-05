@@ -72,6 +72,18 @@ public ResponseEntity<Resource> verFotoCategorias(@PathVariable String filename)
 			.body(recurso);
 }
 
+@GetMapping(value = "/comprobantes/{filename:.+}")
+public ResponseEntity<Resource> verFotoComprobantes(@PathVariable String filename) {
+	Resource recurso = null;
+	try {
+		recurso = ifileser.cargarComprobante(filename);
+	} catch (MalformedURLException e) {
+		e.printStackTrace();
+	}
+	return ResponseEntity.ok()
+			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"")
+			.body(recurso);
+}
 @GetMapping("/pagina/obra/{numeropagina}")
 public ModelAndView obrastodaspagina(@PathVariable("numeropagina") int currentPage,@Param ("busqueda") String busqueda) {
 	Page<Obras> page = servicioobras.ListarObrasTodas(currentPage,busqueda);

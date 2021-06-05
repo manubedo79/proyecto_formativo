@@ -71,6 +71,7 @@ public class VentasServiceImp implements IVentasService {
 		return ventadao.findById(id).orElse(null);
 	}
 	public void enviarFacturaCorreo(String siteURL,Usuarios usuario,Ventas venta,CarritoCompras carrito)throws UnsupportedEncodingException, MessagingException {
+		Long id =venta.getId();
 		String subject ="Factura Art Academy";
 		String mailcontent = 
 		"<!DOCTYPE html>\r\n" + 
@@ -123,7 +124,7 @@ public class VentasServiceImp implements IVentasService {
 		mailcontent +=
 		"</table>\r\n" + 
 		"\r\n" ;
-		String enlace = siteURL+"/cuenta/verificacion?code="+venta.getId();
+		String enlace = siteURL+"/cuenta/verificacion?code="+id;
 		mailcontent+="<h1>Total a Pagar <strong>"+venta.getTotalventa()+"</strong></h1>" +
 		"<h3>Para finalizar la compra debe de realizar el pago por medio de la siguiente cuenta <strong>0000</strong>" + 
 		" y debe de proporcionar el comprobante de pago en el siguiente enlace "+enlace+"</h3>\r\n" + 
@@ -154,5 +155,9 @@ public class VentasServiceImp implements IVentasService {
 		 return ventadao.findAll(pageable);
 	}
 	
+	@Override
+	public void guardarVentas(Ventas ventas) {
+	ventadao.save(ventas);
+	}
 	
 }

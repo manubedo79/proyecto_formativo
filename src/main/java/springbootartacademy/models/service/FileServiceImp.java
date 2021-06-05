@@ -19,6 +19,7 @@ public class FileServiceImp implements IFileService {
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final static String UPLOADS_FOLDER = "imagenes";
     private final static String UPLOADSCATEGORIA_FOLDER = "imagenescategorias";
+    private final static String UPLOADSCOMPROBANTES_FOLDER = "comprobantes";
     
     public Resource cargar(String nombre) throws MalformedURLException {
       Path pathfoto = getPath(nombre);
@@ -61,7 +62,9 @@ public class FileServiceImp implements IFileService {
 		return Paths.get(UPLOADSCATEGORIA_FOLDER).resolve(nombre).toAbsolutePath();
 	}
 
-
+    public Path getComprobantePath(String nombre) {
+		return Paths.get(UPLOADSCOMPROBANTES_FOLDER).resolve(nombre).toAbsolutePath();
+	}
 	@Override
 	public Resource cargarImagenCategoria(String nombre) throws MalformedURLException {
 		  Path pathfoto = getCategoriaPath(nombre);
@@ -90,6 +93,43 @@ public class FileServiceImp implements IFileService {
 	@Override
 	public boolean eliminarImagenCategoria(String nombre) {
 		  Path rootPath = getCategoriaPath(nombre);
+			File archivo = rootPath.toFile();
+
+			if (archivo.exists() && archivo.canRead()) {
+				if (archivo.delete()) {
+					return true;
+				}
+			}
+			return false;
+	}
+	@Override
+	public Resource cargarComprobante(String nombre) throws MalformedURLException {
+		  Path pathfoto = getComprobantePath(nombre);
+	      log.info("pathFoto: " + pathfoto);
+	      Resource recurso = new UrlResource(pathfoto.toUri());
+	      if (!recurso.exists() || !recurso.isReadable()) {
+	        throw new RuntimeException("Error: no se puede cargar la imagen: " + pathfoto.toString());
+	    }
+	        return recurso;
+	}
+
+
+	@Override
+	public String copiarComprobante(MultipartFile file) throws IOException {
+		String uniqueFilename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+		Path rootPath = getComprobantePath(uniqueFilename);
+
+		log.info("rootPath: " + rootPath);
+
+		Files.copy(file.getInputStream(), rootPath);
+
+		return uniqueFilename;
+	}
+
+
+	@Override
+	public boolean eliminarComprobante(String nombre) {
+		  Path rootPath = getComprobantePath(nombre);
 			File archivo = rootPath.toFile();
 
 			if (archivo.exists() && archivo.canRead()) {

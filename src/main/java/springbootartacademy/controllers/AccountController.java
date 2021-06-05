@@ -50,7 +50,7 @@ public class AccountController {
 			return "redirect:/inicio";
 		}
 		if (error != null) {
-			model.addAttribute("error", "Los datos no coinciden");
+			model.addAttribute("error", "Estas credenciales no coinciden con nuestros registros");
 		}
 		if (logout != null) {
 			model.addAttribute("info", "Ha cerrado sesión con éxito");

@@ -130,14 +130,18 @@ public class ObrasController {
 	@GetMapping("/editar/{id}")
 	public String editar (@PathVariable(value="id") Long id, Model model) {
 		Obras obra=servicioobras.findbyId(id);
+		
 		model.addAttribute("obra", obra);
+		Caracteristicas caracteristicas= new Caracteristicas();
+		caracteristicas.setObras(obra);
+		model.addAttribute("caracteristica", caracteristicas);
 		model.addAttribute("categoria",serviciocategorias.findAllUsers());
 		return "backend/Obras/editar";
 	}
 	
 	@PostMapping("/editar")
 	public String editarobra(@ModelAttribute("obra") Obras obra,
-	BindingResult result, @RequestParam("imagenobra")MultipartFile multipart , @RequestParam("imagenobra2") MultipartFile multipart2 ,
+	BindingResult result, @RequestParam("rutaimagen_principal")MultipartFile multipart , @RequestParam("imagenobra2") MultipartFile multipart2 ,
 	@RequestParam("imagenobra3") MultipartFile multipart3 , RedirectAttributes flash) throws IOException {
 		if(!multipart.isEmpty()) 
 		{
@@ -159,9 +163,15 @@ public class ObrasController {
 			obra.setRutaimagen_principal(nombreruta1);
 			obra.setRutaimagen_2(nombreruta2);
 			obra.setRutaimagen_3(nombreruta3);
-			servicioobras.guardarObra(obra);
+			
+		}else {
+			Obras verifica = servicioobras.findbyId(obra.getId());
+			obra.setRutaimagen_principal(verifica.getRutaimagen_principal());
+			obra.setRutaimagen_2(verifica.getRutaimagen_2());
+			obra.setRutaimagen_3(verifica.getRutaimagen_3());
 		}
 		
+		servicioobras.guardarObra(obra);
 		String mensaje = (obra.getId() != null) ? "Se edito de forma correcta la obra" : "Se guardo de forma correcta la obra";
 	
 		flash.addFlashAttribute("success", mensaje);
@@ -216,5 +226,11 @@ return  serviciocaracteristica.listarcaracteristicas_obras(idcaracteristica);
 public @ResponseBody String checkNameObra(@Param("nombre") String nombre) {
 
 	return service.findByNombre(nombre);
+}
+@GetMapping("/detall/{id}")
+public String detall(@PathVariable Long id, Model model) {
+	Obras obras = service.findbyId(id);
+	model.addAttribute("obra", obras);
+	return "backend/Obras/detalle";
 }
 }

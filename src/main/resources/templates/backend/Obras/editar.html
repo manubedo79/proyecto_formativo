@@ -22,67 +22,133 @@
       <div class="container-fluid">
         <!-- SELECT2 EXAMPLE -->
         <div class="card card-default">
-              
-          
-           <form enctype="multipart/form-data" th:action="@{/obra/editar}" method="post">
-           <input type="hidden" th:field="*{obra.id}" th:value="${obra.id}">
-          <!-- /.card-header -->
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Nombre de la Obra</label>
-                  <input type="text" th:field="*{obra.nombre}" class="form-control">
-                <small id="mensajerror" style="color: red;"></small>
-                </div>    
-                <div class="form-group">
-                  <label>Categoría</label>
-					<select class="form-control select2" style="width: 100%;" th:field="*{obra.categoria}" >
-                    	<option value="">Ninguna</option>
-                    	<th:block th:each="categori:${categoria}">
-                    	<option th:value="${categori.id}" th:text="${categori.nombrecategoria}"></option>
-                   		</th:block>
-                  	</select>
-              </div>
-                <div class="form-group">
-                  <label>Descripción de la Obra</label>
-                  <textarea class="form-control" th:field="*{obra.descripcion}" rows="4" cols="2"></textarea>
-	              <small id="mensajerror" style="color: red;"></small>
-                <!-- /.form-group -->
-                </div>
-              </div>
-              <!-- /.col -->
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Imagen principal de la Obra </label>
-                  <input type="file" name="imagenobra" id="fileImage" accept="image/png, image/jpeg" class="form-control"  >
-	              <small id="mensajerror" style="color: red;"></small>                  
-              </div> 
-                <div class="form-group">
-                  <label>Imagen dos de la Obra </label>
-                  <input type="file" name="imagenobra2" id="fileImage" accept="image/png, image/jpeg" class="form-control"  >
-	              <small id="mensajerror" style="color: red;"></small>                  
-              </div>
-                <div class="form-group">
-                  <label>Imagen tres de la Obra</label>
-                  <input type="file" name="imagenobra3" id="fileImage" accept="image/png, image/jpeg" class="form-control"  >
-	              <small id="mensajerror" style="color: red;"></small>
-              	</div><br><br><br>
-              
-                <div class="my-4">
-           			<button type="submit" class="btn btn-info" >Confirmar</button>
-           			 <a th:href="@{/obra/listar}" class="btn btn-outline-success"><i class="fas fa-undo-alt"></i> Volver</a>
-              	</div>
-              	
-              </div>
+          <div class="card-header">           
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
             </div>
-          </div>
-          </form>
+          </div>    
+          
+         <div class="row">
+         <form th:action="@{/obra/editar}"  id="formularioobra" enctype="multipart/form-data" method="post">
+         <input type="hidden" th:field="*{obra.id}" th:value="${obra.id}">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-head">
+                    <h4 class="text-center">1. Info Productos </h4>
+                    <p class="text-danger text-center">Campos Obligatorios *</p>
+                </div>
+                <div class="row card-body">
+                    <div class="form-group col-6">
+                        <label for="">Nombre</label>
+                        <input type="text" class="form-control" th:field="*{obra.nombre}">
+                   <small id="msgnombre" style="color:red;"></small>
+                    </div>
+                    
+                    <div class="form-group col-6">
+                        <label for="">Categoria</label>
+                        <select th:field="*{obra.categoria}" class="form-control">
+                            <option value="">Seleccione una categoria</option>
+                            <option th:each="cate : ${categoria}" th:value="${cate.id}">[[${cate.nombrecategoria}]]</option>
+                         </select>
+                    </div>
+                   
+                   
+                     <div class="form-group col-12">
+                        <label for="">Descripción</label>
+                        <textarea class="form-control" id="descripcion" th:field="*{obra.descripcion}" ></textarea>
+                    </div>
+                     <div class="form-group col-12">
+                     
+                        <label for="">Imagen Principal</label>
+                        
+                        <input type="file" name="rutaimagen_principal" th:value="${obra.rutaimagen_principal}" class="form-control" >
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="">Imagen 2</label>
+                        <input type="file" name="imagenobra2" class="form-control" >
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="">Imagen 3</label>
+                        <input type="file" name="imagenobra3" class="form-control" >
+                    </div>
+                </div>
+            </div>
+         
+            <div class="col-12" style="margin-top: 3%;">
+                <button type="submit" id="btnconfirmar" class="btn btn-info btn-block">Guardar</button>
+            </div>
+        </div>
+        </form>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-head">
+                    <h4 class="text-center">2. Info Caracteristicas</h4>
+                </div>
+                <p class="text-danger text-center">Campos Obligatorios *</p>
+                <form th:action="@{/cara/guardar}" th:object="${caracteristica}" method="post">
+                <input type="hidden" th:field="*{obras}" th:value="${caracteristica.obras.id}">
+                <div class="row card-body text-center">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="">Tamaño</label>
+                            <input type="text" th:field="*{size}" class="form-control" >
+                        </div>
+                    </div>
+                   
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="">Cantidad</label>
+                            <input type="number" th:field="*{stock}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="">Precio</label>
+                            <input th:field="*{precio}" type="text" class="form-control" >
+                        </div>
+                    </div>
+                    
+                    <div class="col-12">
+                        <button type="submit"
+                            class="btn btn-info float-right">Agregar</button>
+                    </div>
+                </div>
+                </form>
+               <form th:action="@{/cara/editar}" method="post">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                        	<th>Tamaño</th>
+                         	<th>Cantidad</th>
+                            <th>Precio</th>
+                            
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                    <tr th:each="ob: ${obra.caracteristicas}">
+                    <td><input type="hidden" name="id[]" th:value="${ob.id}"></td>
+				<td><input type="text"  class="form-control form-control-sm" name="size[]" th:value="${ob.size}"></td>
+				<td><input type="text" class="form-control form-control-sm" name="stock[]" th:value="${ob.stock}"></td>
+				<td><input type="text" class="form-control form-control-sm" name="precio[]" th:value="${ob.precio}"></td>
+				<td>
+				<button type="submit" class="btn btn-success btn-sm">Actualizar</button>
+				<a th:href="@{/cara/eliminar/}+${ob.id}"  class="btn btn-danger btn-sm">Eliminar</a>
+				</td>
+				</tr>
+                    </tbody>
+                </table>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    
         </div>
          <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
+ 
   <!-- /.control-sidebar -->
 </div>
    </section>

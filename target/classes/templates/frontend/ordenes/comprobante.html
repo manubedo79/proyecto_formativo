@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="recursos/admin" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="content-wrapper" layout:fragment="contenido">
+
+<section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+          <h1 class="text-center"><i class="fas fa-users"></i>Subir Comprobante</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-default">
+          <div class="card-header">
+           
+
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+            </div>
+          </div>    
+          
+           <form th:action="@{/venta/guardar}" enctype="multipart/form-data" id="formulariocomprobante"  method="post">
+           <input type="text" th:field="*{venta.id}" th:value="${venta.id}">
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                
+                <!-- /.form-group -->
+
+                <div class="form-group">
+                  <label>Subir Comprobante</label>
+                  <input type="file" name="fileImage" id="fileImage" class="form-control"  ><br>
+                 
+	              <small id="mensajerror" style="color: red;"></small>
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+             </div>
+                
+            </div>
+            <!-- /.row -->
+            <button type="submit" class="btn btn-info" >Confirmar</button>
+            <a th:href="@{/ordenes}" class="btn btn-outline-success"><i class="fas fa-undo-alt"></i> Volver</a>
+            <div class="row">
+              
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          </form>
+        </div>
+        
+         <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+
+   </section>
+   </div>
+       <!-- /.card -->
+</body>
+</html>

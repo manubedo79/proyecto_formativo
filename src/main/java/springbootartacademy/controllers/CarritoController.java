@@ -121,7 +121,8 @@ public class CarritoController {
 		Usuarios usuarios = (Usuarios) authentication.getPrincipal();
 		CarritoCompras carritos = carritoser.articuloCarritos(usuarios);
 		model.addAttribute("usuario", usuarios);
-		model.addAttribute("total", carritos.total());
+		model.addAttribute("total", carritos.total() + usuarios.getClientes().getMunicipios().getTarifaenviomunicipio());
+		model.addAttribute("totalsint", carritos.total());
 		model.addAttribute("carritos", carritos.getCarritoitems());
 		model.addAttribute("municipios", munidao.findAll());
 		model.addAttribute("conteo", carritoser.contarCarritos(usuarios));

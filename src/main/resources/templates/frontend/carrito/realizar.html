@@ -58,7 +58,7 @@
                   <select name="municipionuevo" onchange="verificar_tarifa(this)" class="custom-select d-block w-100" id="municipios" >
 						<option value="0" class="input100" > Seleccione un municipio</option>
                   </select>
-                <label for="state">Direccion</label>                
+                <label for="state">Dirección</label>                
                 <input type="text" name="direccionnuevo" id="direccionnuevo" class="form-control" placeholder="CRA 143 #68-161">
               </div>
 
@@ -92,7 +92,7 @@
              </th:block>
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
-                <h6 class="my-0"><b>Costo del envio</b></h6>
+                <h6 class="my-0"><b>Costo del envío</b></h6>
               </div>
               <span id="tarenvi" class="text-muted">[[${usuario.clientes.municipios.tarifaenviomunicipio}]]</span>
             </li>
@@ -137,21 +137,6 @@
 			)
 		}).fail(error => console.log(error))
 	}
-	function opcion_direccion(l){
-		let opcion = $(l).val();
-		let departamento = document.getElementById("departamento").value;
-		let municipio = document.getElementById("municipios").value;
-		let direccion = document.getElementById("direccionnuevo").value;
-		console.log(departamento);
-		console.log(municipio);
-		console.log(direccion);
-		if(opcion=="no"){
-			if(departamento==null){alert("Debes de colocar el departamento a la cual este será enviado");}
-			if(municipio==null){alert("Debes de colocar el municipio a la cual este será enviado");}
-			if(direccion==null){alert("Debes de colocar la direccion a la cual este será enviado");}
-		}
-			
-			}
 	function verificar_tarifa(r){
 		$("#tarenvi").html('<span id="tarenvi" class="text-muted"></span>');
 		$("#pretotal").html('<strong id="pretotal"></strong>');
