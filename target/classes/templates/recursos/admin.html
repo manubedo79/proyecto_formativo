@@ -243,7 +243,7 @@ color: red;}
 <!-- AdminLTE for demo purposes -->
 	<script th:src="@{/backend/dist/js/demo.js}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.js"></script>
-	
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
 function agregar_insumo() {
@@ -251,18 +251,17 @@ function agregar_insumo() {
     let size = $("#size").val();
     let cantidad = $("#cantidad").val();
     let precio = $("#precio").val();
-    if (cantidad > 0 && precio > 0) {
+    if (cantidad > 0 && precio > 0 && size!=$("#tama-"+insumo_id).val()) {
         $("#tblInsumos").append(`
                 <tr id="tr-${insumo_id}">
                     <td>
-                        <input type="hidden" name="size[]" value="${size}" />
-                        <input type="hidden" name="cantidades[]" value="${cantidad}" />
-                        	<input type="hidden" name="precio[]" value="${precio}" />
+                        <input type="hidden" id="tama-${insumo_id}" name="size[]" value="${size}" />
+                       	<input type="hidden" name="precio[]" value="${precio}" />
                         
                         	${size}  
                     </td>
                    
-                    <td>${cantidad}</td>
+                    <td><input class="form-control form-control-sm" type="number"  id="cantidades-${insumo_id}" name="cantidades[]" value="${cantidad}" /></td>
                     <td>${precio}</td>
                    
                     <td>
@@ -270,10 +269,20 @@ function agregar_insumo() {
                     </td>
                 </tr>
             `);
-    } else {
+        let cant = $("#cantidad-"+insumo_id).val();
+        $("#cantidad-"+insumo_id).val(++cant);
+    } else if(size==$("#tama-"+insumo_id).val()){
+    	swal({
+    		  title: "Error!",
+    		  text: "No se pudo agregar el tamaño " +size+" ya existe",
+    		  icon: "warning",
+    		  button: "Aceptar!",
+    		});
+}else {
         alert("Se debe ingresar una cantidad o precio valido");
     }
 }
+
 function eliminar_insumo(id) {
     $("#tr-" + id).remove();
 

@@ -123,8 +123,8 @@ public class ObrasController {
 			obra.addCaracteristicas(Integer.parseInt(cantidad[i]), Float.parseFloat(precio[i]), size[i]);
 		}
 		servicioobras.guardarObra(obra);
-		String mensaje = (obra.getId() != null) ? "Se edito de forma correcta la obra" : "Se guardo de forma correcta la obra";
-		flash.addFlashAttribute("success", mensaje);
+
+		flash.addFlashAttribute("info", "Se guardo de forma correcta la obra");
 		return "redirect:/obra/listar";
 	}
 	@GetMapping("/editar/{id}")
@@ -172,9 +172,9 @@ public class ObrasController {
 		}
 		
 		servicioobras.guardarObra(obra);
-		String mensaje = (obra.getId() != null) ? "Se edito de forma correcta la obra" : "Se guardo de forma correcta la obra";
+		
 	
-		flash.addFlashAttribute("success", mensaje);
+		flash.addFlashAttribute("info", "Se edito de forma correcta la obra");
 		return "redirect:/obra/listar";
 	}
 	@GetMapping("/cambiarestado/{id}")

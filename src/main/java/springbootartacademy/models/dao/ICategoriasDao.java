@@ -12,4 +12,6 @@ import springbootartacademy.models.entity.Categorias;
 public interface ICategoriasDao extends PagingAndSortingRepository<Categorias,Long>{
 	@Query("SELECT c FROM Categorias c WHERE CONCAT(c.id,c.nombrecategoria) LIKE %?1% ")
 	public Page<Categorias> findAll(String busqueda,Pageable pageable);
+	
+	public Categorias findByNombrecategoria(String nombre);
 }

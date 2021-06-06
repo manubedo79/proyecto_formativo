@@ -43,7 +43,7 @@
       <td>
       <a class="btn btn-danger" th:href="@{/orden/cancelada/}+${ven.id}" th:if="${ven.estado.nombre=='PENDIENTE'}" title="Cancelar"><i class="fas fa-ban"></i></a>
       <a class="btn btn-primary" title="Ver detalle"><i class="fas fa-eye"></i></a>
-      <a class="btn btn-success" th:href="@{/comprobante/}+${ven.id}">Subir Comprobante</a>
+      <a class="btn btn-success" th:href="@{/comprobante/}+${ven.id}" th:if="${ven.estado.nombre=='PENDIENTE'}">Subir Comprobante</a>
       </td>
       
      

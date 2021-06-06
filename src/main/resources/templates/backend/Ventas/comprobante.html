@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="recursos/admin" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<title th:text="'Detallando la venta ... ' + ${venta.id}"></title>
+
+</head>
+
+<body>
+<div class="content-wrapper layout" layout:fragment="contenido">
+
+
+
+
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-default">
+          
+          <!-- /.card-header -->
+         <div class="card" style="width: 50rem;">
+  <img th:if="${venta.comprobante!=null}"   th:src="@{'/comprobantes/'+${venta.comprobante}}" alt="Card image cap">
+  <div class="card-body">
+    
+    <a th:href="@{/venta/listar}" class="btn btn-success"> Volver</a>
+  </div>
+</div>
+        </div>
+        
+         <!-- Control Sidebar -->
+
+  <!-- /.control-sidebar -->
+</div>
+</section>
+</div>
+        <!-- /.card -->
+</body>
+</html>

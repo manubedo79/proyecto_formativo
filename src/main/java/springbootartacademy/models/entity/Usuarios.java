@@ -65,8 +65,7 @@ public class Usuarios implements UserDetails {
 	
 	@Column(name="estado_usuario")
 	private boolean estado;
-	@Enumerated(EnumType.STRING)
-	private Provider provider;
+
 
 	public boolean isEstado() {
 		return estado;
@@ -124,13 +123,6 @@ public class Usuarios implements UserDetails {
 		this.resetPasswordToken = resetPasswordToken;
 	}
 
-	public Provider getProvider() {
-		return provider;
-	}
-
-	public void setProvider(Provider provider) {
-		this.provider = provider;
-	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

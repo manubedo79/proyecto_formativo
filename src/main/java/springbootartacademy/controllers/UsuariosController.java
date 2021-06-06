@@ -123,7 +123,7 @@ public class UsuariosController {
 
 	@GetMapping("/miperfil")
 	public String miperfil(Model model, Principal principal) {
-		Usuarios usuarios = service.findByCorreo(principal.getName());
+		Usuarios usuarios = service.getUsuariosByCorreo(principal.getName());
 		Clientes clientes = cliser.findAllByCorreo(principal.getName());
 		model.addAttribute("usuario", usuarios);
 		model.addAttribute("cliente", clientes);
@@ -134,7 +134,7 @@ public class UsuariosController {
 	@RequestMapping(value = "/actualizar/perfil", method = RequestMethod.POST)
 	public String updateUserInfo(@ModelAttribute("usuario") Usuarios usuarios,
 			@ModelAttribute("cliente") Clientes clientes, Model model, Principal principal) throws Exception {
-		Usuarios currentUser = service.findByCorreo(principal.getName());
+		Usuarios currentUser = service.getUsuariosByCorreo(principal.getName());
 		Clientes currentClientes = cliser.findAllByCorreo(principal.getName());
 		if (currentUser == null) {
 			throw new Exception("User not found");
@@ -144,7 +144,7 @@ public class UsuariosController {
 		}
 
 		/* check email already exists */
-		Usuarios existingUser = service.findByCorreo(usuarios.getCorreo());
+		Usuarios existingUser = service.getUsuariosByCorreo(usuarios.getCorreo());
 		if (existingUser != null && !existingUser.getId().equals(currentUser.getId())) {
 			model.addAttribute("emailExists", "El correo ya existe");
 			return "redirect:/usuario/miperfil";
@@ -192,7 +192,7 @@ public class UsuariosController {
 	@PostMapping("/editarpassword/guardar")
 	public String guardarpassword(@ModelAttribute("usuario") Usuarios usuarios, Model model, Principal principal)
 			throws Exception {
-		Usuarios currentUser = service.findByCorreo(principal.getName());
+		Usuarios currentUser = service.getUsuariosByCorreo(principal.getName());
 		if (currentUser == null) {
 			throw new Exception("User not found");
 		}

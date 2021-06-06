@@ -48,8 +48,9 @@
 							<tr>
 								<th>Número de venta</th>
 								<th>Nombre</th>
-								<th>Apellido</th>
+								
 								<th>Fecha</th>
+								<th>Comprobante</th>
 								<th>Estado</th>
 								<th>Total</th>
 								<th>Opciones</th>
@@ -61,9 +62,10 @@
 							
 								<th th:text="${Ventas.id}"></th>
 								<th th:text="${Ventas.usuarios.clientes.nombre}"></th>
-								<th th:text="${Ventas.usuarios.clientes.apellido}"></th>
+								
 								<th th:text="${#dates.format(Ventas.fechaventa, 'dd-MMM-yyy')}"></th>
 								<!--  <th th:text="${Ventas.estado.nombre}"></th>-->
+								 <td><img th:if="${Ventas.comprobante!=null}" style="max-width: 180px; max-height: 150px;"  th:src="@{'/comprobantes/'+${Ventas.comprobante}}" alt="Card image cap"></td>
 								<th >
 								<form method="POST" class="text-center" th:action="@{/venta/actualizarEstado}">
 								<input type="hidden" th:value="${Ventas.id}" th:name="ventaestado">
@@ -73,14 +75,14 @@
 									<option th:value="${estado.id}" th:if="${estado.id} != ${Ventas.estado.id}">[[${estado.nombre}]]</option>									
 									</th:block>
 								</select>
-									<input class="btn btn-warning btn-sm my-2" type="submit" th:if="${Ventas.estado.nombre} != 'CANCELADA'" value="ACTUALIZAR">
-								</form> 
-								</th>
+									<input  class="btn btn-warning btn-sm my-2" type="submit" th:if="${Ventas.estado.nombre!= 'CANCELADO'} " value="ACTUALIZAR">
+								</form> 								</th>
 								<!--<th th:text="${Ventas.estado.nombre}"></th>-->
 								<th th:text="${Ventas.totalventa}"></th>
 								
 								<th>
-									<a th:href="@{/venta/detalle/}+${Ventas.id}"class="btn btn-info">Detalle Venta</a>
+									<a th:href="@{/venta/detalle/}+${Ventas.id}"class="btn btn-info btn-sm">Detalle Venta</a><br><br>
+									<a th:href="@{/venta/comprobante/}+${Ventas.id}"class="btn btn-success btn-sm">Comprobante</a>
 									</th>
 
 							</tr>

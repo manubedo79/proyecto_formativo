@@ -1,10 +1,5 @@
 package springbootartacademy;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,15 +10,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;import springbootartacademy.models.entity.Categorias;
-import springbootartacademy.models.service.IUsuariosService;
-import springbootartacademy.security.CustomOAuth2User;
-import springbootartacademy.security.CustomOAuth2UserService;
-import springbootartacademy.security.GoogleOAuth2SuccessHandler;
-import springbootartacademy.security.OAuth2LoginSuccessHandler;
-import springbootartacademy.security.UsuarioOAuth2UserService;
+
 import springbootartacademy.utils.UsuarioDetailsImp;
 
 @Configuration
@@ -31,17 +19,13 @@ import springbootartacademy.utils.UsuarioDetailsImp;
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	 @Autowired
 	 private UsuarioDetailsImp usuarioDetailsImp;
-	 @Autowired
-	 private OAuth2LoginSuccessHandler oauth2Login;
+	 
 
 	 @Bean
 	 public BCryptPasswordEncoder passwordEncoder() {
 		 return new BCryptPasswordEncoder();
 	 }
-	 @Bean
-	 public UsuarioOAuth2UserService usuariosOauth2user() {
-		 return new UsuarioOAuth2UserService();
-	 }
+	
 	 
 	 
 
@@ -65,14 +49,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 			.usernameParameter("correo")
 			.permitAll()
 			.and()
-			.oauth2Login()
-			.loginPage("/iniciosesion")
-			.userInfoEndpoint().userService(usuariosOauth2user())
-			
-			.and()
-			.successHandler(oauth2Login)
-			.defaultSuccessUrl("/inicio")
-			.and()
 			
 			.logout().permitAll()
 			.and()
@@ -85,7 +61,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 			.passwordEncoder(passwordEncoder());
 			
 		}
-	 @Autowired
-	    GoogleOAuth2SuccessHandler googleOAuth2SuccessHandler;
+	 
 	  
 }

@@ -163,12 +163,13 @@ public class CarritoController {
 		venta.setUsuarios(usuarios);
 		String siteURL = Utilidad.getSitioUrl(request);
 
-		ventasser.enviarFacturaCorreo(siteURL,usuarios, venta, carritos);
+		
 		for (ArticuloCarrito compras : carritos.getCarritoitems()) {
 			compras.getCaracteristicas().decrementar_cantidad(compras.getCantidad());
 			compras.setVentas(venta);
 		}
 		ventasser.saveVenta(venta);
+		ventasser.enviarFacturaCorreo(siteURL,usuarios, venta, carritos);
 		return "redirect:/ordenes/mensaje";
 	}
 	@GetMapping("/eliminar/carrito/{id}")

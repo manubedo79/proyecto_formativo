@@ -44,4 +44,11 @@ public class CategoriasServiceImp implements ICategoriasService{
 		// TODO Auto-generated method stub
 		return catedao.findById(id).orElse(null);
 	}
+
+	@Override
+	public String findByNombrecategoria(String nombre) {
+		Categorias categorias = catedao.findByNombrecategoria(nombre);
+		
+		return (categorias==null)?"Unique":"Duplicate";
+	}
 }

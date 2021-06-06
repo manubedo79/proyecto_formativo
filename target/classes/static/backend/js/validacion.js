@@ -23,13 +23,13 @@ $(function(){
 			nombre: 'required',
 			apellido : 'required',
 			direccion: 'required',
-			telefono: 'required'			
+			telefono: {required:true,number: true, minlength:7}		
 		},
 	 messages:{
 			nombre: 'Por favor ingrese sus nombres completos',
 			apellido : 'Por favor ingrese sus apellidos completos',
 			direccion: 'Por favor ingrese su direccion de residencia',
-			telefono: 'Por favor ingrese numero de telefono'
+			telefono: {required:'Por favor ingrese su telefono', number: 'Este campo sólo permite números', minlength:'El teléfono permite mínimo 7 números'}
 	},
 	submitHandler : function(form){
 		form.submit();
@@ -87,12 +87,34 @@ $(function(){
 $(function(){
 	$('form[id="formulariocategoria"]').validate({
 		rules:{
-			nombrecategoria: 'required'	},
+			nombrecategoria: 'required',
+			fileImage:'required',
+			},
+			
 	 messages:{
-		 	nombrecategoria: 'Por favor ingrese un nombre'	},
+		 	nombrecategoria: 'Por favor ingrese un nombre',
+		 	fileImage: 'Por favor seleccione una imagen'},
 	submitHandler : function(form){
 		form.submit();
 	}
+	});
+	$("#nombrecategoria").blur(function(){
+		let uniquename=$("#nombrecategoria").val();
+		$.ajax({
+			url:"/categoria/validar/nombre",
+			data:"nombrecategoria="+uniquename,
+			success: function(respuesta){
+				if(respuesta=='Duplicate'){
+					console.log(respuesta);
+				$("#mensajerror").html("El nombre "+uniquename+ " ya existe dentro de nuestro sistema");
+				$("#nombrecategoria").focus();
+				$("#btnconfirmar").prop("disabled", true);
+				}else{
+					$("#mensajerror").html("");
+					$("#btnconfirmar").prop("disabled", false);
+				}	
+			}
+		});
 	});
 	
 });

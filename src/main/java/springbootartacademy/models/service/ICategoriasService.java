@@ -14,4 +14,5 @@ public interface ICategoriasService {
 	
 	public void guardarCategorias(Categorias categorias);
 	public Categorias findbyIdCategoria(Long id);
+	public String findByNombrecategoria(String nombre);
 }

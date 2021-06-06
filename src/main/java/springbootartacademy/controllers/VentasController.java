@@ -141,7 +141,7 @@ public String guardarVentas(@ModelAttribute("venta")Ventas ventas,@RequestParam(
 	String mensaje = (ventas.getId() != null) ? "Se edito de forma correcta la categoria" : "Se guardo de forma correcta la categoria";
 			
 	flash.addFlashAttribute("info", mensaje);
-	return "redirect:/venta/listar";
+	return "redirect:/ordenes";
 }
 @GetMapping("/orden/cancelada/{id}")
 public String cambiarestado(@PathVariable Long id) {
@@ -149,4 +149,10 @@ public String cambiarestado(@PathVariable Long id) {
 	return "redirect:/ordenes";
 }
 
+@GetMapping("/venta/comprobante/{id}")
+public String verComprobante(@PathVariable Long id, Model model) {
+	Ventas ventas=iventaser.findByIdVenta(id);
+	model.addAttribute("venta", ventas);
+	return "/backend/Ventas/comprobante";
+}
 }
