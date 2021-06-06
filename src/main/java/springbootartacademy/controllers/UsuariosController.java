@@ -102,8 +102,11 @@ public class UsuariosController {
 	}
 
 	@GetMapping("/cambiarestado/{id}")
-	public String cambiarEstado(@PathVariable(value = "id") Long id) {
+	public String cambiarEstado(@PathVariable(value = "id") Long id, RedirectAttributes flash) {
+		Usuarios usuarios = service.findById(id);
+		String mensaje=(usuarios.isEstado()==false)?"Activo": "Inactivo";
 		service.cambioEstado(id);
+		flash.addFlashAttribute("info", "Se actualizo el estado del usuario a "+mensaje);
 		return "redirect:/usuario/listar";
 	}
 	@GetMapping("/editar/{id}")
@@ -117,7 +120,7 @@ public class UsuariosController {
 	@PostMapping("/editar")
 	public String editarnuevoUsuario(Usuarios usuarios, RedirectAttributes flash) {
 		service.edituser(usuarios);
-		flash.addFlashAttribute("success", "Se edito el usuario correctamente");
+		flash.addFlashAttribute("info", "Se edito el usuario correctamente");
 		return "redirect:/usuario/listar";
 	}
 

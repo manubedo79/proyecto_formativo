@@ -40,10 +40,10 @@ $(function(){
 					console.log(respuesta);
 				$("#msgcorreo").html("El correo "+uniqueemail+ " ya existe dentro de nuestro sistema");
 				$("#correo").focus();
-				$("#login").prop("disabled", true);
+				$("#btnconfirmar").prop("disabled", true);
 				}else{
 					$("#msgcorreo").html("");
-					$("#login").prop("disabled", false);
+					$("#btnconfirmar").prop("disabled", false);
 				}	
 			}
 		});

@@ -1,134 +1,78 @@
+  
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="recursos/admin" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<meta charset="UTF-8">
-<title>Editar</title>
-<link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
-
-    <link rel="stylesheet" th:href="@{/frontend/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/frontend/css/all.min.css}">
-    <link rel="stylesheet" th:href="@{/frontend/css/style.css}">
-    <link rel="stylesheet" th:href="@{/frontend/css/error403.css}">
+<meta charset="utf-8">
+<title>Usuarios</title>
 </head>
 <body>
-<div class="container page-content my-5">   
-   
-      <div class="row">      
+<div class="content-wrapper" layout:fragment="contenido">
 
-        <!-- Checkout Info -->                         
-        <div class="col-lg-8 mb-3" >
-          <div th:if="${missingRequiredField}">
-            <h5 class="alert alert-warning">There are some required fields missing.</h5>
-          </div>          
-          <div id="accordion">
-            <div class="card">
-              <div class="card-header bg-white" id="headingOne">
-                <h5 class="mb-0">
-                  <button class="btn btn-link checkout-header" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    DATOS USUARIO <i data-feather="chevron-down" class="mb-1"></i>
-                  </button>
-                </h5>
-              </div>
-              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                <div class="card-body border-bottom">                
-                                   
-                  <div class="mx-auto">
-                  <div class="form-group col-12">
-                      <label for="receiver">Correo</label> 
-                      <input type="text" class="form-control" th:value="${usuario.correo}" name="correo"/>
-                    </div> 
-                    
-                  </div>                    
-                  <div class="d-flex flex-wrap justify-content-end align-items-center mt-3">      
-                    
-                    <button type="submit" 
-                        class="btn btn-primary rounded-pill" >Actualizar <i data-feather="arrow-right"></i></button>
-                  </div>
-                </div>                 
-              </div>
+<section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="text-center"><i class="fas fa-users"></i> Crear/Editar Usuario</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-default">
+          <div class="card-header">
+           
+
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
             </div>
-            <div class="card">
-              <div class="card-header bg-white" id="headingTwo">
-                <h5 class="mb-0">
-                  <button class="btn btn-link checkout-header" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    DATOS PERSONALES <i data-feather="chevron-down" class="mb-1"></i>
-                  </button>
-                </h5>
-              </div>    
-              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                <div class="card-body border-bottom">
-                  <div class="form-row">
-                  
-                    <div class="form-group col-6">
-                      <label for="streetAddress">Telefono</label> 
-                      <input type="text" class="form-control" th:field="*{cliente.telefono}" />
-                    </div>
-                    <div class="form-group col-12">
-                      <label for="city">Municipio</label> <select class="form-control" th:field="*{cliente.municipios}">
-						<option value=""> Seleccione el municipio</option>
-						<option th:each="muni : ${municipios}" th:value="${muni.id}" th:text="${muni.nombremunicipio}"></option>
-						</select>
-                    </div>                                       
-                  </div>
-                  <div class="mt-2 text-right">
-                    <a data-toggle="collapse" data-parent="#accordion"
-                      class="btn btn-primary rounded-pill" href="#collapseThree">Next <i data-feather="arrow-right"></i></a>
-                  </div>
+          </div>    
+          
+           <form  th:action="@{/usuario/editar}"  th:object="${usuario}" method="post" id="editar">
+           <input type="hidden" th:field="*{id}" th:value="${usuario.id}">
+          
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Rol</label>
+                  <select class="form-control select2" style="width: 100%;" th:field="*{roles}" >
+                  <th:block th:each="rol:${roles}">
+                    <option th:value="${rol.id}" th:text="${rol.nombre}"></option>
+                   </th:block>
+                  </select>
+                </div>
+                
+              </div>
+              <!-- /.col -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Correo</label>
+                  <input type="text" class="form-control" th:field="*{correo}" >
+                  <small id="msgcorreo" style="color: red;"></small>
                 </div>
               </div>
+              <input type="hidden" th:if="${usuario.id != null}" th:field="*{contraseña}">
+              <!-- /.col -->
+                
             </div>
-            <div class="card">
-              <div class="card-header bg-white" id="headingThree">
-                <h5 class="mb-0">
-                  <button class="btn btn-link checkout-header collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    CAMBIAR CONTRASEÑA  <i data-feather="chevron-down" class="mb-1"></i>
-                  </button>
-                </h5>
-              </div>
-              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                <div class="card-body border-bottom">
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="form-group">
-                        <label for="cardType">Contraseña nueva: </label><input type="text" class="form-control">
-                      </div>
-
-                      <div class="form-group">
-                        <label for="cardHolder">Confimar Contraseña: </label> <input
-                          type="text" class="form-control">
-                      </div>
-                    </div>
-                  </div>
- 
-                  <div class="mt-2 text-right">
-                    <a data-toggle="collapse" data-parent="#accordion"
-                      class="btn btn-primary rounded-pill" href="#collapseThree">Next <i data-feather="arrow-right"></i></a>
-                  </div>                
-                </div>                
-              </div>
-            </div>            
-          </div> <!--  end accordion -->          
-        </div>
-        
-        
-        <!-- Summary Panel -->
-        <div class="col-lg-4">
-          <div class="card">
-    <div class="list-group list-group-flush">
-            <a th:href="@{/my-profile}" class="list-group-item list-group-item-action"><i data-feather="user" class="mr-3"></i> Perfil</a>
-            <a th:href="@{/my-orders}" class="list-group-item list-group-item-action"><i data-feather="shopping-bag" class="mr-3"></i> Ordenes</a>
-           
-            <a th:href="@{/logout}" class="list-group-item list-group-item-action text-danger"><i data-feather="log-out" class="mr-3"></i> Cerrar Sesión</a>
-          </div>
-          </div>       
-        </div>        
-      </div>
+            <!-- /.row -->
+             <a th:href="@{/ListaUsuarios}" class="btn btn-outline-success"><i class="fas fa-undo-alt"></i> Volver</a>
+            <button id="btnconfirmar" type="submit" class="btn btn-info" >Confirmar</button>
+            <div class="row">
               
-    
-  </div> <!--  end container -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          </form>
+        </div>
+</div>
+</section>
+</div>
 </body>
 </html>

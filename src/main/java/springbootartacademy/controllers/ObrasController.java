@@ -178,8 +178,13 @@ public class ObrasController {
 		return "redirect:/obra/listar";
 	}
 	@GetMapping("/cambiarestado/{id}")
-	public String cambiarEstado(@PathVariable(value="id") Long id) {
-		servicioobras.cambioEstado(id);
+	public String cambiarEstado(@PathVariable(value="id") Long id, RedirectAttributes flash) {
+       Obras obras = service.findbyId(id);
+       String mensaje = (obras.isEstado()==false)?"Activo":"Inactivo";
+    	   servicioobras.cambioEstado(id);
+   		flash.addFlashAttribute("info", "Se actualizo el estado de la obra a "+mensaje);
+       
+		
 		return "redirect:/obra/listar";
 	}
 	

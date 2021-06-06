@@ -6,6 +6,7 @@ import springbootartacademy.models.entity.ArticuloCarrito;
 import springbootartacademy.models.entity.Caracteristicas;
 import springbootartacademy.models.entity.CarritoCompras;
 import springbootartacademy.models.entity.Usuarios;
+import springbootartacademy.models.entity.Ventas;
 
 public interface IArticuloCarritoService {
 	public CarritoCompras articuloCarritos(Usuarios usuarios);
@@ -16,4 +17,5 @@ public interface IArticuloCarritoService {
 	public CarritoCompras articuloCarritosVentaNull(Usuarios usuarios);
 	public List<ArticuloCarrito> CarritosVenta(Long id);
 	public void eliminarCarrito(Long id);
+	public List<ArticuloCarrito> ObrasVenta(Ventas venta);
 }

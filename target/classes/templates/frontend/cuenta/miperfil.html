@@ -1,119 +1,149 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="recursos/navbar :: head">
+<head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="//fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/frontend/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/frontend/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/frontend/css/style.css}">
+    <link rel="stylesheet" th:href="@{/frontend/css/error403.css}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    
 </head>
 <body>
 <nav th:replace="recursos/navbar :: navbar"></nav>
+<div class="container page-content my-5 py-3">   
+   
+      <div class="row">      
 
- <div class="container page-content my-5 mb-5 py-5">
-    <div class="row">    
-      <div class="col-md-4 col-lg-3">
-        <div class="card">
-         
-          <div class="list-group list-group-flush">
-            <a th:href="@{/usuario/miperfil}" class="list-group-item list-group-item-action"><i data-feather="user" class="mr-3"></i> Perfil</a>
-            <a th:href="@{/ordenes}" class="list-group-item list-group-item-action"><i data-feather="shopping-bag" class="mr-3"></i> Ordenes</a>
-            
-            
-          </div>
-        </div>
-      </div>
-      
-       <div class="col mt-3 mt-md-0">
-          <div th:if="${updateSuccess != null}" class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong th:text="${updateSuccess}"></strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div th:if="${emailExists!=null}" class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>[[${emailExists}]]</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-              
-          <div class="card">
-            <div class="card-body">
-              <h3 class="text-center">Mi Perfil</h3><hr>
-              <form th:action="@{/usuario/actualizar/perfil}"  method="post" >
-                <div class="form-row">
+        <!-- Checkout Info -->                         
+        <div class="col-lg-8 mb-3" >
+          <div th:if="${missingRequiredField}">
+            <h5 class="alert alert-warning">There are some required fields missing.</h5>
+          </div>          
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header bg-white" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-link checkout-header" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                   <i class="fas fa-users-cog"></i> DATOS USUARIO 
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body border-bottom">                
                                    
-                 
-                  
-                  <div class="form-group col-sm-6">
-                    <label for="email">Correo</label>
-                    <input th:value="${usuario.correo}" name="correo" class="form-control">
+                  <div class="mx-auto">
+                  <div class="form-group col-12">
+                      <label for="receiver">Correo</label> 
+                      <input type="text" class="form-control" th:value="${usuario.correo}" name="correo"/>
+                    </div> 
+                    
+                  </div>                    
+                  <div class="d-flex flex-wrap justify-content-end align-items-center mt-3">      
+                    
+                    <button type="submit" 
+                        class="btn btn-primary rounded-pill" >Actualizar <i data-feather="arrow-right"></i></button>
                   </div>
-                  <div class="form-group col-sm-6">
-                    <label for="email">Nombre</label>
-                    <input type="text" th:field="*{cliente.nombre}" class="form-control" >
-                  </div>
-                  <div class="form-group col-sm-6">
-                    <label for="email">Apellido(s)</label>
-                    <input type="text" th:field="*{cliente.apellido}" class="form-control" >
-                  </div>
-                   <div class="form-group col-sm-6">
-                    <label for="email">Dirección</label>
-                    <input type="text" th:field="*{cliente.direccion}" class="form-control" >
-                  </div>
-                  <div class="form-group col-sm-6">
-                    <label for="email">Telefono</label>
-                    <input type="text" th:field="*{cliente.telefono}" class="form-control" >
-                  </div>
-                 
-                   <div class="form-group col-sm-6">
-                    <label for="email">Municipio</label>
-                   <select class="form-control" th:field="*{cliente.municipios}">
+                </div>                 
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header bg-white" id="headingTwo">
+                <h5 class="mb-0">
+                  <button class="btn btn-link checkout-header" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  <i class="far fa-address-card"></i>  DATOS PERSONALES  <i class="fas fa-caret-down"></i>
+                  </button>
+                </h5>
+              </div>    
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body border-bottom">
+                  <div class="form-row">
+                    <div class="form-group col-6">
+                      <label for="receiver">Nombre</label> 
+                      <input type="text" class="form-control" th:field="*{cliente.nombre}"/>
+                    </div>  
+                    <div class="form-group col-6">
+                      <label for="streetAddress">Apellido(s)</label> 
+                      <input type="text" class="form-control" th:field="*{cliente.apellido}" />
+                    </div>
+                    <div class="form-group col-6">
+                      <label for="streetAddress">Dirección</label> 
+                      <input type="text" class="form-control" th:field="*{cliente.direccion}" />
+                    </div>
+                    <div class="form-group col-6">
+                      <label for="streetAddress">Telefono</label> 
+                      <input type="text" class="form-control" th:field="*{cliente.telefono}" />
+                    </div>
+                    <div class="form-group col-12">
+                      <label for="city">Municipio</label> <select class="form-control" th:field="*{cliente.municipios}">
 						<option value=""> Seleccione el municipio</option>
 						<option th:each="muni : ${municipios}" th:value="${muni.id}" th:text="${muni.nombremunicipio}"></option>
 						</select>
+                    </div>                                       
                   </div>
-                  
-                  
-                  
-                  <div class="form-group col-12 text-center my-4">                
-                    <button type="submit" class="btn btn-primary">Actualizar Perfil</button>
-                    <a th:href="@{/editarpassword}" class="btn btn-success">Actualizar Contraseña</a>
+                  <div class="mt-2 text-right">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                      class="btn btn-primary rounded-pill" href="#collapseThree">Next <i data-feather="arrow-right"></i></a>
                   </div>
                 </div>
-              
-                <!--  password check modal -->
-                <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Type your current password</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header bg-white" id="headingThree">
+                <h5 class="mb-0">
+                  <button class="btn btn-link checkout-header collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  <i class="fas fa-unlock-alt"></i>  CAMBIAR CONTRASEÑA  <i class="fas fa-caret-down"></i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body border-bottom">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="form-group">
+                        <label for="cardType">Contraseña nueva: </label><input type="text" class="form-control">
                       </div>
-                      <div class="modal-body">
-                         <input type="password" class="form-control" id="password" name="password">
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Update</button>
+
+                      <div class="form-group">
+                        <label for="cardHolder">Confimar Contraseña: </label> <input
+                          type="text" class="form-control">
                       </div>
                     </div>
                   </div>
-                </div> 
-                <!--  /password check modal -->  
-                            
-              </form>
-             
-            </div>
-          </div>
-        </div>
-    </div>
-    </div>
- <!--  end container -->
- <script type="text/javascript" th:src="@{/frontend/js/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{/frontend/js/bootstrap.min.js}"></script>
-    <script type="text/javascript" th:src="@{/frontend/js/script.js}"></script>
-    <script type="text/javascript" th:src="@{/frontend/js/error403.js}"></script>
  
+                  <div class="mt-2 text-right">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                      class="btn btn-primary rounded-pill" href="#collapseThree">Next <i data-feather="arrow-right"></i></a>
+                  </div>                
+                </div>                
+              </div>
+            </div>            
+          </div> <!--  end accordion -->          
+        </div>
+        
+        
+        <!-- Summary Panel -->
+        <div class="col-lg-4">
+          <div class="card">
+    <div class="list-group list-group-flush">
+            <a th:href="@{/my-profile}" class="list-group-item list-group-item-action"><i class="fas fa-male"></i> Perfil</a>
+            <a th:href="@{/my-orders}" class="list-group-item list-group-item-action"><i class="fas fa-box"></i> Ordenes</a>
+           
+            <a th:href="@{/logout}" class="list-group-item list-group-item-action text-danger"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+          </div>
+          </div>       
+        </div>        
+      </div>
+              
+    
+  </div> <!--  end container -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

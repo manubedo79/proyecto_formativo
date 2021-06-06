@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import springbootartacademy.models.dao.IArticuloCarritoDao;
 import springbootartacademy.models.dao.IEstadosDao;
 
 import springbootartacademy.models.dao.IVentasDao;
@@ -36,6 +37,10 @@ public class VentasServiceImp implements IVentasService {
 	private IVentasDao ventadao;
 	@Autowired
 	private JavaMailSender mailSender ;
+	@Autowired
+	private IArticuloCarritoService artservice;
+	@Autowired
+	private ICaracteristicasService caracservice;
 	
 	
 	@Override	
@@ -47,13 +52,20 @@ public class VentasServiceImp implements IVentasService {
 	}
 
 	@Override
-	public void cambioEstado(String idestado,String idventa) {
-		Long idestadon = Long.parseLong(idestado);
-		Long idventan = Long.parseLong(idventa);
-		Ventas venta = ventadao.findById(idventan).orElse(null);
-		Estados estado = estadao.findById(idestadon).orElse(null);
-		venta.setEstado(estado);
-		ventadao.save(venta);
+	public void cambioEstado(Estados estados, Ventas ventas) {
+	
+		
+		if(estados.getNombre().equals("CANCELADO"))
+		{
+			List<ArticuloCarrito> art = artservice.ObrasVenta(ventas);
+			for (ArticuloCarrito articuloCarrito : art) {
+				Caracteristicas carac = caracservice.findbyId(articuloCarrito.getCaracteristicas().getId());
+				carac.setStock(carac.getStock()+articuloCarrito.getCantidad());
+				caracservice.guardarCaracteristica(carac);
+			}
+		}
+		ventas.setEstado(estados);
+		ventadao.save(ventas);
 	}
 
 	
@@ -124,7 +136,7 @@ public class VentasServiceImp implements IVentasService {
 		mailcontent +=
 		"</table>\r\n" + 
 		"\r\n" ;
-		String enlace = siteURL+"/cuenta/verificacion?code="+id;
+		String enlace = siteURL+"/comprobante/"+id;
 		mailcontent+="<h1>Total a Pagar <strong>"+venta.getTotalventa()+"</strong></h1>" +
 		"<h3>Para finalizar la compra debe de realizar el pago por medio de la siguiente cuenta <strong>0000</strong>" + 
 		" y debe de proporcionar el comprobante de pago en el siguiente enlace "+enlace+"</h3>\r\n" + 
@@ -167,6 +179,11 @@ public class VentasServiceImp implements IVentasService {
 		if(ventas==null) {
 			return false;
 		}else if(ventas.getEstado().getNombre().equals("PENDIENTE")) {
+			List<ArticuloCarrito> art = artservice.ObrasVenta(ventas);
+			for (ArticuloCarrito articuloCarrito : art) {
+				Caracteristicas carac = caracservice.findbyId(articuloCarrito.getCaracteristicas().getId());
+				carac.setStock(carac.getStock()+articuloCarrito.getCantidad());
+			}
 			ventadao.actualizaestado(estados, id);
 		}
 		return true;

@@ -73,10 +73,14 @@ String busqueda = null;
 	return listBypage(1,busqueda);
 }
 @PostMapping("/venta/actualizarEstado")
-public String actualizatEstado(@RequestParam("ventaestado")String idventa,@RequestParam("estadoNew")String idestado) {
+public String actualizatEstado(@RequestParam("ventaestado")String idventa,@RequestParam("estadoNew")String idestado, RedirectAttributes flash) {
 	logger.info(idestado);
 	logger.info(idventa);
-	iventaser.cambioEstado(idestado, idventa);
+	Estados estados = iestados.findById(Long.parseLong(idestado)).orElse(null);
+	Ventas ventas = iventaser.findByIdVenta(Long.parseLong(idventa));
+	
+	iventaser.cambioEstado(estados,ventas);
+	flash.addFlashAttribute("info", "Se actualizo el estado de la venta a "+estados.getNombre());
 	return "redirect:/venta/listar";
 }
 

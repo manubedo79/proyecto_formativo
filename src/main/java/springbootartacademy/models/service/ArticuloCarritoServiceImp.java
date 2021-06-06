@@ -10,6 +10,7 @@ import springbootartacademy.models.entity.ArticuloCarrito;
 import springbootartacademy.models.entity.Caracteristicas;
 import springbootartacademy.models.entity.CarritoCompras;
 import springbootartacademy.models.entity.Usuarios;
+import springbootartacademy.models.entity.Ventas;
 @Service
 public class ArticuloCarritoServiceImp implements IArticuloCarritoService{
 	@Autowired
@@ -76,6 +77,10 @@ public class ArticuloCarritoServiceImp implements IArticuloCarritoService{
 	public void eliminarCarrito(Long id) {
 		articulodao.deleteById(id);
 		
+	}
+	@Override
+	public List<ArticuloCarrito> ObrasVenta(Ventas venta){
+		return  articulodao.findByVentas(venta);
 	}
 
 }

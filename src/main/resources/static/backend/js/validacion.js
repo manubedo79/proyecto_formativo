@@ -15,6 +15,59 @@ $(function(){
 		form.submit();
 	}
 	});
+	$("#correo").blur(function(){
+		let uniqueemail=$("#correo").val();
+		$.ajax({
+			url:"/usuario/validar/correo",
+			data:"correo="+uniqueemail,
+			success: function(respuesta){
+				if(respuesta=='Duplicate'){
+					console.log(respuesta);
+				$("#msgcorreo").html("El correo "+uniqueemail+ " ya existe dentro de nuestro sistema");
+				$("#correo").focus();
+				$("#btnconfirmar").prop("disabled", true);
+				}else{
+					$("#msgcorreo").html("");
+					$("#btnconfirmar").prop("disabled", false);
+				}	
+			}
+		});
+	});
+	
+});
+$(function(){
+	$('form[id="editar"]').validate({
+		rules:{
+			correo: 'required',
+			roles : 'required',
+			
+		},
+	 messages:{
+		correo: 'Por favor ingrese su correo',
+		roles : 'Por favor seleccione un rol'
+	},
+	submitHandler : function(form){
+		form.submit();
+	}
+	});
+	$("#correo").blur(function(){
+		let uniqueemail=$("#correo").val();
+		$.ajax({
+			url:"/usuario/validar/correo",
+			data:"correo="+uniqueemail,
+			success: function(respuesta){
+				if(respuesta=='Duplicate'){
+					console.log(respuesta);
+				$("#msgcorreo").html("El correo "+uniqueemail+ " ya existe dentro de nuestro sistema");
+				$("#correo").focus();
+				$("#btnconfirmar").prop("disabled", true);
+				}else{
+					$("#msgcorreo").html("");
+					$("#btnconfirmar").prop("disabled", false);
+				}	
+			}
+		});
+	});
 	
 });
 $(function(){
@@ -47,7 +100,10 @@ $(function(){
 			stock: 'required',
 			precio: 'required',
 			imagenobra: 'required',
-			categoria: 'required'
+			categoria: 'required',
+			size:'required',
+			cantidad:'required',
+			precio:'required'
 	},
 	 messages:{
 			nombre: 'Por favor ingrese un nombre',
@@ -56,7 +112,10 @@ $(function(){
 			stock: 'Por favor ingrese un stock',
 			precio: 'Por favor ingrese un precio',
 			imagenobra: 'Por favor ingrese una imagen principal',
-			categoria: 'Por favor elija una categoria'
+			categoria: 'Por favor elija una categoria',
+			size:'Por favor ingrese un tamaño',
+			cantidad:'Por favor ingrese una cantidad',
+			precio:'Por favor ingrese un precio'
 	},
 	submitHandler : function(form){
 		form.submit();

@@ -21,7 +21,7 @@ public interface IVentasService {
 	
 	public Iterable<Ventas> findByFechas();
 	public Page<Ventas> ListarVentasTodas(int pageNumber,String busqueda);
-	public void cambioEstado(String idestado, String idventa);
+	public void cambioEstado(Estados estados, Ventas ventas);
 	public void guardarVentas(Ventas ventas);
 	public boolean actualizaestado(Long id);
 

@@ -59,7 +59,7 @@
                 <div class="form-group">
                   <label>Correo</label>
                   <input type="text" class="form-control" th:field="*{correo}" >
-                <small id="mensajerror" style="color: red;"></small>
+                <small id="msgcorreo" style="color: red;"></small>
                 </div>
                 <!-- /.form-group -->
                 
@@ -75,7 +75,7 @@
                 
             </div>
             <!-- /.row -->
-            <button  type="submit" id="btnconfirmar" class="btn btn-info" >Confirmar</button>
+            <button   type="submit" id="btnconfirmar" class="btn btn-info" >Confirmar</button>
              <a th:href="@{/usuario/listar}" class="btn btn-outline-success"><i class="fas fa-undo-alt"></i> Volver</a>
             <!-- /.row -->
           </div>

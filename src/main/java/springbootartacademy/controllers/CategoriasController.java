@@ -103,8 +103,9 @@ public class CategoriasController {
 			
 			
 		}
-		cateservice.guardarCategorias(categoria);
 		String mensaje = (categoria.getId() != null) ? "Se edito de forma correcta la categoria" : "Se guardo de forma correcta la categoria";
+		cateservice.guardarCategorias(categoria);
+		
 				
 		flash.addFlashAttribute("info", mensaje);
 		return "redirect:/categoria/listar";

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import springbootartacademy.models.entity.ArticuloCarrito;
 import springbootartacademy.models.entity.Usuarios;
+import springbootartacademy.models.entity.Ventas;
 
 public interface IArticuloCarritoDao extends JpaRepository<ArticuloCarrito,Long> {
 	@Query("SELECT car FROM ArticuloCarrito car WHERE car.usuarios=?1 and car.ventas=null")	
@@ -18,6 +19,7 @@ int countDistinctByUsuariosAndVentasIsNull(Usuarios usuarios);
 public Long contarCarritos(Usuarios usuarios);
 @Query("SELECT car FROM ArticuloCarrito car WHERE car.ventas=?1")	
 public List<ArticuloCarrito> findByVentaId(Long id);
+public List<ArticuloCarrito> findByVentas(Ventas venta);
 
 
 
