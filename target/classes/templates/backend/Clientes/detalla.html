@@ -2,7 +2,7 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="recursos/admin" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="utf-8">
-<title th:text="'Detallando a ... ' + ${Clientes.nombre}"></title>
+<title th:text="'Detalle ' + ${Clientes.nombre}"></title>
 </head>
 <body>
 <div class="content-wrapper" layout:fragment="contenido">
@@ -40,12 +40,12 @@
                   <p th:text="${Clientes.direccion}"></p>
                 </div>
                 <div class="form-group">
-                  <label>Telefono</label>
+                  <label>Teléfono</label>
                   <p th:text="${Clientes.telefono}"></p>
                 </div>
        
                 <div class="form-group">
-                  <label>Correo Electronico</label>
+                  <label>Correo electrónico</label>
                   <p th:text="${Clientes.usuarios.correo}"></p>
                 </div>
                 <!-- /.form-group -->

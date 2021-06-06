@@ -20,9 +20,8 @@
 
 					</div>
 				</div>
-				<a th:href="@{/obra/formulario}" type="button"
-					class="btn btn-outline-success accion"><i
-					class="fas fa-user-plus"></i> Agregar una nueva obra</a>
+				<br><a th:href="@{/obra/formulario}" type="button"
+					class="btn btn-outline-success accion"><i class="fas fa-shopping-cart"></i> Agregar una nueva obra</a>
 
 				<form class="float-right" th:action="@{/obra/pagina/1}"
 					style="display: inline;">
@@ -64,16 +63,16 @@
 								<th>
 									<a th:if="${Obras.estado==false}"
 									th:href="@{/obra/cambiarestado/}+${Obras.id}"
-									class="btn btn-success"><i class="fas fa-user"></i>
+									class="btn btn-success"><i class="fas fa-store"></i>
 										 Activar</a>
 									
 									<a th:if="${Obras.estado==true}"
 									th:href="@{/obra/cambiarestado/}+${Obras.id}"
-									class="btn btn-danger"><i class="fas fa-user-alt-slash"></i>
+									class="btn btn-danger"><i class="fas fa-store-slash"></i>
 										Desactivar</a> 
 										
 										<a th:href="@{/obra/editar/}+${Obras.id}"
-									class="btn btn-info"><i class="fas fa-user-edit"></i>
+									class="btn btn-info"><i class="fas fa-edit"></i>
 										Editar</a>
 									</th>
 
@@ -81,7 +80,10 @@
 						</tbody>
 
 					</table>
-
+					
+					<div class="text-center" th:if="${#lists.isEmpty(Listaobras)}">
+						     <h3>No se encontró el registro <span>[[${busqueda}]]</span> en la base de datos</h3>
+							</div>
 				</div>
 				<!-- /.table-responsive -->
 			</div>
@@ -89,10 +91,11 @@
 			<div class="card-footer clearfix">
 				<a th:href="@{/obra/exportar}" class="btn btn-outline-info"><i
 					class="fas fa-file-pdf"></i> Descargar Reporte</a>
+					<a th:href="@{/obra/listar}" class="btn btn-outline-success" th:if="${(busqueda!=null)}"><i class="fas fa-undo-alt"></i> Volver</a>
 				<div class="float-right">
 
 
-					<nav aria-label="Page navigation example">
+					<nav aria-label="Page navigation example" th:unless="${#lists.isEmpty(Listaobras)}">
 						<ul class="pagination justify-content-end">
 
 							<li class="page-item "
@@ -132,9 +135,10 @@
 					</nav>
 
 
+					<div  th:unless="${#lists.isEmpty(Listaobras)}">
 					Total Registros : [[${totalItems}]] &nbsp; - Página
 					[[${currentPage}]] de [[${totalpages}]]
-
+				</div>
 
 
 

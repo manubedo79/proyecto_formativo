@@ -5,6 +5,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Administrador</title>
+  <link rel="shortcut icon" th:href="@{/images/2.png}">
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -58,14 +59,14 @@ color: red;}
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="fas fa-user"></i>
+          <i class="fas fa-cog"></i>
           
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">Mi Cuentas</span>
+          <span class="dropdown-item dropdown-header">Mi Cuenta</span>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
-            <i class="fas fa-id-card"></i> Perfil
+            <i class="fas fa-user"></i> Mi perfil
             
           </a>
           <div class="dropdown-divider"></div>
@@ -135,7 +136,7 @@ color: red;}
            <a th:href="@{/categoria/listar}" class="nav-link">
             <i class="fas fa-th"></i>
             <p>
-              Categorias
+              Categorías
             </p>
           </a>
          

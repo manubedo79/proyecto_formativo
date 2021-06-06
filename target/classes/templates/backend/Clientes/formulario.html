@@ -2,7 +2,7 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="recursos/admin" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>Cliente</title>
 </head>
 <body>
 <div class="content-wrapper" layout:fragment="contenido">
@@ -11,7 +11,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-          <h1 class="text-center"><i class="fas fa-users"></i> Crear/Editar Cliente</h1>
+          <h1 class="text-center"><i class="fas fa-user-tag"></i> Editar Cliente</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -22,14 +22,7 @@
       <div class="container-fluid">
         <!-- SELECT2 EXAMPLE -->
         <div class="card card-default">
-          <div class="card-header">
-           
-
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-              <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-            </div>
-          </div>    
+             
           
            <form th:action="@{/cliente/guardar}" id="formulariocliente" th:object="${cliente}" method="post">
            <input type="hidden" th:field="*{id}" th:value="${cliente.id}">
@@ -46,7 +39,7 @@
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
-                  <label>Apellido(s)</label>
+                  <label>Apellido</label>
                   <input type="text" class="form-control"  th:field="*{apellido}">
                 <small id="mensajerror" style="color: red;"></small>
                 </div>
@@ -61,7 +54,7 @@
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
-                  <label>Telefono</label>
+                  <label>Teléfono</label>
                   <input type="text" class="form-control" th:field="*{telefono}">
                 <small id="mensajerror" style="color: red;"></small>
                   </select>

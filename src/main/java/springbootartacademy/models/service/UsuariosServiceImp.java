@@ -104,9 +104,9 @@ public class UsuariosServiceImp implements IUsuariosService {
 		String verificion = siteURL+"/cuenta/verificacion?code="+nuevousuario.getVerification();
 		String mailcontent = 
 			"<div style=\"width: 450px;height: 650px;border-radius: 20px;margin:20px auto;position: relative;padding: 5px;font-family:Arial;text-decoration:none;text-align:center;\">"+	
-		"<p style=\"color:black;\">Señ@r Usuario  para poder acceder por completo a nuestra pagina web debe de verificarse presionando en el siguiente link </p>"+
+		"<p style=\"color:black;\">Señor(a) usuario  para poder acceder por completo a nuestra página web debe de verificarse presionando en el siguiente link </p>"+
 		" <p style=\"color:black;\">Art Academy Team</p>"+
-		"<a style=\"width: 80%;background-color: #45B39D;display: block;margin:auto;border: none;padding: 15px;color: #D4D4D4;border-radius: 5px;margin-top: 30px;\" href=\""+verificion+"\">Verificacion de Cuenta</a>"
+		"<a style=\"width: 80%;background-color: #45B39D;display: block;margin:auto;border: none;padding: 15px;color: #D4D4D4;border-radius: 5px;margin-top: 30px;\" href=\""+verificion+"\">Verificar mi cuenta</a>"
 		+"</div>";
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);

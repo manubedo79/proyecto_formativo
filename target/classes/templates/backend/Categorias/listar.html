@@ -4,7 +4,7 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-<title>Categorias</title>
+<title>Categorías</title>
 </head>
 <body>
 	<div class="content-wrapper" layout:fragment="contenido">
@@ -20,7 +20,7 @@
   </button>
 </div>
 			
-				<a th:href="@{/categoria/formulario}" type="button"
+				<br><a th:href="@{/categoria/formulario}" type="button"
 					class="btn btn-outline-success accion"><i class="fas fa-boxes"></i> Agregar una nueva categoría</a><br>
 
 					<form class="float-right" th:action="@{/categoria/pagina/1}" style="display: inline;">
@@ -46,7 +46,7 @@
 
 						<thead>
 							<tr>
-								<th>Nombre Categoria</th>
+								<th>Nombre Categoría</th>
 								<th>Imagen</th>
 								<th>Opciones</th>
 							</tr>
@@ -63,7 +63,9 @@
 						</tbody>
 
 					</table>
-
+							<div class="text-center" th:if="${#lists.isEmpty(ListaCate)}">
+						     <h3>No se encontró el registro <span>[[${busqueda}]]</span> en la base de datos</h3>
+							</div>
 				</div>
 				<!-- /.table-responsive -->
 			</div>
@@ -71,10 +73,11 @@
 			<div class="card-footer clearfix">
 				<a th:href="@{/categoria/exportar}" class="btn btn-outline-info"><i
 					class="fas fa-file-pdf"></i> Descargar Reporte</a>
+					<a th:href="@{/categoria/listar}" class="btn btn-outline-success" th:if="${(busqueda!=null)}"><i class="fas fa-undo-alt"></i> Volver</a>
 				<div class="float-right">
 			
 			
-			<nav aria-label="Page navigation example">
+			<nav aria-label="Page navigation example" th:unless="${#lists.isEmpty(ListaCate)}">
 			  <ul class="pagination justify-content-end">
 			  
 			     <li class="page-item " th:classappend="${currentPage==1? 'disabled': ''}">
@@ -111,8 +114,10 @@
 			</nav>
 
 
+					<div  th:unless="${#lists.isEmpty(ListaCate)}">
 					Total Registros : [[${totalItems}]] &nbsp; - Página
-					[[${currentPage}]] de [[${totalpages}]] 
+					[[${currentPage}]] de [[${totalpages}]]
+				</div>
 					
 					 
 

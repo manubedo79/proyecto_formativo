@@ -67,6 +67,7 @@ public class ClientesController {
 		mav.addObject("totalItems", totalItems);
 		mav.addObject("totalpages", totalpages);
 		mav.addObject("currentPage", currentPage);
+		mav.addObject("busqueda", busqueda);
 		return mav;
 	}
 	@GetMapping("/detalle/{id}")

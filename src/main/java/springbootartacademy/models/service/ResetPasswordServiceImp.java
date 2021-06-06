@@ -28,7 +28,7 @@ public class ResetPasswordServiceImp  implements IResetPasswordService{
 		helper.setFrom("artacademy2020@email.com", "ArtAcademy");
 		helper.setTo(correo);
 		String subjeto = "¿Quieres cambiar tu contraseña?";
-		String contenido = "<h3>Hola señor(a) usuario, Si quieres recuperar tu contraseña</h3>"
+		String contenido = "<h3>Hola señor(a) usuario, si quieres recuperar tu contraseña</h3>"
 				+"<h3>Clic Aquí</h3>"
 				+"<a href=\""+ResetPasswordLink+"\">Cambio de contraseña</a>"
 				+"<h5>Importa este enlace solo tiene como funcionalidad recuperar tu contraseña</h5>";

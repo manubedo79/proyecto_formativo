@@ -3,6 +3,8 @@
 <head th:replace="recursos/navbar::head">
 <meta charset="UTF-8"/>
 <title>Art Academy</title>
+<link rel="shortcut icon" th:href="@{/images/2.png}">
+<link rel="shortcut icon" th:href="@{/images/2.png}">
 </head>
 <body>
 
@@ -29,7 +31,7 @@
 
               <!-- Grid column -->
               <div class="col-md-4 col-lg-3 col-xl-2">
-                <h6>Categorias</h6>
+                <h6>Categorías</h6>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item pl-0" th:each="cate: ${categoria}"><a class="text-dark" th:href="@{/tienda/categoria/}+${cate.id}" th:text="${cate.nombrecategoria}"></a></li>
                   <li class="list-group-item pl-0"><a class="text-dark" th:href="@{/}">Productos todos</a></li>
@@ -117,7 +119,7 @@
 
     <!--Card image-->
     <div class="view overlay">
-    <div style="height: 250px;">
+    <div style="height: 190px;">
       <img class="card-img-top"  style=" object-fit: cover; " th:if="${#strings.length(obras.rutaimagen_principal)>0}" th:src="@{'/imagenes/'+${obras.rutaimagen_principal}}"
        >
        </div>
@@ -151,7 +153,7 @@
  </div>
  	<div class="text-center" th:if="${#lists.isEmpty(obra)}">
 						     <h3 style="font-size: 20px;">No se encontró ningun producto</h3>
-						     <a th:href="@{/}" class="btn btn-danger">Volver a todos los productos</a>
+						     <a th:href="@{/}" class="btn btn-success">Volver a todos los productos</a>
 							</div>
  <nav aria-label="Page navigation example" th:unless="${#lists.isEmpty(obra)}">
 			  <ul class="pagination justify-content-center">
