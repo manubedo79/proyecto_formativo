@@ -20,7 +20,7 @@ public class CategoriasServiceImp implements ICategoriasService{
 	private ICategoriasDao catedao;
 	
 	@Override
-	public List<Categorias> findAllUsers() {
+	public List<Categorias> findAll() {
 		return (List<Categorias>)catedao.findAll();
 	}
 

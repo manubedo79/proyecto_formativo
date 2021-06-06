@@ -131,7 +131,7 @@ public class CategoriasController {
 		
 		response.setHeader(headerKey, headerValue);
 		
-		List<Categorias> listacategorias = cateservice.findAllUsers();
+		List<Categorias> listacategorias = cateservice.findAll();
 		
 		CategoriasPDFExporter exporter = new CategoriasPDFExporter(listacategorias);
 		exporter.export(response);

@@ -176,7 +176,29 @@ public class UsuariosServiceImp implements IUsuariosService {
 		Usuarios usuarios = usudao.findByCorreo(correo);
 		return (usuarios == null) ? "Unique" : "Duplicate";
 	}
+	@Override	
+	public void enviarCorreoContacta(String nombre,String correo,String mensaje,String telefono )throws UnsupportedEncodingException, MessagingException {
+		String subject ="Te Contactaron Art Academy";
+		String mailcontent = 
+		"<!DOCTYPE html>\r\n" + 
+		"<html>\r\n" + 
+		"<head>\r\n" + 
+		"</head>\r\n" + 
+		"<body>\r\n" ;
+		mailcontent+="<p>Señor ADMIN "+nombre+" te ha escrito lo siguiente, si quieres contactarlo su correo electronico es: "+correo+
+		" y su número de telefono es "+telefono+
+		"</p>\r\n" + 
+		"<h3>\r\n" +mensaje+" </h3>\r\n" +
+		"</body>\r\n" + 
+		"</html>\r\n" ;
+		MimeMessage message = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message);
+		helper.setTo("artacademy357@gmail.com");
+		helper.setSubject(subject);
+		helper.setText(mailcontent, true);
+		mailSender.send(message);
 
+	}
 	
 
 }

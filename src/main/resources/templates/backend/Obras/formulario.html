@@ -39,13 +39,13 @@
                 </div>
                 <div class="row card-body">
                     <div class="form-group col-6">
-                        <label for="">Nombre</label>
+                        <label for="">Nombre*</label>
                         <input type="text" class="form-control" th:field="*{obra.nombre}">
                    <small id="msgnombre" style="color:red;"></small>
                     </div>
                     
                     <div class="form-group col-6">
-                        <label for="">Categoria</label>
+                        <label for="">Categoria*</label>
                         <select th:field="*{obra.categoria}" class="form-control">
                             <option value="">Seleccione una categoria</option>
                             <option th:each="cate : ${categoria}" th:value="${cate.id}">[[${cate.nombrecategoria}]]</option>
@@ -54,11 +54,11 @@
                    
                    
                      <div class="form-group col-12">
-                        <label for="">Descripción</label>
+                        <label for="">Descripción*</label>
                         <textarea class="form-control" id="descripcion" th:field="*{obra.descripcion}" ></textarea>
                     </div>
                      <div class="form-group col-12">
-                        <label for="">Imagen Principal</label>
+                        <label for="">Imagen Principal*</label>
                         <input type="file" name="imagenobra" class="form-control" >
                     </div>
                     <div class="form-group col-12">
@@ -85,20 +85,20 @@
                 <div class="row card-body text-center">
                     <div class="col-4">
                         <div class="form-group">
-                            <label for="">Tamaño</label>
+                            <label for="">Tamaño*</label>
                             <input type="text" name="size" id="size" class="form-control" >
                         </div>
                     </div>
                    
                     <div class="col-4">
                         <div class="form-group">
-                            <label for="">Cantidad</label>
+                            <label for="">Cantidad*</label>
                             <input type="number" id="cantidad" name="cantidad" class="form-control">
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
-                            <label for="">Precio</label>
+                            <label for="">Precio*</label>
                             <input id="precio" name="precio" type="text" class="form-control" >
                         </div>
                     </div>

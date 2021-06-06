@@ -65,7 +65,7 @@ public class ObrasController {
 	
 	@GetMapping("/pagina/{pageNumber}")
 	public ModelAndView listBypage(@PathVariable("pageNumber")int currentPage, @Param("busqueda")String busqueda) {
-		Page<Obras> page = servicioobras.ListarObrasTodas(currentPage,busqueda);
+		Page<Obras> page = servicioobras.ListarObrasTodas(true,currentPage,busqueda);
 		long totalItems = page.getTotalElements();
 		int totalpages = page.getTotalPages();
 		
@@ -83,7 +83,7 @@ public class ObrasController {
 	
 	@GetMapping("/formulario")
 	public String formularioCategoria(Model model) {
-		List<Categorias> listacate = serviciocategorias.findAllUsers();
+		List<Categorias> listacate = serviciocategorias.findAll();
 		model.addAttribute("obra", new Obras());
 		model.addAttribute("caracteristica", new Caracteristicas());
 		model.addAttribute("categoria", listacate);
@@ -135,7 +135,7 @@ public class ObrasController {
 		Caracteristicas caracteristicas= new Caracteristicas();
 		caracteristicas.setObras(obra);
 		model.addAttribute("caracteristica", caracteristicas);
-		model.addAttribute("categoria",serviciocategorias.findAllUsers());
+		model.addAttribute("categoria",serviciocategorias.findAll());
 		return "backend/Obras/editar";
 	}
 	
@@ -163,7 +163,24 @@ public class ObrasController {
 			obra.setRutaimagen_principal(nombreruta1);
 			obra.setRutaimagen_2(nombreruta2);
 			obra.setRutaimagen_3(nombreruta3);
-			
+		}else if(!multipart2.isEmpty()&& !multipart3.isEmpty()) {
+			Obras verifica = servicioobras.findbyId(obra.getId());
+			obra.setRutaimagen_principal(verifica.getRutaimagen_principal());
+			if(obra.getImagen2() != null && obra.getImagen2().length()>0 
+			&& obra.getImagen3() != null && obra.getImagen3().length()>0) {
+				ifileser.eliminar(obra.getImagen2());
+				ifileser.eliminar(obra.getImagen3());
+				String  nombreruta2 = null,nombreruta3 = null;
+				try 
+				{
+					nombreruta2 = ifileser.copiar(multipart2);
+					nombreruta3 = ifileser.copiar(multipart3);
+					
+				} catch (Exception e) {e.printStackTrace();}
+				
+				obra.setRutaimagen_2(nombreruta2);
+				obra.setRutaimagen_3(nombreruta3);
+			}
 		}else {
 			Obras verifica = servicioobras.findbyId(obra.getId());
 			obra.setRutaimagen_principal(verifica.getRutaimagen_principal());

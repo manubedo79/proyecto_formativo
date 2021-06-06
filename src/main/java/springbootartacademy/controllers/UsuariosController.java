@@ -1,12 +1,14 @@
 package springbootartacademy.controllers;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -126,7 +129,7 @@ public class UsuariosController {
 
 	@GetMapping("/miperfil")
 	public String miperfil(Model model, Principal principal) {
-		Usuarios usuarios = service.getUsuariosByCorreo(principal.getName());
+		Usuarios usuarios = service.findByCorreo(principal.getName());
 		Clientes clientes = cliser.findAllByCorreo(principal.getName());
 		model.addAttribute("usuario", usuarios);
 		model.addAttribute("cliente", clientes);
@@ -136,8 +139,8 @@ public class UsuariosController {
 	}
 	@RequestMapping(value = "/actualizar/perfil", method = RequestMethod.POST)
 	public String updateUserInfo(@ModelAttribute("usuario") Usuarios usuarios,
-			@ModelAttribute("cliente") Clientes clientes, Model model, Principal principal) throws Exception {
-		Usuarios currentUser = service.getUsuariosByCorreo(principal.getName());
+			@ModelAttribute("cliente") Clientes clientes, Model model, Principal principal, RedirectAttributes flash) throws Exception {
+		Usuarios currentUser = service.findByCorreo(principal.getName());
 		Clientes currentClientes = cliser.findAllByCorreo(principal.getName());
 		if (currentUser == null) {
 			throw new Exception("User not found");
@@ -147,9 +150,9 @@ public class UsuariosController {
 		}
 
 		/* check email already exists */
-		Usuarios existingUser = service.getUsuariosByCorreo(usuarios.getCorreo());
+		Usuarios existingUser = service.findByCorreo(usuarios.getCorreo());
 		if (existingUser != null && !existingUser.getId().equals(currentUser.getId())) {
-			model.addAttribute("emailExists", "El correo ya existe");
+			flash.addFlashAttribute("error", "El correo "+existingUser.getCorreo()+" ya existe");
 			return "redirect:/usuario/miperfil";
 		}
 
@@ -160,10 +163,12 @@ public class UsuariosController {
 		currentClientes.setTelefono(clientes.getTelefono());
 		currentClientes.setMunicipios(clientes.getMunicipios());
 		service.actualizarPefil(currentUser, currentClientes);
-		model.addAttribute("updateSuccess", "Se actualizaron sus datos de usuarios de forma correcta");
+		
 		model.addAttribute("usuario", currentUser);
 		model.addAttribute("cliente", currentClientes);
+		flash.addFlashAttribute("info", "Se actualizaron sus datos de usuarios de forma correcta");
 		idetailsimp.authenticateUser(currentUser.getCorreo());
+		
 		return "redirect:/usuario/miperfil";
 	}
 	@GetMapping("/exportar")
@@ -211,6 +216,18 @@ public class UsuariosController {
 	public @ResponseBody String checkEmailUser(@Param("correo") String correo) {
 
 		return service.uniqueemail(correo);
+	}
+	@GetMapping("/contactanos")
+	public String contactanos() {
+		return "frontend/home/contactenos";
+	}
+	//Envia Correo para contactanos
+	@PostMapping("/contactanosCorreo")
+	public String correoContacto(@RequestParam("correo") String correo,@RequestParam("nombre") String nombre,
+			@RequestParam("telefono") String telefono,
+			@RequestParam("mensaje") String mensaje) throws UnsupportedEncodingException, MessagingException {
+		service.enviarCorreoContacta(nombre, correo, mensaje, telefono);
+		return "redirect:/usuario/contacto";
 	}
 	
 

@@ -22,6 +22,7 @@
           <!-- /.card-header -->
          <div class="card" style="width: 50rem;">
   <img th:if="${venta.comprobante!=null}"   th:src="@{'/comprobantes/'+${venta.comprobante}}" alt="Card image cap">
+<h3 class="text-center" th:if="${venta.comprobante==null}"  >No se encuentra ningún comprobante para la venta</h3>
   <div class="card-body">
     
     <a th:href="@{/venta/listar}" class="btn btn-success"> Volver</a>

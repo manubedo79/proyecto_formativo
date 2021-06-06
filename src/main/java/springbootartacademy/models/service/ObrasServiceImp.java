@@ -80,10 +80,10 @@ Pageable pageable = PageRequest.of(pageNumber - 1, 12);
 		
 	}
 	@Override
-	public Page<Obras> ListarObrasTodas(int pageNumber,String busqueda) {
+	public Page<Obras> ListarObrasTodas(boolean estado,int pageNumber,String busqueda) {
 		 Pageable pageable = PageRequest.of(pageNumber - 1, 12 );
 		if(busqueda!=null) {
-			 return obrdao.findAll(busqueda, pageable);
+			 return obrdao.findAll(estado,busqueda, pageable);
 		}
 		 return obrdao.findAll(pageable);
 	}

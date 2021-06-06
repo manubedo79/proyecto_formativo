@@ -21,7 +21,7 @@ public interface IVentasDao extends PagingAndSortingRepository<Ventas,Long>{
 public Float SumaTotalVentas();
 @Query("SELECT o FROM Ventas o WHERE CONCAT(o.id,o.usuarios.clientes.nombre) LIKE %?1%")
 public Page<Ventas> findAll(String busqueda,Pageable pageable);
-@Query("select DAY(v.fechaventa) as mes, SUM(v.totalventa) from Ventas v where v.estado=2 GROUP BY mes order by v.id ")
+@Query("select function('date_format', v.fechaventa, '%d, %m, %Y') as fecha,sum(v.totalventa) as total from Ventas v group by fecha")
 public Iterable<Ventas> findByFechas();
 
 public List<Ventas> findByusuarios(Usuarios usuarios);

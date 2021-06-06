@@ -86,12 +86,12 @@ public ResponseEntity<Resource> verFotoComprobantes(@PathVariable String filenam
 }
 @GetMapping("/pagina/obra/{numeropagina}")
 public ModelAndView obrastodaspagina(@PathVariable("numeropagina") int currentPage,@Param ("busqueda") String busqueda) {
-	Page<Obras> page = servicioobras.ListarObrasTodas(currentPage,busqueda);
+	Page<Obras> page = servicioobras.ListarObrasTodas(true,currentPage,busqueda);
 	long totalItems = page.getTotalElements();
 	int totalpages = page.getTotalPages();
 	List<Obras> listaObras = page.getContent();
 	ModelAndView mav = new ModelAndView("frontend/home/inicio");
-	List<Categorias> listacate = serviciocategorias.findAllUsers();
+	List<Categorias> listacate = serviciocategorias.findAll();
 	mav.addObject("obra", listaObras);
 	mav.addObject("categoria", listacate);
 	mav.addObject("totalItems", totalItems);
@@ -112,7 +112,7 @@ public ModelAndView obtenerobras_categoria(Long id, @PathVariable("numeropagina"
 	int totalpages = page.getTotalPages();
 	List<Obras> listaObras = page.getContent();
 	ModelAndView mav = new ModelAndView("frontend/home/inicio");
-	mav.addObject("categoria", serviciocategorias.findAllUsers());
+	mav.addObject("categoria", serviciocategorias.findAll());
 	mav.addObject("obra", listaObras);
 	mav.addObject("totalItems", totalItems);
 	mav.addObject("totalpages", totalpages);
@@ -125,5 +125,9 @@ public String navbar(Authentication authentication, Model model) {
 	model.addAttribute("contadorcarrito", carritoser.contarCarritos(usuarios));
 	
 	return "recursos/navbar";
+}
+@GetMapping("/contacto")
+public String contacto() {
+	return "/frontend/contacto/contacto";
 }
 }

@@ -8,7 +8,7 @@ import springbootartacademy.models.entity.Categorias;
 
 public interface ICategoriasService {
 
-	public List<Categorias> findAllUsers();
+	public List<Categorias> findAll();
 
 	public Page<Categorias> ListarCategoriasTodas(int pageNumber, String busqueda);
 	

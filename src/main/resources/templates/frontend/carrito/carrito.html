@@ -56,7 +56,7 @@
         <div class="mb-3">
           <div class="pt-4 wish-list">
   
-            <h5 class="mb-4">Carrito(<span>[[${status.count}]]</span> productos)</h5>
+            
   
             <div class="row mb-4">
               <div class="col-md-5 col-lg-3 col-xl-3">
@@ -70,7 +70,7 @@
                 <div>
                   <div class="d-flex justify-content-between">
                     <div>
-                      <h5><span ><a th:href="@{'/detalleObra/'+${items.caracteristicas.obras.id}}">[[${items.caracteristicas.obras.nombre}]]</a></span></h5>
+                      <h5><span ><a th:href="@{'/obra/detalle/'+${items.caracteristicas.obras.id}}">[[${items.caracteristicas.obras.nombre}]]</a></span></h5>
                       <p class="mb-3 text-muted text-uppercase small">Tamaño : [[${items.caracteristicas.size}]] </p>
                       <p class="mb-2 text-muted text-uppercase small">Precio Uni : [[${items.caracteristicas.precio}]]</p>
 

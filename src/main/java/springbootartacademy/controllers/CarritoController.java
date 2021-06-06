@@ -105,7 +105,7 @@ public class CarritoController {
 		for (ArticuloCarrito compras : carritos.getCarritoitems()) {
 			totalcantidad =  compras.getCantidad();
 			if (totalcantidad > compras.getCaracteristicas().getStock()) {
-				flash.addFlashAttribute("error", "El producto con tamaño "+compras.getCaracteristicas().getSize()+" no cuenta con stock");
+				flash.addFlashAttribute("error", "El producto con tamaño "+compras.getCaracteristicas().getSize()+" no cuenta con la cantidad solicitada, para este producto se tiene "+compras.getCaracteristicas().getStock());
 				
 				return "redirect:/carrito";
 			}
@@ -177,5 +177,6 @@ public class CarritoController {
 	carritoser.eliminarCarrito(id);
 		return "redirect:/carrito";
 	}
+	
 
 }
