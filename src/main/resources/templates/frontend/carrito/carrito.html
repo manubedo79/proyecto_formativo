@@ -12,7 +12,13 @@
             left:67%;
             margin-left:-3px;
             top: 0;
-        }   
+        } 
+        @media only screen and(max-width: 500px){
+    .separacion{
+        display: none;
+    }
+   
+}  
     </style>
 
 <body>
@@ -80,7 +86,7 @@
                   </div>
                   <div class="my-4 d-flex justify-content-between align-items-center">
                     <div>
-                      <a href="#!" type="button" onclick="alerta()" class="card-link-secondary small text-uppercase mr-3"><i
+                      <a th:onclick="eliminar([[${items.id}]])"  class="card-link-secondary small text-uppercase mr-3 text-primary"><i
                           class="fas fa-trash-alt mr-1"></i> Quitar del Carrito </a>
                     </div>
                     <p class="mb-0"><span><strong id="summary">Sub Total:  $[[${items.subtotal}]]</strong></span></p>
@@ -172,6 +178,37 @@
 		 $("#update-item-"+id).css('display','inline-block');
 	 });
  });
+ 
+
+	function eliminar(id){
+		 swal({
+			  title: "¿Estás seguro?",
+			  text: "Una vez eliminado, usted debe volver añadir el producto al carrito",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((Ok) => {
+			  if (Ok) {
+				  $.ajax({
+					url:"/eliminar/carrito/"+id,
+					success: function(res){
+						console.log(res);
+					}
+				  });
+			    swal("Correcto! Su producto fue eliminado del carrito.", {
+			      icon: "success",
+			    }).then((ok)=>{
+			    	if(ok){
+			    		location.href="/carrito";
+			    	}
+			    });
+			  } else {
+			    swal("Erro! El producto no pudo ser eliminado");
+			  }
+			});
+	 }
+
  </script>
 </body>
 

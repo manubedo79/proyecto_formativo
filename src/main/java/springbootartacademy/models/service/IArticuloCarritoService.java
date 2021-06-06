@@ -15,5 +15,5 @@ public interface IArticuloCarritoService {
 	public ArticuloCarrito encontrarCarritoId(Long id);
 	public CarritoCompras articuloCarritosVentaNull(Usuarios usuarios);
 	public List<ArticuloCarrito> CarritosVenta(Long id);
-	
+	public void eliminarCarrito(Long id);
 }

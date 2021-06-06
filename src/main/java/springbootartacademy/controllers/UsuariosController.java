@@ -146,8 +146,8 @@ public class UsuariosController {
 		/* check email already exists */
 		Usuarios existingUser = service.findByCorreo(usuarios.getCorreo());
 		if (existingUser != null && !existingUser.getId().equals(currentUser.getId())) {
-			model.addAttribute("emailExists", true);
-			return "frontend/cuenta/editarpassword";
+			model.addAttribute("emailExists", "El correo ya existe");
+			return "redirect:/usuario/miperfil";
 		}
 
 		currentUser.setCorreo(usuarios.getCorreo());

@@ -8,6 +8,7 @@ import javax.mail.MessagingException;
 import org.springframework.data.domain.Page;
 
 import springbootartacademy.models.entity.CarritoCompras;
+import springbootartacademy.models.entity.Estados;
 import springbootartacademy.models.entity.Obras;
 import springbootartacademy.models.entity.Usuarios;
 import springbootartacademy.models.entity.Ventas;
@@ -22,6 +23,7 @@ public interface IVentasService {
 	public Page<Ventas> ListarVentasTodas(int pageNumber,String busqueda);
 	public void cambioEstado(String idestado, String idventa);
 	public void guardarVentas(Ventas ventas);
+	public boolean actualizaestado(Long id);
 
 
 }

@@ -171,6 +171,10 @@ public class CarritoController {
 		ventasser.saveVenta(venta);
 		return "redirect:/ordenes/mensaje";
 	}
-	
+	@GetMapping("/eliminar/carrito/{id}")
+	public String eliminar(@PathVariable Long id) {
+	carritoser.eliminarCarrito(id);
+		return "redirect:/carrito";
+	}
 
 }

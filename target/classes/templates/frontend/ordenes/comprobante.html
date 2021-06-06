@@ -1,21 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="recursos/admin" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-<meta charset="utf-8">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="recursos/navbar :: head">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<div class="content-wrapper" layout:fragment="contenido">
+<nav th:replace="recursos/navbar :: navbar"></nav>
+<div class="container my-5 py-5 mb-4 w-75"> 
 
-<section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-          <h1 class="text-center"><i class="fas fa-users"></i>Subir Comprobante</h1>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
 
     <!-- Main content -->
     <section class="content">
@@ -26,23 +18,22 @@
            
 
             <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-              <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+              <h3 > Comprobante de Venta</h3>
             </div>
           </div>    
           
            <form th:action="@{/venta/guardar}" enctype="multipart/form-data" id="formulariocomprobante"  method="post">
-           <input type="text" th:field="*{venta.id}" th:value="${venta.id}">
+           <input type="hidden" th:field="*{venta.id}" th:value="${venta.id}">
           <!-- /.card-header -->
           <div class="card-body">
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="form-group">
                 
                 <!-- /.form-group -->
 
                 <div class="form-group">
-                  <label>Subir Comprobante</label>
+                  
                   <input type="file" name="fileImage" id="fileImage" class="form-control"  ><br>
                  
 	              <small id="mensajerror" style="color: red;"></small>
@@ -55,7 +46,7 @@
             </div>
             <!-- /.row -->
             <button type="submit" class="btn btn-info" >Confirmar</button>
-            <a th:href="@{/ordenes}" class="btn btn-outline-success"><i class="fas fa-undo-alt"></i> Volver</a>
+            <a th:href="@{/ordenes}" class="btn btn-success"><i class="fas fa-undo-alt"></i> Volver</a>
             <div class="row">
               
               <!-- /.col -->

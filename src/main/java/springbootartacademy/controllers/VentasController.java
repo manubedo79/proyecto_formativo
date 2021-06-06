@@ -143,4 +143,10 @@ public String guardarVentas(@ModelAttribute("venta")Ventas ventas,@RequestParam(
 	flash.addFlashAttribute("info", mensaje);
 	return "redirect:/venta/listar";
 }
+@GetMapping("/orden/cancelada/{id}")
+public String cambiarestado(@PathVariable Long id) {
+	iventaser.actualizaestado(id);
+	return "redirect:/ordenes";
+}
+
 }

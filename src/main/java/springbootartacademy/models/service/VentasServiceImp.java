@@ -159,5 +159,17 @@ public class VentasServiceImp implements IVentasService {
 	public void guardarVentas(Ventas ventas) {
 	ventadao.save(ventas);
 	}
+
+	@Override
+	public boolean actualizaestado(Long id) {
+		Ventas ventas = ventadao.findById(id).orElse(null);
+		Estados estados = estadao.findByNombre("CANCELADO");
+		if(ventas==null) {
+			return false;
+		}else if(ventas.getEstado().getNombre().equals("PENDIENTE")) {
+			ventadao.actualizaestado(estados, id);
+		}
+		return true;
+	} 
 	
 }
