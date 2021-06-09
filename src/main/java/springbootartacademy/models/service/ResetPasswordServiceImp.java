@@ -40,7 +40,7 @@ public class ResetPasswordServiceImp  implements IResetPasswordService{
 	
 
 	public void updateContraseña(String token, String correo) throws UsersNotFoundException {
-		Usuarios usuarios = ususer.getUsuariosByCorreo(correo);
+		Usuarios usuarios = ususer.findByCorreo(correo);
 		if(usuarios !=null) {
 			usuarios.setResetPasswordToken(token);
 			ususer.guardopassword(usuarios);			

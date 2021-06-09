@@ -121,20 +121,37 @@ $(function(){
 
 
 $(function(){
-
+	
 	$('form[id="formularioContraseña"]').validate({
 		rules:{
 			password: {required:true,minlength: 8},
-			confirmar: {required:true}
+			confirmar: {required:true,minlength: 8, formContra:true}
 	},
 	 messages:{
 				password: { required:'Por favor ingrese su contraseña',minlength:'La contraseña debe de tener como mínico 8 caráteres'},
-				confirmar: { required:'Por favor ingrese su contraseña'}
+				confirmar: { required:'Por favor ingrese su confirmación de contraseña', minlength:'La confirmación de contraseña debe de tener como mínico 8 caráteres'}
 	},
 	submitHandler : function(form){
 		form.submit();
 	}
 	});
-	
+	$("#correo").blur(function(){
+		let uniqueemail=$("#correo").val();
+		$.ajax({
+			url:"/usuario/validar/correo",
+			data:"correo="+uniqueemail,
+			success: function(respuesta){
+				if(respuesta=='Duplicate'){
+					console.log(respuesta);
+				$("#msgcorreo").html("El correo "+uniqueemail+ " ya existe dentro de nuestro sistema");
+				$("#correo").focus();
+				$("#btnconfirmar").prop("disabled", true);
+				}else{
+					$("#msgcorreo").html("");
+					$("#btnconfirmar").prop("disabled", false);
+				}	
+			}
+		});
+	});
 
 });	

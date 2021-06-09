@@ -19,7 +19,7 @@ import springbootartacademy.models.entity.Ventas;
 public interface IVentasDao extends PagingAndSortingRepository<Ventas,Long>{
 @Query("SELECT sum(ven.totalventa) FROM Ventas ven")
 public Float SumaTotalVentas();
-@Query("SELECT o FROM Ventas o WHERE CONCAT(o.id,o.usuarios.clientes.nombre) LIKE %?1%")
+@Query("SELECT o FROM Ventas o WHERE CONCAT(o.id,o.usuarios.clientes.nombre,o.usuarios.clientes.telefono) LIKE %?1%")
 public Page<Ventas> findAll(String busqueda,Pageable pageable);
 @Query("select function('date_format', v.fechaventa, '%d, %m, %Y') as fecha,sum(v.totalventa) as total from Ventas v group by fecha")
 public Iterable<Ventas> findByFechas();

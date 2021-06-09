@@ -131,7 +131,7 @@ public class AccountController {
 	}
 	//Ruta para actualizar la contraseña en la base de datos
 	@PostMapping("/cambiar/contrasena")
-	public String cambiarContraseña(HttpServletRequest request, Model model) {
+	public String cambiarContraseña(HttpServletRequest request, Model model, RedirectAttributes flash) {
 		String token = request.getParameter("token");
 		String password = request.getParameter("password");
 		Usuarios usuarios = passser.get(token);
@@ -139,7 +139,7 @@ public class AccountController {
 			model.addAttribute("error", "Error no se puede acceder a este formulario");
 		} else {
 			passser.updatenuevaContraseña(usuarios, password);
-			model.addAttribute("info", "Se cambio su contraseña de forma correcta");
+			flash.addFlashAttribute("info", "Se cambio su contraseña de forma correcta");
 		}
 
 		return "redirect:/iniciosesion";

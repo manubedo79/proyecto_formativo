@@ -149,31 +149,8 @@ color: red;
 
     <hr>
     <!-- Classic tabs -->
-<div class="classic-tabs border rounded px-4 pt-1">
 
-  <ul class="nav tabs-default nav-justified" id="advancedTab" role="tablist">
-    <li >
-      <a class="nav-link active show" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Comentarios del producto</a>
-    </li>
-  </ul>
- <div th:each="com:${comentarios}" class="tab-content" id="advancedTabContent">
-    
-    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-      
-    <span class="small text-muted text-uppercase">Cliente: [[${com.clientes.nombre}]]</span>
-		<p class="small text-muted text-uppercase my-2">Comentario publicado el: [[${#dates.format(com.fechacreacion,'dd-MMM-yyyy')}]]</p>
-	
-      <p class="small text-muted text-uppercase my-2">[[${com.comentario}]]</p>
-    </div>
-          
-    <hr>
-    
-  </div>
-<div class="small text-muted text-uppercase text-center my-4" th:if="${#lists.isEmpty(comentarios)}">
-<h3>Sin comentarios</h3>
-</div>
-</div>
-<hr>
+
    
  <div class="container">
 <div class="row">

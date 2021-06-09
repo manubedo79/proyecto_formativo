@@ -200,7 +200,7 @@ public class UsuariosController {
 	@PostMapping("/editarpassword/guardar")
 	public String guardarpassword(@ModelAttribute("usuario") Usuarios usuarios, Model model, Principal principal)
 			throws Exception {
-		Usuarios currentUser = service.getUsuariosByCorreo(principal.getName());
+		Usuarios currentUser = service.findByCorreo(principal.getName());
 		if (currentUser == null) {
 			throw new Exception("User not found");
 		}

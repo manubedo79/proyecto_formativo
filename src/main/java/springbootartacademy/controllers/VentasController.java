@@ -142,14 +142,15 @@ public String guardarVentas(@ModelAttribute("venta")Ventas ventas,@RequestParam(
 		
 	}
 	iventaser.guardarVentas(ventas);
-	String mensaje = (ventas.getId() != null) ? "Se edito de forma correcta la categoria" : "Se guardo de forma correcta la categoria";
+
 			
-	flash.addFlashAttribute("info", mensaje);
+	flash.addFlashAttribute("info", "Se guardo de forma correcta el comprobante");
 	return "redirect:/ordenes";
 }
 @GetMapping("/orden/cancelada/{id}")
-public String cambiarestado(@PathVariable Long id) {
+public String cambiarestado(@PathVariable Long id, RedirectAttributes flash) {
 	iventaser.actualizaestado(id);
+	flash.addFlashAttribute("info", "se cancelo su orden de forma correcta");
 	return "redirect:/ordenes";
 }
 
