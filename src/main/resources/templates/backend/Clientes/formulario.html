@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="recursos/admin" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="utf-8">
@@ -33,13 +33,13 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>Nombre</label>
+                  <label>Nombre *</label>
                   <input type="text" th:field="*{nombre}" class="form-control">
                 <small id="mensajerror" style="color: red;"></small>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
-                  <label>Apellido</label>
+                  <label>Apellido *</label>
                   <input type="text" class="form-control"  th:field="*{apellido}">
                 <small id="mensajerror" style="color: red;"></small>
                 </div>
@@ -48,13 +48,13 @@
               <!-- /.col -->
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>Dirección</label>
+                  <label>Dirección *</label>
                   <input type="text" class="form-control" th:field="*{direccion}">
                 <small id="mensajerror" style="color: red;"></small>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
-                  <label>Teléfono</label>
+                  <label>Teléfono *</label>
                   <input type="text" class="form-control" th:field="*{telefono}">
                 <small id="mensajerror" style="color: red;"></small>
                   </select>

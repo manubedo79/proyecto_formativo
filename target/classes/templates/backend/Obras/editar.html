@@ -27,17 +27,12 @@
               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
               <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
             </div>
-          </div>    
-          			<div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${info!=null}">
-  <span><i class="fas fa-check-circle"></i></span> [[${info}]]
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+          </div>   
          <div class="row">
-         <form th:action="@{/obra/editar}"  id="formularioobra" enctype="multipart/form-data" method="post">
-         <input type="hidden" th:field="*{obra.id}" th:value="${obra.id}">
+
         <div class="col-6">
+                 <form th:action="@{/obra/editar}"  id="formularioobra" enctype="multipart/form-data" method="post">
+         <input type="hidden" th:field="*{obra.id}" th:value="${obra.id}">
             <div class="card">
                 <div class="card-head">
                     <h4 class="text-center">1. Info Productos </h4>
@@ -78,13 +73,14 @@
                         <input type="file" name="imagenobra3" class="form-control" >
                     </div>
                 </div>
-            </div>
-         
-            <div class="col-12" style="margin-top: 3%;">
+                 <div class="col-12" style="margin-top: 3%;">
                 <button type="submit" id="btnconfirmar" class="btn btn-info btn-block">Guardar</button>
             </div>
+            </div>
+         </form>
+           
         </div>
-        </form>
+        
         <div class="col-6">
             <div class="card">
                 <div class="card-head">

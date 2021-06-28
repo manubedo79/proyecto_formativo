@@ -47,7 +47,7 @@ public class AccountController {
 			@RequestParam(value = "logout", required = false) String logout, Model model, Principal principal) {
 		if (principal != null) {
 			model.addAttribute("info", "La sesión sigue activa");
-			return "redirect:/inicio";
+			return "redirect:/";
 		}
 		if (error != null) {
 			model.addAttribute("error", "Estas credenciales no coinciden con nuestros registros");

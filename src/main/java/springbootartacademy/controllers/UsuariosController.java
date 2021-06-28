@@ -99,7 +99,7 @@ public class UsuariosController {
 	@PostMapping("/guardar")
 	public String guardarUsuario(@ModelAttribute() Usuarios usuario, RedirectAttributes flash, Model model) {
 
-		flash.addFlashAttribute("success", "Se guardo el usuario correctamente");
+		flash.addFlashAttribute("info", "Se guardo el usuario correctamente");
 		service.saveNewUsuarios(usuario);
 		return "redirect:/usuario/listar";
 	}

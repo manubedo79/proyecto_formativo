@@ -219,22 +219,6 @@ color: red;}
 <script th:src="@{/backend/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <!-- ChartJS -->
 <script th:src="@{/backend/plugins/chart.js/Chart.min.js}"></script>
-<!-- Sparkline -->
-<script th:src="@{/backend/plugins/sparklines/sparkline.js}"></script>
-<!-- JQVMap -->
-<script th:src="@{/backend/plugins/jqvmap/jquery.vmap.min.js}"></script>
-<script th:src="@{/backend/plugins/jqvmap/maps/jquery.vmap.usa.js}"></script>
-<!-- jQuery Knob Chart -->
-<script th:src="@{/backend/plugins/jquery-knob/jquery.knob.min.js}"></script>
-<!-- daterangepicker -->
-<script th:src="@{/backend/plugins/moment/moment.min.js}"></script>
-<script th:src="@{/backend/plugins/daterangepicker/daterangepicker.js}"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script th:src="@{/backend/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js}"></script>
-<!-- Summernote -->
-<script th:src="@{/backend/plugins/summernote/summernote-bs4.min.js}"></script>
-<!-- overlayScrollbars -->
-<script th:src="@{/backend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js}"></script>
 <!-- AdminLTE App -->
 <script th:src="@{/backend/dist/js/adminlte.js}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
@@ -243,7 +227,7 @@ color: red;}
 <!-- AdminLTE for demo purposes -->
 	<script th:src="@{/backend/dist/js/demo.js}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.js"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
@@ -329,11 +313,11 @@ function agregar_insumo() {
         let cant = $("#cantidad-"+insumo_id).val();
         $("#cantidad-"+insumo_id).val(++cant);
     } else if(size==$("#tama-"+insumo_id).val()){
-    	swal({
-    		  title: "Error!",
-    		  text: "No se pudo agregar el tamaño " +size+" ya existe",
-    		  icon: "warning",
-    		  button: "Aceptar!",
+    	Swal.fire({
+    		  icon: 'error',
+    		  title: 'Error',
+    		  text: 'La caracteristica '+size+ ' ya existe'
+    		  
     		});
 }else {
         alert("Se debe ingresar una cantidad o precio valido");
@@ -345,9 +329,15 @@ function eliminar_insumo(id) {
 
 }
 
+ 
+	 
+	 
+		 	
+ 
+ 
 
 </script>
-
+ <div layout:fragment="javascript"></div>
 		
 		
 		

@@ -34,7 +34,7 @@
                 <h6>Categorías</h6>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item pl-0" th:each="cate: ${categoria}"><a class="text-dark" th:href="@{/tienda/categoria/}+${cate.id}" th:text="${cate.nombrecategoria}"></a></li>
-                  <li class="list-group-item pl-0"><a class="text-dark" th:href="@{/}">Productos todos</a></li>
+                 
                 </ul>
               </div>
               <!-- Grid column -->
@@ -105,10 +105,16 @@
       </div>
       </main>
       </div>
-      
-      <!-- Section main -->
-  <br><br><br><br>
- <div class="container">
+  <div class="container">
+  <div class="mt-4 mb-0">
+        <h6 class="text-uppercase deep-grey-text mr-3 text-center">Obras en Tienda </h6>
+    
+      </div>
+
+      <!-- Section services -->
+      <section class="py-2 my-4">
+
+       <div class="container">
 <div class="row">
 <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" th:each="obras:${obra}">
   <!-- Card deck -->
@@ -129,8 +135,8 @@
     <div class="card-body">
 
       <!--Title-->
-       <h4 class="small text-muted text-uppercase" th:text="${obras.categoria.nombrecategoria}"></h4>
-      <h4  style="font-size: 17px; font-family: Arial; color: #000000; font-weight: bold; "  th:text="${obras.nombre}"></h4>
+       <h4 class="small text-muted text-uppercase text-center" th:text="${obras.categoria.nombrecategoria}"></h4>
+      <h6  class="text-uppercase deep-grey-text mr-3 text-center"   th:text="${obras.nombre}"></h6>
      
       <!--Text-->
      
@@ -151,6 +157,16 @@
 </div>
 <!-- Card deck -->
  </div>
+      </div>
+      <!-- Section services -->
+
+
+      <!-- Section services -->
+      
+      <!-- Section services -->
+   
+<!-- Card deck -->
+
  	<div class="text-center" th:if="${#lists.isEmpty(obra)}">
 						     <h3 style="font-size: 20px;">No se encontró ningun producto</h3>
 						     <a th:href="@{/}" class="btn btn-success">Volver a todos los productos</a>

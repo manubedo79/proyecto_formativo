@@ -10,6 +10,16 @@ color: red;
 }
 </style>
 <body>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+		
+		<script type="text/javascript" th:if="${error!=null}">
+Swal.fire({
+	  icon: 'error',
+	  title: 'Fallo',
+	  text: '[[${error}]]',
+	  
+	});
+</script>
 <!-- Navbar -->
 <nav th:replace="recursos/navbar :: navbar">
 </nav>
@@ -17,14 +27,7 @@ color: red;
 
 <!--Main layout-->
 <main class="mt-5 pt-4">
-<div class="container">
-<div class="alert alert-danger alert-dismissible fade show" th:if="${error!=null}" role="alert">
-  <span><i class="fas fa-window-close"></i> </span> El vendedor no cuenta con el stock suficiente
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-</div>
+
   <div class="container dark-grey-text mt-5">
 	
     <!--Grid row-->
@@ -353,6 +356,7 @@ $(function(){
 	
 	
 </script>
+
 
 
 </body>

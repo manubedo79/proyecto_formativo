@@ -13,12 +13,7 @@
 		<div class="card">
 			<div class="card-header border-transparent">
 			
-			<div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${info!=null}">
-  <span><i class="fas fa-check-circle"></i></span> [[${info}]]
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+		 
 			
 				<br><a th:href="@{/categoria/formulario}" type="button"
 					class="btn btn-outline-success accion"><i class="fas fa-boxes"></i> Agregar una nueva categoría</a><br>
@@ -130,8 +125,24 @@
 
 		<!-- /.card -->
 	</div>
-
-
+	 <div layout:fragment="javascript">
+<script type="text/javascript" th:if="${info==true}">
+Swal.fire({
+	  icon: 'success',
+	  title: 'Se guardo',
+	  text: 'Se agrego la categoría de forma correcta',
+	  
+	});
+</script>
+<script type="text/javascript" th:if="${edito==true}">
+Swal.fire({
+	  icon: 'success',
+	  title: 'Se edito',
+	  text: 'Se edito la categoría de forma correcta',
+	  
+	});
+</script>
+</div>
 
 </body>
 </html>

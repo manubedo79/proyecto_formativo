@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="recursos/admin" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="utf-8">
@@ -41,12 +41,12 @@
                 
                 <!-- /.form-group -->
                 <div class="form-group">
-                  <label>Nombre de Categoría</label>
+                  <label>Nombre de Categoría *</label>
                   <input type="text" class="form-control"  th:field="*{nombrecategoria}">
 	              <small id="mensajerror" style="color: red;"></small>
                 </div>
                 <div class="form-group">
-                  <label>Imagen de Categoría</label>
+                  <label>Imagen de Categoría *</label>
                   <input type="file" name="fileImage" id="fileImage" class="form-control"  ><br>
                  
 	              
@@ -58,7 +58,7 @@
                 
             </div>
             <!-- /.row -->
-            <button type="submit" class="btn btn-info" id="btnconfirmar" >Confirmar</button>
+            <button type="submit" class="btn btn-info" id="btnconfirmar"   >Confirmar</button>
             <a th:href="@{/categoria/listar}" class="btn btn-outline-success"><i class="fas fa-undo-alt"></i> Volver</a>
             <div class="row">
               

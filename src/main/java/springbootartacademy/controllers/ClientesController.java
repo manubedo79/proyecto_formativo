@@ -113,7 +113,7 @@ public class ClientesController {
 	@PostMapping("/guardar")
 	public String guardarCliente(@ModelAttribute() Clientes clientes , RedirectAttributes flash, Model model) {
 		CliService.saveClientes(clientes);
-		flash.addFlashAttribute("success", "Se edito de forma correcta el cliente");
+		flash.addFlashAttribute("info", "Se edito de forma correcta el cliente");
 		return "redirect:/cliente/listar";	
 	}
 	

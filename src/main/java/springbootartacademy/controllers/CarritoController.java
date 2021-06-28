@@ -66,7 +66,7 @@ public class CarritoController {
 		for (ArticuloCarrito compras : carritos.getCarritoitems()) {
 			totalcantidad += (Integer.parseInt(cantidad) + compras.getCantidad());
 			if (totalcantidad > carac.getStock()) {
-				flash.addFlashAttribute("error", true);
+				flash.addFlashAttribute("error", "El vendedor no cuenta con el stock suficiente");
 				return "redirect:/obra/detalle/" + obras.getId();
 			}
 		}
@@ -92,7 +92,7 @@ public class CarritoController {
 			flash.addFlashAttribute("info", "se actualizó de forma correcta");
 		}
 		else {
-			flash.addFlashAttribute("error", "La cantidad sobrepasa el stock");
+			flash.addFlashAttribute("error", "La cantidad sobrepasa la cantidad disponible por el vendedor");
 			return "redirect:/carrito";
 		}
 		return "redirect:/carrito";

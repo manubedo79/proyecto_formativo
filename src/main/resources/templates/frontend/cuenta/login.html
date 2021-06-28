@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>inicio sesion</title>
+<title>Inicio Sesion</title>
 <link rel="stylesheet" th:href="@{/frontend/acount/css/login.css}">
 <link rel="stylesheet" th:href="@{/frontend/acount/vendor/css/bootstrap.min.css}">
  <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
@@ -47,34 +47,29 @@
     
     </div>
   </main>
-  	<div class="alerta show" th:if="${info!=null}">
-		<span class="fas fa-check-circle"></span> <span class="msg">Éxito: [[${info}]]</span> <span class="close-btn"> <span
-			class="fas fa-times"></span>
-		</span>
-	</div>
-
-<div class="erro show" th:if="${error!=null}">
-		<span class="fas fa-exclamation-triangle"></span> <span class="msg">Advertencia : [[${error}]]</span> <span class="close-btn"> <span
-			class="fas fa-times"></span>
-		</span>
-	</div>
+  	
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.js"></script>
   <script type="text/javascript" th:src="@{/frontend/js/validacion.js}"></script>
-<script type="text/javascript">
-	
-	
-	$('.close-btn').click(function(){
-		
-		$('.alerta').addClass('hiden');
-		$('.alerta').removeClass('show');
-		$('.erro').addClass('hiden');
-		$('.erro').removeClass('show');
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" th:if="${info!=null}">
+Swal.fire({
+	  icon: 'success',
+	  title: 'Correcto',
+	  text: '[[${info}]]',
+	  
 	});
+</script>
+<script type="text/javascript" th:if="${error!=null}">
+Swal.fire({
+	  icon: 'error',
+	  title: 'Fallo',
+	  text: '[[${error}]]',
+	  
+	});
+</script>
 	
-	
-	</script>
 </body>
 </html>
